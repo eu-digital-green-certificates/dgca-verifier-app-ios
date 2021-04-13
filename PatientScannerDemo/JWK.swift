@@ -34,14 +34,17 @@ struct JWK {
     keyData.append(yBytes)
     let attributes: [String: Any] = [
       kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-      kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
+      kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
       kSecAttrKeySizeInBits as String: 256,
       kSecAttrIsPermanent as String: false
     ]
     var error: Unmanaged<CFError>?
     guard
       let keyReference = SecKeyCreateWithData(keyData as CFData, attributes as CFDictionary, &error)
-    else { return nil }
+    else {
+      print(error?.takeUnretainedValue().localizedDescription ?? "Something went wrong")
+      return nil
+    }
 
     return keyReference
   }

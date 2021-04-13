@@ -59,7 +59,7 @@ struct EC256 {
     }
     else {
       print("Verify Failed!")
-      print(error.debugDescription)
+      print(error?.takeUnretainedValue().localizedDescription ?? "Something went wrong")
       return false
     }
   }
