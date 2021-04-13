@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE5D7A392620D6CA001DFEEF /* SwiftJWKtoPEM in Frameworks */ = {isa = PBXBuildFile; productRef = CE5D7A382620D6CA001DFEEF /* SwiftJWKtoPEM */; };
-		CE5D7A422620DA45001DFEEF /* CryptorECC in Frameworks */ = {isa = PBXBuildFile; productRef = CE5D7A412620DA45001DFEEF /* CryptorECC */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
 		CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* ViewController.swift */; };
@@ -20,6 +18,7 @@
 		CEB78C4A261F8DA200FB8F68 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB78C48261F8DA200FB8F68 /* Base45.swift */; };
 		CEB78C4B261F8DA200FB8F68 /* ZLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB78C49261F8DA200FB8F68 /* ZLib.swift */; };
 		CEB78C57261F8DE100FB8F68 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CEB78C56261F8DE100FB8F68 /* SwiftCBOR */; };
+		CED0DCFE2625DC0100CBB5CE /* JWK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0DCFD2625DC0100CBB5CE /* JWK.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +55,7 @@
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB78C48261F8DA200FB8F68 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
 		CEB78C49261F8DA200FB8F68 /* ZLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLib.swift; sourceTree = "<group>"; };
+		CED0DCFD2625DC0100CBB5CE /* JWK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWK.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE5D7A422620DA45001DFEEF /* CryptorECC in Frameworks */,
 				CEB78C57261F8DE100FB8F68 /* SwiftCBOR in Frameworks */,
-				CE5D7A392620D6CA001DFEEF /* SwiftJWKtoPEM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +116,7 @@
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
 				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
+				CED0DCFD2625DC0100CBB5CE /* JWK.swift */,
 			);
 			path = PatientScannerDemo;
 			sourceTree = "<group>";
@@ -158,8 +157,6 @@
 			name = PatientScannerDemo;
 			packageProductDependencies = (
 				CEB78C56261F8DE100FB8F68 /* SwiftCBOR */,
-				CE5D7A382620D6CA001DFEEF /* SwiftJWKtoPEM */,
-				CE5D7A412620DA45001DFEEF /* CryptorECC */,
 			);
 			productName = PatientScannerDemo;
 			productReference = CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */;
@@ -234,8 +231,6 @@
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
 				CEB78C55261F8DE100FB8F68 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
-				CE5D7A372620D6CA001DFEEF /* XCRemoteSwiftPackageReference "Swift-JWK-to-PEM" */,
-				CE5D7A402620DA45001DFEEF /* XCRemoteSwiftPackageReference "BlueECC" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -282,6 +277,7 @@
 			files = (
 				CEB78C4B261F8DA200FB8F68 /* ZLib.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
+				CED0DCFE2625DC0100CBB5CE /* JWK.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 				CEB78C4A261F8DA200FB8F68 /* Base45.swift in Sources */,
@@ -619,22 +615,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CE5D7A372620D6CA001DFEEF /* XCRemoteSwiftPackageReference "Swift-JWK-to-PEM" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ibm-cloud-security/Swift-JWK-to-PEM";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
-		CE5D7A402620DA45001DFEEF /* XCRemoteSwiftPackageReference "BlueECC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kitura/BlueECC";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.5;
-			};
-		};
 		CEB78C55261F8DE100FB8F68 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
@@ -646,16 +626,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE5D7A382620D6CA001DFEEF /* SwiftJWKtoPEM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE5D7A372620D6CA001DFEEF /* XCRemoteSwiftPackageReference "Swift-JWK-to-PEM" */;
-			productName = SwiftJWKtoPEM;
-		};
-		CE5D7A412620DA45001DFEEF /* CryptorECC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE5D7A402620DA45001DFEEF /* XCRemoteSwiftPackageReference "BlueECC" */;
-			productName = CryptorECC;
-		};
 		CEB78C56261F8DE100FB8F68 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CEB78C55261F8DE100FB8F68 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;

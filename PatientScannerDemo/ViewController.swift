@@ -11,7 +11,6 @@ import UIKit
 import Vision
 import AVFoundation
 import SwiftCBOR
-import SwiftJWKtoPEM
 //import CryptorECC
 
 
@@ -178,9 +177,9 @@ extension ViewController {
 }
 """
 
-    let key = try! RSAKey(jwk: keyString)
-
-    let publicPem = try! key.getPublicKey()
+//    let key = try! RSAKey(jwk: keyString)
+//
+//    let publicPem = try! key.getPublicKey()
 
 //    let verifier = verifySignature(key: publicPem!.data(using: .utf8)!, signature: Data(signature), for: Data(payloadBytes))
 //    print(verifier)
