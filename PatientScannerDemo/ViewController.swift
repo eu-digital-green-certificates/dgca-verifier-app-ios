@@ -176,6 +176,16 @@ extension ViewController {
   "y": "bP7L_fysDzwFc13DDEPllO2qu1nDiDd1btoVQ-XlKok"
 }
 """
+    let keyJWK = keyString.asJSONDict
+
+    guard
+      let x = keyJWK["x"] as? String,
+      let y = keyJWK["y"] as? String,
+      let pubKey = JWK.from(x: x, y: y)
+    else { return }
+
+    print(EC256.verify(signature: Data(signature), for: Data(payloadBytes), with: pubKey))
+
 
 //    let key = try! RSAKey(jwk: keyString)
 //

@@ -10,7 +10,7 @@
 import Foundation
 
 struct JWK {
-  public func from(x: String, y: String) -> SecKey? {
+  public static func from(x: String, y: String) -> SecKey? {
     var xStr = x // Base64 Formatted data
     var yStr = y
 

@@ -19,6 +19,8 @@
 		CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4BF2625ED030056E406 /* ZLib.swift */; };
 		CEC2C4C32625ED030056E406 /* JWK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C02625ED030056E406 /* JWK.swift */; };
 		CEC2C4C42625ED030056E406 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C12625ED030056E406 /* Base45.swift */; };
+		CEFAD86D2625F164009AFEF9 /* EC256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD86C2625F164009AFEF9 /* EC256.swift */; };
+		CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD8712625F29E009AFEF9 /* String+JSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		CEC2C4BF2625ED030056E406 /* ZLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLib.swift; sourceTree = "<group>"; };
 		CEC2C4C02625ED030056E406 /* JWK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWK.swift; sourceTree = "<group>"; };
 		CEC2C4C12625ED030056E406 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
+		CEFAD86C2625F164009AFEF9 /* EC256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EC256.swift; sourceTree = "<group>"; };
+		CEFAD8712625F29E009AFEF9 /* String+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 		CEA6D6EA261F8D2700715333 /* PatientScannerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CEFAD8712625F29E009AFEF9 /* String+JSON.swift */,
 				CEC2C4C12625ED030056E406 /* Base45.swift */,
 				CEC2C4C02625ED030056E406 /* JWK.swift */,
 				CEC2C4BF2625ED030056E406 /* ZLib.swift */,
@@ -117,6 +122,7 @@
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
 				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
+				CEFAD86C2625F164009AFEF9 /* EC256.swift */,
 			);
 			path = PatientScannerDemo;
 			sourceTree = "<group>";
@@ -278,7 +284,9 @@
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
+				CEFAD86D2625F164009AFEF9 /* EC256.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
+				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
 				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 			);
