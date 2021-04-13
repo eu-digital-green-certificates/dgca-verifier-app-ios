@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
 		CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* ViewController.swift */; };
@@ -15,6 +16,9 @@
 		CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
 		CEA6D703261F8D2900715333 /* PatientScannerDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D702261F8D2900715333 /* PatientScannerDemoTests.swift */; };
 		CEA6D70E261F8D2900715333 /* PatientScannerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D70D261F8D2900715333 /* PatientScannerDemoUITests.swift */; };
+		CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4BF2625ED030056E406 /* ZLib.swift */; };
+		CEC2C4C32625ED030056E406 /* JWK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C02625ED030056E406 /* JWK.swift */; };
+		CEC2C4C42625ED030056E406 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C12625ED030056E406 /* Base45.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,9 @@
 		CEA6D709261F8D2900715333 /* PatientScannerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PatientScannerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* PatientScannerDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientScannerDemoUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEC2C4BF2625ED030056E406 /* ZLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLib.swift; sourceTree = "<group>"; };
+		CEC2C4C02625ED030056E406 /* JWK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWK.swift; sourceTree = "<group>"; };
+		CEC2C4C12625ED030056E406 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +107,9 @@
 		CEA6D6EA261F8D2700715333 /* PatientScannerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CEC2C4C12625ED030056E406 /* Base45.swift */,
+				CEC2C4C02625ED030056E406 /* JWK.swift */,
+				CEC2C4BF2625ED030056E406 /* ZLib.swift */,
 				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
 				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
 				CEA6D6EF261F8D2700715333 /* ViewController.swift */,
@@ -144,6 +155,9 @@
 			dependencies = (
 			);
 			name = PatientScannerDemo;
+			packageProductDependencies = (
+				CE7DE7F92625EF18007E6694 /* SwiftCBOR */,
+			);
 			productName = PatientScannerDemo;
 			productReference = CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +229,9 @@
 				Base,
 			);
 			mainGroup = CEA6D6DF261F8D2700715333;
+			packageReferences = (
+				CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
+			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,8 +275,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
+				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
+				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,6 +613,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE7DE7F92625EF18007E6694 /* SwiftCBOR */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
+			productName = SwiftCBOR;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEA6D6E0261F8D2700715333 /* Project object */;
 }
