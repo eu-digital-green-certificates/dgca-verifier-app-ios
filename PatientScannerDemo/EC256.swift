@@ -11,54 +11,25 @@ import Foundation
 
 struct EC256 {
   public static func verify(signature: Data, for data: Data, with publicKey: SecKey) -> Bool {
-    // create a certificate object
-//    let certURL = URL(fileURLWithPath: #file).appendingPathComponent("../../../cert.der").standardized
-//    let certData = NSData(contentsOf: certURL)
     var error: Unmanaged<CFError>?
+    let targetsSignedData = data as NSData
 
-//
-//    // create a SecCertificate object
-//
-//    var secCertificate: SecCertificate?
-//
-//    if let certData = certData {
-//      secCertificate = SecCertificateCreateWithData(nil, certData)
-//    }
-//
-//    // create a SecTrust object
-//    var trustCert: SecTrust?
-//    let secTrustError = SecTrustCreateWithCertificates(secCertificate!, nil, &trustCert)
-//    guard secTrustError == errSecSuccess else {
-//      return false
-//    }
-
-    // read in OpenSSL generated signature
-
-//    let openSSLSigURL = URL(fileURLWithPath: #file).appendingPathComponent("../../../signature.bin").standardized
-    let openSSLSig = signature
-
-
-    guard
-//      let trustCert = trustCert,
-      let targetsSignedData = data as NSData?
-    else { return false }
-
-    // obtain public key from SecTrust object
-//    let publicKey = SecTrustCopyPublicKey(trustCert)
-
-    // ensure key is of the correct algorithm
-
-    guard SecKeyIsAlgorithmSupported(publicKey, .verify, SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256) else {
+    guard SecKeyIsAlgorithmSupported(publicKey, .verify, .ecdsaSignatureMessageX962SHA256) else {
+      print("Pubkey not supported.")
       return false
     }
 
     // verify signature
-    if SecKeyVerifySignature(publicKey, SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256, targetsSignedData, openSSLSig as NSData, &error) {
-      print("Verify Success!")
+    if SecKeyVerifySignature(
+        publicKey,
+        SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256,
+        targetsSignedData,
+        signature as NSData,
+        &error
+    ) {
       return true
     }
     else {
-      print("Verify Failed!")
       print(error?.takeUnretainedValue().localizedDescription ?? "Something went wrong")
       return false
     }
