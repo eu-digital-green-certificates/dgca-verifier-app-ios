@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     checkPermissions()
     setupCameraLiveView()
-    observationHandler(payloadS: nil)
+//    observationHandler(payloadS: nil)
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
@@ -141,24 +141,26 @@ extension ViewController {
     }
 
     print(data)
-    let decoder = SwiftCBOR.CBORDecoder(input: [UInt8](data))
+    let decoder = SwiftCBOR.CBORDecoder(input: data.uint)
     guard
       let cose = try? decoder.decodeItem(),
       case let CBOR.tagged(tag, cborElement) = cose,
-      tag.rawValue == 18,
+      tag.rawValue == 18, // SIGN1
       case let CBOR.array(array) = cborElement,
       case let CBOR.byteString(protectedBytes) = array[0],
       case let CBOR.map(unprotected) = array[1],
       case let CBOR.byteString(payloadBytes) = array[2],
       case let CBOR.byteString(signature) = array[3],
       let protected = try? CBOR.decode(protectedBytes),
-      let payload = try? CBOR.decode(payloadBytes)
+      let payload = try? CBOR.decode(payloadBytes),
+      case let CBOR.map(protectedMap) = protected
     else {
       return
     }
 
     print("START")
     print(protected)
+    print(protectedMap)
     print(unprotected)
     print(payload)
     print(signature)

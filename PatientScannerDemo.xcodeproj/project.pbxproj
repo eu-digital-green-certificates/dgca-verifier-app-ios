@@ -21,6 +21,9 @@
 		CEC2C4C42625ED030056E406 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C12625ED030056E406 /* Base45.swift */; };
 		CEFAD86D2625F164009AFEF9 /* EC256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD86C2625F164009AFEF9 /* EC256.swift */; };
 		CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD8712625F29E009AFEF9 /* String+JSON.swift */; };
+		CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87926271414009AFEF9 /* COSE.swift */; };
+		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
+		CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		CEC2C4C12625ED030056E406 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
 		CEFAD86C2625F164009AFEF9 /* EC256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EC256.swift; sourceTree = "<group>"; };
 		CEFAD8712625F29E009AFEF9 /* String+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
+		CEFAD87926271414009AFEF9 /* COSE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COSE.swift; sourceTree = "<group>"; };
+		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
+		CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+hexString.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,8 @@
 				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
 				CEFAD86C2625F164009AFEF9 /* EC256.swift */,
+				CEFAD87926271414009AFEF9 /* COSE.swift */,
+				CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */,
 			);
 			path = PatientScannerDemo;
 			sourceTree = "<group>";
@@ -132,6 +140,7 @@
 			children = (
 				CEA6D702261F8D2900715333 /* PatientScannerDemoTests.swift */,
 				CEA6D704261F8D2900715333 /* Info.plist */,
+				CEFAD87E262714C4009AFEF9 /* EHNTests.swift */,
 			);
 			path = PatientScannerDemoTests;
 			sourceTree = "<group>";
@@ -281,9 +290,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */,
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
+				CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */,
 				CEFAD86D2625F164009AFEF9 /* EC256.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
 				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
@@ -297,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA6D703261F8D2900715333 /* PatientScannerDemoTests.swift in Sources */,
+				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
