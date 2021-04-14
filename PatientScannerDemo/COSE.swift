@@ -46,12 +46,6 @@ struct COSE {
       return false
     }
 
-    struct TE : CustomStringConvertible {
-      var description: String
-      let kid : String
-      //let coord : Array()
-    }
-
     let x = Data(hexString: xHex)?.uint ?? []
     let y = Data(hexString: yHex)?.uint ?? []
     let rawk: [UInt8] = [04] + x + y
