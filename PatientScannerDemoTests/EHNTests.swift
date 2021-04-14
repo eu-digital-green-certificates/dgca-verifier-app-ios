@@ -46,7 +46,10 @@ class EHNTests: XCTestCase {
 
     guard
       let compressed = try? barcode.fromBase45()
-    else { return }
+    else {
+      assert(false)
+      return
+    }
 
     let data = decompress(compressed)
     let decoder = SwiftCBOR.CBORDecoder(input: data.uint)
@@ -64,6 +67,7 @@ class EHNTests: XCTestCase {
       let payload = try? CBOR.decode(payloadBytes),
       case let CBOR.map(protectedMap) = protected
     else {
+      assert(false)
       return
     }
     var kid: [UInt8] = []
@@ -72,6 +76,8 @@ class EHNTests: XCTestCase {
     print("SIG: ", sig)
     if case let CBOR.byteString(k) = protectedMap[COSE_PHDR_KID] ?? .null {
       kid = k
+    } else {
+      assert(false)
     }
 
     print("Signature: ", signature)
@@ -92,7 +98,6 @@ class EHNTests: XCTestCase {
     let digest = SHA256.hash(data: signed_payload)
     print("Digest: ", digest)
 
-    var publicKey: P256.Signing.PublicKey
     let signatureForData = try! P256.Signing.ECDSASignature(rawRepresentation: signature)
 
     // use KID to find the right X,Y coordinates from the JSON
@@ -107,36 +112,43 @@ class EHNTests: XCTestCase {
 
     let _ = unprotected // unused
 
-    do {
-      if let trust = try JSONSerialization.jsonObject(with: trust_json.data(using: .utf8)!, options: []) as? [[String: Any]] {
-        for case let elem : Dictionary in trust {
-          if kid == Data(hexString: elem["kid"] as! String)?.uint {
-            print("We know this KID - check if this sig works...")
-            x = Data(hexString: ((elem["coord"] as! Array<Any>)[0] as? String) ?? "")?.uint ?? []
-            y = Data(hexString: ((elem["coord"] as! Array<Any>)[1] as? String) ?? "")?.uint ?? []
+    if let trust = try? JSONSerialization.jsonObject(with: trust_json.data(using: .utf8)!, options: []) as? [[String: Any]] {
+      for case let elem: Dictionary in trust {
+        if kid == Data(hexString: elem["kid"] as! String)?.uint {
+          print("We know this KID - check if this sig works...")
+          x = Data(hexString: ((elem["coord"] as! Array<Any>)[0] as? String) ?? "")?.uint ?? []
+          y = Data(hexString: ((elem["coord"] as! Array<Any>)[1] as? String) ?? "")?.uint ?? []
 
-            var rawk: [UInt8] = [04]
-            rawk.append(contentsOf: x)
-            rawk.append(contentsOf: y)
-            XCTAssert(rawk.count == 32+32+1)
+          var rawk: [UInt8] = [04]
+          rawk.append(contentsOf: x)
+          rawk.append(contentsOf: y)
+          XCTAssert(rawk.count == 32+32+1)
 
-            publicKey = try! P256.Signing.PublicKey(x963Representation: rawk)
+          if
+            let publicKey = try? P256.Signing.PublicKey(x963Representation: rawk),
+            publicKey.isValidSignature(signatureForData, for: digest)
+          {
+            print("All is WELL !")
 
-            if (publicKey.isValidSignature(signatureForData, for: digest)) {
-              print("All is WELL !")
-
-              print("Payload (decoded)")
-              print(array[2]);
-              return
-            }
-            print("- sig failed - which is OK - we may have more matching KIDS --")
+            print("Payload (decoded)")
+            print(array[2])
+            return
           }
-          print("Nope - all failed - sadness all around")
-          assert(false)
+          print("- sig failed - which is OK - we may have more matching KIDS --")
         }
+        print("Nope - all failed - sadness all around")
+        assert(false)
       }
-    } catch let error as NSError {
-      print("JSON parse trust list failed: ",error.localizedDescription)
     }
   }
 }
+
+/**
+
+ Produces:
+
+ All is WELL !
+ Payload (decoded)
+ byteString([161, 99, 102, 111, 111, 99, 98, 97, 114])
+ 
+ */
