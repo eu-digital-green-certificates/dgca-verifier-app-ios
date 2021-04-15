@@ -7,8 +7,7 @@
 
 @testable import PatientScannerDemo
 import XCTest
-import CryptoKit
-import SwiftCBOR
+
 
 class EHNTests: XCTestCase {
   func test_cose() throws {
@@ -33,8 +32,6 @@ class EHNTests: XCTestCase {
       }
     ]
     """
-    let COSE_TAG = UInt64(18)
-    let COSE_PHDR_KID = CBOR.unsignedInt(4)
 
     // Remove HC1 header if any
     if (barcode.hasPrefix("HC1")) {
@@ -49,28 +46,10 @@ class EHNTests: XCTestCase {
     }
 
     let data = decompress(compressed)
-    let decoder = SwiftCBOR.CBORDecoder(input: data.uint)
 
     guard
-      let cbor = try? decoder.decodeItem(),
-      case let CBOR.tagged(tag, cborElement) = cbor,
-      tag.rawValue == COSE_TAG, // SIGN1
-      case let CBOR.array(array) = cborElement,
-      case let CBOR.byteString(protectedBytes) = array[0],
-      case let CBOR.byteString(payloadBytes) = array[2],
-      let protected = try? CBOR.decode(protectedBytes),
-      let payload = try? CBOR.decode(payloadBytes),
-      case let CBOR.map(protectedMap) = protected
-    else {
-      XCTAssert(false)
-      return
-    }
-    guard case let CBOR.byteString(kid) = protectedMap[COSE_PHDR_KID] ?? .null else {
-      XCTAssert(false)
-      return
-    }
-
-    guard
+      let payload = CBOR.payload(from: data),
+      let kid = CBOR.kid(from: data),
       let trustData = trustJson.data(using: .utf8),
       let trustSerialization = try? JSONSerialization.jsonObject(with: trustData, options: []),
       let trust = trustSerialization as? [[String: Any]]
@@ -85,7 +64,7 @@ class EHNTests: XCTestCase {
         let y = (elem["coord"] as? Array<Any>)?[1] as? String
       {
         print("We know this KID - check if this sig works...")
-        if COSE.verify(cbor, with: x, and: y) {
+        if COSE.verify(data, with: x, and: y) {
           print("All is well! Payload: ", payload)
           return
         }

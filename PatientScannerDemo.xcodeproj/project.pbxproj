@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
+		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
+		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatientScannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6EB261F8D2700715333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				CE3CC93B2628A7820079FB78 /* ASN1.swift */,
 				CEFAD87926271414009AFEF9 /* COSE.swift */,
 				CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */,
+				CE3CC9432628C2130079FB78 /* CBOR.swift */,
 			);
 			path = PatientScannerDemo;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */,
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
+				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
 				CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */,
 				CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */,

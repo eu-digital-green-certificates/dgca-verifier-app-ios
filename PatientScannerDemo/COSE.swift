@@ -7,32 +7,38 @@
 
 import Foundation
 import SwiftCBOR
-//import CryptoKit
 
 struct COSE {
-  public static func verify(_ cbor: CBOR, with xHex: String, and yHex: String) -> Bool {
+  public static func verify(_ cborData: Data, with xHex: String, and yHex: String) -> Bool {
+    let decoder = SwiftCBOR.CBORDecoder(input: cborData.uint)
+
+    guard let cbor = try? decoder.decodeItem() else {
+      return false
+    }
+    return verify(cbor, with: xHex, and: yHex)
+  }
+  public static func verify(_ cbor: SwiftCBOR.CBOR, with xHex: String, and yHex: String) -> Bool {
     let COSE_TAG = UInt64(18)
 
     guard
-      case let CBOR.tagged(tag, cborElement) = cbor,
+      case let SwiftCBOR.CBOR.tagged(tag, cborElement) = cbor,
       tag.rawValue == COSE_TAG, // SIGN1
-      case let CBOR.array(array) = cborElement,
-      case let CBOR.byteString(signature) = array[3]
+      case let SwiftCBOR.CBOR.array(array) = cborElement,
+      case let SwiftCBOR.CBOR.byteString(signature) = array[3]
     else {
       return false
     }
 
-    let signedPayload: [UInt8] = CBOR.encode(
+    let signedPayload: [UInt8] = SwiftCBOR.CBOR.encode(
       [
         "Signature1",
         array[0],
-        CBOR.byteString([]),
+        SwiftCBOR.CBOR.byteString([]),
         array[2]
       ]
     )
-    let d = Data(signedPayload)//Data(bytes: signedPayload, count: signedPayload.count)
-//    let digest = SHA256.hash(data: signedPayload)
-    let s = Data(signature)//Data(bytes: signature, count: signature.count)
+    let d = Data(signedPayload)
+    let s = Data(signature)
     guard let key = JWK.ecFrom(x: xHex, y: yHex) else {
       return false
     }
