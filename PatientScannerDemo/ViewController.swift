@@ -183,7 +183,7 @@ extension ViewController {
     guard
       let x = keyJWK["x"] as? String,
       let y = keyJWK["y"] as? String,
-      let pubKey = JWK.from(x: x, y: y)
+      let pubKey = JWK.ecFrom(x: x, y: y)
     else { return }
 
     print(EC256.verify(signature: Data(signature), for: Data(payloadBytes), with: pubKey))

@@ -11,28 +11,27 @@ import Foundation
 
 struct EC256 {
   public static func verify(signature: Data, for data: Data, with publicKey: SecKey) -> Bool {
-    var error: Unmanaged<CFError>?
-    let targetsSignedData = data as NSData
-
     guard SecKeyIsAlgorithmSupported(publicKey, .verify, .ecdsaSignatureMessageX962SHA256) else {
       print("Pubkey not supported.")
       return false
     }
 
+    let sig = ASN1.signature(from: signature)
+    
     // verify signature
-    if SecKeyVerifySignature(
-        publicKey,
-        SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256,
-        targetsSignedData,
-        signature as NSData,
-        &error
-    ) {
-      return true
+    var error: Unmanaged<CFError>?
+    let result = SecKeyVerifySignature(
+      publicKey,
+      .ecdsaSignatureMessageX962SHA256,
+      data as NSData,
+      sig as NSData,
+      &error
+    )
+    if let err = error?.takeUnretainedValue().localizedDescription {
+      print(err)
     }
-    else {
-      print(error?.takeUnretainedValue().localizedDescription ?? "Something went wrong")
-      return false
-    }
+    error?.release()
+
+    return result
   }
 }
-

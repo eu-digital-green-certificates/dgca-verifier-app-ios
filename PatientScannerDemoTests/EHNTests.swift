@@ -10,30 +10,29 @@ import XCTest
 import CryptoKit
 import SwiftCBOR
 
-var barcode = "HC1NCFY70R30FFWTWGSLKC 4O992$V M63TMF2V*D9LPC.3EHPCGEC27B72VF/347O4-M6Y9M6FOYG4ILDEI8GR3ZI$15MABL:E9CVBGEEWRMLE C39S0/ANZ52T82Z-73D63P1U 1$PKC 72H2XX09WDH889V5"
-
-let trustJson = """
-[
-  {
-    \"kid\" : \"DEFBBA3378B322F5\",
-    \"coord\" : [
-      \"230ca0433313f4ef14ec0ab0477b241781d135ee09369507fcf44ca988ed09d6\",
-      \"bf1bfe3d2bda606c841242b59c568d00e5c8dd114d223b2f5036d8c5bc68bf5d\"
-    ]
-  },
-  {
-    \"kid\" : \"FFFBBA3378B322F5\",
-    \"coord\" : [
-      \"9999a0433313f4ef14ec0ab0477b241781d135ee09369507fcf44ca988ed09d6\",
-      \"9999fe3d2bda606c841242b59c568d00e5c8dd114d223b2f5036d8c5bc68bf5d\"
-    ]
-  }
-]
-"""
-
-
 class EHNTests: XCTestCase {
   func test_cose() throws {
+
+    var barcode = "HC1NCFY70R30FFWTWGSLKC 4O992$V M63TMF2V*D9LPC.3EHPCGEC27B72VF/347O4-M6Y9M6FOYG4ILDEI8GR3ZI$15MABL:E9CVBGEEWRMLE C39S0/ANZ52T82Z-73D63P1U 1$PKC 72H2XX09WDH889V5"
+
+    let trustJson = """
+    [
+      {
+        \"kid\" : \"DEFBBA3378B322F5\",
+        \"coord\" : [
+          \"230ca0433313f4ef14ec0ab0477b241781d135ee09369507fcf44ca988ed09d6\",
+          \"bf1bfe3d2bda606c841242b59c568d00e5c8dd114d223b2f5036d8c5bc68bf5d\"
+        ]
+      },
+      {
+        \"kid\" : \"FFFBBA3378B322F5\",
+        \"coord\" : [
+          \"9999a0433313f4ef14ec0ab0477b241781d135ee09369507fcf44ca988ed09d6\",
+          \"9999fe3d2bda606c841242b59c568d00e5c8dd114d223b2f5036d8c5bc68bf5d\"
+        ]
+      }
+    ]
+    """
     let COSE_TAG = UInt64(18)
     let COSE_PHDR_KID = CBOR.unsignedInt(4)
 

@@ -7,19 +7,16 @@
 
 import Foundation
 
-public class Asn1Encoder {
-
-  public init() {}
-
+public class ASN1 {
   // 32 for ES256
-  public func convertRawSignatureIntoAsn1(_ data: Data, _ digestLengthInBytes: Int = 32) -> Data {
+  public static func signature(from data: Data, _ digestLengthInBytes: Int = 32) -> Data {
     let sigR = encodeIntegerToAsn1(data.prefix(data.count - digestLengthInBytes))
     let sigS = encodeIntegerToAsn1(data.suffix(digestLengthInBytes))
     let tagSequence: UInt8 = 0x30
     return Data([tagSequence] + [UInt8(sigR.count + sigS.count)] + sigR + sigS)
   }
 
-  private func encodeIntegerToAsn1(_ data: Data) -> Data {
+  private static func encodeIntegerToAsn1(_ data: Data) -> Data {
     let firstBitIsSet: UInt8 = 0x80 // would be decoded as a negative number
     let tagInteger: UInt8 = 0x02
     if (data.first! >= firstBitIsSet) {
