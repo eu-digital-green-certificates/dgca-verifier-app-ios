@@ -45,9 +45,14 @@ struct CBOR {
     let kid = protectedMap[COSE_PHDR_KID] ?? .null
     switch kid {
     case let .utf8String(str):
-      return str.encode()
-    case let .byteString(str):
-      return str
+      #if DEBUG
+      print("Warning, CBOR not fully compliant!!")
+      #else
+      return nil
+      #endif
+      return Data(hexString: str)?.uint
+    case let .byteString(uint):
+      return uint
     default:
       return nil
     }
