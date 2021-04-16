@@ -50,7 +50,7 @@ struct CBOR {
       #else
       return nil
       #endif
-      return Data(hexString: str)?.uint ?? str.encode()
+      return Data(hexString: str)?.uint ?? str.data(using: .utf8)?.uint
     case let .byteString(uint):
       return uint
     default:
