@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE5D7A392620D6CA001DFEEF /* SwiftJWKtoPEM in Frameworks */ = {isa = PBXBuildFile; productRef = CE5D7A382620D6CA001DFEEF /* SwiftJWKtoPEM */; };
-		CE5D7A422620DA45001DFEEF /* CryptorECC in Frameworks */ = {isa = PBXBuildFile; productRef = CE5D7A412620DA45001DFEEF /* CryptorECC */; };
+		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
+		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
+		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
 		CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* ViewController.swift */; };
@@ -17,9 +18,14 @@
 		CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
 		CEA6D703261F8D2900715333 /* PatientScannerDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D702261F8D2900715333 /* PatientScannerDemoTests.swift */; };
 		CEA6D70E261F8D2900715333 /* PatientScannerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D70D261F8D2900715333 /* PatientScannerDemoUITests.swift */; };
-		CEB78C4A261F8DA200FB8F68 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB78C48261F8DA200FB8F68 /* Base45.swift */; };
-		CEB78C4B261F8DA200FB8F68 /* ZLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB78C49261F8DA200FB8F68 /* ZLib.swift */; };
-		CEB78C57261F8DE100FB8F68 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CEB78C56261F8DE100FB8F68 /* SwiftCBOR */; };
+		CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4BF2625ED030056E406 /* ZLib.swift */; };
+		CEC2C4C32625ED030056E406 /* JWK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C02625ED030056E406 /* JWK.swift */; };
+		CEC2C4C42625ED030056E406 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C12625ED030056E406 /* Base45.swift */; };
+		CEFAD86D2625F164009AFEF9 /* EC256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD86C2625F164009AFEF9 /* EC256.swift */; };
+		CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD8712625F29E009AFEF9 /* String+JSON.swift */; };
+		CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87926271414009AFEF9 /* COSE.swift */; };
+		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
+		CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
+		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatientScannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6EB261F8D2700715333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,8 +62,14 @@
 		CEA6D709261F8D2900715333 /* PatientScannerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PatientScannerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* PatientScannerDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientScannerDemoUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEB78C48261F8DA200FB8F68 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
-		CEB78C49261F8DA200FB8F68 /* ZLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLib.swift; sourceTree = "<group>"; };
+		CEC2C4BF2625ED030056E406 /* ZLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLib.swift; sourceTree = "<group>"; };
+		CEC2C4C02625ED030056E406 /* JWK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWK.swift; sourceTree = "<group>"; };
+		CEC2C4C12625ED030056E406 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
+		CEFAD86C2625F164009AFEF9 /* EC256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EC256.swift; sourceTree = "<group>"; };
+		CEFAD8712625F29E009AFEF9 /* String+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
+		CEFAD87926271414009AFEF9 /* COSE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COSE.swift; sourceTree = "<group>"; };
+		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
+		CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+hexString.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE5D7A422620DA45001DFEEF /* CryptorECC in Frameworks */,
-				CEB78C57261F8DE100FB8F68 /* SwiftCBOR in Frameworks */,
-				CE5D7A392620D6CA001DFEEF /* SwiftJWKtoPEM in Frameworks */,
+				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,8 +121,10 @@
 		CEA6D6EA261F8D2700715333 /* PatientScannerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CEB78C48261F8DA200FB8F68 /* Base45.swift */,
-				CEB78C49261F8DA200FB8F68 /* ZLib.swift */,
+				CEFAD8712625F29E009AFEF9 /* String+JSON.swift */,
+				CEC2C4C12625ED030056E406 /* Base45.swift */,
+				CEC2C4C02625ED030056E406 /* JWK.swift */,
+				CEC2C4BF2625ED030056E406 /* ZLib.swift */,
 				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
 				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
 				CEA6D6EF261F8D2700715333 /* ViewController.swift */,
@@ -118,6 +132,11 @@
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
 				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
+				CEFAD86C2625F164009AFEF9 /* EC256.swift */,
+				CE3CC93B2628A7820079FB78 /* ASN1.swift */,
+				CEFAD87926271414009AFEF9 /* COSE.swift */,
+				CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */,
+				CE3CC9432628C2130079FB78 /* CBOR.swift */,
 			);
 			path = PatientScannerDemo;
 			sourceTree = "<group>";
@@ -127,6 +146,7 @@
 			children = (
 				CEA6D702261F8D2900715333 /* PatientScannerDemoTests.swift */,
 				CEA6D704261F8D2900715333 /* Info.plist */,
+				CEFAD87E262714C4009AFEF9 /* EHNTests.swift */,
 			);
 			path = PatientScannerDemoTests;
 			sourceTree = "<group>";
@@ -157,9 +177,7 @@
 			);
 			name = PatientScannerDemo;
 			packageProductDependencies = (
-				CEB78C56261F8DE100FB8F68 /* SwiftCBOR */,
-				CE5D7A382620D6CA001DFEEF /* SwiftJWKtoPEM */,
-				CE5D7A412620DA45001DFEEF /* CryptorECC */,
+				CE7DE7F92625EF18007E6694 /* SwiftCBOR */,
 			);
 			productName = PatientScannerDemo;
 			productReference = CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */;
@@ -233,9 +251,7 @@
 			);
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
-				CEB78C55261F8DE100FB8F68 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
-				CE5D7A372620D6CA001DFEEF /* XCRemoteSwiftPackageReference "Swift-JWK-to-PEM" */,
-				CE5D7A402620DA45001DFEEF /* XCRemoteSwiftPackageReference "BlueECC" */,
+				CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -280,11 +296,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEB78C4B261F8DA200FB8F68 /* ZLib.swift in Sources */,
+				CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */,
+				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
+				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
+				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
+				CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */,
+				CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */,
+				CEFAD86D2625F164009AFEF9 /* EC256.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
+				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
+				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
-				CEB78C4A261F8DA200FB8F68 /* Base45.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA6D703261F8D2900715333 /* PatientScannerDemoTests.swift in Sources */,
+				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -445,7 +469,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -619,23 +643,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CE5D7A372620D6CA001DFEEF /* XCRemoteSwiftPackageReference "Swift-JWK-to-PEM" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ibm-cloud-security/Swift-JWK-to-PEM";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
-		CE5D7A402620DA45001DFEEF /* XCRemoteSwiftPackageReference "BlueECC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kitura/BlueECC";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.5;
-			};
-		};
-		CEB78C55261F8DE100FB8F68 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
+		CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
 			requirement = {
@@ -646,19 +654,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE5D7A382620D6CA001DFEEF /* SwiftJWKtoPEM */ = {
+		CE7DE7F92625EF18007E6694 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CE5D7A372620D6CA001DFEEF /* XCRemoteSwiftPackageReference "Swift-JWK-to-PEM" */;
-			productName = SwiftJWKtoPEM;
-		};
-		CE5D7A412620DA45001DFEEF /* CryptorECC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE5D7A402620DA45001DFEEF /* XCRemoteSwiftPackageReference "BlueECC" */;
-			productName = CryptorECC;
-		};
-		CEB78C56261F8DE100FB8F68 /* SwiftCBOR */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CEB78C55261F8DE100FB8F68 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
+			package = CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
 			productName = SwiftCBOR;
 		};
 /* End XCSwiftPackageProductDependency section */

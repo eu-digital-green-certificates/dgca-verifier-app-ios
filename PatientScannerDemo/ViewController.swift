@@ -11,7 +11,6 @@ import UIKit
 import Vision
 import AVFoundation
 import SwiftCBOR
-import SwiftJWKtoPEM
 //import CryptorECC
 
 
@@ -30,7 +29,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     checkPermissions()
     setupCameraLiveView()
-    observationHandler(payloadS: nil)
+//    observationHandler(payloadS: nil)
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
@@ -136,54 +135,8 @@ extension ViewController {
     else { return }
 
     let data = decompress(compressed)
-    var s = ""
-    for char in data {
-      s += String(data: Data([char]), encoding: .utf8) ?? "?"
-    }
 
-    print(data)
-    let decoder = SwiftCBOR.CBORDecoder(input: [UInt8](data))
-    guard
-      let cose = try? decoder.decodeItem(),
-      case let CBOR.tagged(tag, cborElement) = cose,
-      tag.rawValue == 18,
-      case let CBOR.array(array) = cborElement,
-      case let CBOR.byteString(protectedBytes) = array[0],
-      case let CBOR.map(unprotected) = array[1],
-      case let CBOR.byteString(payloadBytes) = array[2],
-      case let CBOR.byteString(signature) = array[3],
-      let protected = try? CBOR.decode(protectedBytes),
-      let payload = try? CBOR.decode(payloadBytes)
-    else {
-      return
-    }
-
-    print("START")
-    print(protected)
-    print(unprotected)
-    print(payload)
-    print(signature)
-    print("END")
-    print()
-    print()
-    //    print(s)
-
-    let keyString = """
-{
-  "crv": "P-256",
-  "kid": "MklRdnVDMEdIZ29EeVY5VHo2WDR5MGlHTFNCZTgxdE5iN2wzYTZsUElCUQ",
-  "kty": "EC",
-  "x": "DHJudz6lqcTXizpz4cb_bbi8NZ9ofoD3lYnvByrMfLc",
-  "y": "bP7L_fysDzwFc13DDEPllO2qu1nDiDd1btoVQ-XlKok"
-}
-"""
-
-    let key = try! RSAKey(jwk: keyString)
-
-    let publicPem = try! key.getPublicKey()
-
-//    let verifier = verifySignature(key: publicPem!.data(using: .utf8)!, signature: Data(signature), for: Data(payloadBytes))
-//    print(verifier)
+    /// TODO
 
   }
 
