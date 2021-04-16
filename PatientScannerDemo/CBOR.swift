@@ -38,11 +38,18 @@ struct CBOR {
       case let SwiftCBOR.CBOR.array(array) = cborElement,
       case let SwiftCBOR.CBOR.byteString(protectedBytes) = array[0],
       let protected = try? SwiftCBOR.CBOR.decode(protectedBytes),
-      case let SwiftCBOR.CBOR.map(protectedMap) = protected,
-      case let SwiftCBOR.CBOR.byteString(kid) = protectedMap[COSE_PHDR_KID] ?? .null
+      case let SwiftCBOR.CBOR.map(protectedMap) = protected
     else {
       return nil
     }
-    return kid
+    let kid = protectedMap[COSE_PHDR_KID] ?? .null
+    switch kid {
+    case let .utf8String(str):
+      return str.encode()
+    case let .byteString(str):
+      return str
+    default:
+      return nil
+    }
   }
 }
