@@ -74,7 +74,7 @@ struct COSE {
     )
     let d = Data(signedPayload)
     let s = Data(signature)
-    guard let key = X509.rsa(from: rsa) else {
+    guard let key = X509.pubKey(from: rsa) else {
       return false
     }
     return Signature.verify(s, for: d, with: key)

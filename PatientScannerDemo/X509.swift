@@ -8,9 +8,9 @@
 import Foundation
 
 struct X509 {
-  public static func rsa(from encodedCert: String) -> SecKey? {
+  public static func pubKey(from b64EncodedCert: String) -> SecKey? {
     guard
-      let encodedCertData = Data(base64Encoded: encodedCert),
+      let encodedCertData = Data(base64Encoded: b64EncodedCert),
       let cert = SecCertificateCreateWithData(nil, encodedCertData as CFData),
       let publicKey = SecCertificateCopyKey(cert)
     else {
