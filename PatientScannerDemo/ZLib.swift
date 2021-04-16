@@ -8,7 +8,7 @@ func decompressString(_ data: Data) -> String {
 }
 
 func decompress(_ data: Data) -> Data {
-  let size = 4 * data.count
+  let size = 4 * data.count + 8 * 1024
   let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
   let result = data.subdata(in: 2 ..< data.count).withUnsafeBytes ({
     let read = compression_decode_buffer(buffer, size, $0.baseAddress!.bindMemory(to: UInt8.self, capacity: 1),
