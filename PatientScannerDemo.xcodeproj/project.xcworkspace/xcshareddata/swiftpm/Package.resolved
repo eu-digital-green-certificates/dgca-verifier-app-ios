@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "FloatingPanel",
+        "repositoryURL": "https://github.com/SCENEE/FloatingPanel",
+        "state": {
+          "branch": null,
+          "revision": "16fea625be25d9a713630a4a43cbc0778740ebf4",
+          "version": "2.3.0"
+        }
+      },
+      {
         "package": "SwiftCBOR",
         "repositoryURL": "https://github.com/unrelentingtech/SwiftCBOR",
         "state": {

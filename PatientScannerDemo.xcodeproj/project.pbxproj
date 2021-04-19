@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CE13CEFF262DCC180070C80E /* FloatingPanel */; };
 		CE1BDF99262A4CD600766F97 /* X509.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BDF98262A4CD600766F97 /* X509.swift */; };
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
@@ -80,6 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
+				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +183,7 @@
 			name = PatientScannerDemo;
 			packageProductDependencies = (
 				CE7DE7F92625EF18007E6694 /* SwiftCBOR */,
+				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 			);
 			productName = PatientScannerDemo;
 			productReference = CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */;
@@ -255,6 +258,7 @@
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
 				CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
+				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -649,6 +653,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
 		CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
@@ -660,6 +672,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE13CEFF262DCC180070C80E /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
+		};
 		CE7DE7F92625EF18007E6694 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
