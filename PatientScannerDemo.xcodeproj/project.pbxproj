@@ -13,6 +13,9 @@
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		CE157F81262E1F7A00FE4821 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE157F80262E1F7A00FE4821 /* Date.swift */; };
+		CE157F87262E24DE00FE4821 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = CE157F86262E24DE00FE4821 /* SwiftyJSON */; };
+		CE157F8D262E24F900FE4821 /* HCert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE157F8C262E24F900FE4821 /* HCert.swift */; };
+		CE157F9B262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */; };
 		CE1BDF99262A4CD600766F97 /* X509.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BDF98262A4CD600766F97 /* X509.swift */; };
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
@@ -58,6 +61,8 @@
 		CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE157F80262E1F7A00FE4821 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		CE157F8C262E24F900FE4821 /* HCert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCert.swift; sourceTree = "<group>"; };
+		CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftCBOR.CBOR.swift; sourceTree = "<group>"; };
 		CE1BDF98262A4CD600766F97 /* X509.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509.swift; sourceTree = "<group>"; };
 		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE157F87262E24DE00FE4821 /* SwiftyJSON in Frameworks */,
 				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
 				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 			);
@@ -143,6 +149,7 @@
 				CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */,
 				CEFAD8712625F29E009AFEF9 /* String+JSON.swift */,
 				CE157F80262E1F7A00FE4821 /* Date.swift */,
+				CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -176,6 +183,14 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		CE157F8B262E24EC00FE4821 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE157F8C262E24F900FE4821 /* HCert.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +214,7 @@
 		CEA6D6EA261F8D2700715333 /* PatientScannerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CE157F8B262E24EC00FE4821 /* Models */,
 				CE13CF1E262DDE800070C80E /* SupportingFiles */,
 				CE13CF1D262DDE730070C80E /* Components */,
 				CE13CF1C262DDE600070C80E /* ViewControllers */,
@@ -247,6 +263,7 @@
 			packageProductDependencies = (
 				CE7DE7F92625EF18007E6694 /* SwiftCBOR */,
 				CE13CEFF262DCC180070C80E /* FloatingPanel */,
+				CE157F86262E24DE00FE4821 /* SwiftyJSON */,
 			);
 			productName = PatientScannerDemo;
 			productReference = CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */;
@@ -322,6 +339,7 @@
 			packageReferences = (
 				CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -367,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE157F8D262E24F900FE4821 /* HCert.swift in Sources */,
 				CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */,
 				CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */,
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
@@ -384,6 +403,7 @@
 				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
 				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
+				CE157F9B262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +749,14 @@
 				minimumVersion = 2.3.0;
 			};
 		};
+		CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 		CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/unrelentingtech/SwiftCBOR";
@@ -744,6 +772,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */;
 			productName = FloatingPanel;
+		};
+		CE157F86262E24DE00FE4821 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 		CE7DE7F92625EF18007E6694 /* SwiftCBOR */ = {
 			isa = XCSwiftPackageProductDependency;
