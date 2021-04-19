@@ -11,7 +11,7 @@ import XCTest
 
 class EHNTests: XCTestCase {
   func testCoseEcdsa() throws {
-    var barcode = "HC1NCFY70R30FFWTWGSLKC 4O992$V M63TMF2V*D9LPC.3EHPCGEC27B72VF/347O4-M6Y9M6FOYG4ILDEI8GR3ZI$15MABL:E9CVBGEEWRMLE C39S0/ANZ52T82Z-73D63P1U 1$PKC 72H2XX09WDH889V5"
+    var barcode = "HC1:NCFY70R30FFWTWGSLKC 4O992$V M63TMF2V*D9LPC.3EHPCGEC27B72VF/347O4-M6Y9M6FOYG4ILDEI8GR3ZI$15MABL:E9CVBGEEWRMLE C39S0/ANZ52T82Z-73D63P1U 1$PKC 72H2XX09WDH889V5"
 
     let trustJson = """
     [
@@ -32,9 +32,13 @@ class EHNTests: XCTestCase {
     ]
     """
 
-    // Remove HC1 header if any
+    // Remove HC1 header if any (v0.0.3 'HC1', v0.0.4 'HC1:'
+    //
     if (barcode.hasPrefix("HC1")) {
       barcode = String(barcode.suffix(barcode.count-3))
+      if (barcode.hasPrefix("1")) {
+         barcode = String(barcode.suffix(barcode.count-1))
+      }
     }
 
     guard
