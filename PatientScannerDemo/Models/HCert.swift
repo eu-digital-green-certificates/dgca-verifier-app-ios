@@ -18,4 +18,10 @@ struct HCert {
 
   var header: JSON
   var body: JSON
+
+  var fullName: String {
+    let first = body["-259"]["1"]["sub"]["gn"].string ?? ""
+    let last = body["-259"]["1"]["sub"]["fn"].string ?? ""
+    return "\(first) \(last)"
+  }
 }

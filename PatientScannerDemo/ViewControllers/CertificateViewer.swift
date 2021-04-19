@@ -12,8 +12,20 @@ import FloatingPanel
 let DISMISS_TIMEOUT = 15.0
 
 class CertificateViewerVC: UIViewController {
+  @IBOutlet var nameLabel: UILabel!
   @IBOutlet var loadingBackground: UIView!
   @IBOutlet var loadingBackgroundTrailing: NSLayoutConstraint!
+
+  var hCert: HCert! {
+    didSet {
+      self.draw()
+    }
+  }
+
+  func draw() {
+    nameLabel.text = hCert.fullName
+    print(hCert.body)
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()

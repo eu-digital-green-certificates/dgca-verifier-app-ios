@@ -27,11 +27,11 @@ class ScanVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    checkPermissions()
-//    setupCameraLiveView()
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-      self.observationHandler(payloadS: nil)
-    }
+    checkPermissions()
+    setupCameraLiveView()
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//      self.observationHandler(payloadS: nil)
+//    }
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
@@ -62,7 +62,7 @@ class ScanVC: UIViewController {
 //
 //  }
 
-  func presentViewer(for certificate: Any?) {
+  func presentViewer(for certificate: HCert) {
     let fpc = FloatingPanelController()
     guard
       let contentVC = UIStoryboard(name: "CertificateViewer", bundle: nil)
@@ -77,6 +77,7 @@ class ScanVC: UIViewController {
     fpc.layout = FullFloatingPanelLayout()
     fpc.surfaceView.layer.cornerRadius = 24.0
     fpc.surfaceView.clipsToBounds = true
+    viewer.hCert = certificate
 
     present(fpc, animated: true, completion: nil)
   }
@@ -149,7 +150,7 @@ extension ScanVC {
   }
 
   func observationHandler(payloadS: String?) {
-    let payloadS: String? = "HC1:NCFI.LDVNOJ2J52O/SCFR078MG4:T7WNDXC5$OS9/NQ FD*7L$O:XJ345Y13WIRJXRE7RAYOY1UGZJR$1VAWKCI:248D1P%3CQSP7DZ554GVY55:35QOGVERIS2NBA8Y9YTKW/UD4O$02E$0N6DF:1P:MDXO6$V4:EA6GCMTH0DHJTPOEKYTGBND0GG7M76E$*LHO7:W1V.84QM-0JBQ2FAV7X9R-1:X1XLUI8QF2A1$ID$PGFT+JN*UROVD66HD8F4O03F4L25K/NT89*KMX*8RCH7HDI.BZ-OOC68PLIW2Q1U2 PWHJ$OB RJ BGO/CAA6/DP4IOADM+ZO4PSNTLI+Q EQT*6HN67WP.0W19Q620.C0W-6FJV8G34JH09B4FPTU0PWK2JSSXA410:8KUA6RNLW66/3JZADZCM/13:B6LG40+ERQCELE0R9J477G7+830JE3+NB:56URMXA2K4QP0N8AK%0ICW4*A7ZHCQM*G4B2Q$R8%H659U%D9JBVDB1J8VW7U77IDNG2TKH.5-RU5Y5 WBD-EL8NDWDT%GD$2-RLJGRTVD 8M09BK*2-1E6M9H 5RRK5KOM7PI:SLUH026C 8MOL9/J56J40RG/02481972OFQRI:SFGMM:VUYIH.ZJ+7S5+FJ35*-JE7UE4Q1JMQ%FXVF8KN$7TKUJC2D5.0NAMX53K%V7$R9+QE.NA+I1LQ"
+//    let payloadS: String? = "HC1:NCFI.LDVNOJ2J52O/SCFR078MG4:T7WNDXC5$OS9/NQ FD*7L$O:XJ345Y13WIRJXRE7RAYOY1UGZJR$1VAWKCI:248D1P%3CQSP7DZ554GVY55:35QOGVERIS2NBA8Y9YTKW/UD4O$02E$0N6DF:1P:MDXO6$V4:EA6GCMTH0DHJTPOEKYTGBND0GG7M76E$*LHO7:W1V.84QM-0JBQ2FAV7X9R-1:X1XLUI8QF2A1$ID$PGFT+JN*UROVD66HD8F4O03F4L25K/NT89*KMX*8RCH7HDI.BZ-OOC68PLIW2Q1U2 PWHJ$OB RJ BGO/CAA6/DP4IOADM+ZO4PSNTLI+Q EQT*6HN67WP.0W19Q620.C0W-6FJV8G34JH09B4FPTU0PWK2JSSXA410:8KUA6RNLW66/3JZADZCM/13:B6LG40+ERQCELE0R9J477G7+830JE3+NB:56URMXA2K4QP0N8AK%0ICW4*A7ZHCQM*G4B2Q$R8%H659U%D9JBVDB1J8VW7U77IDNG2TKH.5-RU5Y5 WBD-EL8NDWDT%GD$2-RLJGRTVD 8M09BK*2-1E6M9H 5RRK5KOM7PI:SLUH026C 8MOL9/J56J40RG/02481972OFQRI:SFGMM:VUYIH.ZJ+7S5+FJ35*-JE7UE4Q1JMQ%FXVF8KN$7TKUJC2D5.0NAMX53K%V7$R9+QE.NA+I1LQ"
     guard
       let payloadString = payloadS,
       let compressed = try? String(payloadString.dropFirst(4)).fromBase45()
@@ -160,7 +161,7 @@ extension ScanVC {
 //    presentViewer(for: payload)
 //    print(CBOR.payload(from: data)?.toString() ?? "")
 //    print(CBOR.header(from: data)?.toString() ?? "")
-    HCert(from: data)
+    presentViewer(for: HCert(from: data))
   }
 
 }

@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="PatientScannerDemo" customModuleProvider="target">
-                                        <rect key="frame" x="149" y="679" width="77" height="51"/>
+                                        <rect key="frame" x="161" y="691" width="53" height="39"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Okay">
@@ -101,6 +101,7 @@
                     <connections>
                         <outlet property="loadingBackground" destination="Sd1-4U-jsd" id="oGA-cg-0zT"/>
                         <outlet property="loadingBackgroundTrailing" destination="Xl8-Re-0ql" id="BX9-az-2fc"/>
+                        <outlet property="nameLabel" destination="DVW-2y-e4I" id="cyN-o4-vZQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZE-rf-pHy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
