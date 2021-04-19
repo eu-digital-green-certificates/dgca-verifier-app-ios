@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CE13CEFF262DCC180070C80E /* FloatingPanel */; };
+		CE13CF05262DCDCD0070C80E /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE13CF04262DCDCD0070C80E /* CertificateViewer.storyboard */; };
+		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
+		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
+		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
+		CE157F81262E1F7A00FE4821 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE157F80262E1F7A00FE4821 /* Date.swift */; };
 		CE1BDF99262A4CD600766F97 /* X509.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BDF98262A4CD600766F97 /* X509.swift */; };
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
-		CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* ViewController.swift */; };
+		CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* Scan.swift */; };
 		CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F1261F8D2700715333 /* Main.storyboard */; };
 		CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F4261F8D2900715333 /* Assets.xcassets */; };
 		CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
@@ -48,13 +53,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE13CF04262DCDCD0070C80E /* CertificateViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CertificateViewer.storyboard; sourceTree = "<group>"; };
+		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateViewer.swift; sourceTree = "<group>"; };
+		CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFloatingPanelLayout.swift; sourceTree = "<group>"; };
+		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		CE157F80262E1F7A00FE4821 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		CE1BDF98262A4CD600766F97 /* X509.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509.swift; sourceTree = "<group>"; };
 		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatientScannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6EB261F8D2700715333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CEA6D6EF261F8D2700715333 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CEA6D6EF261F8D2700715333 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
 		CEA6D6F2261F8D2700715333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEA6D6F4261F8D2900715333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEA6D6F7261F8D2900715333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,6 +112,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE13CF19262DDE200070C80E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
+				CEA6D6F1261F8D2700715333 /* Main.storyboard */,
+				CE13CF04262DCDCD0070C80E /* CertificateViewer.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		CE13CF1A262DDE330070C80E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CEC2C4C02625ED030056E406 /* JWK.swift */,
+				CEC2C4BF2625ED030056E406 /* ZLib.swift */,
+				CEC2C4C12625ED030056E406 /* Base45.swift */,
+				CEFAD86C2625F164009AFEF9 /* Signature.swift */,
+				CE3CC93B2628A7820079FB78 /* ASN1.swift */,
+				CEFAD87926271414009AFEF9 /* COSE.swift */,
+				CE3CC9432628C2130079FB78 /* CBOR.swift */,
+				CE1BDF98262A4CD600766F97 /* X509.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CE13CF1B262DDE540070C80E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */,
+				CEFAD8712625F29E009AFEF9 /* String+JSON.swift */,
+				CE157F80262E1F7A00FE4821 /* Date.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CE13CF1C262DDE600070C80E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */,
+				CEA6D6EF261F8D2700715333 /* Scan.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CE13CF1D262DDE730070C80E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */,
+				CE13CF22262DDF810070C80E /* RoundedButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		CE13CF1E262DDE800070C80E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
+				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
+				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
+				CEA6D6F9261F8D2900715333 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
@@ -125,23 +199,12 @@
 		CEA6D6EA261F8D2700715333 /* PatientScannerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CEFAD8712625F29E009AFEF9 /* String+JSON.swift */,
-				CEC2C4C12625ED030056E406 /* Base45.swift */,
-				CEC2C4C02625ED030056E406 /* JWK.swift */,
-				CEC2C4BF2625ED030056E406 /* ZLib.swift */,
-				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
-				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
-				CEA6D6EF261F8D2700715333 /* ViewController.swift */,
-				CEA6D6F1261F8D2700715333 /* Main.storyboard */,
-				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
-				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
-				CEA6D6F9261F8D2900715333 /* Info.plist */,
-				CEFAD86C2625F164009AFEF9 /* Signature.swift */,
-				CE3CC93B2628A7820079FB78 /* ASN1.swift */,
-				CEFAD87926271414009AFEF9 /* COSE.swift */,
-				CEFAD88626271B9A009AFEF9 /* Data+hexString.swift */,
-				CE3CC9432628C2130079FB78 /* CBOR.swift */,
-				CE1BDF98262A4CD600766F97 /* X509.swift */,
+				CE13CF1E262DDE800070C80E /* SupportingFiles */,
+				CE13CF1D262DDE730070C80E /* Components */,
+				CE13CF1C262DDE600070C80E /* ViewControllers */,
+				CE13CF1B262DDE540070C80E /* Extensions */,
+				CE13CF1A262DDE330070C80E /* Services */,
+				CE13CF19262DDE200070C80E /* Storyboards */,
 			);
 			path = PatientScannerDemo;
 			sourceTree = "<group>";
@@ -276,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE13CF05262DCDCD0070C80E /* CertificateViewer.storyboard in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
@@ -304,14 +368,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEFAD88726271B9A009AFEF9 /* Data+hexString.swift in Sources */,
+				CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */,
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
 				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
+				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
+				CE157F81262E1F7A00FE4821 /* Date.swift in Sources */,
 				CE1BDF99262A4CD600766F97 /* X509.swift in Sources */,
-				CEA6D6F0261F8D2700715333 /* ViewController.swift in Sources */,
+				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
 				CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */,
 				CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */,
 				CEFAD86D2625F164009AFEF9 /* Signature.swift in Sources */,
+				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
 				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
 				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
@@ -494,7 +562,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH99XNF745;
-				INFOPLIST_FILE = PatientScannerDemo/Info.plist;
+				INFOPLIST_FILE = PatientScannerDemo/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -514,7 +582,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH99XNF745;
-				INFOPLIST_FILE = PatientScannerDemo/Info.plist;
+				INFOPLIST_FILE = PatientScannerDemo/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -534,7 +602,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH99XNF745;
-				INFOPLIST_FILE = PatientScannerDemoTests/Info.plist;
+				INFOPLIST_FILE = PatientScannerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -556,7 +624,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH99XNF745;
-				INFOPLIST_FILE = PatientScannerDemoTests/Info.plist;
+				INFOPLIST_FILE = PatientScannerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

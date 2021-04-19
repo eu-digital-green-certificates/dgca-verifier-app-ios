@@ -11,10 +11,10 @@ import UIKit
 import Vision
 import AVFoundation
 import SwiftCBOR
-//import CryptorECC
+import FloatingPanel
 
 
-class ViewController: UIViewController {
+class ScanVC: UIViewController {
   var captureSession = AVCaptureSession()
 
   lazy var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
@@ -27,9 +27,11 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    checkPermissions()
-    setupCameraLiveView()
-//    observationHandler(payloadS: nil)
+//    checkPermissions()
+//    setupCameraLiveView()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+      self.observationHandler(payloadS: nil)
+    }
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
@@ -59,10 +61,29 @@ class ViewController: UIViewController {
 //    }
 //
 //  }
+
+  func presentViewer(for certificate: Any?) {
+    let fpc = FloatingPanelController()
+    guard
+      let contentVC = UIStoryboard(name: "CertificateViewer", bundle: nil)
+        .instantiateInitialViewController(),
+      let viewer = contentVC as? CertificateViewerVC
+    else {
+      return
+    }
+
+    fpc.set(contentViewController: viewer)
+    fpc.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
+    fpc.layout = FullFloatingPanelLayout()
+    fpc.surfaceView.layer.cornerRadius = 24.0
+    fpc.surfaceView.clipsToBounds = true
+
+    present(fpc, animated: true, completion: nil)
+  }
 }
 
 
-extension ViewController {
+extension ScanVC {
   private func checkPermissions() {
     switch AVCaptureDevice.authorizationStatus(for: .video) {
     case .notDetermined:
@@ -135,15 +156,16 @@ extension ViewController {
     else { return }
 
     let data = decompress(compressed)
-
-    /// TODO
-
+    let payload = CBOR.payload(from: data)
+    presentViewer(for: payload)
+    print(CBOR.payload(from: data)?.toString() ?? "")
+    print(CBOR.header(from: data)?.toString() ?? "")
   }
 
 }
 
 
-extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension ScanVC: AVCaptureVideoDataOutputSampleBufferDelegate {
   func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
@@ -161,7 +183,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 }
 
 
-extension ViewController {
+extension ScanVC {
   private func configurePreviewLayer() {
     let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     cameraPreviewLayer.videoGravity = .resizeAspectFill
