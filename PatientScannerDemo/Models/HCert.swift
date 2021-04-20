@@ -9,6 +9,11 @@ import Foundation
 import SwiftyJSON
 import JSONSchema
 
+struct InfoSection {
+  var header: String
+  var content: String
+}
+
 struct HCert {
   init?(from cborData: Data) {
     let headerStr = CBOR.header(from: cborData)?.toString() ?? "{}"
@@ -100,8 +105,14 @@ struct HCert {
   var body: JSON
 
   var fullName: String {
-    let first = body["-259"]["1"]["sub"]["gn"].string ?? ""
-    let last = body["-259"]["1"]["sub"]["fn"].string ?? ""
+    let first = body["sub"]["gn"].string ?? ""
+    let last = body["sub"]["fn"].string ?? ""
     return "\(first) \(last)"
+  }
+
+  var info: [InfoSection] {
+    [
+      InfoSection(header: "Test", content: "Test Test")
+    ]
   }
 }
