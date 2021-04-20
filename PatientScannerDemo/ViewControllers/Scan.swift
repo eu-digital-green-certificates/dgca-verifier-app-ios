@@ -37,8 +37,10 @@ class ScanVC: UIViewController {
     super.viewWillDisappear(animated)
     captureSession.stopRunning()
   }
+
 //  let curve: EllipticCurve = .prime256v1
   let name: String = "ECDSA"
+  var presentingViewer: CertificateViewerVC?
 
   // Send the base64URLencoded signature and `header.claims` to BlueECC for verification.
 //  func verifySignature(key: Data, signature: Data, for data: Data) -> Bool {
@@ -62,9 +64,10 @@ class ScanVC: UIViewController {
 //
 //  }
 
-  func presentViewer(for certificate: HCert) {
-    let fpc = FloatingPanelController()
+  func presentViewer(for certificate: HCert?) {
     guard
+      presentingViewer == nil,
+      let certificate = certificate,
       let contentVC = UIStoryboard(name: "CertificateViewer", bundle: nil)
         .instantiateInitialViewController(),
       let viewer = contentVC as? CertificateViewerVC
@@ -72,12 +75,15 @@ class ScanVC: UIViewController {
       return
     }
 
+    let fpc = FloatingPanelController()
     fpc.set(contentViewController: viewer)
     fpc.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
     fpc.layout = FullFloatingPanelLayout()
     fpc.surfaceView.layer.cornerRadius = 24.0
     fpc.surfaceView.clipsToBounds = true
     viewer.hCert = certificate
+    viewer.childDismissedDelegate = self
+    presentingViewer = viewer
 
     present(fpc, animated: true, completion: nil)
   }
@@ -150,7 +156,7 @@ extension ScanVC {
   }
 
   func observationHandler(payloadS: String?) {
-//    let payloadS: String? = "HC1:NCFI.LDVNOJ2J52O/SCFR078MG4:T7WNDXC5$OS9/NQ FD*7L$O:XJ345Y13WIRJXRE7RAYOY1UGZJR$1VAWKCI:248D1P%3CQSP7DZ554GVY55:35QOGVERIS2NBA8Y9YTKW/UD4O$02E$0N6DF:1P:MDXO6$V4:EA6GCMTH0DHJTPOEKYTGBND0GG7M76E$*LHO7:W1V.84QM-0JBQ2FAV7X9R-1:X1XLUI8QF2A1$ID$PGFT+JN*UROVD66HD8F4O03F4L25K/NT89*KMX*8RCH7HDI.BZ-OOC68PLIW2Q1U2 PWHJ$OB RJ BGO/CAA6/DP4IOADM+ZO4PSNTLI+Q EQT*6HN67WP.0W19Q620.C0W-6FJV8G34JH09B4FPTU0PWK2JSSXA410:8KUA6RNLW66/3JZADZCM/13:B6LG40+ERQCELE0R9J477G7+830JE3+NB:56URMXA2K4QP0N8AK%0ICW4*A7ZHCQM*G4B2Q$R8%H659U%D9JBVDB1J8VW7U77IDNG2TKH.5-RU5Y5 WBD-EL8NDWDT%GD$2-RLJGRTVD 8M09BK*2-1E6M9H 5RRK5KOM7PI:SLUH026C 8MOL9/J56J40RG/02481972OFQRI:SFGMM:VUYIH.ZJ+7S5+FJ35*-JE7UE4Q1JMQ%FXVF8KN$7TKUJC2D5.0NAMX53K%V7$R9+QE.NA+I1LQ"
+    let payloadS: String? = payloadS ?? "HC1:NCFI.L:9QL$Q9S2CB9SSVYUDU+SOT0I7UTLPI2S6/O0HEWAH7SHMSHCYRVKPXL7MVJ6WCY2MO:UQRQ5NGN/KSXPT8FQI4M+KLDP554CGTKSVLJTZTJB774-3F5RGGU0FU*%FG38HEVZ-RG4ORST6WTK3703T625M/UF3O.$NYQL4KOQZVQ$D.BRFGD62R9 MH16V3O$NK2DB/M9HXHT3T7X9Y4I:X1VEM94DM6LNI9E4TFR6S3K%P6QVJ3 C$Z3H60HA2XN2ZXKQLIW$5I126A4ALRFQD-5Q%668PLIW2VY9O6TNS9Q$DTP57EO2XMY122*SEES:57/ O/SKCO9DWAV6A4$1VH6MYP5:QBXUHB0TI1MKE*3PWJD0%4Y2D0F4YOEMSJ-:2WVR820.+7T948MLW66/3JMOQ8%SNDCO O*KHX$6Y5IDRP*%CYYSF63MICGKPOKUG8O8QT4JAI%1S62ZY8QFJ%:3MRL:839 CXX864K1MH0UCK.NUR4:NQ2S4-L5L+H$SV/G5NK7 7F-8A73D8-S3/HYGNH6CDYDCBM7VRJFOZWT2SFJ*O8YMO8WQHR*9D:/3$01DI7M45TKBU:FG3QSZA4COD8UU3ISPSN:42$3FM1Q.3V26L7NO1KFTRPQM0SIA8S5*52ZDBLBN-N-XF*9WPVQ.7O*LBZFJ3HEY 8W3O6RA2RNVFVU VV4WR6ONAD%GR"
     guard
       let payloadString = payloadS,
       let compressed = try? String(payloadString.dropFirst(4)).fromBase45()
@@ -207,5 +213,11 @@ extension ScanVC {
       withTitle: "Camera Permissions",
       message: "Please open Settings and grant permission for this app to use your camera."
     )
+  }
+}
+
+extension ScanVC: ChildDismissedDelegate {
+  func childDismissed() {
+    presentingViewer = nil
   }
 }

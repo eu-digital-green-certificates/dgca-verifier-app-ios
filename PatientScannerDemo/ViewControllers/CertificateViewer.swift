@@ -22,9 +22,10 @@ class CertificateViewerVC: UIViewController {
     }
   }
 
+  var childDismissedDelegate: ChildDismissedDelegate?
+
   func draw() {
     nameLabel.text = hCert.fullName
-    print(hCert.body)
   }
 
   override func viewDidLoad() {
@@ -45,6 +46,12 @@ class CertificateViewerVC: UIViewController {
     }
 
     return
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    childDismissedDelegate?.childDismissed()
   }
 
   @IBAction
