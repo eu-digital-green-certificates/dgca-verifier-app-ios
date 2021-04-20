@@ -20,6 +20,8 @@
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
+		CEA15558262F639C0024B7AC /* JSONSchema in Frameworks */ = {isa = PBXBuildFile; productRef = CEA15557262F639C0024B7AC /* JSONSchema */; };
+		CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
 		CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* Scan.swift */; };
@@ -66,6 +68,7 @@
 		CE1BDF98262A4CD600766F97 /* X509.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509.swift; sourceTree = "<group>"; };
 		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
+		CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuDgcSchema.swift; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatientScannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6EB261F8D2700715333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE157F87262E24DE00FE4821 /* SwiftyJSON in Frameworks */,
+				CEA15558262F639C0024B7AC /* JSONSchema in Frameworks */,
 				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
 				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 			);
@@ -179,6 +183,7 @@
 				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
+				CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				CE7DE7F92625EF18007E6694 /* SwiftCBOR */,
 				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 				CE157F86262E24DE00FE4821 /* SwiftyJSON */,
+				CEA15557262F639C0024B7AC /* JSONSchema */,
 			);
 			productName = PatientScannerDemo;
 			productReference = CEA6D6E8261F8D2700715333 /* PatientScannerDemo.app */;
@@ -340,6 +346,7 @@
 				CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				CEA15556262F639C0024B7AC /* XCRemoteSwiftPackageReference "JSONSchema" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -394,6 +401,7 @@
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
 				CE157F81262E1F7A00FE4821 /* Date.swift in Sources */,
 				CE1BDF99262A4CD600766F97 /* X509.swift in Sources */,
+				CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
 				CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */,
 				CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */,
@@ -765,6 +773,14 @@
 				minimumVersion = 0.4.3;
 			};
 		};
+		CEA15556262F639C0024B7AC /* XCRemoteSwiftPackageReference "JSONSchema" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kylef/JSONSchema.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -782,6 +798,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
 			productName = SwiftCBOR;
+		};
+		CEA15557262F639C0024B7AC /* JSONSchema */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEA15556262F639C0024B7AC /* XCRemoteSwiftPackageReference "JSONSchema" */;
+			productName = JSONSchema;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

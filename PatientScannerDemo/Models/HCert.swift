@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import JSONSchema
 
 struct HCert {
   init(from cborData: Data) {
@@ -14,6 +15,16 @@ struct HCert {
     let bodyStr = CBOR.payload(from: cborData)?.toString() ?? "{}"
     header = JSON(parseJSON: headerStr)
     body = JSON(parseJSON: bodyStr)
+
+    let schema = JSON(parseJSON: EU_DGC_SCHEMA).dictionaryObject!
+    let bodyDict = body.dictionaryObject!
+
+    let validation = try? validate(bodyDict, schema: schema)
+    if let errors = validation?.errors {
+      for err in errors {
+        print(err.description)
+      }
+    }
   }
 
   var header: JSON
