@@ -128,9 +128,15 @@ struct HCert {
   }
 
   var info: [InfoSection] {
-    [
-      InfoSection(header: "Certificate Type", content: type.rawValue)
+    var info = [
+      InfoSection(header: "Certificate Type", content: type.rawValue),
     ] + personIdentifiers
+    if let date = dateOfBirth {
+      info += [
+        InfoSection(header: "Date of Birth", content: date.localDateString),
+      ]
+    }
+    return info
   }
 
   var header: JSON

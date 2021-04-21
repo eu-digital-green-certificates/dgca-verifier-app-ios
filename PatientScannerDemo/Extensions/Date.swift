@@ -44,4 +44,12 @@ extension Date {
     }
     self = date
   }
+
+  var localDateString: String {
+    let formatter = DateFormatter()
+    formatter.locale = .current
+    formatter.timeStyle = .none
+    formatter.dateStyle = .medium
+    return formatter.string(from: self)
+  }
 }
