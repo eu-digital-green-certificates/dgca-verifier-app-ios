@@ -23,8 +23,25 @@ extension Date {
   }
 
   static let isoFormatter = formatter(for: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+  static let dateFormatter = formatter(for: "yyyy-MM-dd")
 
   var isoString: String {
     Date.isoFormatter.string(from: self)
+  }
+  var dateString: String {
+    Date.dateFormatter.string(from: self)
+  }
+
+  init?(isoString: String) {
+    guard let date = Date.isoFormatter.date(from: isoString) else {
+      return nil
+    }
+    self = date
+  }
+  init?(dateString: String) {
+    guard let date = Date.dateFormatter.date(from: dateString) else {
+      return nil
+    }
+    self = date
   }
 }

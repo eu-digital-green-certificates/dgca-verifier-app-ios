@@ -55,18 +55,6 @@
                                         <color key="textColor" red="0.37632042253521125" green="1" blue="0.54548555866148907" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identification Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shh-mW-RSP">
-                                        <rect key="frame" x="16" y="246.33333333333329" width="173.33333333333334" height="21.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DE4382974329" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rk4-u2-ei3">
-                                        <rect key="frame" x="16" y="272" width="343" height="38.333333333333314"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <segmentedControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9hO-yQ-B4J">
                                         <rect key="frame" x="16" y="199.33333333333334" width="343" height="32"/>
                                         <segments>
@@ -77,8 +65,8 @@
                                         </segments>
                                         <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </segmentedControl>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="318.33333333333326" width="375" height="328.66666666666674"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
+                                        <rect key="frame" x="0.0" y="246.33333333333329" width="375" height="400.66666666666674"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -123,24 +111,19 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="9hO-yQ-B4J" secondAttribute="trailing" constant="16" id="1gH-1K-TaY"/>
-                                    <constraint firstItem="shh-mW-RSP" firstAttribute="top" secondItem="9hO-yQ-B4J" secondAttribute="bottom" constant="16" id="4W6-fQ-RkN"/>
                                     <constraint firstItem="DVW-2y-e4I" firstAttribute="top" secondItem="yEe-AH-rsr" secondAttribute="top" constant="32" id="6Py-fR-Th3"/>
                                     <constraint firstAttribute="trailing" secondItem="DVW-2y-e4I" secondAttribute="trailing" constant="16" id="7qh-Db-iAm"/>
                                     <constraint firstAttribute="bottom" secondItem="a9u-Ia-KEX" secondAttribute="bottom" constant="4" id="99V-nH-ZeI"/>
-                                    <constraint firstItem="shh-mW-RSP" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="Gtl-Ej-tkw"/>
+                                    <constraint firstItem="NIJ-V3-NpL" firstAttribute="top" secondItem="9hO-yQ-B4J" secondAttribute="bottom" constant="16" id="GFZ-yy-x5z"/>
                                     <constraint firstItem="NIJ-V3-NpL" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" id="SsD-py-p7P"/>
                                     <constraint firstAttribute="trailing" secondItem="NIJ-V3-NpL" secondAttribute="trailing" id="bMe-Iq-2qV"/>
                                     <constraint firstItem="9hO-yQ-B4J" firstAttribute="top" secondItem="NjI-L7-yat" secondAttribute="bottom" constant="16" id="frU-2J-Kdb"/>
                                     <constraint firstItem="DVW-2y-e4I" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="iQB-29-cRZ"/>
                                     <constraint firstItem="a9u-Ia-KEX" firstAttribute="centerX" secondItem="yEe-AH-rsr" secondAttribute="centerX" id="j6y-x9-na3"/>
-                                    <constraint firstItem="Rk4-u2-ei3" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="jLL-GJ-mV7"/>
                                     <constraint firstItem="NjI-L7-yat" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="jha-Fk-syh"/>
                                     <constraint firstItem="NjI-L7-yat" firstAttribute="top" secondItem="DVW-2y-e4I" secondAttribute="bottom" constant="8" id="lP1-ux-6At"/>
                                     <constraint firstItem="9hO-yQ-B4J" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="mYn-Jw-TYN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Rk4-u2-ei3" secondAttribute="trailing" constant="16" id="mqO-vV-psd"/>
                                     <constraint firstAttribute="trailing" secondItem="NjI-L7-yat" secondAttribute="trailing" constant="16" id="ox4-at-JzV"/>
-                                    <constraint firstItem="NIJ-V3-NpL" firstAttribute="top" secondItem="Rk4-u2-ei3" secondAttribute="bottom" constant="8" id="uXx-lV-Dnj"/>
-                                    <constraint firstItem="Rk4-u2-ei3" firstAttribute="top" secondItem="shh-mW-RSP" secondAttribute="bottom" constant="4" id="vIy-z6-z49"/>
                                     <constraint firstItem="a9u-Ia-KEX" firstAttribute="top" secondItem="NIJ-V3-NpL" secondAttribute="bottom" constant="32" id="wZx-rx-Vmt"/>
                                 </constraints>
                             </view>

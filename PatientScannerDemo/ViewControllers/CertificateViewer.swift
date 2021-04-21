@@ -29,6 +29,12 @@ class CertificateViewerVC: UIViewController {
   func draw() {
     nameLabel.text = hCert.fullName
     infoTable.reloadData()
+    typeSegments.selectedSegmentIndex = [
+      HCertType.test,
+      HCertType.vaccineOne,
+      HCertType.vaccineTwo,
+      HCertType.recovery
+    ].firstIndex(of: hCert.type) ?? 0
   }
 
   override func viewDidLoad() {

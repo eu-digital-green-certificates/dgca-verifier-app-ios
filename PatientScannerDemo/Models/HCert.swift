@@ -17,11 +17,42 @@ enum ClaimKey: String {
 enum AttributeKey: String {
   case firstName
   case lastName
+  case gender
+  case dateOfBirth
+  case testStatements
+  case vaccineStatements
+  case recoveryStatements
+  case personIdentifiers
+  case identifierType = "t"
+  case identifierCountry = "c"
+  case identifierValue = "i"
+  case vaccineShotNo = "seq"
+  case vaccineShotTotal = "tot"
 }
+
+enum HCertType: String {
+  case test = "Test"
+  case vaccineOne = "Vaccine Shot #1"
+  case vaccineTwo = "Vaccine Shot #2"
+  case recovery = "Recovery"
+}
+
+let identifierNames: [String: String] = [
+  "PP": "Passport Number",
+  "NN": "National Person Identifier",
+  "CZ": "Citizenship Card Number",
+  "HC": "Health Card Number",
+]
 
 let attributeKeys: [AttributeKey: [String]] = [
   .firstName: ["sub", "gn"],
   .lastName: ["sub", "fn"],
+  .gender: ["sub", "gen"],
+  .dateOfBirth: ["sub", "dob"],
+  .personIdentifiers: ["sub", "id"],
+  .testStatements: ["tst"],
+  .vaccineStatements: ["vac"],
+  .recoveryStatements: ["rec"],
 ]
 
 struct InfoSection {
@@ -83,15 +114,6 @@ struct HCert {
     }
   }
 
-  var header: JSON
-  var body: JSON
-
-  var fullName: String {
-    let first = get(.firstName).string ?? ""
-    let last = get(.lastName).string ?? ""
-    return "\(first) \(last)"
-  }
-
   func get(_ attribute: AttributeKey) -> JSON {
     var object = body
     for key in attributeKeys[attribute] ?? [] {
@@ -102,7 +124,73 @@ struct HCert {
 
   var info: [InfoSection] {
     [
-      InfoSection(header: "Test", content: "Test Test")
-    ]
+      InfoSection(header: "Certificate Type", content: type.rawValue)
+    ] + personIdentifiers
+  }
+
+  var header: JSON
+  var body: JSON
+
+  var fullName: String {
+    let first = get(.firstName).string ?? ""
+    let last = get(.lastName).string ?? ""
+    return "\(first) \(last)"
+  }
+
+  var dateOfBirth: Date? {
+    guard let dateString = get(.dateOfBirth).string else {
+      return nil
+    }
+    return Date(dateString: dateString)
+  }
+
+  var personIdentifiers: [InfoSection] {
+    guard let identifiers = get(.personIdentifiers).array else {
+      return []
+    }
+    return identifiers.map {
+      let type = $0[AttributeKey.identifierType.rawValue].string ?? ""
+      let country = $0[AttributeKey.identifierCountry.rawValue].string
+      let value = $0[AttributeKey.identifierValue.rawValue].string ?? ""
+
+      var header = identifierNames[type] ?? "Unknown Identifier"
+      if let country = country {
+        header += " (\(country))"
+      }
+
+      return InfoSection(header: header, content: value)
+    }
+  }
+
+  var testStatements: [JSON] {
+    return get(.testStatements).array ?? []
+  }
+  var vaccineStatements: [JSON] {
+    return get(.vaccineStatements).array ?? []
+  }
+  var recoveryStatements: [JSON] {
+    return get(.recoveryStatements).array ?? []
+  }
+  var hasLastShot: Bool {
+    for statement in vaccineStatements {
+      let no = statement[AttributeKey.vaccineShotNo.rawValue].int ?? 1
+      let total = statement[AttributeKey.vaccineShotTotal.rawValue].int ?? 2
+      if no == total {
+        return true
+      }
+    }
+    return false
+  }
+  var type: HCertType {
+    if hasLastShot {
+      return .vaccineTwo
+    }
+    if !vaccineStatements.isEmpty {
+      return .vaccineOne
+    }
+    if !recoveryStatements.isEmpty {
+      return .recovery
+    }
+    return .test
   }
 }
