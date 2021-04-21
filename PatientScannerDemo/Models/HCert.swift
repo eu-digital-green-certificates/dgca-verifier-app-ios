@@ -32,9 +32,14 @@ enum AttributeKey: String {
 
 enum HCertType: String {
   case test = "Test"
-  case vaccineOne = "Vaccine Shot #1"
-  case vaccineTwo = "Vaccine Shot #2"
+  case vaccineOne = "First Vaccine Shot"
+  case vaccineTwo = "Last Vaccine Shot"
   case recovery = "Recovery"
+}
+
+enum HCertValidity {
+  case valid
+  case invalid
 }
 
 let identifierNames: [String: String] = [
@@ -192,5 +197,11 @@ struct HCert {
       return .recovery
     }
     return .test
+  }
+  var isValid: Bool {
+    return Int.random(in: 0...9) < 5
+  }
+  var validity: HCertValidity {
+    return isValid ? .valid : .invalid
   }
 }

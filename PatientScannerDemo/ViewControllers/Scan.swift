@@ -27,11 +27,11 @@ class ScanVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    checkPermissions()
-    setupCameraLiveView()
-//    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//      self.observationHandler(payloadS: nil)
-//    }
+//    checkPermissions()
+//    setupCameraLiveView()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      self.observationHandler(payloadS: nil)
+    }
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)

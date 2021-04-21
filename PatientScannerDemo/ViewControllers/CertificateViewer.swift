@@ -11,12 +11,31 @@ import FloatingPanel
 
 let DISMISS_TIMEOUT = 15.0
 
+let validityString = [
+  HCertValidity.valid: "Valid ✓",
+  HCertValidity.invalid: "Invalid Ⅹ",
+]
+let buttonText = [
+  HCertValidity.valid: "Okay",
+  HCertValidity.invalid: "Retry",
+]
+let backgroundColor = [
+  HCertValidity.valid: UIColor(red: 0, green: 0.32708, blue: 0.08872, alpha: 1),
+  HCertValidity.invalid: UIColor(red: 0.36290, green: 0, blue: 0, alpha: 1),
+]
+let textColor = [
+  HCertValidity.valid: UIColor(red: 0.37632, green: 1, blue: 0.54549, alpha: 1),
+  HCertValidity.invalid: UIColor(red: 1, green: 0.14316, blue: 0.14316, alpha: 1),
+]
+
 class CertificateViewerVC: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var validityLabel: UILabel!
   @IBOutlet weak var loadingBackground: UIView!
   @IBOutlet weak var loadingBackgroundTrailing: NSLayoutConstraint!
   @IBOutlet weak var typeSegments: UISegmentedControl!
   @IBOutlet weak var infoTable: UITableView!
+  @IBOutlet weak var dismissButton: UIButton!
 
   var hCert: HCert! {
     didSet {
@@ -35,6 +54,11 @@ class CertificateViewerVC: UIViewController {
       HCertType.vaccineTwo,
       HCertType.recovery
     ].firstIndex(of: hCert.type) ?? 0
+    let validity = hCert.validity
+    dismissButton.setTitle(buttonText[validity], for: .normal)
+    validityLabel.text = validityString[validity]
+    validityLabel.textColor = textColor[validity]
+    view.backgroundColor = backgroundColor[validity]
   }
 
   override func viewDidLoad() {
