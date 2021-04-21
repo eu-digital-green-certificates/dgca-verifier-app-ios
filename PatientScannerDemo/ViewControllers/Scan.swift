@@ -11,10 +11,10 @@ import UIKit
 import Vision
 import AVFoundation
 import SwiftCBOR
-//import CryptorECC
+import FloatingPanel
 
 
-class ViewController: UIViewController {
+class ScanVC: UIViewController {
   var captureSession = AVCaptureSession()
 
   lazy var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
@@ -27,16 +27,20 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    checkPermissions()
-    setupCameraLiveView()
-//    observationHandler(payloadS: nil)
+//    checkPermissions()
+//    setupCameraLiveView()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      self.observationHandler(payloadS: nil)
+    }
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     captureSession.stopRunning()
   }
+
 //  let curve: EllipticCurve = .prime256v1
   let name: String = "ECDSA"
+  var presentingViewer: CertificateViewerVC?
 
   // Send the base64URLencoded signature and `header.claims` to BlueECC for verification.
 //  func verifySignature(key: Data, signature: Data, for data: Data) -> Bool {
@@ -59,10 +63,34 @@ class ViewController: UIViewController {
 //    }
 //
 //  }
+
+  func presentViewer(for certificate: HCert?) {
+    guard
+      presentingViewer == nil,
+      let certificate = certificate,
+      let contentVC = UIStoryboard(name: "CertificateViewer", bundle: nil)
+        .instantiateInitialViewController(),
+      let viewer = contentVC as? CertificateViewerVC
+    else {
+      return
+    }
+
+    let fpc = FloatingPanelController()
+    fpc.set(contentViewController: viewer)
+    fpc.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
+    fpc.layout = FullFloatingPanelLayout()
+    fpc.surfaceView.layer.cornerRadius = 24.0
+    fpc.surfaceView.clipsToBounds = true
+    viewer.hCert = certificate
+    viewer.childDismissedDelegate = self
+    presentingViewer = viewer
+
+    present(fpc, animated: true, completion: nil)
+  }
 }
 
 
-extension ViewController {
+extension ScanVC {
   private func checkPermissions() {
     switch AVCaptureDevice.authorizationStatus(for: .video) {
     case .notDetermined:
@@ -128,22 +156,37 @@ extension ViewController {
   }
 
   func observationHandler(payloadS: String?) {
-    let payloadS: String? = "HC1:NCFOXNEG2NBJ5*H:QO-.O /MD064 PJ26UV0 XHLQ9HXKZNEQCSJ591MVBATW$4 S8$96NF6OR5UVBJUB4PJU47326/Z7PCL394Z/MWP4 N66ED6JC:JEG.CZJC0:C6JK:JM$JLAINN6BLHM035L8CCECS.CYMCPOJ5OI9YI:8DRFC%PD*ZLJ9CWVBREJFZM4A7Z/M*+Q.28+VQXCRAHAF27I9QQ60E2KYIJPOJI7J/VJ0 JYSJEZIK7B*IJS7BCLIOCISEBTKBRHSWKJ4:2POJ.GILYJ7GPSVBY4CJZIOMI$MI1VC3TCYR6HCRF46Q96W/6-DP+%PPMC1KJG%HJ*81.7 84-W6I RO5PH6UDUH+/F9PJCQFRVV 8UDJ5QEV2Y8%635OHH0E2:E5VUJZ4 VT3+6ZU598O:E0/ 0VP2IBO6ANG%6UD5RSRO4B6$ES40H/CQ1"
+    let payloadS: String? = payloadS ?? "HC1:NCFD:MFY7AP2.532EE3*45+G W84$2J85AUFA3QHN7SXNF$S-4THFSJFIMSKD3799U/LN71G32S0L43XHEIB*983A8RMF1/MMMIS6AQC0QNGU+I.AKYQKBPL%YA-ZVT28J3D+WNNL6SEV%GH$$3NRHO%L8BVLJBL:3F0AKIH3.1U2VS0WZLD75Q52EAENQ-HAYIXTGFH9%ZKA6Q$8A4J67E585MUDPCGCSY3SA7YPCPXCVDL-S0Z.CM6M7%H5POR-ACBI7MT3ZARJ7%S29G596OFMRF-65T6O*M.BJ3DI0W3%:ITBAF 9B1D3SQ$A5LOCTQQZ 40IPR:R3 PUXUN01XD8SJ62MRN$BV502.0HLGS/NXXJ AS.X5QZ2SGTEKLKHB4T8F%S664E02MH2F A.BH9+R7N6N5N.USZXL7DO2AIV2P0XU2.OPI6 C395EPMMGDAD4G-S1DC8ZVJT:3CR3-P8ZVGV8A$DD+*0/MH5+MPDO:L9IJ6MU278C924V:09%1MUQTR2FBL5 6CLODPT304L3GK6OT-7 97U*IO7J:1MB1EU0E.G3C/4P7FXRF-04F9O-9VREIPOSWTFU2W%2F4-B$CSSVNWKAHWJA4NCEU$KLU$GQ6OJ-97UN"
     guard
-      let payloadString = payloadS,
-      let compressed = try? String(payloadString.dropFirst(4)).fromBase45()
-    else { return }
+      var payloadString = payloadS
+    else {
+      return
+    }
+
+    for prefix in HCert.supportedPrefixes {
+      if payloadString.starts(with: prefix) {
+        payloadString = String(payloadString.dropFirst(prefix.count))
+      }
+    }
+
+    guard
+      let compressed = try? payloadString.fromBase45()
+    else {
+      return
+    }
 
     let data = decompress(compressed)
-
-    /// TODO
-
+//    let payload = CBOR.payload(from: data)
+//    presentViewer(for: payload)
+//    print(CBOR.payload(from: data)?.toString() ?? "")
+//    print(CBOR.header(from: data)?.toString() ?? "")
+    presentViewer(for: HCert(from: data))
   }
 
 }
 
 
-extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension ScanVC: AVCaptureVideoDataOutputSampleBufferDelegate {
   func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
@@ -161,7 +204,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 }
 
 
-extension ViewController {
+extension ScanVC {
   private func configurePreviewLayer() {
     let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     cameraPreviewLayer.videoGravity = .resizeAspectFill
@@ -183,5 +226,11 @@ extension ViewController {
       withTitle: "Camera Permissions",
       message: "Please open Settings and grant permission for this app to use your camera."
     )
+  }
+}
+
+extension ScanVC: ChildDismissedDelegate {
+  func childDismissed() {
+    presentingViewer = nil
   }
 }

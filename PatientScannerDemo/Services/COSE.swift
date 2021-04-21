@@ -52,7 +52,7 @@ struct COSE {
     }
     return Signature.verify(s, for: d, with: key)
   }
-  public static func verify(_ cbor: SwiftCBOR.CBOR, with rsa: String) -> Bool {
+  public static func verify(_ cbor: SwiftCBOR.CBOR, with derPubKeyB64: String) -> Bool {
     let COSE_TAG = UInt64(18)
 
     guard
@@ -74,7 +74,7 @@ struct COSE {
     )
     let d = Data(signedPayload)
     let s = Data(signature)
-    guard let key = X509.pubKey(from: rsa) else {
+    guard let key = X509.pubKey(from: derPubKeyB64) else {
       return false
     }
     return Signature.verify(s, for: d, with: key)
