@@ -21,7 +21,7 @@ struct InfoSection {
 
 struct HCert {
   mutating func parseBodyV1() -> Bool {
-    let schema = JSON(parseJSON: EU_DGC_SCHEMA).dictionaryObject!
+    let schema = JSON(parseJSON: EU_DGC_SCHEMA_V1).dictionaryObject!
     let bodyDict = body.dictionaryObject!
 
     guard

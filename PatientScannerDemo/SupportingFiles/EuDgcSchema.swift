@@ -7,7 +7,7 @@
 
 import Foundation
 
-let EU_DGC_SCHEMA = """
+let EU_DGC_SCHEMA_V1 = """
 {
     "$schema": "http://json-schema.org/draft/2020-12/schema#",
     "$id": "https://github.com/ehn-digital-green-development/hcert-schema/eu_dgc_v1",
