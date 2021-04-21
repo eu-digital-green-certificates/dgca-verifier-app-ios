@@ -14,15 +14,33 @@ enum ClaimKey: String {
   case EU_DGC_V1 = "1"
 }
 
+enum AttributeKey: String {
+  case firstName
+  case lastName
+}
+
+let attributeKeys: [AttributeKey: [String]] = [
+  .firstName: ["sub", "gn"],
+  .lastName: ["sub", "fn"],
+]
+
 struct InfoSection {
   var header: String
   var content: String
 }
 
 struct HCert {
+  static let supportedPrefixes = [
+    "HC1:"
+  ]
+
   mutating func parseBodyV1() -> Bool {
-    let schema = JSON(parseJSON: EU_DGC_SCHEMA_V1).dictionaryObject!
-    let bodyDict = body.dictionaryObject!
+    guard
+      let schema = JSON(parseJSON: EU_DGC_SCHEMA_V1).dictionaryObject,
+      let bodyDict = body.dictionaryObject
+    else {
+      return false
+    }
 
     guard
       let validation = try? validate(bodyDict, schema: schema)
@@ -63,65 +81,23 @@ struct HCert {
       print("Wrong EU_DGC Version!")
       return nil
     }
-//    body = JSON(parseJSON: """
-//      {
-//        "vac" : [
-//          {
-//            "seq" : 1,
-//            "lot" : "C22-862FF-001",
-//            "dis" : "840539006",
-//            "adm" : "Vaccination centre Vienna 23",
-//            "vap" : "1119305005",
-//            "mep" : "EU\\/1\\/20\\/1528",
-//            "tot" : 2,
-//            "aut" : "ORG-100030215",
-//            "dat" : "2021-02-18",
-//            "cou" : "AT"
-//          },
-//          {
-//            "seq" : 2,
-//            "lot" : "C22-H62FF-010",
-//            "dis" : "840539006",
-//            "adm" : "Vaccination centre Vienna 23",
-//            "vap" : "1119305005",
-//            "mep" : "EU\\/1\\/20\\/1528",
-//            "tot" : 2,
-//            "aut" : "ORG-100030215",
-//            "dat" : "2021-03-12",
-//            "cou" : "AT"
-//          }
-//        ],
-//        "cert" : {
-//          "id" : "01AT42196560275230427402470256520250042",
-//          "is" : "Ministry of Health, Austria",
-//          "vr" : "v1.0",
-//          "vf" : "2021-04-04",
-//          "vu" : "2021-10-04",
-//          "co" : "AT"
-//        },
-//        "sub" : {
-//          "gen" : "female",
-//          "dob" : "1998-02-26",
-//          "id" : [
-//            {
-//              "i" : "12345ABC-321",
-//              "t" : "PPN"
-//            }
-//          ],
-//          "gn" : "Gabriele",
-//          "fn" : "Musterfrau"
-//        }
-//      }
-//""")
   }
 
   var header: JSON
   var body: JSON
 
   var fullName: String {
-    let first = body["sub"]["gn"].string ?? ""
-    let last = body["sub"]["fn"].string ?? ""
+    let first = get(.firstName).string ?? ""
+    let last = get(.lastName).string ?? ""
     return "\(first) \(last)"
+  }
+
+  func get(_ attribute: AttributeKey) -> JSON {
+    var object = body
+    for key in attributeKeys[attribute] ?? [] {
+      object = object[key]
+    }
+    return object
   }
 
   var info: [InfoSection] {
