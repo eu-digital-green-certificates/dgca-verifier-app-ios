@@ -20,6 +20,8 @@
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
 		CE44798D26304D8F009A836B /* JSONSchema in Frameworks */ = {isa = PBXBuildFile; productRef = CE44798C26304D8F009A836B /* JSONSchema */; };
+		CE44799226306C86009A836B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799126306C86009A836B /* String.swift */; };
+		CE44799726306C9B009A836B /* Data+Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799626306C9B009A836B /* Data+Base45.swift */; };
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */; };
 		CEA15563262F6DAB0024B7AC /* ChildDismissedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */; };
@@ -71,6 +73,8 @@
 		CE1BDF98262A4CD600766F97 /* X509.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509.swift; sourceTree = "<group>"; };
 		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
+		CE44799126306C86009A836B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		CE44799626306C9B009A836B /* Data+Base45.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base45.swift"; sourceTree = "<group>"; };
 		CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuDgcSchema.swift; sourceTree = "<group>"; };
 		CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDismissedDelegate.swift; sourceTree = "<group>"; };
 		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				CEFAD8712625F29E009AFEF9 /* String+JSON.swift */,
 				CE157F80262E1F7A00FE4821 /* Date.swift */,
 				CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */,
+				CE44799126306C86009A836B /* String.swift */,
+				CE44799626306C9B009A836B /* Data+Base45.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -415,6 +421,8 @@
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
 				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
+				CE44799226306C86009A836B /* String.swift in Sources */,
+				CE44799726306C9B009A836B /* Data+Base45.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				CE157F81262E1F7A00FE4821 /* Date.swift in Sources */,
