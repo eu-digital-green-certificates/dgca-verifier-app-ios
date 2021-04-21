@@ -26,4 +26,8 @@ extension Data {
   }
 
   var uint: [UInt8] { [UInt8](self) }
+  var hexString: String {
+    let format = "%02hhx"
+    return self.map { String(format: format, $0) }.joined()
+  }
 }
