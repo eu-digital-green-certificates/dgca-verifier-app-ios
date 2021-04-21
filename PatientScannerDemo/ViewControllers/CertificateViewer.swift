@@ -56,6 +56,8 @@ class CertificateViewerVC: UIViewController {
     ].firstIndex(of: hCert.type) ?? 0
     let validity = hCert.validity
     dismissButton.setTitle(buttonText[validity], for: .normal)
+    dismissButton.backgroundColor = textColor[validity]
+    dismissButton.setTitleColor(backgroundColor[validity], for: .normal)
     validityLabel.text = validityString[validity]
     validityLabel.textColor = textColor[validity]
     view.backgroundColor = backgroundColor[validity]
