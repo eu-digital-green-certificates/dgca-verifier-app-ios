@@ -9,23 +9,59 @@ import Foundation
 import SwiftyJSON
 import JSONSchema
 
+enum ClaimKey: String {
+  case HCERT = "-260"
+  case EU_DGC_V1 = "1"
+}
+
 struct InfoSection {
   var header: String
   var content: String
 }
 
 struct HCert {
+  mutating func parseBodyV1() -> Bool {
+    let schema = JSON(parseJSON: EU_DGC_SCHEMA).dictionaryObject!
+    let bodyDict = body.dictionaryObject!
+
+    guard
+      let validation = try? validate(bodyDict, schema: schema)
+    else {
+      return false
+    }
+    #if DEBUG
+    if let errors = validation.errors {
+      for err in errors {
+        print(err.description)
+      }
+    }
+    #else
+    if !validation.valid {
+      return false
+    }
+    #endif
+    print(header)
+    print(body)
+    return true
+  }
+
   init?(from cborData: Data) {
     let headerStr = CBOR.header(from: cborData)?.toString() ?? "{}"
     let bodyStr = CBOR.payload(from: cborData)?.toString() ?? "{}"
     header = JSON(parseJSON: headerStr)
     var body = JSON(parseJSON: bodyStr)
     print(body)
-    if body["-260"].exists() {
-      body = body["-260"]
+    if body[ClaimKey.HCERT.rawValue].exists() {
+      body = body[ClaimKey.HCERT.rawValue]
     }
-    if body["1"].exists() {
-      body = body["1"]
+    if body[ClaimKey.EU_DGC_V1.rawValue].exists() {
+      self.body = body[ClaimKey.EU_DGC_V1.rawValue]
+      if !parseBodyV1() {
+        return nil
+      }
+    } else {
+      print("Wrong EU_DGC Version!")
+      return nil
     }
 //    body = JSON(parseJSON: """
 //      {
@@ -77,29 +113,6 @@ struct HCert {
 //        }
 //      }
 //""")
-
-    let schema = JSON(parseJSON: EU_DGC_SCHEMA).dictionaryObject!
-    let bodyDict = body.dictionaryObject!
-
-    guard
-      let validation = try? validate(bodyDict, schema: schema)
-    else {
-      return nil
-    }
-    #if DEBUG
-    if let errors = validation.errors {
-      for err in errors {
-        print(err.description)
-      }
-    }
-    #else
-    if !validation.valid {
-      return nil
-    }
-    #endif
-    self.body = body
-    print(header)
-    print(body)
   }
 
   var header: JSON
