@@ -20,8 +20,9 @@ struct HCert {
     let bodyStr = CBOR.payload(from: cborData)?.toString() ?? "{}"
     header = JSON(parseJSON: headerStr)
     var body = JSON(parseJSON: bodyStr)
-    if body["-259"].exists() {
-      body = body["-259"]
+    print(body)
+    if body["-260"].exists() {
+      body = body["-260"]
     }
     if body["1"].exists() {
       body = body["1"]

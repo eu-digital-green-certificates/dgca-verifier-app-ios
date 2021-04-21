@@ -25,7 +25,7 @@ extension SwiftCBOR.CBOR {
     case let .unsignedInt(val):
       return "\(val)"
     case let .negativeInt(val):
-      return "-\(val)"
+      return "-\(val + 1)"
     case let .utf8String(val):
       return "\"\(val)\""
     case let .array(vals):
