@@ -170,7 +170,7 @@ extension ScanVC {
     }
 
     guard
-      let compressed = try? String(payloadString.dropFirst(4)).fromBase45()
+      let compressed = try? payloadString.fromBase45()
     else {
       return
     }
