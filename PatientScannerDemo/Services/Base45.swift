@@ -12,7 +12,7 @@ extension String {
     case Base64InvalidLength
   }
 
-  public func fromBase45() throws ->Data  {
+  public func fromBase45() throws -> Data  {
     let BASE45_CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:"
     var d = Data()
     var o = Data()
@@ -32,6 +32,9 @@ extension String {
       var x : UInt32 = UInt32(d[i]) + UInt32(d[i+1])*45
       if (d.count - i >= 3) {
         x += 45 * 45 * UInt32(d[i+2])
+        if x >= 256 * 256 {
+          throw Base45Error.Base64InvalidCharacter
+        }
         o.append(UInt8(x / 256))
       }
       o.append(UInt8(x % 256))
