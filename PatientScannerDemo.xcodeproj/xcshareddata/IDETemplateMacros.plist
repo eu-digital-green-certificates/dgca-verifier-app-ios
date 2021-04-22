@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>FILEHEADER</key>
+        <string>
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-web
@@ -18,21 +24,11 @@
  * ---license-end
  */
 //
-//  AppDelegate.swift
-//  PatientScannerDemo
+// ___FILENAME___
+// ___PACKAGENAME___
 //
-//  Created by Yannick Spreen on 4/8/21.
+// Created by ___FULLUSERNAME___ on ___DATE___.
 //
-
-import UIKit
-
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    return true
-  }
-
-}
-
+        </string>
+    </dict>
+</plist>
