@@ -28,11 +28,13 @@
 
 import Foundation
 
+typealias KidBytes = [UInt8]
+
 struct KID {
-  public static func stringFrom(kidBytes: [UInt8]) -> String {
+  public static func stringFrom(kidBytes: KidBytes) -> String {
     return Data(kidBytes.prefix(8)).base64EncodedString()
   }
-  public static func from(_ encodedCert: String) -> [UInt8] {
+  public static func from(_ encodedCert: String) -> KidBytes {
     guard
       let data = Data(base64Encoded: encodedCert)
     else {
