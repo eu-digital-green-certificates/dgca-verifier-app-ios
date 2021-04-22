@@ -1,6 +1,6 @@
 /*-
  * ---license-start
- * eu-digital-green-certificates / dgca-verifier-app-web
+ * eu-digital-green-certificates / dgca-verifier-app-ios
  * ---
  * Copyright (C) 2021 T-Systems International GmbH and all other contributors
  * ---
