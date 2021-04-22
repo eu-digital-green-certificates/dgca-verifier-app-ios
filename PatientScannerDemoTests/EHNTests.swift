@@ -8,7 +8,6 @@
 @testable import PatientScannerDemo
 import XCTest
 
-
 class EHNTests: XCTestCase {
   func testCoseEcdsa() throws {
     var barcode = "HC1:NCFY70R30FFWTWGSLKC 4O992$V M63TMF2V*D9LPC.3EHPCGEC27B72VF/347O4-M6Y9M6FOYG4ILDEI8GR3ZI$15MABL:E9CVBGEEWRMLE C39S0/ANZ52T82Z-73D63P1U 1$PKC 72H2XX09WDH889V5"
@@ -123,6 +122,7 @@ class EHNTests: XCTestCase {
         return
       }
       let encodedCert = body.base64EncodedString()
+      XCTAssert(KID.stringFrom(kidBytes: KID.from(encodedCert)) == kid)
       if COSE.verify(data, with: encodedCert) {
         expectation.fulfill()
       } else {

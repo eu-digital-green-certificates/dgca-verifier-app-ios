@@ -19,10 +19,10 @@
  * ---license-end
  */
 //
-// KID.swift
-// PatientScannerDemo
+//  KID.swift
+//  PatientScannerDemo
 //
-// Created by Yannick Spreen on 4/22/21.
+//  Created by Yannick Spreen on 4/22/21.
 //
         
 
@@ -31,5 +31,13 @@ import Foundation
 struct KID {
   public static func stringFrom(kidBytes: [UInt8]) -> String {
     return Data(kidBytes.prefix(8)).base64EncodedString()
+  }
+  public static func from(_ encodedCert: String) -> [UInt8] {
+    guard
+      let data = Data(base64Encoded: encodedCert)
+    else {
+      return []
+    }
+    return SHA256.digest(input: data as NSData).uint
   }
 }
