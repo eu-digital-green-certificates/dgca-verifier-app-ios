@@ -23,6 +23,7 @@
 		CE44799226306C86009A836B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799126306C86009A836B /* String.swift */; };
 		CE44799726306C9B009A836B /* Data+Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799626306C9B009A836B /* Data+Base45.swift */; };
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
+		CE8912E526321AA500CB92AF /* KID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912E426321AA500CB92AF /* KID.swift */; };
 		CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */; };
 		CEA15563262F6DAB0024B7AC /* ChildDismissedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */; };
 		CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */; };
@@ -75,6 +76,7 @@
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
 		CE44799126306C86009A836B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		CE44799626306C9B009A836B /* Data+Base45.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base45.swift"; sourceTree = "<group>"; };
+		CE8912E426321AA500CB92AF /* KID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KID.swift; sourceTree = "<group>"; };
 		CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuDgcSchema.swift; sourceTree = "<group>"; };
 		CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDismissedDelegate.swift; sourceTree = "<group>"; };
 		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				CEFAD87926271414009AFEF9 /* COSE.swift */,
 				CE3CC9432628C2130079FB78 /* CBOR.swift */,
 				CE1BDF98262A4CD600766F97 /* X509.swift */,
+				CE8912E426321AA500CB92AF /* KID.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
 				CEA15570262F79DE0024B7AC /* InfoCell.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
+				CE8912E526321AA500CB92AF /* KID.swift in Sources */,
 				CE157F9B262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

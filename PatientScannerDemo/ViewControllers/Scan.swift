@@ -31,6 +31,7 @@ import Vision
 import AVFoundation
 import SwiftCBOR
 import FloatingPanel
+import LocalAuthentication
 
 
 class ScanVC: UIViewController {
@@ -50,6 +51,25 @@ class ScanVC: UIViewController {
 //    setupCameraLiveView()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
       self.observationHandler(payloadS: nil)
+//      let reason = "Log in to your account"
+//      var context = LAContext()
+//      context.localizedCancelTitle = "Enter Username/Password"
+//      context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
+//
+//          if success {
+//
+//              // Move to the main thread because a state update triggers UI changes.
+//              DispatchQueue.main.async { [unowned self] in
+//                  print("loggedin")
+//              }
+//
+//          } else {
+//              print(error?.localizedDescription ?? "Failed to authenticate")
+//
+//              // Fall back to a asking for username and password.
+//              // ...
+//          }
+//      }
     }
   }
   override func viewWillDisappear(_ animated: Bool) {
