@@ -114,7 +114,7 @@ struct HCert {
     }
     #endif
     print(header)
-    print(body)
+//    print(body)
     return true
   }
 
@@ -123,7 +123,7 @@ struct HCert {
     let bodyStr = CBOR.payload(from: cborData)?.toString() ?? "{}"
     header = JSON(parseJSON: headerStr)
     var body = JSON(parseJSON: bodyStr)
-    print(body)
+//    print(body)
     if body[ClaimKey.HCERT.rawValue].exists() {
       body = body[ClaimKey.HCERT.rawValue]
     }
