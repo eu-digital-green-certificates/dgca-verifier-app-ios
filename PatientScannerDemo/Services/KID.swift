@@ -40,6 +40,6 @@ struct KID {
     else {
       return []
     }
-    return SHA256.digest(input: data as NSData).uint
+    return .init(SHA256.digest(input: data as NSData).uint.prefix(8))
   }
 }
