@@ -25,6 +25,8 @@
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CE8912E526321AA500CB92AF /* KID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912E426321AA500CB92AF /* KID.swift */; };
 		CE8912EA26321DAA00CB92AF /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912E926321DAA00CB92AF /* SHA256.swift */; };
+		CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912F42634C60E00CB92AF /* GatewayConnection.swift */; };
+		CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE8912FA2634C6B900CB92AF /* Alamofire */; };
 		CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */; };
 		CEA15563262F6DAB0024B7AC /* ChildDismissedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */; };
 		CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */; };
@@ -79,6 +81,7 @@
 		CE44799626306C9B009A836B /* Data+Base45.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base45.swift"; sourceTree = "<group>"; };
 		CE8912E426321AA500CB92AF /* KID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KID.swift; sourceTree = "<group>"; };
 		CE8912E926321DAA00CB92AF /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
+		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; };
 		CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuDgcSchema.swift; sourceTree = "<group>"; };
 		CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDismissedDelegate.swift; sourceTree = "<group>"; };
 		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
 				CE157F87262E24DE00FE4821 /* SwiftyJSON in Frameworks */,
 				CE44798D26304D8F009A836B /* JSONSchema in Frameworks */,
 				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
@@ -159,6 +163,7 @@
 				CE1BDF98262A4CD600766F97 /* X509.swift */,
 				CE8912E426321AA500CB92AF /* KID.swift */,
 				CE8912E926321DAA00CB92AF /* SHA256.swift */,
+				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 				CE157F86262E24DE00FE4821 /* SwiftyJSON */,
 				CE44798C26304D8F009A836B /* JSONSchema */,
+				CE8912FA2634C6B900CB92AF /* Alamofire */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -376,6 +382,7 @@
 				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				CE44798B26304D8F009A836B /* XCRemoteSwiftPackageReference "JSONSchema" */,
+				CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -429,6 +436,7 @@
 				CE8912EA26321DAA00CB92AF /* SHA256.swift in Sources */,
 				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
 				CE44799226306C86009A836B /* String.swift in Sources */,
+				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				CE44799726306C9B009A836B /* Data+Base45.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
@@ -817,6 +825,14 @@
 				minimumVersion = 0.4.3;
 			};
 		};
+		CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -839,6 +855,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */;
 			productName = SwiftCBOR;
+		};
+		CE8912FA2634C6B900CB92AF /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

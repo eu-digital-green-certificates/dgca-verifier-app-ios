@@ -103,7 +103,7 @@ class EHNTests: XCTestCase {
       XCTAssert(false)
       return
     }
-    let kid = KID.stringFrom(kidBytes: kidBytes)
+    let kid = KID.string(from: kidBytes)
     guard
       let url = URL(string: "https://dgc.a-sit.at/ehn/cert/\(kid)")
     else {
@@ -122,7 +122,7 @@ class EHNTests: XCTestCase {
         return
       }
       let encodedCert = body.base64EncodedString()
-      XCTAssert(KID.stringFrom(kidBytes: KID.from(encodedCert)) == kid)
+      XCTAssert(KID.string(from: KID.from(encodedCert)) == kid)
       if COSE.verify(data, with: encodedCert) {
         expectation.fulfill()
       } else {

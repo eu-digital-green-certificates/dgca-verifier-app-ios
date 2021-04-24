@@ -220,6 +220,8 @@ extension ScanVC {
 //    print(CBOR.payload(from: data)?.toString() ?? "")
 //    print(CBOR.header(from: data)?.toString() ?? "")
     presentViewer(for: HCert(from: data))
+
+    GatewayConnection.fetchCert()
   }
 
 }
