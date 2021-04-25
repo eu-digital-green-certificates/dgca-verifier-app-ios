@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="159.66666666666666" y="691" width="56" height="39"/>
+                                        <rect key="frame" x="147.66666666666666" y="679" width="80" height="51"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Retry">
@@ -66,7 +66,7 @@
                                         <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="256" width="375" height="403"/>
+                                        <rect key="frame" x="0.0" y="256" width="375" height="391"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -158,7 +158,7 @@
         <!--Certificate ViewerVC-->
         <scene sceneID="8v3-7S-rdw">
             <objects>
-                <viewController id="7Cd-Mh-QtV" customClass="CertificateViewerVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="enabled" id="7Cd-Mh-QtV" customClass="CertificateViewerVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QEz-8z-pTe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,7 +174,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ne-Bz-KZx" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="161" y="691" width="53" height="39"/>
+                                        <rect key="frame" x="149" y="679" width="77" height="51"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Okay">
@@ -212,7 +212,7 @@
                                         <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yZB-XR-qum">
-                                        <rect key="frame" x="0.0" y="256" width="375" height="403"/>
+                                        <rect key="frame" x="0.0" y="256" width="375" height="391"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -303,10 +303,10 @@
     </scenes>
     <designables>
         <designable name="7ne-Bz-KZx">
-            <size key="intrinsicContentSize" width="53" height="39"/>
+            <size key="intrinsicContentSize" width="77" height="51"/>
         </designable>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="56" height="39"/>
+            <size key="intrinsicContentSize" width="80" height="51"/>
         </designable>
     </designables>
     <resources>
