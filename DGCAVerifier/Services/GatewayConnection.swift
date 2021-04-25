@@ -40,9 +40,9 @@ struct GatewayConnection {
         case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8),
-        let pubKey = X509.pubKey(from: responseStr),
         let headers = $0.response?.headers,
-        let responseKid = headers["x-kid"]
+        let responseKid = headers["x-kid"],
+        let newResumeToken = headers["x-resume-token"]
       else {
         return
       }
@@ -51,7 +51,8 @@ struct GatewayConnection {
       if kidStr != responseKid {
         return
       }
-      print(pubKey)
+      LocalData.add(encodedPublicKey: responseStr)
+      LocalData.set(resumeToken: newResumeToken)
     }
   }
 }

@@ -19,27 +19,29 @@
  * ---license-end
  */
 //  
-//  Home.swift
-//  PatientScannerDemo
+//  LocalData.swift
+//  DGCAVerifier
 //  
 //  Created by Yannick Spreen on 4/25/21.
 //  
         
 
 import Foundation
-import UIKit
 
-class HomeVC: UIViewController {
-  override func viewDidLoad() {
-    super.viewDidLoad()
+struct LocalData: Codable {
+  static var sharedInstance = LocalData()
 
-    SecureStorage.load { [weak self] success in
-      guard success else {
-        return
-      }
-      DispatchQueue.main.async {
-        self?.performSegue(withIdentifier: "scanner", sender: self)
-      }
-    }
+  var encodedPublicKeys = [String: String]()
+  var resumeToken: String?
+
+  static func add(encodedPublicKey: String) {
+    let kid = KID.from(encodedPublicKey)
+    let kidStr = KID.string(from: kid)
+
+    sharedInstance.encodedPublicKeys[kidStr] = encodedPublicKey
+  }
+
+  static func set(resumeToken: String) {
+    sharedInstance.resumeToken = resumeToken
   }
 }
