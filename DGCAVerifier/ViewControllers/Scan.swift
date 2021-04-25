@@ -47,8 +47,9 @@ class ScanVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    checkPermissions()
-//    setupCameraLiveView()
+    checkPermissions()
+    setupCameraLiveView()
+    return;
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
       self.observationHandler(payloadS: nil)
 //      let reason = "Log in to your account"

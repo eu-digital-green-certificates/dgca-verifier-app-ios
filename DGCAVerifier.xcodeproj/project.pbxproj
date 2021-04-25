@@ -27,6 +27,8 @@
 		CE8912EA26321DAA00CB92AF /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912E926321DAA00CB92AF /* SHA256.swift */; };
 		CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912F42634C60E00CB92AF /* GatewayConnection.swift */; };
 		CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE8912FA2634C6B900CB92AF /* Alamofire */; };
+		CE891300263570CF00CB92AF /* Enclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912FF263570CF00CB92AF /* Enclave.swift */; };
+		CE891305263581D900CB92AF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* Home.swift */; };
 		CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */; };
 		CEA15563262F6DAB0024B7AC /* ChildDismissedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */; };
 		CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */; };
@@ -82,6 +84,8 @@
 		CE8912E426321AA500CB92AF /* KID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KID.swift; sourceTree = "<group>"; };
 		CE8912E926321DAA00CB92AF /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
 		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; };
+		CE8912FF263570CF00CB92AF /* Enclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enclave.swift; sourceTree = "<group>"; };
+		CE891304263581D900CB92AF /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		CEA1555C262F63B30024B7AC /* EuDgcSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuDgcSchema.swift; sourceTree = "<group>"; };
 		CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDismissedDelegate.swift; sourceTree = "<group>"; };
 		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				CE8912E426321AA500CB92AF /* KID.swift */,
 				CE8912E926321DAA00CB92AF /* SHA256.swift */,
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
+				CE8912FF263570CF00CB92AF /* Enclave.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			children = (
 				CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */,
 				CEA6D6EF261F8D2700715333 /* Scan.swift */,
+				CE891304263581D900CB92AF /* Home.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */,
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
+				CE891300263570CF00CB92AF /* Enclave.swift in Sources */,
 				CE8912EA26321DAA00CB92AF /* SHA256.swift in Sources */,
 				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
 				CE44799226306C86009A836B /* String.swift in Sources */,
@@ -449,6 +456,7 @@
 				CEFAD86D2625F164009AFEF9 /* Signature.swift in Sources */,
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
+				CE891305263581D900CB92AF /* Home.swift in Sources */,
 				CEA15563262F6DAB0024B7AC /* ChildDismissedDelegate.swift in Sources */,
 				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
 				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
