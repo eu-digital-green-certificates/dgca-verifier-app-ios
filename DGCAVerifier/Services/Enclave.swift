@@ -29,7 +29,8 @@
 import Foundation
 
 struct Enclave {
-  static let algorithm = SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+  static let encryptAlg = SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+  static let signAlg = SecKeyAlgorithm.ecdsaSignatureMessageX962SHA512
   static let symmetricKey = generateOrLoadKey(with: "symmetricKey")
 
   static func tag(for name: String) -> Data {
@@ -105,21 +106,19 @@ struct Enclave {
     guard let publicKey = SecKeyCopyPublicKey(key) else {
       return (nil, "Cannot retrieve public key.")
     }
-    guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
+    guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, encryptAlg) else {
       return (nil, "Algorithm not supported.")
     }
     var error: Unmanaged<CFError>?
     let cipherData = SecKeyCreateEncryptedData(
       publicKey,
-      algorithm,
+      encryptAlg,
       data as CFData,
       &error
     ) as Data?
-    guard cipherData != nil else {
-      return (nil, error?.takeRetainedValue().localizedDescription)
-    }
+    let err = error?.takeRetainedValue().localizedDescription
     error?.release()
-    return (cipherData, nil)
+    return (cipherData, err)
   }
 
   static func decrypt(data: Data, with key: SecKey, completion: @escaping (Data?, String?) -> Void) {
@@ -130,20 +129,61 @@ struct Enclave {
   }
 
   static func syncDecrypt(data: Data, with key: SecKey) -> (Data?, String?) {
-    guard SecKeyIsAlgorithmSupported(key, .decrypt, algorithm) else {
+    guard SecKeyIsAlgorithmSupported(key, .decrypt, encryptAlg) else {
       return (nil, "Algorithm not supported.")
     }
     var error: Unmanaged<CFError>?
     let clearData = SecKeyCreateDecryptedData(
       key,
-      algorithm,
+      encryptAlg,
       data as CFData,
       &error
     ) as Data?
-    guard clearData != nil else {
-      return (nil, error?.takeRetainedValue().localizedDescription)
-    }
+    let err = error?.takeRetainedValue().localizedDescription
     error?.release()
-    return (clearData, nil)
+    return (clearData, err)
+  }
+
+  static func verify(data: Data, signature: Data, with key: SecKey) -> (Bool, String?) {
+    guard let publicKey = SecKeyCopyPublicKey(key) else {
+      return (false, "Cannot retrieve public key.")
+    }
+    guard SecKeyIsAlgorithmSupported(publicKey, .verify, signAlg) else {
+      return (false, "Algorithm not supported.")
+    }
+    var error: Unmanaged<CFError>?
+    let isValid = SecKeyVerifySignature(
+      publicKey,
+      signAlg,
+      data as CFData,
+      signature as CFData,
+      &error
+    )
+    let err = error?.takeRetainedValue().localizedDescription
+    error?.release()
+    return (isValid, err)
+  }
+
+  static func sign(data: Data, with key: SecKey, completion: @escaping (Data?, String?) -> Void) {
+    DispatchQueue.global(qos: .userInitiated).async {
+      let (result, error) = syncSign(data: data, with: key)
+      completion(result, error)
+    }
+  }
+
+  static func syncSign(data: Data, with key: SecKey) -> (Data?, String?) {
+    guard SecKeyIsAlgorithmSupported(key, .sign, signAlg) else {
+      return (nil, "Algorithm not supported.")
+    }
+    var error: Unmanaged<CFError>?
+    let signature = SecKeyCreateSignature(
+      key,
+      signAlg,
+      data as CFData,
+      &error
+    ) as Data?
+    let err = error?.takeRetainedValue().localizedDescription
+    error?.release()
+    return (signature, err)
   }
 }

@@ -28,26 +28,32 @@
 
 import Foundation
 
+struct SecureDB: Codable {
+  let data: Data
+  let signature: Data
+}
+
 struct SecureStorage {
   static let documents: URL! = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
   static let path: URL! = URL(string: documents.absoluteString + "secure.db")
 
-  public static func load(completion: @escaping (Bool) -> Void) {
+  public static func load(completion: ((Bool) -> Void)? = nil) {
     if !FileManager.default.fileExists(atPath: path.path) {
       save()
       if FileManager.default.fileExists(atPath: path.path) {
         load(completion: completion)
       } else {
-        completion(false)
+        completion?(false)
       }
       return
     }
 
     guard
-      let data = read(),
-      let key = Enclave.symmetricKey
+      let (data, signature) = read(),
+      let key = Enclave.symmetricKey,
+      Enclave.verify(data: data, signature: signature, with: key).0
     else {
-      completion(false)
+      completion?(false)
       return
     }
     Enclave.decrypt(data: data, with: key) { decrypted, err in
@@ -56,40 +62,52 @@ struct SecureStorage {
         err == nil,
         let data = try? JSONDecoder().decode(LocalData.self, from: decrypted)
       else {
-        completion(false)
+        completion?(false)
         return
       }
       LocalData.sharedInstance = data
-      completion(true)
+      completion?(true)
     }
   }
 
-  public static func save() {
+  public static func save(completion: ((Bool) -> Void)? = nil) {
     guard
       let data = try? JSONEncoder().encode(LocalData.sharedInstance),
       let key = Enclave.symmetricKey,
       let encrypted = Enclave.encrypt(data: data, with: key).0
     else {
+      completion?(false)
       return
     }
-    print("write", write(data: encrypted))
+    Enclave.sign(data: data, with: key) { signature, err in
+      guard
+        let signature = signature,
+        err == nil
+      else {
+        completion?(false)
+        return
+      }
+      completion?(write(data: encrypted, signature: signature))
+    }
   }
 
-  static func write(data: Data) -> Bool {
-    do {
-      try data.write(to: path)
-    } catch {
+  static func write(data: Data, signature: Data) -> Bool {
+    guard
+      let rawData = try? JSONEncoder().encode(SecureDB(data: data, signature: signature)),
+      let _ = try? rawData.write(to: path)
+    else {
       return false
     }
     return true
   }
 
-  static func read() -> Data? {
-    do {
-      let savedData = try Data(contentsOf: path)
-      return savedData
-    } catch {
+  static func read() -> (Data, Data)? {
+    guard
+      let rawData = try? Data(contentsOf: path),
+      let result = try? JSONDecoder().decode(SecureDB.self, from: rawData)
+    else {
       return nil
     }
+    return (result.data, result.signature)
   }
 }
