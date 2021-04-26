@@ -39,7 +39,7 @@ let buttonText = [
   HCertValidity.invalid: "Retry",
 ]
 let backgroundColor = [
-  HCertValidity.valid: UIColor(red: 0, green: 0.32708, blue: 0.08872, alpha: 1),
+  HCertValidity.valid: UIColor(red: 0.08126, green: 0.19497, blue: 0.07434, alpha: 1),
   HCertValidity.invalid: UIColor(red: 0.36290, green: 0, blue: 0, alpha: 1),
 ]
 let textColor = [

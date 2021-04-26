@@ -19,7 +19,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sd1-4U-jsd">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="812"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="150" id="od5-ib-Ukc"/>
                                 </constraints>
@@ -165,7 +165,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVj-cd-LLW">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="812"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="150" id="X3Y-ek-Sk0"/>
                                 </constraints>
@@ -275,7 +275,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2S7-FB-tUG"/>
-                        <color key="backgroundColor" red="0.0" green="0.32707966550000001" blue="0.088716190390000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.081256533510752751" green="0.19497380959577462" blue="0.074342156889608199" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="mVj-cd-LLW" firstAttribute="top" secondItem="QEz-8z-pTe" secondAttribute="top" id="1Xv-In-jyj"/>
                             <constraint firstAttribute="topMargin" secondItem="QXS-Ot-xzX" secondAttribute="top" id="227-ff-tfJ"/>

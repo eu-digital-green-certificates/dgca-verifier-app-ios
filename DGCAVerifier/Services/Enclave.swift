@@ -45,22 +45,24 @@ struct Enclave {
         SecAccessControlCreateWithFlags(
           kCFAllocatorDefault,
           kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-          [.privateKeyUsage, .biometryCurrentSet],
+          [.privateKeyUsage], // , .biometryCurrentSet],
           &error
         )
     else {
       return (nil, error?.takeRetainedValue().localizedDescription)
     }
-    let attributes: [String: Any] = [
+    var attributes: [String: Any] = [
       kSecAttrKeyType as String:          kSecAttrKeyTypeEC,
       kSecAttrKeySizeInBits as String:    256,
-      kSecAttrTokenID as String:          kSecAttrTokenIDSecureEnclave,
       kSecPrivateKeyAttrs as String: [
         kSecAttrIsPermanent as String:    true,
         kSecAttrApplicationTag as String: tag,
         kSecAttrAccessControl as String:  access
       ]
     ]
+    #if !targetEnvironment(simulator)
+    attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+    #endif
     guard
       let privateKey = SecKeyCreateRandomKey(
         attributes as CFDictionary,
