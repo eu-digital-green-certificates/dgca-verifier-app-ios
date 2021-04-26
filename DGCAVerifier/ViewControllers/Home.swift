@@ -33,10 +33,11 @@ class HomeVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    SecureStorage.loadOverride { [weak self] success in
-      guard success else {
+    LocalData.storage.loadOverride(fallback: LocalData.sharedInstance) { [weak self] success in
+      guard let result = success else {
         return
       }
+      LocalData.sharedInstance = result
       DispatchQueue.main.async {
         self?.performSegue(withIdentifier: "scanner", sender: self)
       }

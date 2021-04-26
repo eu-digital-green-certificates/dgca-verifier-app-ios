@@ -44,4 +44,6 @@ struct LocalData: Codable {
   static func set(resumeToken: String) {
     sharedInstance.resumeToken = resumeToken
   }
+
+  static let storage = SecureStorage<LocalData>()
 }
