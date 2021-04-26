@@ -47,63 +47,21 @@ class ScanVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    checkPermissions()
-//    setupCameraLiveView()
-//    return;
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-      self.observationHandler(payloadS: nil)
-//      let reason = "Log in to your account"
-//      var context = LAContext()
-//      context.localizedCancelTitle = "Enter Username/Password"
-//      context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
-//
-//          if success {
-//
-//              // Move to the main thread because a state update triggers UI changes.
-//              DispatchQueue.main.async { [unowned self] in
-//                  print("loggedin")
-//              }
-//
-//          } else {
-//              print(error?.localizedDescription ?? "Failed to authenticate")
-//
-//              // Fall back to a asking for username and password.
-//              // ...
-//          }
-//      }
-    }
+    checkPermissions()
+    setupCameraLiveView()
   }
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     captureSession.stopRunning()
   }
 
-//  let curve: EllipticCurve = .prime256v1
-  let name: String = "ECDSA"
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    captureSession.startRunning()
+  }
+
   var presentingViewer: CertificateViewerVC?
-
-  // Send the base64URLencoded signature and `header.claims` to BlueECC for verification.
-//  func verifySignature(key: Data, signature: Data, for data: Data) -> Bool {
-//    do {
-//      guard let keyString = String(data: key, encoding: .utf8) else {
-//        return false
-//      }
-//      let r = signature.subdata(in: 0 ..< signature.count/2)
-//      let s = signature.subdata(in: signature.count/2 ..< signature.count)
-//      let signature = try ECSignature(r: r, s: s)
-//      let publicKey = try ECPublicKey(key: keyString)
-//      guard publicKey.curve == curve else {
-//        return false
-//      }
-//      return signature.verify(plaintext: data, using: publicKey)
-//    }
-//    catch {
-//      print("Verification failed: \(error)")
-//      return false
-//    }
-//
-//  }
-
   func presentViewer(for certificate: HCert?) {
     guard
       presentingViewer == nil,
@@ -170,8 +128,6 @@ extension ScanVC {
     captureSession.addOutput(captureOutput)
 
     configurePreviewLayer()
-
-    captureSession.startRunning()
   }
 
   func processClassification(_ request: VNRequest) {
@@ -196,7 +152,6 @@ extension ScanVC {
   }
 
   func observationHandler(payloadS: String?) {
-    let payloadS: String? = payloadS ?? "HC1:NCFD:MFY7AP2.532EE3*45+G W84$2J85AUFA3QHN7SXNF$S-4THFSJFIMSKD3799U/LN71G32S0L43XHEIB*983A8RMF1/MMMIS6AQC0QNGU+I.AKYQKBPL%YA-ZVT28J3D+WNNL6SEV%GH$$3NRHO%L8BVLJBL:3F0AKIH3.1U2VS0WZLD75Q52EAENQ-HAYIXTGFH9%ZKA6Q$8A4J67E585MUDPCGCSY3SA7YPCPXCVDL-S0Z.CM6M7%H5POR-ACBI7MT3ZARJ7%S29G596OFMRF-65T6O*M.BJ3DI0W3%:ITBAF 9B1D3SQ$A5LOCTQQZ 40IPR:R3 PUXUN01XD8SJ62MRN$BV502.0HLGS/NXXJ AS.X5QZ2SGTEKLKHB4T8F%S664E02MH2F A.BH9+R7N6N5N.USZXL7DO2AIV2P0XU2.OPI6 C395EPMMGDAD4G-S1DC8ZVJT:3CR3-P8ZVGV8A$DD+*0/MH5+MPDO:L9IJ6MU278C924V:09%1MUQTR2FBL5 6CLODPT304L3GK6OT-7 97U*IO7J:1MB1EU0E.G3C/4P7FXRF-04F9O-9VREIPOSWTFU2W%2F4-B$CSSVNWKAHWJA4NCEU$KLU$GQ6OJ-97UN"
     guard
       var payloadString = payloadS
     else {
@@ -216,13 +171,7 @@ extension ScanVC {
     }
 
     let data = decompress(compressed)
-//    let payload = CBOR.payload(from: data)
-//    presentViewer(for: payload)
-//    print(CBOR.payload(from: data)?.toString() ?? "")
-//    print(CBOR.header(from: data)?.toString() ?? "")
     presentViewer(for: HCert(from: data))
-
-    GatewayConnection.fetchCert()
   }
 
 }
