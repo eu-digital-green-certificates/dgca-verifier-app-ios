@@ -72,7 +72,6 @@ struct Enclave {
     else {
       return (nil, error?.takeRetainedValue().localizedDescription)
     }
-    error?.release()
     return (privateKey, nil)
   }
 
@@ -117,7 +116,6 @@ struct Enclave {
       &error
     ) as Data?
     let err = error?.takeRetainedValue().localizedDescription
-    error?.release()
     return (cipherData, err)
   }
 
@@ -140,7 +138,6 @@ struct Enclave {
       &error
     ) as Data?
     let err = error?.takeRetainedValue().localizedDescription
-    error?.release()
     return (clearData, err)
   }
 
@@ -160,7 +157,6 @@ struct Enclave {
       &error
     )
     let err = error?.takeRetainedValue().localizedDescription
-    error?.release()
     return (isValid, err)
   }
 
@@ -183,7 +179,6 @@ struct Enclave {
       &error
     ) as Data?
     let err = error?.takeRetainedValue().localizedDescription
-    error?.release()
     return (signature, err)
   }
 }

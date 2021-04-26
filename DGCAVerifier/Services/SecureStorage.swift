@@ -37,6 +37,21 @@ struct SecureStorage {
   static let documents: URL! = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
   static let path: URL! = URL(string: documents.absoluteString + "secure.db")
 
+  /**
+   Loads encrypted db and overrides it with an empty one if that fails.
+   */
+  public static func loadOverride(completion: ((Bool) -> Void)? = nil) {
+    load { success in
+      if success {
+        completion?(true)
+        return
+      }
+      save { _ in
+        load(completion: completion)
+      }
+    }
+  }
+
   public static func load(completion: ((Bool) -> Void)? = nil) {
     if !FileManager.default.fileExists(atPath: path.path) {
       save()
@@ -79,7 +94,7 @@ struct SecureStorage {
       completion?(false)
       return
     }
-    Enclave.sign(data: data, with: key) { signature, err in
+    Enclave.sign(data: encrypted, with: key) { signature, err in
       guard
         let signature = signature,
         err == nil

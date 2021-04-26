@@ -33,7 +33,7 @@ class HomeVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    SecureStorage.load { [weak self] success in
+    SecureStorage.loadOverride { [weak self] success in
       guard success else {
         return
       }
