@@ -30,5 +30,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
 
+  @available(iOS 13.0, *)
+  func sceneWillResignActive(_ scene: UIScene) {
+    SecureBackground.enable()
+  }
+
+  @available(iOS 13.0, *)
+  func sceneDidBecomeActive(_ scene: UIScene) {
+    SecureBackground.disable()
+  }
+
 }
 

@@ -18,6 +18,7 @@
 		CE157F9B262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */; };
 		CE1BDF99262A4CD600766F97 /* X509.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BDF98262A4CD600766F97 /* X509.swift */; };
 		CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
+		CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37B642263867D700DEE13D /* SecureBackground.swift */; };
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
 		CE44798D26304D8F009A836B /* JSONSchema in Frameworks */ = {isa = PBXBuildFile; productRef = CE44798C26304D8F009A836B /* JSONSchema */; };
@@ -80,6 +81,7 @@
 		CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftCBOR.CBOR.swift; sourceTree = "<group>"; };
 		CE1BDF98262A4CD600766F97 /* X509.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509.swift; sourceTree = "<group>"; };
 		CE1D1EF5263597A2004C8919 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
+		CE37B642263867D700DEE13D /* SecureBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBackground.swift; sourceTree = "<group>"; };
 		CE3CC93B2628A7820079FB78 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
 		CE44799126306C86009A836B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				CE1BDF98262A4CD600766F97 /* X509.swift */,
 				CE8912E426321AA500CB92AF /* KID.swift */,
 				CE8912E926321DAA00CB92AF /* SHA256.swift */,
+				CE37B642263867D700DEE13D /* SecureBackground.swift */,
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE8912FF263570CF00CB92AF /* Enclave.swift */,
 				CE582DC02635AE5F008F35D7 /* SecureStorage.swift */,
@@ -449,6 +452,7 @@
 				CE8912EA26321DAA00CB92AF /* SHA256.swift in Sources */,
 				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
 				CE44799226306C86009A836B /* String.swift in Sources */,
+				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				CE582DC12635AE5F008F35D7 /* SecureStorage.swift in Sources */,
 				CE44799726306C9B009A836B /* Data+Base45.swift in Sources */,

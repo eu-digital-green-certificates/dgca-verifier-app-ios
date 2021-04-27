@@ -34,5 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 
+  func applicationWillResignActive(_ application: UIApplication) {
+    SecureBackground.enable()
+  }
+
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    SecureBackground.disable()
+  }
+
 }
 

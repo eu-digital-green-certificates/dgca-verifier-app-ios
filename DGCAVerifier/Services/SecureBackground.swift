@@ -19,32 +19,34 @@
  * ---license-end
  */
 //  
-//  Home.swift
-//  PatientScannerDemo
+//  SecureBackground.swift
+//  DGCAVerifier
 //  
-//  Created by Yannick Spreen on 4/25/21.
+//  Created by Yannick Spreen on 4/27/21.
 //  
         
 
 import Foundation
 import UIKit
 
-class HomeVC: UIViewController {
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+struct SecureBackground {
+  static var imageView: UIImageView?
+  public static var image: UIImage?
 
-    GatewayConnection.timer?.invalidate()
-    LocalData.initialize {
-      DispatchQueue.main.async { [weak self] in
-        guard let self = self else {
-          return
-        }
-        let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
-        SecureBackground.image = renderer.image { rendererContext in
-          self.view.layer.render(in: rendererContext.cgContext)
-        }
-        self.performSegue(withIdentifier: "scanner", sender: self)
-      }
+  public static func enable() {
+    disable()
+    guard let image = image else {
+      return
+    }
+    let imageView = UIImageView(image: image)
+    UIApplication.shared.windows[0].addSubview(imageView)
+    Self.imageView = imageView
+  }
+
+  public static func disable() {
+    if imageView != nil {
+      imageView?.removeFromSuperview()
+      imageView = nil
     }
   }
 }
