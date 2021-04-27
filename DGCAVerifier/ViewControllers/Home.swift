@@ -34,13 +34,8 @@ class HomeVC: UIViewController {
     super.viewDidAppear(animated)
 
     GatewayConnection.timer?.invalidate()
-    LocalData.storage.loadOverride(fallback: LocalData.sharedInstance) { [weak self] success in
-      guard let result = success else {
-        return
-      }
-//      print("loaded:", result)
-      LocalData.sharedInstance = result
-      DispatchQueue.main.async {
+    LocalData.initialize {
+      DispatchQueue.main.async { [weak self] in
         self?.performSegue(withIdentifier: "scanner", sender: self)
       }
     }
