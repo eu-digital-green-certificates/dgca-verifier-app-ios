@@ -30,13 +30,15 @@ import Foundation
 import UIKit
 
 class HomeVC: UIViewController {
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
 
+    GatewayConnection.timer?.invalidate()
     LocalData.storage.loadOverride(fallback: LocalData.sharedInstance) { [weak self] success in
       guard let result = success else {
         return
       }
+//      print("loaded:", result)
       LocalData.sharedInstance = result
       DispatchQueue.main.async {
         self?.performSegue(withIdentifier: "scanner", sender: self)

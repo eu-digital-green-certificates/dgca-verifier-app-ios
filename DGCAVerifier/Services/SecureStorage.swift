@@ -75,6 +75,7 @@ struct SecureStorage<T: Codable> {
         completion?(nil)
         return
       }
+//      print(path, "read:", String(data: decrypted, encoding: .utf8)!)
       completion?(data)
     }
   }
@@ -88,6 +89,7 @@ struct SecureStorage<T: Codable> {
       completion?(false)
       return
     }
+//    print(path, "write:", String(data: data, encoding: .utf8)!)
     Enclave.sign(data: encrypted, with: key) { signature, err in
       guard
         let signature = signature,
@@ -96,7 +98,8 @@ struct SecureStorage<T: Codable> {
         completion?(false)
         return
       }
-      completion?(write(data: encrypted, signature: signature))
+      let success = write(data: encrypted, signature: signature)
+      completion?(success)
     }
   }
 
@@ -112,11 +115,14 @@ struct SecureStorage<T: Codable> {
 
   func read() -> (Data, Data)? {
     guard
-      let rawData = try? Data(contentsOf: path),
+      let rawData = try? Data(contentsOf: path, options: [.uncached]),
       let result = try? JSONDecoder().decode(SecureDB.self, from: rawData)
     else {
       return nil
     }
+//    print("read")
+//    print(String(data: rawData, encoding: .utf8)!)
+//    print(result)
     return (result.data, result.signature)
   }
 }

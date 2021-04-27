@@ -33,16 +33,29 @@ struct LocalData: Codable {
 
   var encodedPublicKeys = [String: String]()
   var resumeToken: String?
+  var lastFetch_: Date?
+  var lastFetch: Date {
+    get {
+      lastFetch_ ?? .init(timeIntervalSince1970: 0)
+    }
+    set(v) {
+      lastFetch_ = v
+    }
+  }
 
-  static func add(encodedPublicKey: String) {
+  mutating func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
     let kidStr = KID.string(from: kid)
 
-    sharedInstance.encodedPublicKeys[kidStr] = encodedPublicKey
+    encodedPublicKeys[kidStr] = encodedPublicKey
   }
 
   static func set(resumeToken: String) {
     sharedInstance.resumeToken = resumeToken
+  }
+
+  public func save() {
+    Self.storage.save(self)
   }
 
   static let storage = SecureStorage<LocalData>()
