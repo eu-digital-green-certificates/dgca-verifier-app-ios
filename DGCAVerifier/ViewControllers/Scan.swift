@@ -47,62 +47,27 @@ class ScanVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    checkPermissions()
-//    setupCameraLiveView()
+    #if targetEnvironment(simulator)
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-      self.observationHandler(payloadS: nil)
-//      let reason = "Log in to your account"
-//      var context = LAContext()
-//      context.localizedCancelTitle = "Enter Username/Password"
-//      context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
-//
-//          if success {
-//
-//              // Move to the main thread because a state update triggers UI changes.
-//              DispatchQueue.main.async { [unowned self] in
-//                  print("loggedin")
-//              }
-//
-//          } else {
-//              print(error?.localizedDescription ?? "Failed to authenticate")
-//
-//              // Fall back to a asking for username and password.
-//              // ...
-//          }
-//      }
+      self.observationHandler(payloadS: "HC1:NCFOXNYTS3DH$YO:CQSU40 H 804 2FI15B3LR5OGILG9N:5-RII9DL-VAD65D6 NI4EFFZSE+S.SSH2HGUS XKVD9HB58QHVM6IQ17XH0S9S-JX%EI$HGL24EGYJ2SKISE02UQHPMYO9MN9JUHLKH.O93UQFJ6GL28LHXOAYJAPRAAUICO10W59UE1YHU-H4PIUF2VSJGV4J4LV/AYVG2$436D$X40YC2ATNS4Y6TKR2*G5C%CO8TJV4423 L0VV2 73-E3ND3DAJ-432$4U1JS.S./0LWTKD33236J3TA3E-4%:K7-SN2H N37J3JFTULJ5CBP:2C 2+*4HTC/2DBAJDAJCNB-43GV4MCTKD08DJHSI PISVDGZK4EC8.SX1LC8C8DJOMI$MI-N09*0245$UH8QIBD2GMJCKH9AO2R7./HBR6$LE KMDGKRFRSGHQED10H% 0R%0D 8YIPFHL:OTEGJUY25$0P/HX$4T0H//CI+CF/8-0LO1PX$4D4TVZ0D-4VZ0S1LZ0L:M623Q$B65VCNAIO38ZIIT-ROGV86O*$2/6PSQHV-P TN3H38EU2VME.3F$MM3WYC3A1N%IFBZV3P6$A9X81M:L-5TTPNFIVD6KL/O63UX0O7V9BYEB:IB BUAA9JM:ATN.AR81Y4GP21CPVY6P:KPG:LNLL%70/6MRVMT0LV0E7*EVLS2UIU6V2M3%26%Q3J*H:5L-28SXRWUH$LCQ/S3QTY5NG.8C5MN$V4-BXJMF5RG3U6-1RDVRWNY$3/ZB3MOQDWC*08M0AV5*/0QX4B-EF0MGH5X1FYHRGX8:+RY/EI%BQ95TC5*DW/ESR4S0:1ZF59*5GK1-OH4Z6-6FUOTN*H$38IPR4GT1$OE07B*SWKN*HF83N MO.CFOW3R%GB28Z$UOH7DROI9BW/CXPS0.PS USQE:LAVZP320%R902")
     }
+    #else
+    checkPermissions()
+    setupCameraLiveView()
+    #endif
   }
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     captureSession.stopRunning()
   }
 
-//  let curve: EllipticCurve = .prime256v1
-  let name: String = "ECDSA"
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    captureSession.startRunning()
+  }
+
   var presentingViewer: CertificateViewerVC?
-
-  // Send the base64URLencoded signature and `header.claims` to BlueECC for verification.
-//  func verifySignature(key: Data, signature: Data, for data: Data) -> Bool {
-//    do {
-//      guard let keyString = String(data: key, encoding: .utf8) else {
-//        return false
-//      }
-//      let r = signature.subdata(in: 0 ..< signature.count/2)
-//      let s = signature.subdata(in: signature.count/2 ..< signature.count)
-//      let signature = try ECSignature(r: r, s: s)
-//      let publicKey = try ECPublicKey(key: keyString)
-//      guard publicKey.curve == curve else {
-//        return false
-//      }
-//      return signature.verify(plaintext: data, using: publicKey)
-//    }
-//    catch {
-//      print("Verification failed: \(error)")
-//      return false
-//    }
-//
-//  }
-
   func presentViewer(for certificate: HCert?) {
     guard
       presentingViewer == nil,
@@ -169,8 +134,6 @@ extension ScanVC {
     captureSession.addOutput(captureOutput)
 
     configurePreviewLayer()
-
-    captureSession.startRunning()
   }
 
   func processClassification(_ request: VNRequest) {
@@ -195,7 +158,6 @@ extension ScanVC {
   }
 
   func observationHandler(payloadS: String?) {
-    let payloadS: String? = payloadS ?? "HC1:NCFD:MFY7AP2.532EE3*45+G W84$2J85AUFA3QHN7SXNF$S-4THFSJFIMSKD3799U/LN71G32S0L43XHEIB*983A8RMF1/MMMIS6AQC0QNGU+I.AKYQKBPL%YA-ZVT28J3D+WNNL6SEV%GH$$3NRHO%L8BVLJBL:3F0AKIH3.1U2VS0WZLD75Q52EAENQ-HAYIXTGFH9%ZKA6Q$8A4J67E585MUDPCGCSY3SA7YPCPXCVDL-S0Z.CM6M7%H5POR-ACBI7MT3ZARJ7%S29G596OFMRF-65T6O*M.BJ3DI0W3%:ITBAF 9B1D3SQ$A5LOCTQQZ 40IPR:R3 PUXUN01XD8SJ62MRN$BV502.0HLGS/NXXJ AS.X5QZ2SGTEKLKHB4T8F%S664E02MH2F A.BH9+R7N6N5N.USZXL7DO2AIV2P0XU2.OPI6 C395EPMMGDAD4G-S1DC8ZVJT:3CR3-P8ZVGV8A$DD+*0/MH5+MPDO:L9IJ6MU278C924V:09%1MUQTR2FBL5 6CLODPT304L3GK6OT-7 97U*IO7J:1MB1EU0E.G3C/4P7FXRF-04F9O-9VREIPOSWTFU2W%2F4-B$CSSVNWKAHWJA4NCEU$KLU$GQ6OJ-97UN"
     guard
       var payloadString = payloadS
     else {
@@ -215,10 +177,6 @@ extension ScanVC {
     }
 
     let data = decompress(compressed)
-//    let payload = CBOR.payload(from: data)
-//    presentViewer(for: payload)
-//    print(CBOR.payload(from: data)?.toString() ?? "")
-//    print(CBOR.header(from: data)?.toString() ?? "")
     presentViewer(for: HCert(from: data))
   }
 

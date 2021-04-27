@@ -18,28 +18,29 @@
  * limitations under the License.
  * ---license-end
  */
-//
-//  KID.swift
-//  DGCAVerifier
-//
-//  Created by Yannick Spreen on 4/22/21.
-//
+//  
+//  Home.swift
+//  PatientScannerDemo
+//  
+//  Created by Yannick Spreen on 4/25/21.
+//  
         
 
 import Foundation
+import UIKit
 
-typealias KidBytes = [UInt8]
+class HomeVC: UIViewController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-struct KID {
-  public static func string(from kidBytes: KidBytes) -> String {
-    return Data(kidBytes.prefix(8)).base64EncodedString()
-  }
-  public static func from(_ encodedCert: String) -> KidBytes {
-    guard
-      let data = Data(base64Encoded: encodedCert)
-    else {
-      return []
+    LocalData.storage.loadOverride(fallback: LocalData.sharedInstance) { [weak self] success in
+      guard let result = success else {
+        return
+      }
+      LocalData.sharedInstance = result
+      DispatchQueue.main.async {
+        self?.performSegue(withIdentifier: "scanner", sender: self)
+      }
     }
-    return .init(SHA256.digest(input: data as NSData).uint.prefix(8))
   }
 }

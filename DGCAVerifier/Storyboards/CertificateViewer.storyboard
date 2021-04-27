@@ -19,7 +19,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sd1-4U-jsd">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="812"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="150" id="od5-ib-Ukc"/>
                                 </constraints>
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="159.66666666666666" y="691" width="56" height="39"/>
+                                        <rect key="frame" x="147.66666666666666" y="679" width="80" height="51"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Retry">
@@ -50,13 +50,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjI-L7-yat">
-                                        <rect key="frame" x="16" y="154.66666666666666" width="343" height="38.333333333333343"/>
+                                        <rect key="frame" x="16" y="162.66666666666666" width="343" height="38.333333333333343"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                         <color key="textColor" red="1" green="0.14315580985915488" blue="0.14315580985915488" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9hO-yQ-B4J">
-                                        <rect key="frame" x="16" y="209" width="343" height="32"/>
+                                        <rect key="frame" x="16" y="217" width="343" height="32"/>
                                         <segments>
                                             <segment title="Test"/>
                                             <segment title="Vac#1"/>
@@ -66,25 +66,25 @@
                                         <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="256" width="375" height="403"/>
+                                        <rect key="frame" x="0.0" y="264" width="375" height="383"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoCell" rowHeight="96" id="C3K-o8-BC5" customClass="InfoCell" customModule="DGCAVerifier" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="96"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoCell" rowHeight="147" id="C3K-o8-BC5" customClass="InfoCell" customModule="DGCAVerifier" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="147"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="C3K-o8-BC5" id="Xhy-8E-hY4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" text="DE4382974329" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbw-zt-5Bq">
-                                                            <rect key="frame" x="16" y="49.666666666666657" width="343" height="38.333333333333343"/>
+                                                            <rect key="frame" x="16" y="100.66666666666667" width="343" height="38.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="998" text="Identification Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YP-3x-Q7c">
-                                                            <rect key="frame" x="16" y="8" width="343" height="37.666666666666664"/>
+                                                            <rect key="frame" x="16" y="16" width="343" height="80.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -92,7 +92,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="dbw-zt-5Bq" secondAttribute="bottom" constant="8" id="6RB-eC-VdG"/>
-                                                        <constraint firstItem="1YP-3x-Q7c" firstAttribute="top" secondItem="Xhy-8E-hY4" secondAttribute="top" constant="8" id="Gqz-1L-Yoj"/>
+                                                        <constraint firstItem="1YP-3x-Q7c" firstAttribute="top" secondItem="Xhy-8E-hY4" secondAttribute="top" constant="16" id="Gqz-1L-Yoj"/>
                                                         <constraint firstItem="dbw-zt-5Bq" firstAttribute="leading" secondItem="Xhy-8E-hY4" secondAttribute="leading" constant="16" id="HXP-rX-faJ"/>
                                                         <constraint firstItem="dbw-zt-5Bq" firstAttribute="top" secondItem="1YP-3x-Q7c" secondAttribute="bottom" constant="4" id="Uwv-ga-rrc"/>
                                                         <constraint firstAttribute="trailing" secondItem="1YP-3x-Q7c" secondAttribute="trailing" constant="16" id="WR1-qN-UTj"/>
@@ -121,7 +121,7 @@
                                     <constraint firstItem="DVW-2y-e4I" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="iQB-29-cRZ"/>
                                     <constraint firstItem="a9u-Ia-KEX" firstAttribute="centerX" secondItem="yEe-AH-rsr" secondAttribute="centerX" id="j6y-x9-na3"/>
                                     <constraint firstItem="NjI-L7-yat" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="jha-Fk-syh"/>
-                                    <constraint firstItem="NjI-L7-yat" firstAttribute="top" secondItem="DVW-2y-e4I" secondAttribute="bottom" constant="8" id="lP1-ux-6At"/>
+                                    <constraint firstItem="NjI-L7-yat" firstAttribute="top" secondItem="DVW-2y-e4I" secondAttribute="bottom" constant="16" id="lP1-ux-6At"/>
                                     <constraint firstItem="9hO-yQ-B4J" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="mYn-Jw-TYN"/>
                                     <constraint firstAttribute="trailing" secondItem="NjI-L7-yat" secondAttribute="trailing" constant="16" id="ox4-at-JzV"/>
                                     <constraint firstItem="a9u-Ia-KEX" firstAttribute="top" secondItem="NIJ-V3-NpL" secondAttribute="bottom" constant="32" id="wZx-rx-Vmt"/>
@@ -158,14 +158,14 @@
         <!--Certificate ViewerVC-->
         <scene sceneID="8v3-7S-rdw">
             <objects>
-                <viewController id="7Cd-Mh-QtV" customClass="CertificateViewerVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="enabled" id="7Cd-Mh-QtV" customClass="CertificateViewerVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QEz-8z-pTe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVj-cd-LLW">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="812"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="150" id="X3Y-ek-Sk0"/>
                                 </constraints>
@@ -174,7 +174,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ne-Bz-KZx" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="161" y="691" width="53" height="39"/>
+                                        <rect key="frame" x="149" y="679" width="77" height="51"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Okay">
@@ -212,7 +212,7 @@
                                         <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yZB-XR-qum">
-                                        <rect key="frame" x="0.0" y="256" width="375" height="403"/>
+                                        <rect key="frame" x="0.0" y="256" width="375" height="391"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -275,7 +275,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2S7-FB-tUG"/>
-                        <color key="backgroundColor" red="0.0" green="0.32707966550000001" blue="0.088716190390000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.081256533510752751" green="0.19497380959577462" blue="0.074342156889608199" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="mVj-cd-LLW" firstAttribute="top" secondItem="QEz-8z-pTe" secondAttribute="top" id="1Xv-In-jyj"/>
                             <constraint firstAttribute="topMargin" secondItem="QXS-Ot-xzX" secondAttribute="top" id="227-ff-tfJ"/>
@@ -303,10 +303,10 @@
     </scenes>
     <designables>
         <designable name="7ne-Bz-KZx">
-            <size key="intrinsicContentSize" width="53" height="39"/>
+            <size key="intrinsicContentSize" width="77" height="51"/>
         </designable>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="56" height="39"/>
+            <size key="intrinsicContentSize" width="80" height="51"/>
         </designable>
     </designables>
     <resources>
