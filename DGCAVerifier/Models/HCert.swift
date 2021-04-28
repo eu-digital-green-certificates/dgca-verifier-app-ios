@@ -168,7 +168,9 @@ struct HCert {
       info += [
         InfoSection(
           header: "Standardised Family Name",
-          content: last.replacingOccurrences(of: "<", with: String.zeroWidthSpace + "<"),
+          content: last.replacingOccurrences(
+            of: "<",
+            with: String.zeroWidthSpace + "<" + String.zeroWidthSpace),
           style: .fixedWidthFont
         ),
       ]
@@ -177,7 +179,9 @@ struct HCert {
       info += [
         InfoSection(
           header: "Standardised Given Name",
-          content: first.replacingOccurrences(of: "<", with: String.zeroWidthSpace + "<"),
+          content: first.replacingOccurrences(
+            of: "<",
+            with: String.zeroWidthSpace + "<" + String.zeroWidthSpace),
           style: .fixedWidthFont
         ),
       ]
