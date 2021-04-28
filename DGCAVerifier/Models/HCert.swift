@@ -36,15 +36,13 @@ enum ClaimKey: String {
 enum AttributeKey: String {
   case firstName
   case lastName
+  case firstNameStandardized
+  case lastNameStandardized
   case gender
   case dateOfBirth
   case testStatements
   case vaccineStatements
   case recoveryStatements
-  case personIdentifiers
-  case identifierType = "t"
-  case identifierCountry = "c"
-  case identifierValue = "i"
   case vaccineShotNo = "seq"
   case vaccineShotTotal = "tot"
 }
@@ -69,19 +67,26 @@ let identifierNames: [String: String] = [
 ]
 
 let attributeKeys: [AttributeKey: [String]] = [
-  .firstName: ["sub", "gn"],
-  .lastName: ["sub", "fn"],
-  .gender: ["sub", "gen"],
-  .dateOfBirth: ["sub", "dob"],
-  .personIdentifiers: ["sub", "id"],
-  .testStatements: ["tst"],
-  .vaccineStatements: ["vac"],
-  .recoveryStatements: ["rec"],
+  .firstName: ["nam", "gn"],
+  .lastName: ["nam", "fn"],
+  .firstNameStandardized: ["nam", "gnt"],
+  .lastNameStandardized: ["nam", "fnt"],
+  .gender: ["nam", "gen"],
+  .dateOfBirth: ["dob"],
+  .testStatements: ["t"],
+  .vaccineStatements: ["v"],
+  .recoveryStatements: ["r"],
 ]
+
+enum InfoSectionStyle {
+  case normal
+  case fixedWidthFont
+}
 
 struct InfoSection {
   var header: String
   var content: String
+  var style = InfoSectionStyle.normal
 }
 
 struct HCert {
@@ -156,11 +161,35 @@ struct HCert {
 
   var info: [InfoSection] {
     var info = [
-      InfoSection(header: "Certificate Type", content: type.rawValue),
+      InfoSection(
+        header: "Certificate Type",
+        content: type.rawValue
+      ),
     ] + personIdentifiers
     if let date = dateOfBirth {
       info += [
-        InfoSection(header: "Date of Birth", content: date.localDateString),
+        InfoSection(
+          header: "Date of Birth",
+          content: date.localDateString
+        ),
+      ]
+    }
+    if let last = get(.lastNameStandardized).string {
+      info += [
+        InfoSection(
+          header: "Standardised Family Name",
+          content: last.replacingOccurrences(of: "<", with: String.zeroWidthSpace + "<"),
+          style: .fixedWidthFont
+        ),
+      ]
+    }
+    if let first = get(.firstNameStandardized).string {
+      info += [
+        InfoSection(
+          header: "Standardised Given Name",
+          content: first.replacingOccurrences(of: "<", with: String.zeroWidthSpace + "<"),
+          style: .fixedWidthFont
+        ),
       ]
     }
     return info
@@ -185,21 +214,8 @@ struct HCert {
   }
 
   var personIdentifiers: [InfoSection] {
-    guard let identifiers = get(.personIdentifiers).array else {
-      return []
-    }
-    return identifiers.map {
-      let type = $0[AttributeKey.identifierType.rawValue].string ?? ""
-      let country = $0[AttributeKey.identifierCountry.rawValue].string
-      let value = $0[AttributeKey.identifierValue.rawValue].string ?? ""
-
-      var header = identifierNames[type] ?? "Unknown Identifier"
-      if let country = country {
-        header += " (\(country))"
-      }
-
-      return InfoSection(header: header, content: value)
-    }
+    /// Note from author: Identifiers were previously planned, but got removed *for now*.
+    []
   }
 
   var testStatements: [JSON] {

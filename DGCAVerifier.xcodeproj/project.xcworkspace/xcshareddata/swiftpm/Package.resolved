@@ -21,10 +21,10 @@
       },
       {
         "package": "JSONSchema",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
+        "repositoryURL": "https://github.com/jnewc/JSONSchema.swift",
         "state": {
           "branch": "master",
-          "revision": "adb480fe1c1e285c131bff465f641aebc986d736",
+          "revision": "4637ac1cf57745c29003738f36e1b6c232fbd1a6",
           "version": null
         }
       },

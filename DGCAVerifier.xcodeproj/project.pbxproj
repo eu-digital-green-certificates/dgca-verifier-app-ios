@@ -18,10 +18,10 @@
 		CE157F9B262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */; };
 		CE1BDF99262A4CD600766F97 /* X509.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BDF98262A4CD600766F97 /* X509.swift */; };
 		CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
+		CE37B638263756BF00DEE13D /* JSONSchema in Frameworks */ = {isa = PBXBuildFile; productRef = CE37B637263756BF00DEE13D /* JSONSchema */; };
 		CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37B642263867D700DEE13D /* SecureBackground.swift */; };
 		CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC93B2628A7820079FB78 /* ASN1.swift */; };
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
-		CE44798D26304D8F009A836B /* JSONSchema in Frameworks */ = {isa = PBXBuildFile; productRef = CE44798C26304D8F009A836B /* JSONSchema */; };
 		CE44799226306C86009A836B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799126306C86009A836B /* String.swift */; };
 		CE44799726306C9B009A836B /* Data+Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799626306C9B009A836B /* Data+Base45.swift */; };
 		CE582DC12635AE5F008F35D7 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE582DC02635AE5F008F35D7 /* SecureStorage.swift */; };
@@ -47,6 +47,7 @@
 		CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4BF2625ED030056E406 /* ZLib.swift */; };
 		CEC2C4C32625ED030056E406 /* JWK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C02625ED030056E406 /* JWK.swift */; };
 		CEC2C4C42625ED030056E406 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C12625ED030056E406 /* Base45.swift */; };
+		CED2726026398683003D47A9 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		CEFAD86D2625F164009AFEF9 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD86C2625F164009AFEF9 /* Signature.swift */; };
 		CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD8712625F29E009AFEF9 /* String+JSON.swift */; };
 		CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87926271414009AFEF9 /* COSE.swift */; };
@@ -113,6 +114,7 @@
 		CEC2C4BF2625ED030056E406 /* ZLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLib.swift; sourceTree = "<group>"; };
 		CEC2C4C02625ED030056E406 /* JWK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWK.swift; sourceTree = "<group>"; };
 		CEC2C4C12625ED030056E406 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
+		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEFAD86C2625F164009AFEF9 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
 		CEFAD8712625F29E009AFEF9 /* String+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
 		CEFAD87926271414009AFEF9 /* COSE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COSE.swift; sourceTree = "<group>"; };
@@ -126,8 +128,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
+				CE37B638263756BF00DEE13D /* JSONSchema in Frameworks */,
 				CE157F87262E24DE00FE4821 /* SwiftyJSON in Frameworks */,
-				CE44798D26304D8F009A836B /* JSONSchema in Frameworks */,
 				CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */,
 				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 			);
@@ -190,6 +192,7 @@
 				CE157F9A262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift */,
 				CE44799126306C86009A836B /* String.swift */,
 				CE44799626306C9B009A836B /* Data+Base45.swift */,
+				CED2725F26398683003D47A9 /* UIFont.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -318,8 +321,8 @@
 				CE7DE7F92625EF18007E6694 /* SwiftCBOR */,
 				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 				CE157F86262E24DE00FE4821 /* SwiftyJSON */,
-				CE44798C26304D8F009A836B /* JSONSchema */,
 				CE8912FA2634C6B900CB92AF /* Alamofire */,
+				CE37B637263756BF00DEE13D /* JSONSchema */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -396,8 +399,8 @@
 				CE7DE7F82625EF18007E6694 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				CE44798B26304D8F009A836B /* XCRemoteSwiftPackageReference "JSONSchema" */,
 				CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */,
+				CE37B636263756BF00DEE13D /* XCRemoteSwiftPackageReference "JSONSchema" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -461,6 +464,7 @@
 				CE157F81262E1F7A00FE4821 /* Date.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
 				CE1BDF99262A4CD600766F97 /* X509.swift in Sources */,
+				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				CEA1555D262F63B30024B7AC /* EuDgcSchema.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
 				CE3CC93C2628A7820079FB78 /* ASN1.swift in Sources */,
@@ -829,9 +833,9 @@
 				minimumVersion = 5.0.1;
 			};
 		};
-		CE44798B26304D8F009A836B /* XCRemoteSwiftPackageReference "JSONSchema" */ = {
+		CE37B636263756BF00DEE13D /* XCRemoteSwiftPackageReference "JSONSchema" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eu-digital-green-certificates/JSONSchema.swift";
+			repositoryURL = "https://github.com/jnewc/JSONSchema.swift";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -866,9 +870,9 @@
 			package = CE157F85262E24DE00FE4821 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
 		};
-		CE44798C26304D8F009A836B /* JSONSchema */ = {
+		CE37B637263756BF00DEE13D /* JSONSchema */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CE44798B26304D8F009A836B /* XCRemoteSwiftPackageReference "JSONSchema" */;
+			package = CE37B636263756BF00DEE13D /* XCRemoteSwiftPackageReference "JSONSchema" */;
 			productName = JSONSchema;
 		};
 		CE7DE7F92625EF18007E6694 /* SwiftCBOR */ = {

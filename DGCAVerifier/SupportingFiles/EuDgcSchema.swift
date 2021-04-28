@@ -23,301 +23,339 @@
 //
 //  Created by Yannick Spreen on 4/20/21.
 //
+//  https://raw.githubusercontent.com/ehn-digital-green-development/ehn-dgc-schema/main/DGC.combined-schema.json
+//
 
 import Foundation
 
 let EU_DGC_SCHEMA_V1 = """
 {
-    "$schema": "http://json-schema.org/draft/2020-12/schema#",
-    "$id": "https://github.com/ehn-digital-green-development/hcert-schema/eu_dgc_v1",
-    "title": "Digital Green Certificate",
-    "description": "Proof of vaccination, test results or recovery according to EU eHN, version 1.0, including certificate metadata; According to 1) REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on a framework for the issuance, verification and acceptance of interoperable certificates on vaccination, testing and recovery to facilitate free movement during the COVID-19 pandemic (Digital Green Certificate) - https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52021PC0130 2) Document \\"Value Sets for the digital green certificate as stated in the Annex ...\\", abbr. \\"VS-2021-04-14\\" - https://webgate.ec.europa.eu/fpfis/wikis/x/05PuKg 3) Guidelines on verifiable vaccination certificates - basic interoperability elements - Release 2 - 2021-03-12, abbr. \\"guidelines\\"",
-    "type": "object",
-    "required": [
-        "v",
-        "dgcid",
-        "sub"
-    ],
-    "properties": {
-        "v": {
-            "title": "Schema version",
-            "description": "Version of the schema, according to Semantic versioning (ISO, https://semver.org/ version 2.0.0 or newer) (viz. guidelines)",
-            "type": "string",
-            "example": "1.0.0"
-        },
-        "dgcid": {
-            "title": "Identifier",
-            "description": "Unique identifier of the DGC (initially called UVCI (V for vaccination), later renamed to DGCI), format and composizion viz. guidelines",
-            "type": "string",
-            "example": "01AT42196560275230427402470256520250042"
-        },
-        "sub": {
-            "description": "Subject",
-            "type": "object",
-            "required": [
-                "gn",
-                "dob"
-            ],
-            "properties": {
-                "gn": {
-                    "title": "Given name",
-                    "description": "The given name(s) of the person addressed in the certificate",
-                    "type": "string",
-                    "example": "T\\u00f6lvan"
-                },
-                "fn": {
-                    "title": "Family name",
-                    "description": "The family name(s) of the person addressed in the certificate",
-                    "type": "string",
-                    "example": "T\\u00f6lvansson"
-                },
-                "gnt": {
-                    "title": "Given name (transliterated)",
-                    "description": "The given name(s) of the person addressed in the certificate transliterated into the OCR-B Characters from ISO 1073-2 according to the ICAO Doc 9303 part 3.",
-                    "type": "string",
-                    "example": "Toelvan"
-                },
-                "fnt": {
-                    "title": "Family name (transliterated)",
-                    "description": "The family name(s) of the person addressed in the certificate transliterated into the OCR-B Characters from ISO 1073-2 according to the ICAO Doc 9303 part 3.",
-                    "type": "string",
-                    "example": "Toelvansson"
-                },
-                "id": {
-                    "title": "Person identifiers",
-                    "description": "Identifiers of the vaccinated person, according to the policies applicable in each country",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "t",
-                            "c",
-                            "i"
-                        ],
-                        "properties": {
-                            "t": {
-                                "title": "Identifier type",
-                                "description": "The type of identifier (viz. VS-2021-04-08) PP = Passport Number NN = National Person Identifier (country specified in the 'c' parameter) CZ = Citizenship Card Number HC = Health Card Number",
-                                "type": "string",
-                                "enum": [
-                                    "PP",
-                                    "NN",
-                                    "CZ",
-                                    "HC"
-                                ],
-                                "example": "NN"
-                            },
-                            "c": {
-                                "title": "Country",
-                                "description": "Issuing country (ISO 3166-1 alpha-2 country code) of identifier",
-                                "type": "string",
-                                "example": "SE"
-                            },
-                            "i": {
-                                "title": "Identifier number or string",
-                                "type": "string",
-                                "example": "121212-1212"
-                            }
-                        }
-                    }
-                },
-                "dob": {
-                    "title": "Date of birth",
-                    "description": "The date of birth of the person addressed in the certificate",
-                    "type": "string",
-                    "format": "date",
-                    "example": "2012-12-12"
-                }
-            }
-        },
-        "vac": {
-            "description": "Vaccination/prophylaxis information",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "required": [
-                    "dis",
-                    "vap",
-                    "mep",
-                    "aut",
-                    "seq",
-                    "tot",
-                    "dat",
-                    "cou"
-                ],
-                "properties": {
-                    "dis": {
-                        "title": "Disease",
-                        "description": "Disease or agent targeted (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "840539006"
-                    },
-                    "vap": {
-                        "title": "Vaccine/prophylaxis",
-                        "description": "Generic description of the vaccine/prophylaxis or its component(s), (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "1119305005"
-                    },
-                    "mep": {
-                        "title": "Vaccine medicinal product",
-                        "description": "Code of the medicinal product (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "EU/1/20/1528"
-                    },
-                    "aut": {
-                        "title": "Vaccine marketing authorization holder or Vaccine manufacturer",
-                        "description": "Code as defined in EMA SPOR - Organisations Management System (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "ORG-100030215"
-                    },
-                    "seq": {
-                        "title": "Dose sequence number",
-                        "description": "Number of dose administered in a cycle  (viz. VS-2021-04-14)",
-                        "type": "integer",
-                        "minimum": 0,
-                        "example": 1
-                    },
-                    "tot": {
-                        "title": "Total number of doses",
-                        "description": "Number of expected doses for a complete cycle (specific for a person at the time of administration) (viz. VS-2021-04-14)",
-                        "type": "integer",
-                        "minimum": 0,
-                        "example": 2
-                    },
-                    "dat": {
-                        "title": "Date of vaccination",
-                        "description": "The date of the vaccination event",
-                        "type": "string",
-                        "format": "date",
-                        "example": "2021-02-20"
-                    },
-                    "cou": {
-                        "title": "Country",
-                        "description": "Country (member state) of vaccination (ISO 3166-1 alpha-2 Country Code) (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "SE"
-                    },
-                    "lot": {
-                        "title": "Batch/lot number",
-                        "description": "A distinctive combination of numbers and/or letters which specifically identifies a batch, optional",
-                        "type": "string"
-                    },
-                    "adm": {
-                        "title": "Administering centre",
-                        "description": "Name/code of administering centre or a health authority responsible for the vaccination event, optional",
-                        "type": "string",
-                        "example": "Region Halland"
-                    }
-                }
-            }
-        },
-        "tst": {
-            "description": "Test result statement",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "required": [
-                    "dis",
-                    "typ",
-                    "dts",
-                    "dtr",
-                    "res",
-                    "fac",
-                    "cou"
-                ],
-                "properties": {
-                    "dis": {
-                        "title": "Disease",
-                        "description": "Disease or agent targeted (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "840539006"
-                    },
-                    "typ": {
-                        "title": "Type of test",
-                        "description": "Code of the type of test that was conducted",
-                        "type": "string",
-                        "example": "LP6464-4"
-                    },
-                    "tma": {
-                        "title": "Manufacturer and test name",
-                        "description": "Manufacturer and commercial name of the test used (optional for NAAT test) (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "tbd"
-                    },
-                    "ori": {
-                        "title": "Sample origin",
-                        "description": "Origin of sample that was taken (e.g. nasopharyngeal swab, oropharyngeal swab etc.) (viz. VS-2021-04-14) optional",
-                        "type": "string",
-                        "example": "258500001"
-                    },
-                    "dts": {
-                        "title": "Date and time sample",
-                        "description": "Date and time when the sample for the test was collected (seconds since epoch)",
-                        "type": "integer",
-                        "minimum": 0,
-                        "example": 441759600
-                    },
-                    "dtr": {
-                        "title": "Date and time test result",
-                        "description": "Date and time when the test result was produced (seconds since epoch)",
-                        "type": "integer",
-                        "minimum": 0,
-                        "example": 441759600
-                    },
-                    "res": {
-                        "title": "Result of test",
-                        "description": "Result of the test according to SNOMED CT (viz. VS-2021-04-14)",
-                        "type": "string",
-                        "example": "1240591000000104"
-                    },
-                    "fac": {
-                        "title": "Testing centre or facility",
-                        "description": "Name/code of testing centre, facility or a health authority responsible for the testing event.",
-                        "type": "string",
-                        "example": "tbd"
-                    },
-                    "cou": {
-                        "title": "Country",
-                        "description": "Country (member state) of test (ISO 3166-1 alpha-2 Country Code)",
-                        "type": "string",
-                        "example": "SE"
-                    }
-                }
-            }
-        },
-        "rec": {
-            "description": "Recovery statement",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "required": [
-                    "dis",
-                    "dat",
-                    "cou"
-                ],
-                "properties": {
-                    "dis": {
-                        "title": "Disease",
-                        "description": "Disease or agent the citizen has recovered from",
-                        "type": "string",
-                        "example": "840539006"
-                    },
-                    "dat": {
-                        "title": "Date of first positive test result",
-                        "description": "The date when the sample for the test was collected that led to a positive test result",
-                        "type": "string",
-                        "format": "date",
-                        "example": "2021-02-20"
-                    },
-                    "cou": {
-                        "title": "Country of test",
-                        "description": "Country (member state) in which the first positive test was performed (ISO 3166-1 alpha-2 Country Code)",
-                        "type": "string",
-                        "example": "SE"
-                    }
-                }
-            }
-        }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://id.uvci.eu/DGC.combined-schema.json",
+  "title": "EU DGC",
+  "description": "EU Digital Green Certificate",
+  "required": [
+    "ver",
+    "nam",
+    "dob"
+  ],
+  "type": "object",
+  "properties": {
+    "ver": {
+      "title": "Schema version",
+      "description": "Version of the schema, according to Semantic versioning (ISO, https://semver.org/ version 2.0.0 or newer)",
+      "type": "string",
+      "pattern": "^\\\\d+.\\\\d+.\\\\d+$",
+      "examples": [
+        "1.0.0"
+      ]
+    },
+    "nam": {
+      "description": "Surname(s), given name(s) - in that order",
+      "$ref": "#/$defs/person_name"
+    },
+    "dob": {
+      "title": "Date of birth",
+      "description": "Date of Birth of the person addressed in the DGC. ISO 8601 date format restricted to range 1900-2099",
+      "type": "string",
+      "format": "date",
+      "pattern": "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])",
+      "examples": [
+        "1979-04-14"
+      ]
+    },
+    "v": {
+      "description": "Vaccination Group",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/vaccination_entry"
+      },
+      "minItems": 1
+    },
+    "t": {
+      "description": "Test Group",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/test_entry"
+      },
+      "minItems": 1
+    },
+    "r": {
+      "description": "Recovery Group",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recovery_entry"
+      },
+      "minItems": 1
     }
+  },
+  "$defs": {
+    "dose_posint": {
+      "description": "Dose Number / Total doses in Series: positive integer, range: [1,9]",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9
+    },
+    "country_vt": {
+      "description": "Country of Vaccination / Test, ISO 3166 where possible",
+      "type": "string",
+      "pattern": "[A-Z]{1,10}"
+    },
+    "issuer": {
+      "description": "Certificate Issuer",
+      "type": "string",
+      "maxLength": 50
+    },
+    "person_name": {
+      "description": "Person name: Surname(s), given name(s) - in that order",
+      "required": [
+        "fnt"
+      ],
+      "type": "object",
+      "properties": {
+        "fn": {
+          "title": "Family name",
+          "description": "The family or primary name(s) of the person addressed in the certificate",
+          "type": "string",
+          "maxLength": 50,
+          "examples": [
+            "d'Červenková Panklová"
+          ]
+        },
+        "fnt": {
+          "title": "Standardised family name",
+          "description": "The family name(s) of the person transliterated",
+          "type": "string",
+          "pattern": "^[A-Z<]*$",
+          "maxLength": 50,
+          "examples": [
+            "DCERVENKOVA<PANKLOVA"
+          ]
+        },
+        "gn": {
+          "title": "Given name",
+          "description": "The given name(s) of the person addressed in the certificate",
+          "type": "string",
+          "maxLength": 50,
+          "examples": [
+            "Jiřina-Maria Alena"
+          ]
+        },
+        "gnt": {
+          "title": "Standardised given name",
+          "description": "The given name(s) of the person transliterated",
+          "type": "string",
+          "pattern": "^[A-Z<]*$",
+          "maxLength": 50,
+          "$comment": "SematicSG: ICAO transliterated has max length of?",
+          "examples": [
+            "JIRINA<MARIA<ALENA"
+          ]
+        }
+      }
+    },
+    "certificate_id": {
+      "description": "Certificate Identifier, UVCI",
+      "type": "string",
+      "maxLength": 50
+    },
+    "vaccination_entry": {
+      "description": "Vaccination Entry",
+      "required": [
+        "tg",
+        "vp",
+        "mp",
+        "ma",
+        "dn",
+        "sd",
+        "dt",
+        "co",
+        "is",
+        "ci"
+      ],
+      "type": "object",
+      "properties": {
+        "tg": {
+          "description": "disease or agent targeted",
+          "$ref": "#/$defs/disease-agent-targeted"
+        },
+        "vp": {
+          "description": "vaccine or prophylaxis",
+          "$ref": "#/$defs/vaccine-prophylaxis"
+        },
+        "mp": {
+          "description": "vaccine medicinal product",
+          "$ref": "#/$defs/vaccine-medicinal-product"
+        },
+        "ma": {
+          "description": "Marketing Authorization Holder - if no MAH present, then manufacturer",
+          "$ref": "#/$defs/vaccine-mah-manf"
+        },
+        "dn": {
+          "description": "Dose Number",
+          "$ref": "#/$defs/dose_posint"
+        },
+        "sd": {
+          "description": "Total Series of Doses",
+          "$ref": "#/$defs/dose_posint"
+        },
+        "dt": {
+          "description": "Date of Vaccination",
+          "type": "string",
+          "format": "date",
+          "$comment": "SemanticSG: constrain to specific date range?"
+        },
+        "co": {
+          "description": "Country of Vaccination",
+          "$ref": "#/$defs/country_vt"
+        },
+        "is": {
+          "description": "Certificate Issuer",
+          "$ref": "#/$defs/issuer"
+        },
+        "ci": {
+          "description": "Unique Certificate Identifier: UVCI",
+          "$ref": "#/$defs/certificate_id"
+        }
+      }
+    },
+    "test_entry": {
+      "description": "Test Entry",
+      "required": [
+        "tg",
+        "tt",
+        "sc",
+        "tr",
+        "tc",
+        "co",
+        "is",
+        "ci"
+      ],
+      "type": "object",
+      "properties": {
+        "tg": {
+          "$ref": "#/$defs/disease-agent-targeted"
+        },
+        "tt": {
+          "description": "Type of Test",
+          "type": "string"
+        },
+        "nm": {
+          "description": "NAA Test Name",
+          "type": "string"
+        },
+        "ma": {
+          "description": "RAT Test name and manufacturer",
+          "$ref": "#/$defs/test-manf"
+        },
+        "sc": {
+          "description": "Date/Time of Sample Collection",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dr": {
+          "description": "Date/Time of Test Result",
+          "type": "string",
+          "format": "date-time"
+        },
+        "tr": {
+          "description": "Test Result",
+          "$ref": "#/$defs/test-result"
+        },
+        "tc": {
+          "description": "Testing Centre",
+          "type": "string",
+          "maxLength": 50
+        },
+        "co": {
+          "description": "Country of Test",
+          "$ref": "#/$defs/country_vt"
+        },
+        "is": {
+          "description": "Certificate Issuer",
+          "$ref": "#/$defs/issuer"
+        },
+        "ci": {
+          "description": "Unique Certificate Identifier, UVCI",
+          "$ref": "#/$defs/certificate_id"
+        }
+      }
+    },
+    "recovery_entry": {
+      "description": "Recovery Entry",
+      "required": [
+        "tg",
+        "fr",
+        "co",
+        "is",
+        "df",
+        "du",
+        "ci"
+      ],
+      "type": "object",
+      "properties": {
+        "tg": {
+          "$ref": "#/$defs/disease-agent-targeted"
+        },
+        "fr": {
+          "description": "ISO 8601 Date of First Positive Test Result",
+          "type": "string",
+          "format": "date"
+        },
+        "co": {
+          "description": "Country of Test",
+          "$ref": "#/$defs/country_vt"
+        },
+        "is": {
+          "description": "Certificate Issuer",
+          "$ref": "#/$defs/issuer"
+        },
+        "df": {
+          "description": "ISO 8601 Date: Certificate Valid From",
+          "type": "string",
+          "format": "date"
+        },
+        "du": {
+          "description": "Certificate Valid Until",
+          "type": "string",
+          "format": "date"
+        },
+        "ci": {
+          "description": "Unique Certificate Identifier, UVCI",
+          "$ref": "#/$defs/certificate_id"
+        }
+      }
+    },
+    "disease-agent-targeted": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.1",
+      "type": "string",
+      "valueset-uri": "valuesets/disease-agent-targeted.json"
+    },
+    "vaccine-prophylaxis": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.2",
+      "type": "string",
+      "valueset-uri": "valuesets/vaccine-prophylaxis.json"
+    },
+    "vaccine-medicinal-product": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.3",
+      "type": "string",
+      "valueset-uri": "valuesets/vaccine-medicinal-product.json"
+    },
+    "vaccine-mah-manf": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.4",
+      "type": "string",
+      "valueset-uri": "valuesets/vaccine-mah-manf.json"
+    },
+    "test-manf": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.8",
+      "type": "string",
+      "valueset-uri": "valuesets/test-manf.json"
+    },
+    "test-result": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.9",
+      "type": "string",
+      "valueset-uri": "valuesets/test-results.json"
+    }
+  }
 }
 """
