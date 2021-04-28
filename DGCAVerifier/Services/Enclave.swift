@@ -93,7 +93,7 @@ struct Enclave {
     return (item as! SecKey)
   }
 
-  static func generateOrLoadKey(with name: String) -> SecKey? {
+  static func loadOrGenerateKey(with name: String) -> SecKey? {
     if let key = loadKey(with: name) {
       return key
     }
