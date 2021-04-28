@@ -24,42 +24,23 @@
 //  
 //  Created by Yannick Spreen on 4/28/21.
 //
-//  https://stackoverflow.com/a/48688917/2585092
+//  https://stackoverflow.com/a/53818276/2585092
 //
 
 import UIKit
 
 
 extension UIFont {
-  var weight: UIFont.Weight {
-    let fontAttributeKey = UIFontDescriptor.AttributeName.init(rawValue: "NSCTFontUIUsageAttribute")
+  public var weight: UIFont.Weight {
+    guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
+    let weightRawValue = CGFloat(weightNumber.doubleValue)
+    let weight = UIFont.Weight(rawValue: weightRawValue)
+    return weight
+  }
 
-    if let fontWeight = self.fontDescriptor.fontAttributes[fontAttributeKey] as? String {
-      switch fontWeight {
-      case "CTFontBoldUsage":
-        return UIFont.Weight.bold
-      case "CTFontBlackUsage":
-        return UIFont.Weight.black
-      case "CTFontHeavyUsage":
-        return UIFont.Weight.heavy
-      case "CTFontUltraLightUsage":
-        return UIFont.Weight.ultraLight
-      case "CTFontThinUsage":
-        return UIFont.Weight.thin
-      case "CTFontLightUsage":
-        return UIFont.Weight.light
-      case "CTFontMediumUsage":
-        return UIFont.Weight.medium
-      case "CTFontDemiUsage":
-        return UIFont.Weight.semibold
-      case "CTFontRegularUsage":
-        return UIFont.Weight.regular
-
-      default:
-        return UIFont.Weight.regular
-      }
-    }
-
-    return UIFont.Weight.regular
+  private var traits: [UIFontDescriptor.TraitKey: Any] {
+    return fontDescriptor.object(
+      forKey: .traits
+    ) as? [UIFontDescriptor.TraitKey: Any] ?? [:]
   }
 }
