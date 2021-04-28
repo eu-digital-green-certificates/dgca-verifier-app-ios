@@ -24,6 +24,7 @@
 		CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CC9432628C2130079FB78 /* CBOR.swift */; };
 		CE44799226306C86009A836B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799126306C86009A836B /* String.swift */; };
 		CE44799726306C9B009A836B /* Data+Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44799626306C9B009A836B /* Data+Base45.swift */; };
+		CE48B7532639E85C009D21A4 /* HCertEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE48B7522639E85C009D21A4 /* HCertEntry.swift */; };
 		CE582DC12635AE5F008F35D7 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE582DC02635AE5F008F35D7 /* SecureStorage.swift */; };
 		CE7DE7FA2625EF18007E6694 /* SwiftCBOR in Frameworks */ = {isa = PBXBuildFile; productRef = CE7DE7F92625EF18007E6694 /* SwiftCBOR */; };
 		CE8912E526321AA500CB92AF /* KID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912E426321AA500CB92AF /* KID.swift */; };
@@ -90,6 +91,7 @@
 		CE3CC9432628C2130079FB78 /* CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBOR.swift; sourceTree = "<group>"; };
 		CE44799126306C86009A836B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		CE44799626306C9B009A836B /* Data+Base45.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base45.swift"; sourceTree = "<group>"; };
+		CE48B7522639E85C009D21A4 /* HCertEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertEntry.swift; sourceTree = "<group>"; };
 		CE582DC02635AE5F008F35D7 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		CE8912E426321AA500CB92AF /* KID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KID.swift; sourceTree = "<group>"; };
 		CE8912E926321DAA00CB92AF /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 		CED272642639A1DF003D47A9 /* VaccinationEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationEntry.swift; sourceTree = "<group>"; };
 		CED2726C2639A403003D47A9 /* TestEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntry.swift; sourceTree = "<group>"; };
 		CED2727A2639A990003D47A9 /* RecoveryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryEntry.swift; sourceTree = "<group>"; };
+		CEDCA7972639E6E700FCB83E /* SwiftDGC */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftDGC; path = "../dgca-app-core-ios"; sourceTree = "<group>"; };
+		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
 		CEFAD86C2625F164009AFEF9 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
 		CEFAD8712625F29E009AFEF9 /* String+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
 		CEFAD87926271414009AFEF9 /* COSE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COSE.swift; sourceTree = "<group>"; };
@@ -227,6 +231,7 @@
 		CE13CF1E262DDE800070C80E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				CEDCA79B2639E77800FCB83E /* Package.resolved */,
 				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
 				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
@@ -252,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				CEA15562262F6DAB0024B7AC /* ChildDismissedDelegate.swift */,
+				CE48B7522639E85C009D21A4 /* HCertEntry.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
+				CEDCA7972639E6E700FCB83E /* SwiftDGC */,
 				CEA6D6EA261F8D2700715333 /* DGCAVerifier */,
 				CEA6D701261F8D2900715333 /* DGCAVerifierTests */,
 				CEA6D70C261F8D2900715333 /* DGCAVerifierUITests */,
@@ -492,6 +499,7 @@
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 				CE8912E526321AA500CB92AF /* KID.swift in Sources */,
 				CE157F9B262E2A9F00FE4821 /* SwiftCBOR.CBOR.swift in Sources */,
+				CE48B7532639E85C009D21A4 /* HCertEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
