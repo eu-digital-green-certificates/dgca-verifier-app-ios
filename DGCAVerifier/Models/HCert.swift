@@ -264,8 +264,3 @@ struct HCert {
     return isValid ? .valid : .invalid
   }
 }
-
-protocol HCertEntry {
-  var info: [InfoSection] { get }
-  var isValid: Bool { get }
-}
