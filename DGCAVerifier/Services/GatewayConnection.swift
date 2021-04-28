@@ -28,6 +28,7 @@
 
 import Foundation
 import Alamofire
+import SwiftDGC
 import SwiftyJSON
 
 struct GatewayConnection {
