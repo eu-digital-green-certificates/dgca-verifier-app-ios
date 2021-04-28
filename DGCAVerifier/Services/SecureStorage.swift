@@ -36,6 +36,7 @@ struct SecureDB: Codable {
 struct SecureStorage<T: Codable> {
   let documents: URL! = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
   var path: URL! { URL(string: documents.absoluteString + "secure.db") }
+  let secureStorageKey = Enclave.loadOrGenerateKey(with: "secureStorageKey")
 
   /**
    Loads encrypted db and overrides it with an empty one if that fails.
@@ -60,7 +61,7 @@ struct SecureStorage<T: Codable> {
 
     guard
       let (data, signature) = read(),
-      let key = Enclave.symmetricKey,
+      let key = secureStorageKey,
       Enclave.verify(data: data, signature: signature, with: key).0
     else {
       completion?(nil)
@@ -82,7 +83,7 @@ struct SecureStorage<T: Codable> {
   public func save(_ instance: T, completion: ((Bool) -> Void)? = nil) {
     guard
       let data = try? JSONEncoder().encode(instance),
-      let key = Enclave.symmetricKey,
+      let key = secureStorageKey,
       let encrypted = Enclave.encrypt(data: data, with: key).0
     else {
       completion?(false)
