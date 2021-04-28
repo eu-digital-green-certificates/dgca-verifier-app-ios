@@ -55,6 +55,7 @@ class ScanVC: UIViewController {
     checkPermissions()
     setupCameraLiveView()
     #endif
+    GatewayConnection.initialize()
   }
 
   override func viewWillDisappear(_ animated: Bool) {

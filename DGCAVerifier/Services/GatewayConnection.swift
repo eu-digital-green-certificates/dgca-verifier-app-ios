@@ -28,14 +28,25 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 struct GatewayConnection {
   static let serverURI = "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/"
   static let updateEndpoint = "signercertificateUpdate"
   static let statusEndpoint = "signercertificateStatus"
 
-  public static func fetchCert(resume resumeToken: String? = nil) {
-    AF.request(serverURI + updateEndpoint).response {
+  public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
+    var headers = [String: String]()
+    if let token = resumeToken {
+      headers["x-resume-token"] = token
+    }
+    AF.request(serverURI + updateEndpoint, method: .get, parameters: nil, encoding: URLEncoding(), headers: .init(headers), interceptor: nil, requestModifier: nil).response {
+      if
+        let status = $0.response?.statusCode,
+        status == 204 {
+        completion?(nil, nil)
+        return
+      }
       guard
         case let .success(result) = $0.result,
         let response = result,
@@ -51,8 +62,67 @@ struct GatewayConnection {
       if kidStr != responseKid {
         return
       }
-      LocalData.add(encodedPublicKey: responseStr)
-      LocalData.set(resumeToken: newResumeToken)
+      completion?(responseStr, newResumeToken)
+    }
+  }
+  public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
+    AF.request(serverURI + statusEndpoint).response {
+      guard
+        case let .success(result) = $0.result,
+        let response = result,
+        let responseStr = String(data: response, encoding: .utf8),
+        let json = JSON(parseJSON: responseStr).array
+      else {
+        return
+      }
+      let kids = json.compactMap { $0.string }
+      completion?(kids)
+    }
+  }
+
+  static var timer: Timer?
+
+  public static func initialize() {
+    timer?.invalidate()
+    timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) {
+      _ in trigger()
+    }
+    timer?.tolerance = 1.0
+    trigger()
+  }
+
+  static func trigger() {
+    guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
+      return
+    }
+    update()
+  }
+
+  static func update() {
+    certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token in
+      LocalData.sharedInstance.lastFetch = Date()
+      guard let encodedCert = encodedCert else {
+        status()
+        return
+      }
+      LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
+      LocalData.sharedInstance.resumeToken = token
+      update()
+    }
+  }
+
+  static func status() {
+    certStatus { validKids in
+      var invalid = [String]()
+      for key in LocalData.sharedInstance.encodedPublicKeys.keys {
+        if !validKids.contains(key) {
+          invalid.append(key)
+        }
+      }
+      for key in invalid {
+        LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
+      }
+      LocalData.sharedInstance.save()
     }
   }
 }

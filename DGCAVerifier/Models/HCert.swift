@@ -114,16 +114,24 @@ struct HCert {
     }
     #endif
     print(header)
-//    print(body)
+    #if DEBUG
+    print(body)
+    #endif
     return true
   }
 
   init?(from cborData: Data) {
-    let headerStr = CBOR.header(from: cborData)?.toString() ?? "{}"
-    let bodyStr = CBOR.payload(from: cborData)?.toString() ?? "{}"
+    rawData = cborData
+    guard
+      let headerStr = CBOR.header(from: cborData)?.toString(),
+      let bodyStr = CBOR.payload(from: cborData)?.toString(),
+      let kid = CBOR.kid(from: cborData)
+    else {
+      return nil
+    }
+    kidStr = KID.string(from: kid)
     header = JSON(parseJSON: headerStr)
     var body = JSON(parseJSON: bodyStr)
-//    print(body)
     if body[ClaimKey.HCERT.rawValue].exists() {
       body = body[ClaimKey.HCERT.rawValue]
     }
@@ -158,6 +166,8 @@ struct HCert {
     return info
   }
 
+  var rawData: Data
+  var kidStr: String
   var header: JSON
   var body: JSON
 
@@ -224,7 +234,7 @@ struct HCert {
     return .test
   }
   var isValid: Bool {
-    return Int.random(in: 0...9) < 5
+    return COSE.verify(rawData, with: LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? "")
   }
   var validity: HCertValidity {
     return isValid ? .valid : .invalid
