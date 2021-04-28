@@ -63,6 +63,28 @@ extension Date {
     }
     self = date
   }
+  init?(rfc3339DateTimeString str: String) {
+    let rfc3339DateTimeFormatter = DateFormatter()
+
+    rfc3339DateTimeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    if let date = rfc3339DateTimeFormatter.date(from: str) {
+      self = date
+      return
+    }
+
+    rfc3339DateTimeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+    if let date = rfc3339DateTimeFormatter.date(from: str) {
+      self = date
+      return
+    }
+
+    rfc3339DateTimeFormatter.dateFormat = "yyyy-MM-dd't'HH:mm:ss.SSS'z'"
+    if let date = rfc3339DateTimeFormatter.date(from: str) {
+      self = date
+      return
+    }
+    return nil
+  }
 
   var localDateString: String {
     let formatter = DateFormatter()
