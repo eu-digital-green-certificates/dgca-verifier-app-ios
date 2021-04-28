@@ -43,8 +43,6 @@ enum AttributeKey: String {
   case testStatements
   case vaccineStatements
   case recoveryStatements
-  case vaccineShotNo = "seq"
-  case vaccineShotTotal = "tot"
 }
 
 enum HCertType: String {
@@ -59,19 +57,11 @@ enum HCertValidity {
   case invalid
 }
 
-let identifierNames: [String: String] = [
-  "PP": "Passport Number",
-  "NN": "National Person Identifier",
-  "CZ": "Citizenship Card Number",
-  "HC": "Health Card Number",
-]
-
 let attributeKeys: [AttributeKey: [String]] = [
   .firstName: ["nam", "gn"],
   .lastName: ["nam", "fn"],
   .firstNameStandardized: ["nam", "gnt"],
   .lastNameStandardized: ["nam", "fnt"],
-  .gender: ["nam", "gen"],
   .dateOfBirth: ["dob"],
   .testStatements: ["t"],
   .vaccineStatements: ["v"],
@@ -192,7 +182,7 @@ struct HCert {
         ),
       ]
     }
-    return info
+    return info + statement.info
   }
 
   var rawData: Data
@@ -218,41 +208,60 @@ struct HCert {
     []
   }
 
-  var testStatements: [JSON] {
-    return get(.testStatements).array ?? []
+  var testStatements: [TestEntry] {
+    return get(.testStatements)
+      .array?
+      .compactMap {
+        TestEntry(body: $0)
+      } ?? []
   }
-  var vaccineStatements: [JSON] {
-    return get(.vaccineStatements).array ?? []
+  var vaccineStatements: [VaccinationEntry] {
+    return get(.vaccineStatements)
+      .array?
+      .compactMap {
+        VaccinationEntry(body: $0)
+      } ?? []
   }
-  var recoveryStatements: [JSON] {
-    return get(.recoveryStatements).array ?? []
+  var recoveryStatements: [RecoveryEntry] {
+    return get(.recoveryStatements)
+      .array?
+      .compactMap {
+        RecoveryEntry(body: $0)
+      } ?? []
   }
-  var hasLastShot: Bool {
-    for statement in vaccineStatements {
-      let no = statement[AttributeKey.vaccineShotNo.rawValue].int ?? 1
-      let total = statement[AttributeKey.vaccineShotTotal.rawValue].int ?? 2
-      if no == total {
-        return true
-      }
-    }
-    return false
+  var statements: [HCertEntry] {
+    testStatements + vaccineStatements + recoveryStatements
+  }
+  var statement: HCertEntry! {
+    statements.last
   }
   var type: HCertType {
-    if hasLastShot {
-      return .vaccineTwo
-    }
-    if !vaccineStatements.isEmpty {
+    if let vaccine = statement as? VaccinationEntry {
+      if vaccine.doseNumber == vaccine.dosesTotal {
+        return .vaccineTwo
+      }
       return .vaccineOne
     }
-    if !recoveryStatements.isEmpty {
+    if statement is RecoveryEntry {
       return .recovery
     }
     return .test
   }
   var isValid: Bool {
-    return COSE.verify(rawData, with: LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? "")
+    cryptographicallyValid && semanticallyValid
+  }
+  var cryptographicallyValid: Bool {
+    COSE.verify(rawData, with: LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? "")
+  }
+  var semanticallyValid: Bool {
+    statement.isValid
   }
   var validity: HCertValidity {
     return isValid ? .valid : .invalid
   }
+}
+
+protocol HCertEntry {
+  var info: [InfoSection] { get }
+  var isValid: Bool { get }
 }

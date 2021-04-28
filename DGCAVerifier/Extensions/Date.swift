@@ -43,12 +43,16 @@ extension Date {
 
   static let isoFormatter = formatter(for: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
   static let dateFormatter = formatter(for: "yyyy-MM-dd")
+  static let dateTimeFormatter = formatter(for: "yyyy-MM-dd HH:mm '(UTC)'")
 
   var isoString: String {
     Date.isoFormatter.string(from: self)
   }
   var dateString: String {
     Date.dateFormatter.string(from: self)
+  }
+  var dateTimeString: String {
+    Date.dateTimeFormatter.string(from: self)
   }
 
   init?(isoString: String) {

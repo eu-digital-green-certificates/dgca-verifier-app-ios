@@ -48,6 +48,9 @@
 		CEC2C4C32625ED030056E406 /* JWK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C02625ED030056E406 /* JWK.swift */; };
 		CEC2C4C42625ED030056E406 /* Base45.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2C4C12625ED030056E406 /* Base45.swift */; };
 		CED2726026398683003D47A9 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
+		CED272652639A1DF003D47A9 /* VaccinationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED272642639A1DF003D47A9 /* VaccinationEntry.swift */; };
+		CED2726D2639A403003D47A9 /* TestEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2726C2639A403003D47A9 /* TestEntry.swift */; };
+		CED2727B2639A990003D47A9 /* RecoveryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2727A2639A990003D47A9 /* RecoveryEntry.swift */; };
 		CEFAD86D2625F164009AFEF9 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD86C2625F164009AFEF9 /* Signature.swift */; };
 		CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD8712625F29E009AFEF9 /* String+JSON.swift */; };
 		CEFAD87A26271414009AFEF9 /* COSE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87926271414009AFEF9 /* COSE.swift */; };
@@ -115,6 +118,9 @@
 		CEC2C4C02625ED030056E406 /* JWK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWK.swift; sourceTree = "<group>"; };
 		CEC2C4C12625ED030056E406 /* Base45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base45.swift; sourceTree = "<group>"; };
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		CED272642639A1DF003D47A9 /* VaccinationEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationEntry.swift; sourceTree = "<group>"; };
+		CED2726C2639A403003D47A9 /* TestEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntry.swift; sourceTree = "<group>"; };
+		CED2727A2639A990003D47A9 /* RecoveryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryEntry.swift; sourceTree = "<group>"; };
 		CEFAD86C2625F164009AFEF9 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
 		CEFAD8712625F29E009AFEF9 /* String+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
 		CEFAD87926271414009AFEF9 /* COSE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COSE.swift; sourceTree = "<group>"; };
@@ -235,6 +241,9 @@
 			children = (
 				CE157F8C262E24F900FE4821 /* HCert.swift */,
 				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
+				CED272642639A1DF003D47A9 /* VaccinationEntry.swift */,
+				CED2726C2639A403003D47A9 /* TestEntry.swift */,
+				CED2727A2639A990003D47A9 /* RecoveryEntry.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -451,10 +460,12 @@
 				CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */,
 				CEC2C4C32625ED030056E406 /* JWK.swift in Sources */,
 				CEC2C4C42625ED030056E406 /* Base45.swift in Sources */,
+				CED272652639A1DF003D47A9 /* VaccinationEntry.swift in Sources */,
 				CE891300263570CF00CB92AF /* Enclave.swift in Sources */,
 				CE8912EA26321DAA00CB92AF /* SHA256.swift in Sources */,
 				CE3CC9442628C2130079FB78 /* CBOR.swift in Sources */,
 				CE44799226306C86009A836B /* String.swift in Sources */,
+				CED2726D2639A403003D47A9 /* TestEntry.swift in Sources */,
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				CE582DC12635AE5F008F35D7 /* SecureStorage.swift in Sources */,
@@ -473,6 +484,7 @@
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
 				CE891305263581D900CB92AF /* Home.swift in Sources */,
+				CED2727B2639A990003D47A9 /* RecoveryEntry.swift in Sources */,
 				CEA15563262F6DAB0024B7AC /* ChildDismissedDelegate.swift in Sources */,
 				CEFAD8722625F29E009AFEF9 /* String+JSON.swift in Sources */,
 				CEC2C4C22625ED030056E406 /* ZLib.swift in Sources */,
