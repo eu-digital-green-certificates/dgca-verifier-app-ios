@@ -31,7 +31,6 @@ import Foundation
 struct Enclave {
   static let encryptAlg = SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM
   static let signAlg = SecKeyAlgorithm.ecdsaSignatureMessageX962SHA512
-  static let symmetricKey = generateOrLoadKey(with: "symmetricKey")
 
   static func tag(for name: String) -> Data {
     "\(Bundle.main.bundleIdentifier ?? "app").\(name)".data(using: .utf8)!
