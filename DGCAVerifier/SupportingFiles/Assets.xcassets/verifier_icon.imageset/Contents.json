@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "hea_dgf_icons-2.png",
+      "filename" : "verifier_icon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "verifier_icon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "verifier_icon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
