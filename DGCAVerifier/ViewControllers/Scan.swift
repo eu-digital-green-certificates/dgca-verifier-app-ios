@@ -69,7 +69,11 @@ extension ScanVC: ScanVCDelegate {
   }
 }
 
-extension ScanVC: ChildDismissedDelegate {
+extension ScanVC: CertViewerDelegate {
+  func openSettings() {
+    print("Open Settings") // TODO
+  }
+
   func childDismissed() {
     presentingViewer = nil
   }
