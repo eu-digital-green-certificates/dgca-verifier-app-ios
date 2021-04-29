@@ -32,25 +32,26 @@ import SwiftDGC
 let DISMISS_TIMEOUT = 15.0
 
 let validityString = [
-  HCertValidity.valid: "Valid ✓",
-  HCertValidity.invalid: "Invalid Ⅹ",
+  HCertValidity.valid: "Valid",
+  HCertValidity.invalid: "Invalid",
+]
+let validityIcon = [
+  HCertValidity.valid: UIImage(named: "check")!,
+  HCertValidity.invalid: UIImage(named: "error")!,
 ]
 let buttonText = [
-  HCertValidity.valid: "Okay",
+  HCertValidity.valid: "Done",
   HCertValidity.invalid: "Retry",
 ]
 let backgroundColor = [
-  HCertValidity.valid: UIColor(red: 0.08126, green: 0.19497, blue: 0.07434, alpha: 1),
-  HCertValidity.invalid: UIColor(red: 0.36290, green: 0, blue: 0, alpha: 1),
+  HCertValidity.valid: UIColor(named: "green")!,
+  HCertValidity.invalid: UIColor(named: "red")!,
 ]
-let textColor = [
-  HCertValidity.valid: UIColor(red: 0.37632, green: 1, blue: 0.54549, alpha: 1),
-  HCertValidity.invalid: UIColor(red: 1, green: 0.14316, blue: 0.14316, alpha: 1),
-]
-
 class CertificateViewerVC: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var validityLabel: UILabel!
+  @IBOutlet weak var validityImage: UIImageView!
+  @IBOutlet weak var headerBackground: UIView!
   @IBOutlet weak var loadingBackground: UIView!
   @IBOutlet weak var loadingBackgroundTrailing: NSLayoutConstraint!
   @IBOutlet weak var typeSegments: UISegmentedControl!
@@ -63,41 +64,43 @@ class CertificateViewerVC: UIViewController {
     }
   }
 
-  var childDismissedDelegate: ChildDismissedDelegate?
+  var childDismissedDelegate: CertViewerDelegate?
+  var settingsOpened = false
 
   func draw() {
     nameLabel.text = hCert.fullName
     infoTable.reloadData()
     typeSegments.selectedSegmentIndex = [
       HCertType.test,
-      HCertType.vaccineOne,
-      HCertType.vaccineTwo,
+      HCertType.vaccine,
       HCertType.recovery
     ].firstIndex(of: hCert.type) ?? 0
     let validity = hCert.validity
     dismissButton.setTitle(buttonText[validity], for: .normal)
-    dismissButton.backgroundColor = textColor[validity]
-    dismissButton.setTitleColor(backgroundColor[validity], for: .normal)
+    dismissButton.backgroundColor = backgroundColor[validity]
     validityLabel.text = validityString[validity]
-    validityLabel.textColor = textColor[validity]
-    view.backgroundColor = backgroundColor[validity]
+    headerBackground.backgroundColor = backgroundColor[validity]
+    validityImage.image = validityIcon[validity]
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     // selected option color
-    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black!], for: .selected)
     // color of other options
-    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.disabledText!], for: .normal)
+    typeSegments.backgroundColor = UIColor(white: 1.0, alpha: 0.06)
 
     infoTable.dataSource = self
+    infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
 
     return
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    loadingBackground.layer.zPosition = -1
+    settingsOpened = false
+    loadingBackground.isUserInteractionEnabled = false
     loadingBackgroundTrailing.priority = .init(200)
     UIView.animate(withDuration: DISMISS_TIMEOUT, delay: 0, options: .curveLinear) { [weak self] in
       self?.view.layoutIfNeeded()
@@ -113,10 +116,19 @@ class CertificateViewerVC: UIViewController {
     super.viewDidDisappear(animated)
 
     childDismissedDelegate?.childDismissed()
+    if settingsOpened {
+      childDismissedDelegate?.openSettings()
+    }
   }
 
   @IBAction
   func closeButton() {
+    dismiss(animated: true, completion: nil)
+  }
+
+  @IBAction
+  func settingsButton() {
+    settingsOpened = true
     dismiss(animated: true, completion: nil)
   }
 }

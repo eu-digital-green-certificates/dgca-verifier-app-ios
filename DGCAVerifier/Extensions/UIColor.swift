@@ -1,3 +1,4 @@
+//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -17,16 +18,20 @@
  * limitations under the License.
  * ---license-end
  */
-//
-//  ChildDismissedDelegate.swift
+//  
+//  UIColor.swift
 //  DGCAVerifier
-//
-//  Created by Yannick Spreen on 4/20/21.
-//
+//  
+//  Created by Yannick Spreen on 4/29/21.
+//  
+        
 
-import Foundation
+import UIKit
 
-protocol CertViewerDelegate {
-  func childDismissed()
-  func openSettings()
+extension UIColor {
+  static var red: UIColor! { UIColor(named: "red") }
+  static var green: UIColor! { UIColor(named: "green") }
+  static var blue: UIColor! { UIColor(named: "blue") }
+  static var black: UIColor! { UIColor(named: "black") }
+  static var disabledText: UIColor! { UIColor(named: "disabledText") }
 }
