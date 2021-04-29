@@ -1,3 +1,4 @@
+//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -17,33 +18,29 @@
  * limitations under the License.
  * ---license-end
  */
-//
-//  InfoCell.swift
+//  
+//  UIFont.swift
 //  DGCAVerifier
+//  
+//  Created by Yannick Spreen on 4/28/21.
 //
-//  Created by Yannick Spreen on 4/20/21.
+//  https://stackoverflow.com/a/53818276/2585092
 //
 
 import UIKit
 
-class InfoCell: UITableViewCell {
-  @IBOutlet weak var headerLabel: UILabel!
-  @IBOutlet weak var contentLabel: UILabel!
 
-  func draw(_ info: InfoSection) {
-    headerLabel?.text = info.header
-    contentLabel?.text = info.content
-    let fontSize = contentLabel.font.pointSize
-    let fontWeight = contentLabel.font.weight
-    switch info.style {
-    case .fixedWidthFont:
-      if #available(iOS 13.0, *) {
-        contentLabel.font = .monospacedSystemFont(ofSize: fontSize, weight: fontWeight)
-      } else {
-        contentLabel.font = .monospacedDigitSystemFont(ofSize: fontSize, weight: fontWeight)
-      }
-    default:
-      contentLabel.font = .systemFont(ofSize: fontSize, weight: fontWeight)
-    }
+extension UIFont {
+  public var weight: UIFont.Weight {
+    guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
+    let weightRawValue = CGFloat(weightNumber.doubleValue)
+    let weight = UIFont.Weight(rawValue: weightRawValue)
+    return weight
+  }
+
+  private var traits: [UIFontDescriptor.TraitKey: Any] {
+    return fontDescriptor.object(
+      forKey: .traits
+    ) as? [UIFontDescriptor.TraitKey: Any] ?? [:]
   }
 }

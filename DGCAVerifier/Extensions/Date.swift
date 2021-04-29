@@ -43,12 +43,16 @@ extension Date {
 
   static let isoFormatter = formatter(for: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
   static let dateFormatter = formatter(for: "yyyy-MM-dd")
+  static let dateTimeFormatter = formatter(for: "yyyy-MM-dd HH:mm '(UTC)'")
 
   var isoString: String {
     Date.isoFormatter.string(from: self)
   }
   var dateString: String {
     Date.dateFormatter.string(from: self)
+  }
+  var dateTimeString: String {
+    Date.dateTimeFormatter.string(from: self)
   }
 
   init?(isoString: String) {
@@ -62,6 +66,28 @@ extension Date {
       return nil
     }
     self = date
+  }
+  init?(rfc3339DateTimeString str: String) {
+    let rfc3339DateTimeFormatter = DateFormatter()
+
+    rfc3339DateTimeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    if let date = rfc3339DateTimeFormatter.date(from: str) {
+      self = date
+      return
+    }
+
+    rfc3339DateTimeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+    if let date = rfc3339DateTimeFormatter.date(from: str) {
+      self = date
+      return
+    }
+
+    rfc3339DateTimeFormatter.dateFormat = "yyyy-MM-dd't'HH:mm:ss.SSS'z'"
+    if let date = rfc3339DateTimeFormatter.date(from: str) {
+      self = date
+      return
+    }
+    return nil
   }
 
   var localDateString: String {

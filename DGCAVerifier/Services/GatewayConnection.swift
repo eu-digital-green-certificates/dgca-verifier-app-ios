@@ -87,7 +87,7 @@ struct GatewayConnection {
     timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) {
       _ in trigger()
     }
-    timer?.tolerance = 1.0
+    timer?.tolerance = 5.0
     trigger()
   }
 
@@ -113,11 +113,8 @@ struct GatewayConnection {
 
   static func status() {
     certStatus { validKids in
-      var invalid = [String]()
-      for key in LocalData.sharedInstance.encodedPublicKeys.keys {
-        if !validKids.contains(key) {
-          invalid.append(key)
-        }
+      let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
+        !validKids.contains($0)
       }
       for key in invalid {
         LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
