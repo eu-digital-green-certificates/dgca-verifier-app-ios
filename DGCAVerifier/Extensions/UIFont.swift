@@ -1,3 +1,4 @@
+//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -18,8 +19,28 @@
  * ---license-end
  */
 //  
-//  ___FILENAME___
-//  ___PACKAGENAME___
+//  UIFont.swift
+//  DGCAVerifier
 //  
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  
+//  Created by Yannick Spreen on 4/28/21.
+//
+//  https://stackoverflow.com/a/53818276/2585092
+//
+
+import UIKit
+
+
+extension UIFont {
+  public var weight: UIFont.Weight {
+    guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
+    let weightRawValue = CGFloat(weightNumber.doubleValue)
+    let weight = UIFont.Weight(rawValue: weightRawValue)
+    return weight
+  }
+
+  private var traits: [UIFontDescriptor.TraitKey: Any] {
+    return fontDescriptor.object(
+      forKey: .traits
+    ) as? [UIFontDescriptor.TraitKey: Any] ?? [:]
+  }
+}

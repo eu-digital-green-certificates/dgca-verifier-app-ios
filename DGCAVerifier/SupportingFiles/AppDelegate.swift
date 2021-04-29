@@ -17,9 +17,30 @@
  * limitations under the License.
  * ---license-end
  */
-//  
-//  ___FILENAME___
-//  ___PACKAGENAME___
-//  
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  
+//
+//  AppDelegate.swift
+//  DGCAVerifier
+//
+//  Created by Yannick Spreen on 4/8/21.
+//
+
+import UIKit
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // Override point for customization after application launch.
+    return true
+  }
+
+  func applicationWillResignActive(_ application: UIApplication) {
+    SecureBackground.enable()
+  }
+
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    SecureBackground.disable()
+  }
+
+}
+

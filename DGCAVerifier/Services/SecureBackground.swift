@@ -1,3 +1,4 @@
+//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -18,8 +19,34 @@
  * ---license-end
  */
 //  
-//  ___FILENAME___
-//  ___PACKAGENAME___
+//  SecureBackground.swift
+//  DGCAVerifier
 //  
-//  Created by ___FULLUSERNAME___ on ___DATE___.
+//  Created by Yannick Spreen on 4/27/21.
 //  
+        
+
+import Foundation
+import UIKit
+
+struct SecureBackground {
+  static var imageView: UIImageView?
+  public static var image: UIImage?
+
+  public static func enable() {
+    disable()
+    guard let image = image else {
+      return
+    }
+    let imageView = UIImageView(image: image)
+    UIApplication.shared.windows[0].addSubview(imageView)
+    Self.imageView = imageView
+  }
+
+  public static func disable() {
+    if imageView != nil {
+      imageView?.removeFromSuperview()
+      imageView = nil
+    }
+  }
+}

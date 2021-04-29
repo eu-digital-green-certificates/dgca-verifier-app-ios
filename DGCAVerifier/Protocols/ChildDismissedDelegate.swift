@@ -17,9 +17,15 @@
  * limitations under the License.
  * ---license-end
  */
-//  
-//  ___FILENAME___
-//  ___PACKAGENAME___
-//  
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  
+//
+//  ChildDismissedDelegate.swift
+//  DGCAVerifier
+//
+//  Created by Yannick Spreen on 4/20/21.
+//
+
+import Foundation
+
+protocol ChildDismissedDelegate {
+  func childDismissed()
+}

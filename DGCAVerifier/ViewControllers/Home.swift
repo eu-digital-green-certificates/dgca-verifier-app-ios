@@ -1,3 +1,4 @@
+//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -18,8 +19,32 @@
  * ---license-end
  */
 //  
-//  ___FILENAME___
-//  ___PACKAGENAME___
+//  Home.swift
+//  PatientScannerDemo
 //  
-//  Created by ___FULLUSERNAME___ on ___DATE___.
+//  Created by Yannick Spreen on 4/25/21.
 //  
+        
+
+import Foundation
+import UIKit
+
+class HomeVC: UIViewController {
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    GatewayConnection.timer?.invalidate()
+    LocalData.initialize {
+      DispatchQueue.main.async { [weak self] in
+        guard let self = self else {
+          return
+        }
+        let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
+        SecureBackground.image = renderer.image { rendererContext in
+          self.view.layer.render(in: rendererContext.cgContext)
+        }
+        self.performSegue(withIdentifier: "scanner", sender: self)
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q2g-Cz-5x2">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ScanVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ScanVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DC8-2u-JQC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="106"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ET7-36-BP0">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="q2g-Cz-5x2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oay-40-aHM">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="73A-19-HUe" kind="relationship" relationship="rootViewController" id="AQh-VG-O6B"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5eU-tP-IWk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1504" y="106"/>
+        </scene>
+        <!--HomeVC-->
+        <scene sceneID="5NK-Oh-cKU">
+            <objects>
+                <viewController id="73A-19-HUe" customClass="HomeVC" customModule="PatientScannerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="itp-Pk-qqa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hea_dgf_icons-2" translatesAutoresizingMaskIntoConstraints="NO" id="uVo-xl-74N">
+                                <rect key="frame" x="107" y="187" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="cwN-8N-mhg"/>
+                                    <constraint firstAttribute="width" constant="200" id="lGB-VI-vWc"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Fa-fZ-rcH">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="179"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4mO-IA-e98"/>
+                        <color key="backgroundColor" red="0.99607843139999996" green="0.93333333330000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="1Fa-fZ-rcH" firstAttribute="height" secondItem="itp-Pk-qqa" secondAttribute="height" multiplier="0.2" id="2OP-qL-4P5"/>
+                            <constraint firstItem="uVo-xl-74N" firstAttribute="top" secondItem="1Fa-fZ-rcH" secondAttribute="bottom" constant="8" id="44p-j5-T5I"/>
+                            <constraint firstItem="uVo-xl-74N" firstAttribute="centerX" secondItem="itp-Pk-qqa" secondAttribute="centerX" id="5VX-vB-nMv"/>
+                            <constraint firstItem="1Fa-fZ-rcH" firstAttribute="top" secondItem="itp-Pk-qqa" secondAttribute="top" id="VuD-Ro-tli"/>
+                            <constraint firstItem="1Fa-fZ-rcH" firstAttribute="leading" secondItem="itp-Pk-qqa" secondAttribute="leading" id="ek5-ka-fDv"/>
+                            <constraint firstAttribute="trailing" secondItem="1Fa-fZ-rcH" secondAttribute="trailing" id="w5N-a8-0zX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="3ZE-my-T2k"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="scanner" id="6xN-iL-kja"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XEE-QW-Mei" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-674" y="106"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="hea_dgf_icons-2" width="201" height="201"/>
+    </resources>
+</document>

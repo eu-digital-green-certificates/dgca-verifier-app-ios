@@ -22,7 +22,7 @@
 
 This repository contains the source code of the Digital Green Certificates Verifier App for iOS.
 
-The DGC Verifier Apps are responsible for scanning and verifying DGCs using public keys from national backend servers. Offline verification is supported, if the latest public keys are present in the app's key store. Consequently, once up-to-date keys have been downloaded, the verification works without active internet connection. 
+The DGC Verifier Apps are responsible for scanning and verifying DGCs using public keys from national backend servers. Offline verification is supported, if the latest public keys are present in the app's key store. Consequently, once up-to-date keys have been downloaded, the verification works without active internet connection.
 
 ## Development
 
@@ -34,13 +34,14 @@ The DGC Verifier Apps are responsible for scanning and verifying DGCs using publ
 
 Whether you cloned or downloaded the 'zipped' sources you will either find the sources in the chosen checkout-directory or get a zip file with the source code, which you can expand to a folder of your choice.
 
-In either case open a terminal pointing to the directory you put the sources in. The local build process is described afterwards depending on the way you choose.
+#### Xcode based build
 
-#### XYZ (Maven, Docker ...) based build
+- Set the development team to any Apple Developer Account
+- Give the project a unique bundle identifier
+- Install swift package manager requirements through Xcode 12.4+
+- Build and run the project through Xcode 12.4+
 
-- [ ] TODO: Add instructions for different build types
-
-## Documentation  
+## Documentation
 
 - [ ] TODO: Link to documentation
 
@@ -48,16 +49,16 @@ In either case open a terminal pointing to the directory you put the sources in.
 
 The following channels are available for discussions, feedback, and support requests:
 
-| Type                     | Channel                                                |
-| ------------------------ | ------------------------------------------------------ |
-| **Issues**    | <a href="/../../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/eu-digital-green-certificates/dgca-verifier-app-ios?style=flat"></a>  |
-| **Other requests**    | <a href="mailto:opensource@telekom.de" title="Email DGC Team"><img src="https://img.shields.io/badge/email-DGC%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a>   |
+| Type               | Channel                                                                                                                                                                          |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Issues**         | <a href="/../../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/eu-digital-green-certificates/dgca-verifier-app-ios?style=flat"></a>                  |
+| **Other requests** | <a href="mailto:opensource@telekom.de" title="Email DGC Team"><img src="https://img.shields.io/badge/email-DGC%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a> |
 
-## How to contribute  
+## How to contribute
 
 Contribution and feedback is encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
 
-## Contributors  
+## Contributors
 
 Our commitment to open source means that we are enabling -in fact encouraging- all interested parties to contribute and become part of its developer community.
 

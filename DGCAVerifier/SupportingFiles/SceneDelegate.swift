@@ -17,9 +17,28 @@
  * limitations under the License.
  * ---license-end
  */
-//  
-//  ___FILENAME___
-//  ___PACKAGENAME___
-//  
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  
+//
+//  SceneDelegate.swift
+//  DGCAVerifier
+//
+//  Created by Yannick Spreen on 4/8/21.
+//
+
+import UIKit
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
+  var window: UIWindow?
+
+  @available(iOS 13.0, *)
+  func sceneWillResignActive(_ scene: UIScene) {
+    SecureBackground.enable()
+  }
+
+  @available(iOS 13.0, *)
+  func sceneDidBecomeActive(_ scene: UIScene) {
+    SecureBackground.disable()
+  }
+
+}
+
