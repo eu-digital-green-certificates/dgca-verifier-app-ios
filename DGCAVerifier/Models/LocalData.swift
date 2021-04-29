@@ -27,6 +27,7 @@
         
 
 import Foundation
+import SwiftDGC
 
 struct LocalData: Codable {
   static var sharedInstance = LocalData()
@@ -65,9 +66,16 @@ struct LocalData: Codable {
       guard let result = success else {
         return
       }
-      print("loaded \(result.encodedPublicKeys.count) certs from ", LocalData.storage.path ?? .init(fileURLWithPath: "/"))
+      print("\(result.encodedPublicKeys.count) certs loaded.")
       LocalData.sharedInstance = result
       completion()
     }
+    HCert.publicKeyStorageDelegate = LocalDataDelegate()
+  }
+}
+
+struct LocalDataDelegate: PublicKeyStorageDelegate {
+  func getEncodedPublicKey(for kidStr: String) -> String? {
+    LocalData.sharedInstance.encodedPublicKeys[kidStr]
   }
 }

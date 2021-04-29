@@ -27,6 +27,7 @@
 import Foundation
 import UIKit
 import FloatingPanel
+import SwiftDGC
 
 let DISMISS_TIMEOUT = 15.0
 

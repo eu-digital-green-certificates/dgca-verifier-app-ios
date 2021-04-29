@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import SwiftDGC
 
 class InfoCell: UITableViewCell {
   @IBOutlet weak var headerLabel: UILabel!
