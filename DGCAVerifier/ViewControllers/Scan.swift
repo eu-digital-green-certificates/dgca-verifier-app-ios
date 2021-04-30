@@ -36,6 +36,16 @@ class ScanVC: SwiftDGC.ScanVC {
 
     delegate = self
     GatewayConnection.initialize()
+    let settingsButton = UIButton(frame: .zero)
+    settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
+    settingsButton.translatesAutoresizingMaskIntoConstraints = false
+    settingsButton.setImage(UIImage(named: "gear_white"), for: .normal)
+    view.addSubview(settingsButton)
+    let guide = view.safeAreaLayoutGuide
+    NSLayoutConstraint.activate([
+      settingsButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: 32.0),
+      settingsButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0),
+    ])
   }
 
   var presentingViewer: CertificateViewerVC?
@@ -70,6 +80,7 @@ extension ScanVC: ScanVCDelegate {
 }
 
 extension ScanVC: CertViewerDelegate {
+  @IBAction
   func openSettings() {
     print("Open Settings") // TODO
   }
