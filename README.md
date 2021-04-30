@@ -28,7 +28,13 @@ The DGC Verifier Apps are responsible for scanning and verifying DGCs using publ
 
 ### Prerequisites
 
-- [ ] TODO: Describe prerequisites
+- You need a Mac to run Xcode.
+- Xcode 12.4+ is used for our builds. On the Mac App Store, the os requirement lists macOS 11.0+, but it works fine on Catalina as well.
+- To install development apps on physical iPhones, you need an Apple Developer account.
+- Service Endpoints:
+  - This App talks to the pubkey endpoint: `https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com`,
+  - Or anotherone specified as serverURI in `DGCAVerifier/Services/GatewayConnection.swift`.
+  - To get QR Codes for testing, you might want to check out `https://dgc.a-sit.at/ehn/testsuite`.
 
 ### Build
 
