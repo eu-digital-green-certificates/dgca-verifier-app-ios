@@ -42,6 +42,16 @@ Whether you cloned or downloaded the 'zipped' sources you will either find the s
 
 #### Xcode based build
 
+
+Important Info: SPM and the SwiftDGC [core module](https://github.com/eu-digital-green-certificates/dgca-app-core-ios)
+- Depending on the development status, this module might be either linked locally or via github URL.
+- If it's linked locally, you should clone both repos into the same folder:
+- `<project folder>`
+    - `dgca-app-core-ios`
+    - `dgca-verifier-app-ios`
+- Otherwise it will be pulled by Xcode like all other SPM modules.
+
+Build steps
 - Set the development team to any Apple Developer Account
 - Give the project a unique bundle identifier
 - Install swift package manager requirements through Xcode 12.4+

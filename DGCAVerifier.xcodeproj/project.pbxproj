@@ -17,6 +17,7 @@
 		CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37B642263867D700DEE13D /* SecureBackground.swift */; };
 		CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = CE56B5042639F48E00FB31B1 /* SwiftDGC */; };
 		CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
+		CE81533C263FF8FE0030D777 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE81533B263FF8FE0030D777 /* README.md */; };
 		CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912F42634C60E00CB92AF /* GatewayConnection.swift */; };
 		CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE8912FA2634C6B900CB92AF /* Alamofire */; };
 		CE891305263581D900CB92AF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* Home.swift */; };
@@ -60,6 +61,7 @@
 		CE1D1EF5263597A2004C8919 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		CE37B642263867D700DEE13D /* SecureBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBackground.swift; sourceTree = "<group>"; };
 		CE8096D8263B07BB00A65AD6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; };
 		CE891304263581D900CB92AF /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		CEA15562262F6DAB0024B7AC /* CertViewerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertViewerDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		CE13CF1E262DDE800070C80E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				CE81533B263FF8FE0030D777 /* README.md */,
 				CEDCA79B2639E77800FCB83E /* Package.resolved */,
 				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
 				CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */,
@@ -370,6 +373,7 @@
 			files = (
 				CE13CF05262DCDCD0070C80E /* CertificateViewer.storyboard in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
+				CE81533C263FF8FE0030D777 /* README.md in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 			);
