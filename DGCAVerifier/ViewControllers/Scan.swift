@@ -65,6 +65,7 @@ class ScanVC: SwiftDGC.ScanVC {
     fpc.layout = FullFloatingPanelLayout()
     fpc.surfaceView.layer.cornerRadius = 24.0
     fpc.surfaceView.clipsToBounds = true
+    fpc.delegate = self
     viewer.hCert = certificate
     viewer.childDismissedDelegate = self
     presentingViewer = viewer
@@ -87,5 +88,25 @@ extension ScanVC: CertViewerDelegate {
 
   func childDismissed() {
     presentingViewer = nil
+  }
+}
+
+extension ScanVC: FloatingPanelControllerDelegate {
+  func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+    let pos = location.y / view.bounds.height
+    if pos >= 0.33 {
+      return true
+    }
+    let threshold: CGFloat = 5.0
+    switch fpc.layout.position {
+    case .top:
+        return (velocity.dy <= -threshold)
+    case .left:
+        return (velocity.dx <= -threshold)
+    case .bottom:
+        return (velocity.dy >= threshold)
+    case .right:
+        return (velocity.dx >= threshold)
+    }
   }
 }
