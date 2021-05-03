@@ -26,7 +26,7 @@ jobs:
     - name: xcode version
       run: |-
         ls /Applications | grep Xcode
-        sudo xcode-select -switch /Applications/Xcode_12.app
+        sudo xcode-select -switch /Applications/Xcode_12.4.app
         /usr/bin/xcodebuild -version
     - name: xcode test
       run: |-
