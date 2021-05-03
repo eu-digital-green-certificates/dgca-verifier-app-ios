@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: xcode version
+      run: |-
+        ls /Applications | grep Xcode
+        sudo xcode-select -switch /Applications/Xcode_12.app
+        /usr/bin/xcodebuild -version
+    - name: xcode test
+      run: |-
+        xcodebuild test \
+        -scheme DGCAVerifier \
+        -project DGCAVerifier.xcodeproj \
+        -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.0' | xcpretty && exit ${PIPESTATUS[0]}
+
