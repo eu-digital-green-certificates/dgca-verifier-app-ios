@@ -32,16 +32,33 @@ import SwiftDGC
 import SwiftyJSON
 
 struct GatewayConnection {
-  static let serverURI = "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/"
+  static let serverHost = "dgca-verifier-service.cfapps.eu10.hana.ondemand.com"
+  static let serverURI = "https://\(serverHost)/"
   static let updateEndpoint = "signercertificateUpdate"
   static let statusEndpoint = "signercertificateStatus"
+  static let session: Alamofire.Session = {
+    let evaluators: [String: ServerTrustEvaluating] = [
+      serverHost: CustomCertEvaluator(),
+    ]
+
+    let trust = ServerTrustManager(evaluators: evaluators)
+    return Alamofire.Session(serverTrustManager: trust)
+  }()
 
   public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
     var headers = [String: String]()
     if let token = resumeToken {
       headers["x-resume-token"] = token
     }
-    AF.request(serverURI + updateEndpoint, method: .get, parameters: nil, encoding: URLEncoding(), headers: .init(headers), interceptor: nil, requestModifier: nil).response {
+    session.request(
+      serverURI + updateEndpoint,
+      method: .get,
+      parameters: nil,
+      encoding: URLEncoding(),
+      headers: .init(headers),
+      interceptor: nil,
+      requestModifier: nil
+    ).response {
       if
         let status = $0.response?.statusCode,
         status == 204 {

@@ -21,6 +21,13 @@
 		CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912F42634C60E00CB92AF /* GatewayConnection.swift */; };
 		CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE8912FA2634C6B900CB92AF /* Alamofire */; };
 		CE891305263581D900CB92AF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* Home.swift */; };
+		CE9D1FD92641B92E00803242 /* CustomCertEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9D1FD82641B92E00803242 /* CustomCertEvaluator.swift */; };
+		CE9D1FEF2641CE9E00803242 /* lets-encrypt-r3-cross-signed.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FE92641CE9E00803242 /* lets-encrypt-r3-cross-signed.der */; };
+		CE9D1FF02641CE9E00803242 /* lets-encrypt-r4.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FEA2641CE9E00803242 /* lets-encrypt-r4.der */; };
+		CE9D1FF12641CE9E00803242 /* lets-encrypt-e2.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FEB2641CE9E00803242 /* lets-encrypt-e2.der */; };
+		CE9D1FF22641CE9E00803242 /* lets-encrypt-e1.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FEC2641CE9E00803242 /* lets-encrypt-e1.der */; };
+		CE9D1FF32641CE9E00803242 /* lets-encrypt-r3.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FED2641CE9E00803242 /* lets-encrypt-r3.der */; };
+		CE9D1FF42641CE9E00803242 /* lets-encrypt-r4-cross-signed.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FEE2641CE9E00803242 /* lets-encrypt-r4-cross-signed.der */; };
 		CEA15563262F6DAB0024B7AC /* CertViewerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA15562262F6DAB0024B7AC /* CertViewerDelegate.swift */; };
 		CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */; };
 		CEA15570262F79DE0024B7AC /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556F262F79DE0024B7AC /* InfoCell.swift */; };
@@ -64,6 +71,13 @@
 		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; };
 		CE891304263581D900CB92AF /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		CE9D1FD82641B92E00803242 /* CustomCertEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCertEvaluator.swift; sourceTree = "<group>"; };
+		CE9D1FE92641CE9E00803242 /* lets-encrypt-r3-cross-signed.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-r3-cross-signed.der"; path = "pinning-tools/lets-encrypt-r3-cross-signed.der"; sourceTree = SOURCE_ROOT; };
+		CE9D1FEA2641CE9E00803242 /* lets-encrypt-r4.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-r4.der"; path = "pinning-tools/lets-encrypt-r4.der"; sourceTree = SOURCE_ROOT; };
+		CE9D1FEB2641CE9E00803242 /* lets-encrypt-e2.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-e2.der"; path = "pinning-tools/lets-encrypt-e2.der"; sourceTree = SOURCE_ROOT; };
+		CE9D1FEC2641CE9E00803242 /* lets-encrypt-e1.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-e1.der"; path = "pinning-tools/lets-encrypt-e1.der"; sourceTree = SOURCE_ROOT; };
+		CE9D1FED2641CE9E00803242 /* lets-encrypt-r3.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-r3.der"; path = "pinning-tools/lets-encrypt-r3.der"; sourceTree = SOURCE_ROOT; };
+		CE9D1FEE2641CE9E00803242 /* lets-encrypt-r4-cross-signed.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-r4-cross-signed.der"; path = "pinning-tools/lets-encrypt-r4-cross-signed.der"; sourceTree = SOURCE_ROOT; };
 		CEA15562262F6DAB0024B7AC /* CertViewerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertViewerDelegate.swift; sourceTree = "<group>"; };
 		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		CEA1556F262F79DE0024B7AC /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
@@ -131,6 +145,7 @@
 			children = (
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
+				CE9D1FD82641B92E00803242 /* CustomCertEvaluator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -168,6 +183,7 @@
 		CE13CF1E262DDE800070C80E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				CE9D1FDC2641C63100803242 /* PinnedPubKeys */,
 				CE81533B263FF8FE0030D777 /* README.md */,
 				CEDCA79B2639E77800FCB83E /* Package.resolved */,
 				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
@@ -191,6 +207,19 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE9D1FDC2641C63100803242 /* PinnedPubKeys */ = {
+			isa = PBXGroup;
+			children = (
+				CE9D1FEC2641CE9E00803242 /* lets-encrypt-e1.der */,
+				CE9D1FEB2641CE9E00803242 /* lets-encrypt-e2.der */,
+				CE9D1FE92641CE9E00803242 /* lets-encrypt-r3-cross-signed.der */,
+				CE9D1FED2641CE9E00803242 /* lets-encrypt-r3.der */,
+				CE9D1FEE2641CE9E00803242 /* lets-encrypt-r4-cross-signed.der */,
+				CE9D1FEA2641CE9E00803242 /* lets-encrypt-r4.der */,
+			);
+			path = PinnedPubKeys;
 			sourceTree = "<group>";
 		};
 		CEA15561262F6DA10024B7AC /* Protocols */ = {
@@ -371,11 +400,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9D1FF42641CE9E00803242 /* lets-encrypt-r4-cross-signed.der in Resources */,
+				CE9D1FEF2641CE9E00803242 /* lets-encrypt-r3-cross-signed.der in Resources */,
 				CE13CF05262DCDCD0070C80E /* CertificateViewer.storyboard in Resources */,
+				CE9D1FF12641CE9E00803242 /* lets-encrypt-e2.der in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				CE81533C263FF8FE0030D777 /* README.md in Resources */,
+				CE9D1FF02641CE9E00803242 /* lets-encrypt-r4.der in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
+				CE9D1FF32641CE9E00803242 /* lets-encrypt-r3.der in Resources */,
+				CE9D1FF22641CE9E00803242 /* lets-encrypt-e1.der in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9D1FD92641B92E00803242 /* CustomCertEvaluator.swift in Sources */,
 				CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */,
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
