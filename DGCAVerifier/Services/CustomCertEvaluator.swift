@@ -45,7 +45,7 @@ class CustomCertEvaluator: ServerTrustEvaluating {
     "FMg5EuXMBgDDksSP3R0pWSGNx6yLMMV4RKzheoOSWYA=",
     // lets-encrypt-r4-cross-signed.der:
     "FMg5EuXMBgDDksSP3R0pWSGNx6yLMMV4RKzheoOSWYA=",
-    // DigiCert TLS RSA SHA256 2020 CA1 for SAP HANA:
+    // DigiCertTLSRSASHA2562020CA1.der:
     "Ef6tLK887tpTdkiVkSG7ioXCgNEJsbIgKcAU+dxTTag=",
   ]
 

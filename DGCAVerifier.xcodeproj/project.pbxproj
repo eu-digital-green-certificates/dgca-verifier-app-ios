@@ -28,6 +28,7 @@
 		CE9D1FF22641CE9E00803242 /* lets-encrypt-e1.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FEC2641CE9E00803242 /* lets-encrypt-e1.der */; };
 		CE9D1FF32641CE9E00803242 /* lets-encrypt-r3.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FED2641CE9E00803242 /* lets-encrypt-r3.der */; };
 		CE9D1FF42641CE9E00803242 /* lets-encrypt-r4-cross-signed.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FEE2641CE9E00803242 /* lets-encrypt-r4-cross-signed.der */; };
+		CE9D1FF62641D6B700803242 /* DigiCertTLSRSASHA2562020CA1.der in Resources */ = {isa = PBXBuildFile; fileRef = CE9D1FF52641D6B700803242 /* DigiCertTLSRSASHA2562020CA1.der */; };
 		CEA15563262F6DAB0024B7AC /* CertViewerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA15562262F6DAB0024B7AC /* CertViewerDelegate.swift */; };
 		CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */; };
 		CEA15570262F79DE0024B7AC /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556F262F79DE0024B7AC /* InfoCell.swift */; };
@@ -78,6 +79,7 @@
 		CE9D1FEC2641CE9E00803242 /* lets-encrypt-e1.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-e1.der"; path = "pinning-tools/lets-encrypt-e1.der"; sourceTree = SOURCE_ROOT; };
 		CE9D1FED2641CE9E00803242 /* lets-encrypt-r3.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-r3.der"; path = "pinning-tools/lets-encrypt-r3.der"; sourceTree = SOURCE_ROOT; };
 		CE9D1FEE2641CE9E00803242 /* lets-encrypt-r4-cross-signed.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lets-encrypt-r4-cross-signed.der"; path = "pinning-tools/lets-encrypt-r4-cross-signed.der"; sourceTree = SOURCE_ROOT; };
+		CE9D1FF52641D6B700803242 /* DigiCertTLSRSASHA2562020CA1.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = DigiCertTLSRSASHA2562020CA1.der; path = "pinning-tools/DigiCertTLSRSASHA2562020CA1.der"; sourceTree = SOURCE_ROOT; };
 		CEA15562262F6DAB0024B7AC /* CertViewerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertViewerDelegate.swift; sourceTree = "<group>"; };
 		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		CEA1556F262F79DE0024B7AC /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		CE9D1FDC2641C63100803242 /* PinnedPubKeys */ = {
 			isa = PBXGroup;
 			children = (
+				CE9D1FF52641D6B700803242 /* DigiCertTLSRSASHA2562020CA1.der */,
 				CE9D1FEC2641CE9E00803242 /* lets-encrypt-e1.der */,
 				CE9D1FEB2641CE9E00803242 /* lets-encrypt-e2.der */,
 				CE9D1FE92641CE9E00803242 /* lets-encrypt-r3-cross-signed.der */,
@@ -406,6 +409,7 @@
 				CE9D1FF12641CE9E00803242 /* lets-encrypt-e2.der in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				CE81533C263FF8FE0030D777 /* README.md in Resources */,
+				CE9D1FF62641D6B700803242 /* DigiCertTLSRSASHA2562020CA1.der in Resources */,
 				CE9D1FF02641CE9E00803242 /* lets-encrypt-r4.der in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
