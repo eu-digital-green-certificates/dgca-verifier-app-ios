@@ -38,7 +38,10 @@ struct GatewayConnection {
   static let statusEndpoint = "signercertificateStatus"
   static let session: Alamofire.Session = {
     let evaluators: [String: ServerTrustEvaluating] = [
-      serverHost: CustomCertEvaluator(),
+      serverHost: CompositeTrustEvaluator(evaluators: [
+        RevocationTrustEvaluator(),
+        CustomCertEvaluator(),
+      ]),
     ]
 
     let trust = ServerTrustManager(evaluators: evaluators)
