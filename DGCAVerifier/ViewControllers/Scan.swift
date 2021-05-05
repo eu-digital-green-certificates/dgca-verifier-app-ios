@@ -48,7 +48,7 @@ class ScanVC: SwiftDGC.ScanVC {
     ])
   }
 
-  var presentingViewer: CertificateViewerVC?
+  var presentingViewer: UIViewController?
   func presentViewer(for certificate: HCert) {
     guard
       presentingViewer == nil,
@@ -59,16 +59,20 @@ class ScanVC: SwiftDGC.ScanVC {
       return
     }
 
+    showFloatingPanel(for: viewer)
+    viewer.hCert = certificate
+    viewer.childDismissedDelegate = self
+  }
+
+  func showFloatingPanel(for vc: UIViewController) {
     let fpc = FloatingPanelController()
-    fpc.set(contentViewController: viewer)
+    fpc.set(contentViewController: vc)
     fpc.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
     fpc.layout = FullFloatingPanelLayout()
     fpc.surfaceView.layer.cornerRadius = 24.0
     fpc.surfaceView.clipsToBounds = true
     fpc.delegate = self
-    viewer.hCert = certificate
-    viewer.childDismissedDelegate = self
-    presentingViewer = viewer
+    presentingViewer = vc
 
     present(fpc, animated: true, completion: nil)
   }
@@ -83,7 +87,17 @@ extension ScanVC: ScanVCDelegate {
 extension ScanVC: CertViewerDelegate {
   @IBAction
   func openSettings() {
-    print("Open Settings") // TODO
+    guard
+      presentingViewer == nil,
+      let contentVC = UIStoryboard(name: "Settings", bundle: nil)
+        .instantiateInitialViewController(),
+      let viewer = contentVC as? SettingsVC
+    else {
+      return
+    }
+
+    viewer.childDismissedDelegate = self
+    showFloatingPanel(for: viewer)
   }
 
   func childDismissed() {
