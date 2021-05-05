@@ -99,20 +99,19 @@ struct GatewayConnection {
     update()
   }
 
-  static func update() {
+  static func update(completion: (() -> Void)? = nil) {
     certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token in
-      LocalData.sharedInstance.lastFetch = Date()
       guard let encodedCert = encodedCert else {
-        status()
+        status(completion: completion)
         return
       }
       LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
       LocalData.sharedInstance.resumeToken = token
-      update()
+      update(completion: completion)
     }
   }
 
-  static func status() {
+  static func status(completion: (() -> Void)? = nil) {
     certStatus { validKids in
       let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
         !validKids.contains($0)
@@ -120,7 +119,9 @@ struct GatewayConnection {
       for key in invalid {
         LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
       }
+      LocalData.sharedInstance.lastFetch = Date()
       LocalData.sharedInstance.save()
+      completion?()
     }
   }
 }
