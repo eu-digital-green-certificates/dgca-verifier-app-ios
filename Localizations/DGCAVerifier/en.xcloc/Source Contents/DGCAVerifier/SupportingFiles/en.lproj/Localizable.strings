@@ -1,4 +1,3 @@
-//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -18,33 +17,15 @@
  * limitations under the License.
  * ---license-end
  */
-//  
-//  Home.swift
-//  DGCAVerifier
-//  
-//  Created by Yannick Spreen on 4/25/21.
-//  
-        
+/* 
+  Localizable.strings
+  DGCAVerifier
 
-import Foundation
-import UIKit
-
-class HomeVC: UIViewController {
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-
-    GatewayConnection.timer?.invalidate()
-    LocalData.initialize {
-      DispatchQueue.main.async { [weak self] in
-        guard let self = self else {
-          return
-        }
-        let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
-        SecureBackground.image = renderer.image { rendererContext in
-          self.view.layer.render(in: rendererContext.cgContext)
-        }
-        self.performSegue(withIdentifier: "scanner", sender: self)
-      }
-    }
-  }
-}
+  Created by Yannick Spreen on 5/6/21.
+  
+*/
+"log.keys-loaded" = "%d pub keys loaded.";
+"app-version" = "App Version %@";
+"btn.done" = "Done";
+"btn.retry" = "Retry";
+"settings.last-updated" = "Last Updated: %@";

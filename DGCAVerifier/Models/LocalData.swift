@@ -66,7 +66,8 @@ struct LocalData: Codable {
       guard let result = success else {
         return
       }
-      print("\(result.encodedPublicKeys.count) certs loaded.")
+      let format = l10n("log.keys-loaded")
+      print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
       LocalData.sharedInstance = result
       completion()
     }

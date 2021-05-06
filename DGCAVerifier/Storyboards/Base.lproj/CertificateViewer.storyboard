@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="303" y="664.66666666666663" width="56" height="53.333333333333371"/>
+                                        <rect key="frame" x="279" y="664.66666666666663" width="80" height="53.333333333333371"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Retry">
@@ -208,7 +208,7 @@
     </scenes>
     <designables>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="56" height="39"/>
+            <size key="intrinsicContentSize" width="80" height="51"/>
         </designable>
     </designables>
     <resources>
