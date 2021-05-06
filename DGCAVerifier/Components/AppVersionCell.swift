@@ -34,6 +34,7 @@ class AppVersionCell: UITableViewCell {
     super.layoutSubviews()
 
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-    versionLabel.text = "App Version \(version ?? "?")"
+    let format = l10n("app-version")
+    versionLabel.text = String(format: format, version ?? "?")
   }
 }

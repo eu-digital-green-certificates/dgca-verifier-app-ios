@@ -49,8 +49,10 @@ class SettingsTableVC: UITableViewController {
   var loading = false
 
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-    [
-      "Last Updated: \(LocalData.sharedInstance.lastFetch.dateTimeString)",
+    let format = l10n("settings.last-updated")
+
+    return [
+      String(format: format, LocalData.sharedInstance.lastFetch.dateTimeString),
       "",
       "",
     ][section]

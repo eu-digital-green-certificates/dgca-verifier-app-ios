@@ -1,0 +1,8 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Verifier App";
+/* Bundle name */
+"CFBundleName" = "DGCAVerifier";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Scan barcodes with your camera.";
+/* Privacy - Face ID Usage Description */
+"NSFaceIDUsageDescription" = "Unlock sensitive data.";

@@ -31,17 +31,13 @@ import SwiftDGC
 
 let DISMISS_TIMEOUT = 15.0
 
-let validityString = [
-  HCertValidity.valid: "Valid",
-  HCertValidity.invalid: "Invalid",
-]
 let validityIcon = [
   HCertValidity.valid: UIImage(named: "check")!,
   HCertValidity.invalid: UIImage(named: "error")!,
 ]
 let buttonText = [
-  HCertValidity.valid: "Done",
-  HCertValidity.invalid: "Retry",
+  HCertValidity.valid: l10n("btn.done"),
+  HCertValidity.invalid: l10n("btn.retry"),
 ]
 let backgroundColor = [
   HCertValidity.valid: UIColor(named: "green")!,
@@ -78,7 +74,7 @@ class CertificateViewerVC: UIViewController {
     let validity = hCert.validity
     dismissButton.setTitle(buttonText[validity], for: .normal)
     dismissButton.backgroundColor = backgroundColor[validity]
-    validityLabel.text = validityString[validity]
+    validityLabel.text = validity.l10n
     headerBackground.backgroundColor = backgroundColor[validity]
     validityImage.image = validityIcon[validity]
   }

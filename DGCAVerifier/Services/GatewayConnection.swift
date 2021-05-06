@@ -20,7 +20,7 @@
  */
 //  
 //  GatewayConnection.swift
-//  PatientScannerDemo
+//  DGCAVerifier
 //  
 //  Created by Yannick Spreen on 4/24/21.
 //  
