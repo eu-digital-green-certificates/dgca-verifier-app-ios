@@ -66,10 +66,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnU-NM-uwu">
-                                <rect key="frame" x="0.0" y="746.5" width="414" height="149.5"/>
+                                <rect key="frame" x="0.0" y="754.5" width="414" height="141.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_eu_logo" translatesAutoresizingMaskIntoConstraints="NO" id="69c-5J-Njm">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EU_logo" translatesAutoresizingMaskIntoConstraints="NO" id="69c-5J-Njm">
                                 <rect key="frame" x="117" y="778.5" width="180" height="51.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="69c-5J-Njm" secondAttribute="height" multiplier="7:2" id="M24-Iq-Kzc"/>
@@ -90,7 +90,7 @@
                             <constraint firstItem="69c-5J-Njm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="PeV-gt-gBw"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="top" secondItem="TSz-Wk-1F3" secondAttribute="top" id="cdZ-XD-qKo"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="top" secondItem="SJI-m9-dcF" secondAttribute="bottom" constant="8" id="eK4-uU-snd"/>
-                            <constraint firstItem="69c-5J-Njm" firstAttribute="top" secondItem="SnU-NM-uwu" secondAttribute="top" constant="32" id="jZM-r0-jp4"/>
+                            <constraint firstItem="69c-5J-Njm" firstAttribute="top" secondItem="SnU-NM-uwu" secondAttribute="top" constant="24" id="jZM-r0-jp4"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="mL1-PH-CIz"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="pWb-aN-K7H"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="height" secondItem="TSz-Wk-1F3" secondAttribute="height" multiplier="0.15" id="w13-2b-J2X"/>
@@ -107,7 +107,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="main_eu_logo" width="162" height="42"/>
+        <image name="EU_logo" width="72" height="48"/>
         <image name="verifier_icon" width="112" height="112"/>
         <namedColor name="blue">
             <color red="0.0" green="0.2669999897480011" blue="0.57999998331069946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
