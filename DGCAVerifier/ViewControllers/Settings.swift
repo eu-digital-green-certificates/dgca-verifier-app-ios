@@ -32,6 +32,12 @@ import SwiftDGC
 class SettingsVC: UINavigationController {
   var childDismissedDelegate: CertViewerDelegate?
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    additionalSafeAreaInsets.top = 16.0
+  }
+
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
 
@@ -45,6 +51,7 @@ class SettingsTableVC: UITableViewController {
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     [
       "Last Updated: \(LocalData.sharedInstance.lastFetch.dateTimeString)",
+      "",
       "",
     ][section]
   }
@@ -69,5 +76,10 @@ class SettingsTableVC: UITableViewController {
         self?.tableView.reloadData()
       }
     }
+  }
+
+  @IBAction
+  func cancelButton() {
+    dismiss(animated: true, completion: nil)
   }
 }

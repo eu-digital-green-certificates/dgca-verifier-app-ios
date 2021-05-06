@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -78,17 +79,55 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="KQQ-gB-Jez">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="trH-0v-yYO" customClass="AppVersionCell" customModule="DGCAVerifier" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="230" width="414" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="trH-0v-yYO" id="JsN-kr-KFe">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Version 1.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKH-hO-t7T">
+                                                    <rect key="frame" x="20" y="27" width="374" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="YKH-hO-t7T" firstAttribute="leading" secondItem="JsN-kr-KFe" secondAttribute="leadingMargin" id="Fgj-V0-ahy"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="YKH-hO-t7T" secondAttribute="trailing" id="RdF-TY-evr"/>
+                                                <constraint firstItem="YKH-hO-t7T" firstAttribute="top" secondItem="JsN-kr-KFe" secondAttribute="topMargin" constant="16" id="Tgs-Rf-QuL"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YKH-hO-t7T" secondAttribute="bottom" id="Zcy-ML-A17"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="versionLabel" destination="YKH-hO-t7T" id="8Ae-aJ-DPf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="3yC-8G-HqR" id="K1R-9G-ffK"/>
                             <outlet property="delegate" destination="3yC-8G-HqR" id="bas-KV-ajP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="6ZX-Be-rar"/>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="6ZX-Be-rar">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="GAN-DV-Te7">
+                            <color key="tintColor" name="blue"/>
+                            <connections>
+                                <action selector="cancelButton" destination="3yC-8G-HqR" id="sf2-iC-tyY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHS-ud-n2D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="964" y="56"/>
+            <point key="canvasLocation" x="963.76811594202911" y="55.580357142857139"/>
         </scene>
         <!--SettingsVC-->
         <scene sceneID="dov-Kd-kCe">
@@ -111,6 +150,12 @@
     </scenes>
     <resources>
         <image name="spinner" width="22" height="22"/>
+        <namedColor name="blue">
+            <color red="0.0" green="0.2669999897480011" blue="0.57999998331069946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
