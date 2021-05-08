@@ -30,7 +30,7 @@ import FloatingPanel
 import SwiftDGC
 
 class SettingsVC: UINavigationController {
-  var childDismissedDelegate: CertViewerDelegate?
+  weak var childDismissedDelegate: CertViewerDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -54,7 +54,7 @@ class SettingsTableVC: UITableViewController {
     return [
       String(format: format, LocalData.sharedInstance.lastFetch.dateTimeString),
       "",
-      "",
+      ""
     ][section]
   }
 
@@ -72,7 +72,7 @@ class SettingsTableVC: UITableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
     tableView.reloadData()
 
-    GatewayConnection.update() {
+    GatewayConnection.update {
       DispatchQueue.main.async { [weak self] in
         self?.loading = false
         self?.tableView.reloadData()

@@ -29,19 +29,19 @@ import UIKit
 import FloatingPanel
 import SwiftDGC
 
-let DISMISS_TIMEOUT = 15.0
+let dismissTimeout = 15.0
 
 let validityIcon = [
   HCertValidity.valid: UIImage(named: "check")!,
-  HCertValidity.invalid: UIImage(named: "error")!,
+  HCertValidity.invalid: UIImage(named: "error")!
 ]
 let buttonText = [
   HCertValidity.valid: l10n("btn.done"),
-  HCertValidity.invalid: l10n("btn.retry"),
+  HCertValidity.invalid: l10n("btn.retry")
 ]
 let backgroundColor = [
   HCertValidity.valid: UIColor(named: "green")!,
-  HCertValidity.invalid: UIColor(named: "red")!,
+  HCertValidity.invalid: UIColor(named: "red")!
 ]
 class CertificateViewerVC: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
@@ -60,7 +60,7 @@ class CertificateViewerVC: UIViewController {
     }
   }
 
-  var childDismissedDelegate: CertViewerDelegate?
+  weak var childDismissedDelegate: CertViewerDelegate?
   var settingsOpened = false
 
   func draw() {
@@ -98,10 +98,10 @@ class CertificateViewerVC: UIViewController {
     settingsOpened = false
     loadingBackground.isUserInteractionEnabled = false
     loadingBackgroundTrailing.priority = .init(200)
-    UIView.animate(withDuration: DISMISS_TIMEOUT, delay: 0, options: .curveLinear) { [weak self] in
+    UIView.animate(withDuration: dismissTimeout, delay: 0, options: .curveLinear) { [weak self] in
       self?.view.layoutIfNeeded()
     }
-    DispatchQueue.main.asyncAfter(deadline: .now() + DISMISS_TIMEOUT) { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + dismissTimeout) { [weak self] in
       self?.dismiss(animated: true, completion: nil)
     }
 

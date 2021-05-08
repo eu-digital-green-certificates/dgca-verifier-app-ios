@@ -44,7 +44,7 @@ class ScanVC: SwiftDGC.ScanVC {
     let guide = view.safeAreaLayoutGuide
     NSLayoutConstraint.activate([
       settingsButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: 32.0),
-      settingsButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0),
+      settingsButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0)
     ])
   }
 
@@ -64,15 +64,15 @@ class ScanVC: SwiftDGC.ScanVC {
     viewer.childDismissedDelegate = self
   }
 
-  func showFloatingPanel(for vc: UIViewController) {
+  func showFloatingPanel(for controller: UIViewController) {
     let fpc = FloatingPanelController()
-    fpc.set(contentViewController: vc)
+    fpc.set(contentViewController: controller)
     fpc.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
     fpc.layout = FullFloatingPanelLayout()
     fpc.surfaceView.layer.cornerRadius = 24.0
     fpc.surfaceView.clipsToBounds = true
     fpc.delegate = self
-    presentingViewer = vc
+    presentingViewer = controller
 
     present(fpc, animated: true, completion: nil)
   }
@@ -106,7 +106,11 @@ extension ScanVC: CertViewerDelegate {
 }
 
 extension ScanVC: FloatingPanelControllerDelegate {
-  func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+  func floatingPanel(
+    _ fpc: FloatingPanelController,
+    shouldRemoveAt location: CGPoint,
+    with velocity: CGVector
+  ) -> Bool {
     let pos = location.y / view.bounds.height
     if pos >= 0.33 {
       return true

@@ -29,8 +29,8 @@ import UIKit
 
 @IBDesignable
 class RoundedButton: UIButton {
-  @IBInspectable var radius: CGFloat = 6.0 { didSet(v) { initialize() } }
-  @IBInspectable var padding: CGFloat = 4.0 { didSet(v) { initialize() } }
+  @IBInspectable var radius: CGFloat = 6.0 { didSet(value) { initialize() } }
+  @IBInspectable var padding: CGFloat = 4.0 { didSet(value) { initialize() } }
 
   override init(frame: CGRect) {
     super.init(frame: frame)

@@ -29,7 +29,6 @@
 
 import UIKit
 
-
 extension UIFont {
   public var weight: UIFont.Weight {
     guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
