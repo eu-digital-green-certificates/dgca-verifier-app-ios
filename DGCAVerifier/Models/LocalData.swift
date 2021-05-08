@@ -71,12 +71,14 @@ struct LocalData: Codable {
       LocalData.sharedInstance = result
       completion()
     }
-    HCert.publicKeyStorageDelegate = LocalDataDelegate()
+    HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
   }
 }
 
-struct LocalDataDelegate: PublicKeyStorageDelegate {
+class LocalDataDelegate: PublicKeyStorageDelegate {
   func getEncodedPublicKey(for kidStr: String) -> String? {
     LocalData.sharedInstance.encodedPublicKeys[kidStr]
   }
+
+  static var instance = LocalDataDelegate()
 }
