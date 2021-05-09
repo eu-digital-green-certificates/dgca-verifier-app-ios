@@ -34,7 +34,7 @@ class FullFloatingPanelLayout: FloatingPanelLayout {
   var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
     let top = FloatingPanelLayoutAnchor(absoluteInset: 16.0, edge: .top, referenceGuide: .safeArea)
     return [
-      .full: top,
+      .full: top
     ]
   }
 }

@@ -24,7 +24,6 @@
 //  
 //  Created by Yannick Spreen on 4/25/21.
 //  
-        
 
 import Foundation
 import SwiftDGC
@@ -34,13 +33,13 @@ struct LocalData: Codable {
 
   var encodedPublicKeys = [String: String]()
   var resumeToken: String?
-  var lastFetch_: Date?
+  var lastFetchRaw: Date?
   var lastFetch: Date {
     get {
-      lastFetch_ ?? .init(timeIntervalSince1970: 0)
+      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
     }
-    set(v) {
-      lastFetch_ = v
+    set(value) {
+      lastFetchRaw = value
     }
   }
 
@@ -71,12 +70,14 @@ struct LocalData: Codable {
       LocalData.sharedInstance = result
       completion()
     }
-    HCert.publicKeyStorageDelegate = LocalDataDelegate()
+    HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
   }
 }
 
-struct LocalDataDelegate: PublicKeyStorageDelegate {
+class LocalDataDelegate: PublicKeyStorageDelegate {
   func getEncodedPublicKey(for kidStr: String) -> String? {
     LocalData.sharedInstance.encodedPublicKeys[kidStr]
   }
+
+  static var instance = LocalDataDelegate()
 }

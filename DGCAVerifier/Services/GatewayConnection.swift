@@ -24,7 +24,6 @@
 //  
 //  Created by Yannick Spreen on 4/24/21.
 //  
-        
 
 import Foundation
 import Alamofire
@@ -41,7 +40,15 @@ struct GatewayConnection {
     if let token = resumeToken {
       headers["x-resume-token"] = token
     }
-    AF.request(serverURI + updateEndpoint, method: .get, parameters: nil, encoding: URLEncoding(), headers: .init(headers), interceptor: nil, requestModifier: nil).response {
+    AF.request(
+      serverURI + updateEndpoint,
+      method: .get,
+      parameters: nil,
+      encoding: URLEncoding(),
+      headers: .init(headers),
+      interceptor: nil,
+      requestModifier: nil
+    ).response {
       if
         let status = $0.response?.statusCode,
         status == 204 {
@@ -85,8 +92,8 @@ struct GatewayConnection {
 
   public static func initialize() {
     timer?.invalidate()
-    timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) {
-      _ in trigger()
+    timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
+      trigger()
     }
     timer?.tolerance = 5.0
     trigger()
