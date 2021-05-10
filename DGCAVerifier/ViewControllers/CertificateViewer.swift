@@ -130,8 +130,14 @@ class CertificateViewerVC: UIViewController {
 }
 
 extension CertificateViewerVC: UITableViewDataSource {
+  var listItems: [InfoSection] {
+    hCert.info.filter {
+      !$0.isPrivate
+    }
+  }
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return hCert.info.count
+    return listItems.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -139,7 +145,7 @@ extension CertificateViewerVC: UITableViewDataSource {
     guard let cell = base as? InfoCell else {
       return base
     }
-    cell.draw(hCert.info[indexPath.row])
+    cell.draw(listItems[indexPath.row])
     return cell
   }
 }
