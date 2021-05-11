@@ -33,11 +33,12 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEB-UD-iNN">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEB-UD-iNN">
                                                     <rect key="frame" x="356" y="0.0" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="LEB-UD-iNN" secondAttribute="height" multiplier="1:1" id="QaP-dH-dzW"/>
                                                     </constraints>
+                                                    <color key="tintColor" name="blue"/>
                                                     <state key="normal" image="spinner"/>
                                                 </button>
                                             </subviews>
