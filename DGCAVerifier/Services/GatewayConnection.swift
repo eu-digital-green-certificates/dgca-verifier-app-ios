@@ -30,24 +30,17 @@ import Alamofire
 import SwiftDGC
 import SwiftyJSON
 
-struct GatewayConnection {
-  static let serverURI = "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/"
-  static let updateEndpoint = "signercertificateUpdate"
-  static let statusEndpoint = "signercertificateStatus"
-
+struct GatewayConnection: ContextConnection {
   public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
     var headers = [String: String]()
     if let token = resumeToken {
       headers["x-resume-token"] = token
     }
-    AF.request(
-      serverURI + updateEndpoint,
+    request(
+      ["endpoints", "update"],
       method: .get,
-      parameters: nil,
       encoding: URLEncoding(),
-      headers: .init(headers),
-      interceptor: nil,
-      requestModifier: nil
+      headers: .init(headers)
     ).response {
       if
         let status = $0.response?.statusCode,
@@ -74,7 +67,7 @@ struct GatewayConnection {
     }
   }
   public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
-    AF.request(serverURI + statusEndpoint).response {
+    request(["endpoints", "status"]).response {
       guard
         case let .success(result) = $0.result,
         let response = result,
@@ -130,5 +123,24 @@ struct GatewayConnection {
       LocalData.sharedInstance.save()
       completion?()
     }
+  }
+
+  public static func fetchContext() {
+    request(
+      ["context"]
+    ).response {
+      guard
+        let data = $0.data,
+        let string = String(data: data, encoding: .utf8)
+      else {
+        return
+      }
+      let json = JSON(parseJSONC: string)
+      LocalData.sharedInstance.config.merge(other: json)
+      LocalData.sharedInstance.save()
+    }
+  }
+  static var config: JSON {
+    LocalData.sharedInstance.versionedConfig
   }
 }

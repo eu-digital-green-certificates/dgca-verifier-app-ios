@@ -36,6 +36,7 @@
 		CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
 		CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D702261F8D2900715333 /* DGCAVerifierTests.swift */; };
 		CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D70D261F8D2900715333 /* DGCAVerifierUITests.swift */; };
+		CEC7FEE1264C819D005561BA /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = CEC7FEE0264C819D005561BA /* context.jsonc */; };
 		CED2726026398683003D47A9 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		CEA6D709261F8D2900715333 /* DGCAVerifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DGCAVerifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* DGCAVerifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCAVerifierUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEC7FEE0264C819D005561BA /* context.jsonc */ = {isa = PBXFileReference; lastKnownFileType = file; path = context.jsonc; sourceTree = SOURCE_ROOT; };
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEDCA7972639E6E700FCB83E /* SwiftDGC */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftDGC; path = "../dgca-app-core-ios"; sourceTree = "<group>"; };
 		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
@@ -186,6 +188,7 @@
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
 				CE345FB626446817003B457E /* Localizable.strings */,
+				CEC7FEE0264C819D005561BA /* context.jsonc */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				CE81533C263FF8FE0030D777 /* README.md in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
+				CEC7FEE1264C819D005561BA /* context.jsonc in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 				CE345FAC26446694003B457E /* Settings.storyboard in Resources */,
 			);
