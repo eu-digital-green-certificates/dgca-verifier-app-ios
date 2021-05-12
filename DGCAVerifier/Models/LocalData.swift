@@ -31,7 +31,7 @@ import SwiftDGC
 struct LocalData: Codable {
   static var sharedInstance = LocalData()
 
-  var encodedPublicKeys = [String: String]()
+  var encodedPublicKeys = [String: [String]]()
   var resumeToken: String?
   var lastFetchRaw: Date?
   var lastFetch: Date {
@@ -47,7 +47,11 @@ struct LocalData: Codable {
     let kid = KID.from(encodedPublicKey)
     let kidStr = KID.string(from: kid)
 
-    encodedPublicKeys[kidStr] = encodedPublicKey
+    let list = encodedPublicKeys[kidStr] ?? []
+    if list.contains(encodedPublicKey) {
+      return
+    }
+    encodedPublicKeys[kidStr]?.append(encodedPublicKey)
   }
 
   static func set(resumeToken: String) {
@@ -75,8 +79,8 @@ struct LocalData: Codable {
 }
 
 class LocalDataDelegate: PublicKeyStorageDelegate {
-  func getEncodedPublicKey(for kidStr: String) -> String? {
-    LocalData.sharedInstance.encodedPublicKeys[kidStr]
+  func getEncodedPublicKeys(for kidStr: String) -> [String] {
+    LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? []
   }
 
   static var instance = LocalDataDelegate()
