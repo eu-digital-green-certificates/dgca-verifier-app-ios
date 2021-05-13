@@ -27,8 +27,10 @@
 
 import Foundation
 import SwiftDGC
+import SwiftyJSON
 
 struct LocalData: Codable {
+  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   static var sharedInstance = LocalData()
 
   var encodedPublicKeys = [String: [String]]()
@@ -42,6 +44,7 @@ struct LocalData: Codable {
       lastFetchRaw = value
     }
   }
+  var config = Config.load()
 
   mutating func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
@@ -73,8 +76,16 @@ struct LocalData: Codable {
       print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
       LocalData.sharedInstance = result
       completion()
+      GatewayConnection.fetchContext()
     }
     HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+  }
+
+  var versionedConfig: JSON {
+    if config["versions"][Self.appVersion].exists() {
+      return config["versions"][Self.appVersion]
+    }
+    return config["versions"]["default"]
   }
 }
 

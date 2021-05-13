@@ -1,0 +1,29 @@
+{
+  // Origin in ISO alpha 2 code:
+  "origin": "DE",
+  "versions": {
+    "default": {
+      // catch-all for normal versions
+      "privacyUrl": "https://publications.europa.eu/en/web/about-us/legal-notices/eu-mobile-apps",
+      "context": {
+        // Currently this url is empty still, subject to change:
+        "url": "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/context",
+        "pubKeys": ["Ef6tLK887tpTdkiVkSG7ioXCgNEJsbIgKcAU+dxTTag="]
+      },
+      "endpoints": {
+        "status": {
+          "url": "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/signercertificateStatus",
+          "pubKeys": ["Ef6tLK887tpTdkiVkSG7ioXCgNEJsbIgKcAU+dxTTag="]
+        },
+        "update": {
+          "url": "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/signercertificateUpdate",
+          "pubKeys": ["Ef6tLK887tpTdkiVkSG7ioXCgNEJsbIgKcAU+dxTTag="]
+        }
+      }
+    },
+    "0.1.0": {
+      // Example for a version that is insecure and shouldn't start.
+      "outdated": true
+    }
+  }
+}
