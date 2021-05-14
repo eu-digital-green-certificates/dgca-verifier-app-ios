@@ -96,7 +96,9 @@ struct GatewayConnection: ContextConnection {
     guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
       return
     }
-    update()
+    fetchContext {
+      update()
+    }
   }
 
   static func update(completion: (() -> Void)? = nil) {
@@ -125,7 +127,7 @@ struct GatewayConnection: ContextConnection {
     }
   }
 
-  public static func fetchContext() {
+  public static func fetchContext(completion: (() -> Void)? = nil) {
     request(
       ["context"]
     ).response {
@@ -133,11 +135,13 @@ struct GatewayConnection: ContextConnection {
         let data = $0.data,
         let string = String(data: data, encoding: .utf8)
       else {
+        completion?()
         return
       }
       let json = JSON(parseJSONC: string)
       LocalData.sharedInstance.config.merge(other: json)
       LocalData.sharedInstance.save()
+      completion?()
     }
   }
   static var config: JSON {
