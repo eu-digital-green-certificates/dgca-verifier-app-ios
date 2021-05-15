@@ -39,12 +39,14 @@ class ScanVC: SwiftDGC.ScanVC {
     let settingsButton = UIButton(frame: .zero)
     settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
-    settingsButton.setImage(UIImage(named: "gear_white"), for: .normal)
+    settingsButton.setBackgroundImage(UIImage(named: "gear_white"), for: .normal)
     view.addSubview(settingsButton)
     let guide = view.safeAreaLayoutGuide
     NSLayoutConstraint.activate([
-      settingsButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: 32.0),
-      settingsButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0)
+      settingsButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: 36.0),
+      settingsButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0),
+      settingsButton.heightAnchor.constraint(equalToConstant: 30),
+      settingsButton.widthAnchor.constraint(equalToConstant: 30)
     ])
   }
 
