@@ -45,6 +45,7 @@ struct LocalData: Codable {
     }
   }
   var config = Config.load()
+  var lastLaunchedAppVersion = Self.appVersion
 
   mutating func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
@@ -54,7 +55,7 @@ struct LocalData: Codable {
     if list.contains(encodedPublicKey) {
       return
     }
-    encodedPublicKeys[kidStr]?.append(encodedPublicKey)
+    encodedPublicKeys[kidStr] = list + [encodedPublicKey]
   }
 
   static func set(resumeToken: String) {
@@ -69,11 +70,14 @@ struct LocalData: Codable {
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: LocalData.sharedInstance) { success in
-      guard let result = success else {
+      guard var result = success else {
         return
       }
       let format = l10n("log.keys-loaded")
       print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
+      if result.lastLaunchedAppVersion != Self.appVersion {
+        result.config = LocalData.sharedInstance.config
+      }
       LocalData.sharedInstance = result
       completion()
       GatewayConnection.fetchContext()
