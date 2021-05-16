@@ -17,7 +17,6 @@
 		CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* CertificateViewer.storyboard */; };
 		CE345FB426446817003B457E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB626446817003B457E /* Localizable.strings */; };
 		CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37B642263867D700DEE13D /* SecureBackground.swift */; };
-		CE41B7E226445092005013C4 /* AppVersionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE41B7E126445092005013C4 /* AppVersionCell.swift */; };
 		CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = CE56B5042639F48E00FB31B1 /* SwiftDGC */; };
 		CE59D1B626428D78004EBDD6 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59D1B526428D78004EBDD6 /* Settings.swift */; };
 		CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
@@ -67,7 +66,6 @@
 		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CertificateViewer.storyboard; sourceTree = "<group>"; };
 		CE345FB526446817003B457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE37B642263867D700DEE13D /* SecureBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBackground.swift; sourceTree = "<group>"; };
-		CE41B7E126445092005013C4 /* AppVersionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionCell.swift; sourceTree = "<group>"; };
 		CE59D1B526428D78004EBDD6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE8096D8263B07BB00A65AD6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -90,7 +88,7 @@
 		CEA6D709261F8D2900715333 /* DGCAVerifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DGCAVerifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* DGCAVerifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCAVerifierUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEC7FEE0264C819D005561BA /* context.jsonc */ = {isa = PBXFileReference; lastKnownFileType = file; path = context.jsonc; sourceTree = SOURCE_ROOT; };
+		CEC7FEE0264C819D005561BA /* context.jsonc */ = {isa = PBXFileReference; lastKnownFileType = text; path = context.jsonc; sourceTree = SOURCE_ROOT; };
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEDCA7972639E6E700FCB83E /* SwiftDGC */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftDGC; path = "../dgca-app-core-ios"; sourceTree = "<group>"; };
 		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
@@ -172,7 +170,6 @@
 				CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */,
 				CE13CF22262DDF810070C80E /* RoundedButton.swift */,
 				CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */,
-				CE41B7E126445092005013C4 /* AppVersionCell.swift */,
 				CEA1556F262F79DE0024B7AC /* InfoCell.swift */,
 			);
 			path = Components;
@@ -445,7 +442,6 @@
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
-				CE41B7E226445092005013C4 /* AppVersionCell.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,

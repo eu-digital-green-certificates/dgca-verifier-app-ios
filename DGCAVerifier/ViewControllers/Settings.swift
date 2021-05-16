@@ -52,6 +52,7 @@ class SettingsTableVC: UITableViewController {
     let format = l10n("settings.last-updated")
 
     return [
+      "",
       String(format: format, LocalData.sharedInstance.lastFetch.dateTimeString),
       "",
       ""
@@ -60,7 +61,7 @@ class SettingsTableVC: UITableViewController {
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
-    if indexPath.section == 1 {
+    if indexPath.section == 2 {
       cell.alpha = loading ? 1 : 0
       cell.contentView.alpha = loading ? 1 : 0
     }
@@ -68,15 +69,50 @@ class SettingsTableVC: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    loading = true
     tableView.deselectRow(at: indexPath, animated: true)
-    tableView.reloadData()
 
-    GatewayConnection.update {
-      DispatchQueue.main.async { [weak self] in
-        self?.loading = false
-        self?.tableView.reloadData()
+    if indexPath.section == 0 {
+      switch indexPath.row {
+      case 0:
+        openPrivacyDoc()
+      case 1:
+        openEuCertDoc()
+      case 2:
+        openGitHubSource()
+      default:
+        return
       }
+    }
+    if indexPath.section == 1 {
+      loading = true
+      tableView.reloadData()
+      return GatewayConnection.update {
+        DispatchQueue.main.async { [weak self] in
+          self?.loading = false
+          self?.tableView.reloadData()
+        }
+      }
+    }
+  }
+
+  func openPrivacyDoc() {
+    let link = LocalData.sharedInstance.versionedConfig["privacyUrl"].string ?? ""
+    openUrl(link)
+  }
+
+  func openEuCertDoc() {
+    let link = "https://ec.europa.eu/health/ehealth/covid-19_en"
+    openUrl(link)
+  }
+
+  func openGitHubSource() {
+    let link = "https://github.com/eu-digital-green-certificates"
+    openUrl(link)
+  }
+
+  func openUrl(_ string: String!) {
+    if let url = URL(string: string) {
+      UIApplication.shared.open(url)
     }
   }
 
