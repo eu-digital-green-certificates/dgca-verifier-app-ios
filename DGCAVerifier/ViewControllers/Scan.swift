@@ -77,6 +77,7 @@ class ScanVC: SwiftDGC.ScanVC {
     presentingViewer = controller
 
     present(fpc, animated: true, completion: nil)
+    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
   }
 }
 

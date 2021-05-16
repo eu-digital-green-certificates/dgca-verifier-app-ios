@@ -76,10 +76,25 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5" build-num="12E262"/>
     </header>
     <body>
+      <trans-unit id="3C9-S9-3Vo.text" xml:space="preserve">
+        <source>EU Digital Green Certificate</source>
+        <target>EU Digital Green Certificate</target>
+        <note>Class = "UILabel"; text = "EU Digital Green Certificate"; ObjectID = "3C9-S9-3Vo";</note>
+      </trans-unit>
       <trans-unit id="6ZX-Be-rar.title" xml:space="preserve">
         <source>Settings</source>
         <target>Settings</target>
         <note>Class = "UINavigationItem"; title = "Settings"; ObjectID = "6ZX-Be-rar";</note>
+      </trans-unit>
+      <trans-unit id="MwP-Io-S91.headerTitle" xml:space="preserve">
+        <source>Links</source>
+        <target>Links</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Links"; ObjectID = "MwP-Io-S91";</note>
+      </trans-unit>
+      <trans-unit id="U16-Hl-qjj.text" xml:space="preserve">
+        <source>GitHub Page</source>
+        <target>GitHub Page</target>
+        <note>Class = "UILabel"; text = "GitHub Page"; ObjectID = "U16-Hl-qjj";</note>
       </trans-unit>
       <trans-unit id="YKH-hO-t7T.text" xml:space="preserve">
         <source>App Version 1.0.1</source>
@@ -95,6 +110,11 @@
         <source>Trusted Public Keys</source>
         <target>Trusted Public Keys</target>
         <note>Class = "UITableViewSection"; headerTitle = "Trusted Public Keys"; ObjectID = "eFb-hd-Bdj";</note>
+      </trans-unit>
+      <trans-unit id="gMd-yI-bmR.text" xml:space="preserve">
+        <source>Privacy Information</source>
+        <target>Privacy Information</target>
+        <note>Class = "UILabel"; text = "Privacy Information"; ObjectID = "gMd-yI-bmR";</note>
       </trans-unit>
       <trans-unit id="pZh-NG-LMB.text" xml:space="preserve">
         <source>Reload</source>
