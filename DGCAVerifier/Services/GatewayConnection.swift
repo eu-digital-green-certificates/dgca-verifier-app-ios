@@ -29,6 +29,7 @@ import Foundation
 import Alamofire
 import SwiftDGC
 import SwiftyJSON
+import UIKit
 
 struct GatewayConnection: ContextConnection {
   public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
@@ -141,6 +142,12 @@ struct GatewayConnection: ContextConnection {
       let json = JSON(parseJSONC: string)
       LocalData.sharedInstance.config.merge(other: json)
       LocalData.sharedInstance.save()
+      if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
+        (
+          UIApplication.shared.windows[0].rootViewController as? UINavigationController
+        )?.popToRootViewController(animated: false)
+        return
+      }
       completion?()
     }
   }

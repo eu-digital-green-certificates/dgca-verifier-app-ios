@@ -27,11 +27,20 @@
 
 import Foundation
 import UIKit
+import SwiftDGC
 
 class HomeVC: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
+    if !loaded {
+      return load()
+    }
+    return loadComplete()
+  }
+
+  var loaded = false
+  func load() {
     GatewayConnection.timer?.invalidate()
     LocalData.initialize {
       DispatchQueue.main.async { [weak self] in
@@ -42,8 +51,17 @@ class HomeVC: UIViewController {
         SecureBackground.image = renderer.image { rendererContext in
           self.view.layer.render(in: rendererContext.cgContext)
         }
-        self.performSegue(withIdentifier: "scanner", sender: self)
+        self.loaded = true
+        self.loadComplete()
       }
     }
+  }
+
+  func loadComplete() {
+    if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
+      showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
+      return
+    }
+    performSegue(withIdentifier: "scanner", sender: self)
   }
 }
