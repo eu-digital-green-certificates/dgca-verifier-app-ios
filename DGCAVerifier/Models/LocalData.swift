@@ -52,7 +52,7 @@ struct LocalData: Codable {
     if list.contains(encodedPublicKey) {
       return
     }
-    encodedPublicKeys[kidStr]?.append(encodedPublicKey)
+    encodedPublicKeys[kidStr] = list + [encodedPublicKey]
   }
 
   static func set(resumeToken: String) {
