@@ -29,129 +29,121 @@ import Foundation
 import Alamofire
 import SwiftDGC
 import SwiftyJSON
-import UIKit
 
-struct GatewayConnection: ContextConnection {
-  public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
-    var headers = [String: String]()
-    if let token = resumeToken {
-      headers["x-resume-token"] = token
+struct GatewayConnection {
+    //  static let serverURI = "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/"
+    //  static let updateEndpoint = "signercertificateUpdate"
+    //  static let statusEndpoint = "signercertificateStatus"
+    
+    static let serverURI = "https://testaka4.sogei.it/v1/dgc/signercertificate/"
+    static let updateEndpoint = "update"
+    static let statusEndpoint = "status"
+    
+    public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?) -> Void)?) {
+        var headers = [String: String]()
+        if let token = resumeToken {
+            headers["x-resume-token"] = token
+        }
+        AF.request(
+            serverURI + updateEndpoint,
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding(),
+            headers: .init(headers),
+            interceptor: nil,
+            requestModifier: nil
+        ).response {
+            if let status = $0.response?.statusCode, status == 204 {
+                completion?(nil, nil, nil)
+                return
+            }
+            
+            if let status = $0.response?.statusCode, status == 403 {
+                completion?(nil, nil, "server.error.noAuthorization".localized)
+                return
+            }
+            
+            guard
+                case let .success(result) = $0.result,
+                let response = result,
+                let responseStr = String(data: response, encoding: .utf8),
+                let headers = $0.response?.headers,
+                let responseKid = headers["x-kid"],
+                let newResumeToken = headers["x-resume-token"]
+            else {
+                return
+            }
+            let kid = KID.from(responseStr)
+            let kidStr = KID.string(from: kid)
+            if kidStr != responseKid {
+                return
+            }
+            completion?(responseStr, newResumeToken, nil)
+        }
     }
-    request(
-      ["endpoints", "update"],
-      method: .get,
-      encoding: URLEncoding(),
-      headers: .init(headers)
-    ).response {
-      if
-        let status = $0.response?.statusCode,
-        status == 204 {
-        completion?(nil, nil)
-        return
-      }
-      guard
-        case let .success(result) = $0.result,
-        let response = result,
-        let responseStr = String(data: response, encoding: .utf8),
-        let headers = $0.response?.headers,
-        let responseKid = headers["x-kid"],
-        let newResumeToken = headers["x-resume-token"]
-      else {
-        return
-      }
-      let kid = KID.from(responseStr)
-      let kidStr = KID.string(from: kid)
-      if kidStr != responseKid {
-        return
-      }
-      completion?(responseStr, newResumeToken)
+    public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
+        AF.request(serverURI + statusEndpoint).response {
+            guard
+                case let .success(result) = $0.result,
+                let response = result,
+                let responseStr = String(data: response, encoding: .utf8),
+                let json = JSON(parseJSON: responseStr).array
+            else {
+                return
+            }
+            let kids = json.compactMap { $0.string }
+            completion?(kids)
+        }
     }
-  }
-  public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
-    request(["endpoints", "status"]).response {
-      guard
-        case let .success(result) = $0.result,
-        let response = result,
-        let responseStr = String(data: response, encoding: .utf8),
-        let json = JSON(parseJSON: responseStr).array
-      else {
-        return
-      }
-      let kids = json.compactMap { $0.string }
-      completion?(kids)
+    
+    static var timer: Timer?
+    
+    public static func initialize(completion: ((String?) -> Void)? = nil) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
+            trigger()
+        }
+        timer?.tolerance = 5.0
+        update(completion: completion)
     }
-  }
-
-  static var timer: Timer?
-
-  public static func initialize() {
-    timer?.invalidate()
-    timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
-      trigger()
+    
+    static func trigger(completion: ((String?) -> Void)? = nil) {
+        guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
+            completion?(nil)
+            return
+        }
+        update(completion: completion)
     }
-    timer?.tolerance = 5.0
-    trigger()
-  }
-
-  static func trigger() {
-    guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
-      return
+    
+    static func update(completion: ((String?) -> Void)? = nil) {
+        certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token, error in
+            
+            if error != nil {
+                completion?(error)
+                return
+            }
+            
+            guard let encodedCert = encodedCert else {
+                status(completion: completion)
+                return
+            }
+            LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
+            LocalData.sharedInstance.resumeToken = token
+            update(completion: completion)
+        }
     }
-    fetchContext {
-      update()
+    
+    static func status(completion: ((String?) -> Void)? = nil) {
+        certStatus { validKids in
+            let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
+                !validKids.contains($0)
+            }
+            for key in invalid {
+                LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
+            }
+            LocalData.sharedInstance.lastFetch = Date()
+            LocalData.sharedInstance.save()
+            completion?(nil)
+        }
     }
-  }
-
-  static func update(completion: (() -> Void)? = nil) {
-    certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token in
-      guard let encodedCert = encodedCert else {
-        status(completion: completion)
-        return
-      }
-      LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
-      LocalData.sharedInstance.resumeToken = token
-      update(completion: completion)
-    }
-  }
-
-  static func status(completion: (() -> Void)? = nil) {
-    certStatus { validKids in
-      let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
-        !validKids.contains($0)
-      }
-      for key in invalid {
-        LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
-      }
-      LocalData.sharedInstance.lastFetch = Date()
-      LocalData.sharedInstance.save()
-      completion?()
-    }
-  }
-
-  public static func fetchContext(completion: (() -> Void)? = nil) {
-    request(
-      ["context"]
-    ).response {
-      guard
-        let data = $0.data,
-        let string = String(data: data, encoding: .utf8)
-      else {
-        completion?()
-        return
-      }
-      let json = JSON(parseJSONC: string)
-      LocalData.sharedInstance.config.merge(other: json)
-      LocalData.sharedInstance.save()
-      if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
-        (
-          UIApplication.shared.windows[0].rootViewController as? UINavigationController
-        )?.popToRootViewController(animated: false)
-        return
-      }
-      completion?()
-    }
-  }
-  static var config: JSON {
-    LocalData.sharedInstance.versionedConfig
-  }
 }

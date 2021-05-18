@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationViewController" customModule="Verifier" customModuleProvider="target">
+            <connections>
+                <outlet property="contentStackView" destination="pDT-wJ-v7T" id="SDf-TQ-cqt"/>
+                <outlet property="descriptionLabel" destination="s2n-Hx-XXJ" id="5j6-xX-YDK"/>
+                <outlet property="resultImageView" destination="fsL-Wu-klM" id="Yjc-ns-G7l"/>
+                <outlet property="titleLabel" destination="bgj-PP-ub7" id="UUW-Ze-Ko8"/>
+                <outlet property="view" destination="2ox-tZ-GfJ" id="gDB-Bm-fdt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2ox-tZ-GfJ">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_misuse" translatesAutoresizingMaskIntoConstraints="NO" id="fsL-Wu-klM">
+                    <rect key="frame" x="157" y="144" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fsL-Wu-klM" secondAttribute="height" multiplier="1:1" id="QfI-t0-Vge"/>
+                        <constraint firstAttribute="width" constant="100" id="ecU-wc-kDn"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificato valido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgj-PP-ub7">
+                    <rect key="frame" x="20" y="284" width="374" height="21"/>
+                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your phone to the internet to update your phone entries." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2n-Hx-XXJ">
+                    <rect key="frame" x="20" y="315" width="374" height="36.5"/>
+                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ICW-sq-Dag">
+                    <rect key="frame" x="128" y="792" width="158" height="50"/>
+                    <color key="backgroundColor" red="0.1450980392" green="0.35294117650000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="XVV-BS-Fz0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="14"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="40" maxY="0.0"/>
+                    <state key="normal" title="Next scan">
+                        <color key="titleColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.59999999999999998"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="dismiss:" destination="-1" eventType="touchUpInside" id="5l2-3M-eNS"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYP-Zz-3fa">
+                    <rect key="frame" x="362" y="84" width="32" height="32"/>
+                    <color key="backgroundColor" red="0.70196078431372544" green="0.80000000000000004" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="gh6-PB-4A8"/>
+                        <constraint firstAttribute="width" constant="32" id="pLZ-I3-XKg"/>
+                    </constraints>
+                    <state key="normal" image="icon_close"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="dismiss:" destination="-1" eventType="touchUpInside" id="QNA-jZ-3z8"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-wJ-v7T">
+                    <rect key="frame" x="20" y="391.5" width="374" height="380.5"/>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="OzW-CK-pC1"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="XYP-Zz-3fa" firstAttribute="top" secondItem="OzW-CK-pC1" secondAttribute="top" constant="40" id="1XR-mq-2r1"/>
+                <constraint firstItem="ICW-sq-Dag" firstAttribute="centerX" secondItem="2ox-tZ-GfJ" secondAttribute="centerX" id="7Wn-z5-8hT"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="bgj-PP-ub7" secondAttribute="trailing" constant="20" id="8PK-Xt-J75"/>
+                <constraint firstItem="s2n-Hx-XXJ" firstAttribute="top" secondItem="bgj-PP-ub7" secondAttribute="bottom" constant="10" id="Ap0-G0-Zh7"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="s2n-Hx-XXJ" secondAttribute="trailing" constant="20" id="GMa-nQ-AdO"/>
+                <constraint firstItem="fsL-Wu-klM" firstAttribute="centerX" secondItem="2ox-tZ-GfJ" secondAttribute="centerX" id="GZb-Hm-zpU"/>
+                <constraint firstItem="pDT-wJ-v7T" firstAttribute="top" secondItem="s2n-Hx-XXJ" secondAttribute="bottom" constant="40" id="KLy-vM-M0O"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="pDT-wJ-v7T" secondAttribute="trailing" constant="20" id="KOA-dD-nwZ"/>
+                <constraint firstItem="ICW-sq-Dag" firstAttribute="top" secondItem="pDT-wJ-v7T" secondAttribute="bottom" constant="20" placeholder="YES" id="OoR-pe-YnY"/>
+                <constraint firstItem="pDT-wJ-v7T" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="UpB-YX-wDN"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="bottom" secondItem="ICW-sq-Dag" secondAttribute="bottom" constant="20" id="W1w-Ua-ieY"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="XYP-Zz-3fa" secondAttribute="trailing" constant="20" id="W7r-kd-ZtP"/>
+                <constraint firstItem="s2n-Hx-XXJ" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="W8A-4w-3zQ"/>
+                <constraint firstItem="bgj-PP-ub7" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="hap-sT-9IT"/>
+                <constraint firstItem="fsL-Wu-klM" firstAttribute="top" secondItem="OzW-CK-pC1" secondAttribute="top" constant="100" id="hpl-eH-UCf"/>
+                <constraint firstItem="bgj-PP-ub7" firstAttribute="top" secondItem="fsL-Wu-klM" secondAttribute="bottom" constant="40" id="zl2-D3-JSl"/>
+            </constraints>
+            <point key="canvasLocation" x="-767" y="-1570"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_close" width="25.5" height="25"/>
+        <image name="icon_misuse" width="45.5" height="45.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

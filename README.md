@@ -33,7 +33,7 @@ You can help the localization of this project by making contributions to the [/L
 ### Prerequisites
 
 - You need a Mac to run Xcode.
-- Xcode 12.5+ is used for our builds. The OS requirement is macOS 11.0+.
+- Xcode 12.4+ is used for our builds. On the Mac App Store, the os requirement lists macOS 11.0+, but it works fine on Catalina as well.
 - To install development apps on physical iPhones, you need an Apple Developer account.
 - Service Endpoints:
   - This App talks to the pubkey endpoint: `https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com`,
@@ -58,8 +58,8 @@ Important Info: SPM and the SwiftDGC [core module](https://github.com/eu-digital
 Build steps
 - Set the development team to any Apple Developer Account
 - Give the project a unique bundle identifier
-- Install swift package manager requirements through Xcode 12.5+
-- Build and run the project through Xcode 12.5+
+- Install swift package manager requirements through Xcode 12.4+
+- Build and run the project through Xcode 12.4+
 
 ## Documentation
 

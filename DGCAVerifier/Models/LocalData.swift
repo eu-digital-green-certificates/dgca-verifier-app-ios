@@ -30,7 +30,6 @@ import SwiftDGC
 import SwiftyJSON
 
 struct LocalData: Codable {
-  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   static var sharedInstance = LocalData()
 
   var encodedPublicKeys = [String: [String]]()
@@ -44,8 +43,6 @@ struct LocalData: Codable {
       lastFetchRaw = value
     }
   }
-  var config = Config.load()
-  var lastLaunchedAppVersion = Self.appVersion
 
   mutating func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
@@ -55,7 +52,7 @@ struct LocalData: Codable {
     if list.contains(encodedPublicKey) {
       return
     }
-    encodedPublicKeys[kidStr] = list + [encodedPublicKey]
+    encodedPublicKeys[kidStr]?.append(encodedPublicKey)
   }
 
   static func set(resumeToken: String) {
@@ -70,26 +67,15 @@ struct LocalData: Codable {
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: LocalData.sharedInstance) { success in
-      guard var result = success else {
+      guard let result = success else {
         return
       }
       let format = l10n("log.keys-loaded")
       print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
-      if result.lastLaunchedAppVersion != Self.appVersion {
-        result.config = LocalData.sharedInstance.config
-      }
       LocalData.sharedInstance = result
       completion()
-      GatewayConnection.fetchContext()
     }
     HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
-  }
-
-  var versionedConfig: JSON {
-    if config["versions"][Self.appVersion].exists() {
-      return config["versions"][Self.appVersion]
-    }
-    return config["versions"]["default"]
   }
 }
 
