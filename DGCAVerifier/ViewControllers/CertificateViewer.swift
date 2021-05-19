@@ -54,16 +54,26 @@ class CertificateViewerVC: UIViewController {
   @IBOutlet weak var infoTable: UITableView!
   @IBOutlet weak var dismissButton: UIButton!
 
-  var hCert: HCert! {
-    didSet {
-      self.draw()
-    }
-  }
+  var hCert: HCert?
 
   weak var childDismissedDelegate: CertViewerDelegate?
   var settingsOpened = false
 
   func draw() {
+    guard let hCert = hCert else {
+      return
+    }
+    typeSegments.tintColor = .white
+    // selected option color
+    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black!], for: .selected)
+    // color of other options
+    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.disabledText!], for: .normal)
+    typeSegments.backgroundColor = UIColor(white: 1.0, alpha: 0.06)
+
+    infoTable.dataSource = self
+    infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
+    settingsOpened = false
+    loadingBackground.isUserInteractionEnabled = false
     nameLabel.text = hCert.fullName
     infoTable.reloadData()
     typeSegments.selectedSegmentIndex = [
@@ -79,24 +89,21 @@ class CertificateViewerVC: UIViewController {
     validityImage.image = validityIcon[validity]
   }
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // selected option color
-    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black!], for: .selected)
-    // color of other options
-    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.disabledText!], for: .normal)
-    typeSegments.backgroundColor = UIColor(white: 1.0, alpha: 0.06)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
 
-    infoTable.dataSource = self
-    infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
-
-    return
+    if #available(iOS 13.0, *) {
+      draw()
+    } else {
+      DispatchQueue.main.async { [weak self] in
+        self?.draw()
+      }
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    settingsOpened = false
-    loadingBackground.isUserInteractionEnabled = false
+
     loadingBackgroundTrailing.priority = .init(200)
     UIView.animate(withDuration: dismissTimeout, delay: 0, options: .curveLinear) { [weak self] in
       self?.view.layoutIfNeeded()
@@ -104,8 +111,6 @@ class CertificateViewerVC: UIViewController {
     DispatchQueue.main.asyncAfter(deadline: .now() + dismissTimeout) { [weak self] in
       self?.dismiss(animated: true, completion: nil)
     }
-
-    return
   }
 
   override func viewDidDisappear(_ animated: Bool) {
@@ -131,9 +136,9 @@ class CertificateViewerVC: UIViewController {
 
 extension CertificateViewerVC: UITableViewDataSource {
   var listItems: [InfoSection] {
-    hCert.info.filter {
+    hCert?.info.filter {
       !$0.isPrivate
-    }
+    } ?? []
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
