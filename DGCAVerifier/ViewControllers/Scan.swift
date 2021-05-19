@@ -61,9 +61,9 @@ class ScanVC: SwiftDGC.ScanVC {
       return
     }
 
-    showFloatingPanel(for: viewer)
     viewer.hCert = certificate
     viewer.childDismissedDelegate = self
+    showFloatingPanel(for: viewer)
   }
 
   func showFloatingPanel(for controller: UIViewController) {

@@ -28,13 +28,19 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+  var window: UIWindow?
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    // Override point for customization after application launch.
-    return true
+    if #available(iOS 13, *) {
+      return true
+    } else {
+      self.window = UIWindow()
+      self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
+      self.window!.makeKeyAndVisible()
+      return true
+    }
   }
 
   func applicationWillResignActive(_ application: UIApplication) {
