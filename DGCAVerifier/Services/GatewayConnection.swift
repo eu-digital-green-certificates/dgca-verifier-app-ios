@@ -92,6 +92,9 @@ struct GatewayConnection {
                 return
             }
             let kids = json.compactMap { $0.string }
+            if kids.isEmpty {
+                LocalData.sharedInstance.resumeToken = nil
+            }
             completion?(kids)
         }
     }
