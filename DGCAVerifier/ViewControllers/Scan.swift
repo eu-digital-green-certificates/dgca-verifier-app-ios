@@ -82,6 +82,14 @@ class ScanVC: SwiftDGC.ScanVC {
 }
 
 extension ScanVC: ScanVCDelegate {
+  func disableBackgroundDetection() {
+    SecureBackground.paused = true
+  }
+
+  func enableBackgroundDetection() {
+    SecureBackground.paused = false
+  }
+
   func hCertScanned(_ cert: HCert) {
     presentViewer(for: cert)
   }
