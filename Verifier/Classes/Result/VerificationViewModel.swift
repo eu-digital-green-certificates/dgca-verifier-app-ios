@@ -47,6 +47,9 @@ class VerificationViewModel {
     var description: String {
         return status == .valid ? "result.valid.description".localized : (status == .expired ? "result.expired.description".localized : "result.invalid.description".localized)
     }
+    var rescanButtonTitle: String {
+        return status == .valid ? "result.nextScan".localized : "result.rescan".localized
+    }
     
     var listItems: [InfoSection]? {
             hCert?.info.filter { !$0.isPrivate }

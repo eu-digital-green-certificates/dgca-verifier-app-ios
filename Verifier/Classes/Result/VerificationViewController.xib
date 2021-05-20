@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="contentStackView" destination="pDT-wJ-v7T" id="SDf-TQ-cqt"/>
                 <outlet property="descriptionLabel" destination="s2n-Hx-XXJ" id="5j6-xX-YDK"/>
+                <outlet property="rescanButton" destination="ICW-sq-Dag" id="dUE-DA-gOB"/>
                 <outlet property="resultImageView" destination="fsL-Wu-klM" id="Yjc-ns-G7l"/>
                 <outlet property="titleLabel" destination="bgj-PP-ub7" id="UUW-Ze-Ko8"/>
                 <outlet property="view" destination="2ox-tZ-GfJ" id="gDB-Bm-fdt"/>
@@ -31,13 +32,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificato valido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgj-PP-ub7">
-                    <rect key="frame" x="20" y="284" width="374" height="21"/>
-                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
+                    <rect key="frame" x="20" y="284" width="374" height="32"/>
+                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="26"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your phone to the internet to update your phone entries." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2n-Hx-XXJ">
-                    <rect key="frame" x="20" y="315" width="374" height="36.5"/>
+                    <rect key="frame" x="20" y="326" width="374" height="36.5"/>
                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -66,6 +67,9 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                             <real key="value" value="6"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                            <size key="value" width="0.0" height="6"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="dismiss:" destination="-1" eventType="touchUpInside" id="5l2-3M-eNS"/>
@@ -89,7 +93,7 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-wJ-v7T">
-                    <rect key="frame" x="20" y="391.5" width="374" height="380.5"/>
+                    <rect key="frame" x="20" y="402.5" width="374" height="369.5"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="OzW-CK-pC1"/>
