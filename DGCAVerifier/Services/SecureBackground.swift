@@ -32,8 +32,13 @@ struct SecureBackground {
   static var imageView: UIImageView?
   public static var image: UIImage?
 
+  public static var paused = false
+
   public static func enable() {
     disable()
+    guard !paused else {
+      return
+    }
     guard let image = image else {
       return
     }
