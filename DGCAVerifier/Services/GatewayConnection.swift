@@ -170,7 +170,6 @@ struct GatewayConnection {
             for setting in settings {
                 LocalData.sharedInstance.addOrUpdateSettings(setting)
             }
-            print(LocalData.sharedInstance.settings)
         }
     }
 }
