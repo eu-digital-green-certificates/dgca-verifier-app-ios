@@ -35,9 +35,10 @@ struct GatewayConnection {
     //  static let updateEndpoint = "signercertificateUpdate"
     //  static let statusEndpoint = "signercertificateStatus"
     
-    static let serverURI = "https://testaka4.sogei.it/v1/dgc/signercertificate/"
-    static let updateEndpoint = "update"
-    static let statusEndpoint = "status"
+    static let serverURI = "https://testaka4.sogei.it/v1/dgc/"
+    static let updateEndpoint = "signercertificate/update"
+    static let statusEndpoint = "signercertificate/status"
+    static let settingsEndpoint = "settings"
     
     public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?) -> Void)?) {
         var headers = [String: String]()
@@ -99,6 +100,19 @@ struct GatewayConnection {
         }
     }
     
+    public static func getSettings(completion: (([Setting]) -> Void)?) {
+        AF.request(serverURI + settingsEndpoint).response {
+            guard let data = $0.data else { return }
+            do {
+                let decoder = JSONDecoder()
+                let settingsWrapper = try decoder.decode([Setting].self, from: data)
+                completion?(settingsWrapper)
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+    
     static var timer: Timer?
     
     public static func initialize(completion: ((String?) -> Void)? = nil) {
@@ -108,6 +122,7 @@ struct GatewayConnection {
         }
         timer?.tolerance = 5.0
         update(completion: completion)
+        settings()
     }
     
     static func trigger(completion: ((String?) -> Void)? = nil) {
@@ -147,6 +162,15 @@ struct GatewayConnection {
             LocalData.sharedInstance.lastFetch = Date()
             LocalData.sharedInstance.save()
             completion?(nil)
+        }
+    }
+    
+    static func settings() {
+        getSettings() { settings in
+            for setting in settings {
+                LocalData.sharedInstance.addOrUpdateSettings(setting)
+            }
+            print(LocalData.sharedInstance.settings)
         }
     }
 }

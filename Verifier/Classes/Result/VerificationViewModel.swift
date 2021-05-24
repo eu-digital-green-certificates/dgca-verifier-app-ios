@@ -13,6 +13,21 @@ enum Status {
     case invalidQR
 }
 
+func validateWithMedicalRules(_ hcert: HCert) -> Bool {
+    switch hcert.type {
+    case .test:
+        let testValidityCheck = TestValidityCheck()
+        return testValidityCheck.checkTestDate(hcert) && testValidityCheck.checkTestResult(hcert)
+    case .vaccine:
+        print(hcert.statement.info)
+        let vaccineValidityCheck = VaccineValidityCheck()
+        return vaccineValidityCheck.checkVaccineDate(hcert)
+    case .recovery:
+        let recoveryValidityCheck = RecoveryValidityCheck()
+        return recoveryValidityCheck.checkRecoveryDate(hcert)
+    }
+}
+
 class VerificationViewModel {
 
     var status: Status
@@ -26,12 +41,12 @@ class VerificationViewModel {
         }
         else {
             if hCert!.isValid {
-                status = .valid
+                if validateWithMedicalRules(hCert!) {
+                    status = .valid
+                } else {
+                    status = .expired
+                }
             }
-//            waiting for medical rules
-//            else if !validateMedicalRules(hCert!) {
-//                status = .expired
-//            }
             else {
                 status = .invalidQR
             }
