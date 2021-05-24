@@ -10,21 +10,21 @@ import SwiftDGC
 enum Status {
     case valid
     case expired
+    case notValid
     case invalidQR
 }
 
-func validateWithMedicalRules(_ hcert: HCert) -> Bool {
+func validateWithMedicalRules(_ hcert: HCert) -> Status {
     switch hcert.type {
     case .test:
         let testValidityCheck = TestValidityCheck()
-        return testValidityCheck.checkTestDate(hcert) && testValidityCheck.checkTestResult(hcert)
+        return testValidityCheck.isTestValid(hcert)
     case .vaccine:
-        print(hcert.statement.info)
         let vaccineValidityCheck = VaccineValidityCheck()
-        return vaccineValidityCheck.checkVaccineDate(hcert)
+        return vaccineValidityCheck.isVaccineDateValid(hcert)
     case .recovery:
         let recoveryValidityCheck = RecoveryValidityCheck()
-        return recoveryValidityCheck.checkRecoveryDate(hcert)
+        return recoveryValidityCheck.isRecoveryValid(hcert)
     }
 }
 
@@ -41,11 +41,7 @@ class VerificationViewModel {
         }
         else {
             if hCert!.isValid {
-                if validateWithMedicalRules(hCert!) {
-                    status = .valid
-                } else {
-                    status = .expired
-                }
+                status = validateWithMedicalRules(hCert!)
             }
             else {
                 status = .invalidQR
@@ -60,7 +56,16 @@ class VerificationViewModel {
         return status == .valid ? "result.valid.title".localized : "result.invalid.title".localized
     }
     var description: String {
-        return status == .valid ? "result.valid.description".localized : (status == .expired ? "result.expired.description".localized : "result.invalid.description".localized)
+        switch status {
+        case .valid:
+            return "result.valid.description".localized
+        case .expired:
+            return "result.expired.description".localized
+        case .invalidQR:
+            return "result.invalidQR.description".localized
+        case .notValid:
+            return "result.notValid.description".localized
+        }
     }
     var rescanButtonTitle: String {
         return status == .valid ? "result.nextScan".localized : "result.rescan".localized

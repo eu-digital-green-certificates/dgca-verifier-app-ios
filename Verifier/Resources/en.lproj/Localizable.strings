@@ -17,14 +17,11 @@
 "result.valid.title" = "Valid vaccination";
 "result.valid.description" = "For security reasons, please present also an identification document (e.g. national id card)";
 "result.bithdate" = "Birth date: ";
-"result.expirationDate" = "Expiration date: ";
-
-"result.invalid.title" = "Valid vaccination";
-"result.invalid.description" = "The QR code is not valid.";
 
 "result.invalid.title" = "Check unsuccessful";
-"result.invalid.description" = "The QR is not valid.";
+"result.invalidQR.description" = "The QR is not valid.";
 "result.expired.description" = "The certificate is expired.";
+"result.notValid.description" = "The certificate is not valid or could not be verified.";
 
 "result.rescan" = "Rescan";
 "result.nextScan" = "Next scan";

@@ -10,7 +10,7 @@ import SwiftDGC
 
 struct VaccineValidityCheck {
     
-    func checkVaccineDate(_ hcert: HCert) -> Status {
+    func isVaccineDateValid(_ hcert: HCert) -> Status {
         let vaccineDoseString = hcert.statement.typeAddon
         let vaccineDosesArray = getDosesFromDoseString(from: vaccineDoseString)
         
