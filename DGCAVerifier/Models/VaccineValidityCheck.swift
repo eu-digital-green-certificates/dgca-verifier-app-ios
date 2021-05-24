@@ -10,9 +10,13 @@ import SwiftDGC
 
 struct VaccineValidityCheck {
     
-    func checkVaccineDate(_ hcert: HCert) -> Bool {
+    func isVaccineDateValid(_ hcert: HCert) -> Status {
         let vaccineDoseString = hcert.statement.typeAddon
         let vaccineDosesArray = getDosesFromDoseString(from: vaccineDoseString)
+        
+        guard !vaccineDosesArray.isEmpty else {
+            return .notValid
+        }
         
         let isLastDose = vaccineDosesArray.first == vaccineDosesArray.last
         
@@ -22,23 +26,29 @@ struct VaccineValidityCheck {
         
         // Vaccine code not included in settings -> not a valid vaccine for Italy
         if vaccineMedicalProductCode.isEmpty {
-            return false
+            return .notValid
         }
         // Vaccine code included in settings -> check dates, checking if it is lastDose or not too
         let settingsNameStartDays = isLastDose ? "vaccine_start_day_complete" : "vaccine_start_day_not_complete"
         let settingsNameEndDays = isLastDose ? "vaccine_end_day_complete" : "vaccine_end_day_not_complete"
-        let vaccineStartDays = LocalData.sharedInstance.settings.filter{ $0.name == settingsNameStartDays && $0.type == vaccineMedicalProductCode[0] }.first?.value ?? "0"
-        let vaccineEndDays = LocalData.sharedInstance.settings.filter{ $0.name == settingsNameEndDays  && $0.type == vaccineMedicalProductCode[0] }.first?.value ?? "0"
-        let dateOfVaccinationAsString = hcert.statement.info.filter{ $0.header == l10n("vaccine.date")}.first?.content
+        guard let vaccineStartDays = LocalData.sharedInstance.settings.filter({ $0.name == settingsNameStartDays && $0.type == vaccineMedicalProductCode[0] }).first?.value else {
+            return .notValid
+        }
+        guard let vaccineEndDays = LocalData.sharedInstance.settings.filter({ $0.name == settingsNameEndDays && $0.type == vaccineMedicalProductCode[0] }).first?.value else {
+            return .notValid
+        }
+        guard let dateOfVaccinationAsString = hcert.statement.info.filter({ $0.header == l10n("vaccine.date")}).first?.content else {
+            return .notValid
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
         dateFormatter.timeStyle = .none
         dateFormatter.dateStyle = .medium
-        let dateOfVaccination = dateFormatter.date(from: dateOfVaccinationAsString!)
+        let dateOfVaccination = dateFormatter.date(from: dateOfVaccinationAsString)
         let vaccineValidityStart = Calendar.current.date(byAdding: .day, value: Int(vaccineStartDays) ?? 0, to: dateOfVaccination!)!
         let vaccineValidityEnd = Calendar.current.date(byAdding: .day, value: Int(vaccineEndDays) ?? 0, to: dateOfVaccination!)!
         
-        return (Date() > vaccineValidityStart && Date() < vaccineValidityEnd)
+        return (Date() > vaccineValidityStart && Date() < vaccineValidityEnd) ? .valid : .expired
     }
     
     func getDosesFromDoseString(from doseString: String) -> [Int] {
