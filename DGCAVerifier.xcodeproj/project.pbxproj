@@ -38,6 +38,8 @@
 		CEC7FEE1264C819D005561BA /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = CEC7FEE0264C819D005561BA /* context.jsonc */; };
 		CED2726026398683003D47A9 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
+		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
+		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
+		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
+		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 				CEA6D6EF261F8D2700715333 /* Scan.swift */,
 				CE891304263581D900CB92AF /* Home.swift */,
 				CE59D1B526428D78004EBDD6 /* Settings.swift */,
+				DA793257265BBFB50043BA06 /* LicenseVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -170,6 +175,7 @@
 				CE13CF22262DDF810070C80E /* RoundedButton.swift */,
 				CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */,
 				CEA1556F262F79DE0024B7AC /* InfoCell.swift */,
+				DA793259265BC00F0043BA06 /* LicenseCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -444,7 +450,9 @@
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
+				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
+				DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
 				CE891305263581D900CB92AF /* Home.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* Settings.swift in Sources */,
@@ -652,7 +660,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KH99XNF745;
+				DEVELOPMENT_TEAM = 9TD26M5RG8;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -660,7 +668,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.DGCAVerifier.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.smart-layers.DGCAVerifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
