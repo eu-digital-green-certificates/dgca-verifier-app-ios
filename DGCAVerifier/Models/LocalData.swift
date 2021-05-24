@@ -63,6 +63,10 @@ struct LocalData: Codable {
     }
     settings = settings + [setting]
   }
+    
+  func getFirstSetting(withName name: String) -> String? {
+      return settings.filter{ $0.name == name}.first?.value
+  }
 
   static func set(resumeToken: String) {
     sharedInstance.resumeToken = resumeToken
