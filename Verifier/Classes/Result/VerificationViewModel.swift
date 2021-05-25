@@ -28,6 +28,18 @@ func validateWithMedicalRules(_ hcert: HCert) -> Status {
     }
 }
 
+extension HCert {
+    private var listItems: [InfoSection]? {
+        self.info.filter { !$0.isPrivate }
+    }
+    var standardizedFirstName: String? {
+        return listItems?.filter { $0.header == l10n("header.std-fn")}.first?.content
+    }
+    var standardizedLastName: String? {
+        return listItems?.filter { $0.header == l10n("header.std-gn")}.first?.content
+    }
+}
+
 class VerificationViewModel {
 
     var status: Status
@@ -71,17 +83,14 @@ class VerificationViewModel {
         return status == .valid ? "result.nextScan".localized : "result.rescan".localized
     }
     
-    var listItems: [InfoSection]? {
-            hCert?.info.filter { !$0.isPrivate }
-    }
-    
     var resultItems: [ResultItem]? {
         if status == .invalidQR {
             return nil
         }
         
-        let standardizedFirstName = listItems?.filter { $0.header == l10n("header.std-fn")}.first?.content ?? ""
-        let standardizedLastName = listItems?.filter { $0.header == l10n("header.std-gn")}.first?.content ?? ""
+        guard let standardizedFirstName = hCert?.standardizedFirstName,
+              let standardizedLastName = hCert?.standardizedLastName
+        else { return nil }
         
         return [
             ResultItem(title: hCert?.fullName, subtitle: standardizedFirstName + " " + standardizedLastName, imageName: "icon_user"),
