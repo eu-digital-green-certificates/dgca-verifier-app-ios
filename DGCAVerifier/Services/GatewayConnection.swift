@@ -31,15 +31,15 @@ import SwiftDGC
 import SwiftyJSON
 
 struct Certificates {
-  static let certificate = Certificates.certificate(filename: "testaka4-sogei-it")
-  
-  private static func certificate(filename: String) -> SecCertificate {
-    let filePath = Bundle.main.path(forResource: filename, ofType: "der")!
-    let data = try! Data(contentsOf: URL(fileURLWithPath: filePath))
-    let certificate = SecCertificateCreateWithData(nil, data as CFData)!
+    static let certificate = Certificates.certificate(filename: "testaka4-sogei-it")
     
-    return certificate
-  }
+    private static func certificate(filename: String) -> SecCertificate {
+        let filePath = Bundle.main.path(forResource: filename, ofType: "der")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: filePath))
+        let certificate = SecCertificateCreateWithData(nil, data as CFData)!
+        
+        return certificate
+    }
 }
 
 class GatewayConnection {
@@ -74,42 +74,41 @@ class GatewayConnection {
         if let token = resumeToken {
             headers["x-resume-token"] = token
         }
-        session.request(
-            serverURI + updateEndpoint,
-            method: .get,
-            parameters: nil,
-            encoding: URLEncoding(),
-            headers: .init(headers),
-            interceptor: nil,
-            requestModifier: nil
-        ).response {
-            if let status = $0.response?.statusCode, status == 204 {
-                completion?(nil, nil, "No content from server.")
-                return
+        session.request(serverURI + updateEndpoint,
+                        method: .get,
+                        parameters: nil,
+                        encoding: URLEncoding(),
+                        headers: .init(headers),
+                        interceptor: nil,
+                        requestModifier: nil)
+            .response {
+                if let status = $0.response?.statusCode, status == 204 {
+                    completion?(nil, nil, "server.error.noContent".localized)
+                    return
+                }
+                
+                if let status = $0.response?.statusCode, status == 403 {
+                    completion?(nil, nil, "server.error.noAuthorization".localized)
+                    return
+                }
+                
+                guard
+                    case let .success(result) = $0.result,
+                    let response = result,
+                    let responseStr = String(data: response, encoding: .utf8),
+                    let headers = $0.response?.headers,
+                    let responseKid = headers["x-kid"],
+                    let newResumeToken = headers["x-resume-token"]
+                else {
+                    return
+                }
+                let kid = KID.from(responseStr)
+                let kidStr = KID.string(from: kid)
+                if kidStr != responseKid {
+                    return
+                }
+                completion?(responseStr, newResumeToken, nil)
             }
-            
-            if let status = $0.response?.statusCode, status == 403 {
-                completion?(nil, nil, "server.error.noAuthorization".localized)
-                return
-            }
-            
-            guard
-                case let .success(result) = $0.result,
-                let response = result,
-                let responseStr = String(data: response, encoding: .utf8),
-                let headers = $0.response?.headers,
-                let responseKid = headers["x-kid"],
-                let newResumeToken = headers["x-resume-token"]
-            else {
-                return
-            }
-            let kid = KID.from(responseStr)
-            let kidStr = KID.string(from: kid)
-            if kidStr != responseKid {
-                return
-            }
-            completion?(responseStr, newResumeToken, nil)
-        }
     }
     
     func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
