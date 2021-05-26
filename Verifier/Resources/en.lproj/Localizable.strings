@@ -35,7 +35,6 @@
 "alert.barcodeError.title" = "Barcode error";
 
 "server.error.noAuthorization" = "403 - No authorization";
-"server.error.noContent" = "204 - No content";
 
 "alert.versionOutdated.title" = "Update required";
 "alert.versionOutdated.message" = "To continue using the app, download the new version from the store";

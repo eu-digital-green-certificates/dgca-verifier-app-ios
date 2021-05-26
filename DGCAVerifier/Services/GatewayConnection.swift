@@ -82,8 +82,9 @@ class GatewayConnection {
                         interceptor: nil,
                         requestModifier: nil)
             .response {
+                // Everything ok, all certificates downloaded, no more content
                 if let status = $0.response?.statusCode, status == 204 {
-                    completion?(nil, nil, "server.error.noContent".localized)
+                    completion?(nil, nil, nil)
                     return
                 }
                 
