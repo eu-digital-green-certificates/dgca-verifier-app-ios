@@ -30,22 +30,51 @@ import Alamofire
 import SwiftDGC
 import SwiftyJSON
 
-struct GatewayConnection {
+struct Certificates {
+  static let certificate = Certificates.certificate(filename: "testaka4-sogei-it")
+  
+  private static func certificate(filename: String) -> SecCertificate {
+    let filePath = Bundle.main.path(forResource: filename, ofType: "der")!
+    let data = try! Data(contentsOf: URL(fileURLWithPath: filePath))
+    let certificate = SecCertificateCreateWithData(nil, data as CFData)!
+    
+    return certificate
+  }
+}
+
+class GatewayConnection {
     //  static let serverURI = "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/"
     //  static let updateEndpoint = "signercertificateUpdate"
     //  static let statusEndpoint = "signercertificateStatus"
     
-    static let serverURI = "https://testaka4.sogei.it/v1/dgc/"
-    static let updateEndpoint = "signercertificate/update"
-    static let statusEndpoint = "signercertificate/status"
-    static let settingsEndpoint = "settings"
+    private let serverURI = "https://testaka4.sogei.it/v1/dgc/"
+    private let updateEndpoint = "signercertificate/update"
+    private let statusEndpoint = "signercertificate/status"
+    private let settingsEndpoint = "settings"
     
-    public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?) -> Void)?) {
+    private let evaluators = ["testaka4.sogei.it": PinnedCertificatesTrustEvaluator(certificates: [Certificates.certificate])]
+    private let session: Session
+    private var timer: Timer?
+    
+    init() {
+        session = Session(serverTrustManager: ServerTrustManager(evaluators: evaluators))
+    }
+    
+    func start(completion: ((String?, Bool?) -> Void)?) {
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            self?.trigger()
+        }
+        timer?.tolerance = 5.0
+        update(completion: completion)
+        settings()
+    }
+    
+    func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?) -> Void)?) {
         var headers = [String: String]()
         if let token = resumeToken {
             headers["x-resume-token"] = token
         }
-        AF.request(
+        session.request(
             serverURI + updateEndpoint,
             method: .get,
             parameters: nil,
@@ -82,7 +111,8 @@ struct GatewayConnection {
             completion?(responseStr, newResumeToken, nil)
         }
     }
-    public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
+    
+    func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
         AF.request(serverURI + statusEndpoint).response {
             guard
                 case let .success(result) = $0.result,
@@ -100,7 +130,7 @@ struct GatewayConnection {
         }
     }
     
-    public static func getSettings(completion: (([Setting]) -> Void)?) {
+    func getSettings(completion: (([Setting]) -> Void)?) {
         AF.request(serverURI + settingsEndpoint).response {
             guard let data = $0.data else { return }
             do {
@@ -113,18 +143,7 @@ struct GatewayConnection {
         }
     }
     
-    static var timer: Timer?
-    
-    public static func initialize(completion: ((String?, Bool?) -> Void)? = nil) {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
-            trigger()
-        }
-        timer?.tolerance = 5.0
-        update(completion: completion)
-    }
-    
-    static func trigger(completion: ((String?, Bool?) -> Void)? = nil) {
+    private func trigger(completion: ((String?, Bool?) -> Void)? = nil) {
         guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
             completion?(nil, nil)
             return
@@ -132,8 +151,8 @@ struct GatewayConnection {
         update(completion: completion)
     }
     
-    static func update(completion: ((String?, Bool?) -> Void)? = nil) {
-        certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token, error in
+    private func update(completion: ((String?, Bool?) -> Void)? = nil) {
+        certUpdate(resume: LocalData.sharedInstance.resumeToken) { [weak self] encodedCert, token, error in
             
             if error != nil {
                 completion?(error, nil)
@@ -141,17 +160,17 @@ struct GatewayConnection {
             }
             
             guard let encodedCert = encodedCert else {
-                status(completion: completion)
+                self?.status(completion: completion)
                 return
             }
             LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
             LocalData.sharedInstance.resumeToken = token
-            update(completion: completion)
+            self?.update(completion: completion)
         }
     }
     
-    static func status(completion: ((String?, Bool?) -> Void)? = nil) {
-        certStatus { validKids in
+    private func status(completion: ((String?, Bool?) -> Void)? = nil) {
+        certStatus {  [weak self] validKids in
             let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
                 !validKids.contains($0)
             }
@@ -161,11 +180,11 @@ struct GatewayConnection {
             LocalData.sharedInstance.lastFetch = Date()
             LocalData.sharedInstance.save()
             
-            settings(completion: completion)
+            self?.settings(completion: completion)
         }
     }
     
-    static func settings(completion: ((String?, Bool?) -> Void)? = nil) {
+    private func settings(completion: ((String?, Bool?) -> Void)? = nil) {
         getSettings { settings in
             for setting in settings {
                 LocalData.sharedInstance.addOrUpdateSettings(setting)

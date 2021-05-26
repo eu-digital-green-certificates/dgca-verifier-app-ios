@@ -13,6 +13,8 @@ class HomeViewModel {
     var isScanEnabled: Observable<Bool> = Observable(false)
     var isVersionOutdated: Observable<Bool> = Observable(true)
     
+    let connection = GatewayConnection()
+    
     private func updateLastUpdateDate() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy, HH:mm"
@@ -25,7 +27,8 @@ class HomeViewModel {
                 self?.updateLastUpdateDate()
                 self?.isScanEnabled.value = true
             }
-            GatewayConnection.initialize { [weak self] error, isVersionOutdated in
+            
+            self?.connection.start { [weak self] error, isVersionOutdated in
                 self?.isLoading.value = false
                 
                 if error != nil {
