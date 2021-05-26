@@ -40,6 +40,7 @@
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
+		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
+		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
 				CE345FB626446817003B457E /* Localizable.strings */,
 				CEC7FEE0264C819D005561BA /* context.jsonc */,
+				DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				CE81533C263FF8FE0030D777 /* README.md in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
+				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
 				CEC7FEE1264C819D005561BA /* context.jsonc in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 				CE345FAC26446694003B457E /* Settings.storyboard in Resources */,

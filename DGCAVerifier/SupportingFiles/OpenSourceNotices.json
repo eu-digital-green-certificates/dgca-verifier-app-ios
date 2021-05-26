@@ -1,0 +1,24 @@
+{
+  "licenses": [
+    {
+      "name": "Alamofire",
+      "licenseUrl": "https://raw.githubusercontent.com/Alamofire/Alamofire/master/LICENSE"
+    },
+    {
+      "name": "Floating Panel",
+      "licenseUrl": "https://raw.githubusercontent.com/scenee/FloatingPanel/master/LICENSE"
+    },
+    {
+      "name": "JSON Schema",
+      "licenseUrl": "https://raw.githubusercontent.com/eu-digital-green-certificates/JSONSchema.swift/master/LICENSE"
+    },
+    {
+      "name": "Swift CBOR",
+      "licenseUrl": "https://raw.githubusercontent.com/unrelentingtech/SwiftCBOR/master/UNLICENSE"
+    },
+    {
+      "name": "Swifty JSON",
+      "licenseUrl": "https://raw.githubusercontent.com/SwiftyJSON/SwiftyJSON/master/LICENSE"
+    }
+  ]
+}

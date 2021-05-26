@@ -91,7 +91,7 @@ class LicenseTableVC: UITableViewController {
   }
 }
 
-class LicenseVC: UIViewController {
+class LicenseVC: UIViewController, WKNavigationDelegate {
   @IBOutlet weak var packageNameLabel: UILabel!
   @IBOutlet weak var licenseWebView: WKWebView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -101,5 +101,31 @@ class LicenseVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    self.packageNameLabel.text = licenseObject["name"].string
+    self.licenseWebView.isUserInteractionEnabled = false
+    self.licenseWebView.navigationDelegate = self
+    
+    if let licenseUrl = licenseObject["licenseUrl"].string {
+      loadWebView(licenseUrl)
+    }
+  }
+
+  func loadWebView(_ packageLink: String) {
+    DispatchQueue.main.async {
+     let request = URLRequest(url: URL(string: packageLink)!)
+      self.licenseWebView?.load(request)
+    }
+
+    self.activityIndicator.startAnimating()
+    self.licenseWebView.navigationDelegate = self
+  }
+
+  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    self.activityIndicator.stopAnimating()
+  }
+
+  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    self.activityIndicator.stopAnimating()
   }
 }
