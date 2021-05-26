@@ -32,4 +32,9 @@
 "alert.nocamera.title" = "Cannot Find Camera";
 "alert.nocamera.message" = "There seems to be a problem with the camera on your device.";
 
+"alert.barcodeError.title" = "Barcode error";
+
 "server.error.noAuthorization" = "403 - No authorization";
+
+"alert.versionOutdated.title" = "Update required";
+"alert.versionOutdated.message" = "To continue using the app, download the new version from the store";

@@ -125,7 +125,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right)
         let detectBarcodeRequest = VNDetectBarcodesRequest { [weak self] request, error in
             guard error == nil else {
-                self?.showAlert(withTitle: "Barcode error", message: error?.localizedDescription ?? "error")
+                self?.showAlert(withTitle: "alert.barcodeError.title".localized, message: error?.localizedDescription ?? "error")
                 return
             }
 
