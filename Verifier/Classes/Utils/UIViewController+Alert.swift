@@ -9,13 +9,15 @@ import UIKit
 
 extension UIViewController {
 
-    func showAlert(withTitle title: String, message: String) {
+    func showAlert(withTitle title: String? = nil, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-        }
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
+        
         self.present(alertController, animated: true, completion: nil)
     }
+    
     func showToast(message: String, seconds: Double = 2.0) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.view.backgroundColor = UIColor.black

@@ -70,13 +70,40 @@ class HomeViewController: UIViewController {
             }
         }
         
+        viewModel.isVersionOutdated.add(observer: self) { [weak self] isVersionOutdated in
+            DispatchQueue.main.async {
+                if isVersionOutdated ?? false {
+                    self?.showOutdatedAlert()
+                }
+            }
+        }
+        
         viewModel.loadCertificates()
 //        scanButton.isEnabled = true
 //        updateStatusLabel.text = "Test certificate loaded locally"
 //        LocalData.sharedInstance.add(encodedPublicKey: mockCertificate)
     }
+    
+    private func showOutdatedAlert() {
+        let alertController = UIAlertController(title: "alert.versionOutdated.title".localized, message: "alert.versionOutdated.message".localized, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)  { _ in
+            if let url = URL(string: "itms-apps://apple.com/app/id1565800117"),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     @IBAction func scan(_ sender: Any) {
-        coordinator?.showCamera()
+        if viewModel.isVersionOutdated.value ?? false {
+            showOutdatedAlert()
+        }
+        else {
+            coordinator?.showCamera()
+        }
     }
 }

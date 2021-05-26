@@ -11,6 +11,7 @@ class HomeViewModel {
     var lastUpdateText: Observable<String> = Observable("home.loading".localized)
     var isLoading: Observable<Bool> = Observable(true)
     var isScanEnabled: Observable<Bool> = Observable(false)
+    var isVersionOutdated: Observable<Bool> = Observable(true)
     
     private func updateLastUpdateDate() {
         let dateFormatter = DateFormatter()
@@ -24,7 +25,7 @@ class HomeViewModel {
                 self?.updateLastUpdateDate()
                 self?.isScanEnabled.value = true
             }
-            GatewayConnection.initialize { [weak self] error in
+            GatewayConnection.initialize { [weak self] error, isVersionOutdated in
                 self?.isLoading.value = false
                 
                 if error != nil {
@@ -33,7 +34,9 @@ class HomeViewModel {
                 }
                 
                 self?.updateLastUpdateDate()
+                
                 self?.isScanEnabled.value = true
+                self?.isVersionOutdated.value = isVersionOutdated
             }
         }
     }

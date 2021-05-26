@@ -55,7 +55,7 @@ struct GatewayConnection {
             requestModifier: nil
         ).response {
             if let status = $0.response?.statusCode, status == 204 {
-                completion?(nil, nil, nil)
+                completion?(nil, nil, "No content from server.")
                 return
             }
             
@@ -115,29 +115,28 @@ struct GatewayConnection {
     
     static var timer: Timer?
     
-    public static func initialize(completion: ((String?) -> Void)? = nil) {
+    public static func initialize(completion: ((String?, Bool?) -> Void)? = nil) {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
             trigger()
         }
         timer?.tolerance = 5.0
         update(completion: completion)
-        settings()
     }
     
-    static func trigger(completion: ((String?) -> Void)? = nil) {
+    static func trigger(completion: ((String?, Bool?) -> Void)? = nil) {
         guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
-            completion?(nil)
+            completion?(nil, nil)
             return
         }
         update(completion: completion)
     }
     
-    static func update(completion: ((String?) -> Void)? = nil) {
+    static func update(completion: ((String?, Bool?) -> Void)? = nil) {
         certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token, error in
             
             if error != nil {
-                completion?(error)
+                completion?(error, nil)
                 return
             }
             
@@ -151,7 +150,7 @@ struct GatewayConnection {
         }
     }
     
-    static func status(completion: ((String?) -> Void)? = nil) {
+    static func status(completion: ((String?, Bool?) -> Void)? = nil) {
         certStatus { validKids in
             let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
                 !validKids.contains($0)
@@ -161,14 +160,26 @@ struct GatewayConnection {
             }
             LocalData.sharedInstance.lastFetch = Date()
             LocalData.sharedInstance.save()
-            completion?(nil)
+            
+            settings(completion: completion)
         }
     }
     
-    static func settings() {
-        getSettings() { settings in
+    static func settings(completion: ((String?, Bool?) -> Void)? = nil) {
+        getSettings { settings in
             for setting in settings {
                 LocalData.sharedInstance.addOrUpdateSettings(setting)
+            }
+            
+            // Check min version
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+               let minVersion = settings.first(where: { $0.name == "ios" && $0.type == "APP_MIN_VERSION" })?.value {
+                if version.compare(minVersion, options: .numeric) == .orderedAscending {
+                    completion?(nil, true)
+                }
+                else {
+                    completion?(nil, false)
+                }
             }
         }
     }

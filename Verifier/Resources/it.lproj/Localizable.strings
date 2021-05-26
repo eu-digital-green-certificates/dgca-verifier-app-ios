@@ -32,4 +32,9 @@
 "alert.nocamera.title" = "Fotocamera non rilevata";
 "alert.nocamera.message" = "Sembra ci sia un problema con la fotocamera del tuo dispositivo.";
 
+"alert.barcodeError.title" = "Barcode error";
+
 "server.error.noAuthorization" = "403 - No authorization";
+
+"alert.versionOutdated.title" = "Aggiornamento richiesto";
+"alert.versionOutdated.message" = "Per continuare ad utlizzare l’applicazione, scarica la nuova versione dallo store";
