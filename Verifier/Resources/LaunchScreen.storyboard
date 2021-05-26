@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,8 +16,41 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ovC-hz-Xtc">
+                                <rect key="frame" x="56.5" y="203" width="262.5" height="261"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="dIX-ea-8Nh">
+                                        <rect key="frame" x="0.0" y="0.0" width="262.5" height="196.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="dIX-ea-8Nh" secondAttribute="height" multiplier="115:86" id="PoH-GG-DQN"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VerificaC19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOv-Tj-ROT">
+                                        <rect key="frame" x="66.5" y="236.5" width="129" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="oOv-Tj-ROT" secondAttribute="bottom" id="LM2-4O-HZl"/>
+                                    <constraint firstItem="dIX-ea-8Nh" firstAttribute="top" secondItem="ovC-hz-Xtc" secondAttribute="top" id="MMN-Pb-0B0"/>
+                                    <constraint firstItem="dIX-ea-8Nh" firstAttribute="leading" secondItem="ovC-hz-Xtc" secondAttribute="leading" id="Uew-01-Li5"/>
+                                    <constraint firstAttribute="trailing" secondItem="dIX-ea-8Nh" secondAttribute="trailing" id="e1K-69-RVm"/>
+                                    <constraint firstItem="oOv-Tj-ROT" firstAttribute="top" secondItem="dIX-ea-8Nh" secondAttribute="bottom" constant="40" id="uC8-Pb-L0t"/>
+                                    <constraint firstItem="oOv-Tj-ROT" firstAttribute="centerX" secondItem="ovC-hz-Xtc" secondAttribute="centerX" id="yUo-tq-30S"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ovC-hz-Xtc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Mxr-he-p11"/>
+                            <constraint firstItem="ovC-hz-Xtc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="cm5-B5-aHN"/>
+                            <constraint firstItem="ovC-hz-Xtc" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.7" id="i6V-O1-hb2"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +58,10 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="splash" width="75" height="87"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
