@@ -30,15 +30,9 @@ import Alamofire
 import SwiftDGC
 import SwiftyJSON
 
-struct Certificates {
-    static let certificate = Certificates.certificate(filename: "testaka4-sogei-it")
-    
-    private static func certificate(filename: String) -> SecCertificate {
-        let filePath = Bundle.main.path(forResource: filename, ofType: "der")!
-        let data = try! Data(contentsOf: URL(fileURLWithPath: filePath))
-        let certificate = SecCertificateCreateWithData(nil, data as CFData)!
-        
-        return certificate
+extension Bundle {
+    func infoForKey(_ key: String) -> String? {
+        return (Bundle.main.infoDictionary?[key] as? String)?.replacingOccurrences(of: "\\", with: "")
     }
 }
 
@@ -47,19 +41,35 @@ class GatewayConnection {
     //  static let updateEndpoint = "signercertificateUpdate"
     //  static let statusEndpoint = "signercertificateStatus"
     
-    private let serverURI = "https://testaka4.sogei.it/v1/dgc/"
-    private let updateEndpoint = "signercertificate/update"
-    private let statusEndpoint = "signercertificate/status"
-    private let settingsEndpoint = "settings"
+    private let baseUrl: String
+    private let updateEndpoint: String
+    private let statusEndpoint: String
+    private let settingsEndpoint: String
+    private let certificateFilename: String
+    private let certificateEvaluator: String
     
-    private let evaluators = ["testaka4.sogei.it": PinnedCertificatesTrustEvaluator(certificates: [Certificates.certificate])]
     private let session: Session
     private var timer: Timer?
     
     init() {
+        // Init config
+        baseUrl = Bundle.main.infoForKey("baseUrl")!
+        updateEndpoint = Bundle.main.infoForKey("updateEndpoint")!
+        statusEndpoint = Bundle.main.infoForKey("statusEndpoint")!
+        settingsEndpoint = Bundle.main.infoForKey("settingsEndpoint")!
+        certificateFilename = Bundle.main.infoForKey("certificateFilename")!
+        certificateEvaluator = Bundle.main.infoForKey("certificateEvaluator")!
+        
+        // Init certificate for pinning
+        let filePath = Bundle.main.path(forResource: certificateFilename, ofType: nil)!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: filePath))
+        let certificate = SecCertificateCreateWithData(nil, data as CFData)!
+                    
+        // Init session
+        let evaluators = [certificateEvaluator: PinnedCertificatesTrustEvaluator(certificates: [certificate])]
         session = Session(serverTrustManager: ServerTrustManager(evaluators: evaluators))
     }
-    
+        
     func start(completion: ((String?, Bool?) -> Void)?) {
         timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
             self?.trigger()
@@ -74,7 +84,7 @@ class GatewayConnection {
         if let token = resumeToken {
             headers["x-resume-token"] = token
         }
-        session.request(serverURI + updateEndpoint,
+        session.request(baseUrl + updateEndpoint,
                         method: .get,
                         parameters: nil,
                         encoding: URLEncoding(),
@@ -113,7 +123,7 @@ class GatewayConnection {
     }
     
     func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
-        AF.request(serverURI + statusEndpoint).response {
+        AF.request(baseUrl + statusEndpoint).response {
             guard
                 case let .success(result) = $0.result,
                 let response = result,
@@ -131,7 +141,7 @@ class GatewayConnection {
     }
     
     func getSettings(completion: (([Setting]) -> Void)?) {
-        AF.request(serverURI + settingsEndpoint).response {
+        AF.request(baseUrl + settingsEndpoint).response {
             guard let data = $0.data else { return }
             do {
                 let decoder = JSONDecoder()

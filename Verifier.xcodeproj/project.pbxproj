@@ -138,6 +138,8 @@
 		9F90C590265E591D00B2F992 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		9F90C591265E591D00B2F992 /* TitilliumWeb-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-Light.ttf"; sourceTree = "<group>"; };
 		9F90C592265E591D00B2F992 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		9F90C649265EA59C00B2F992 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		9F90C64A265EA5E500B2F992 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* Verifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6FE261F8D2900715333 /* VerifierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D702261F8D2900715333 /* VerifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifierTests.swift; sourceTree = "<group>"; };
@@ -281,6 +283,8 @@
 				9F4F3C472649D60B00F59BA2 /* Assets.xcassets */,
 				9F4F3C632649D71F00F59BA2 /* Localizable.strings */,
 				9F4F3C492649D60B00F59BA2 /* Info.plist */,
+				9F90C64A265EA5E500B2F992 /* Debug.xcconfig */,
+				9F90C649265EA59C00B2F992 /* Release.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -635,6 +639,7 @@
 /* Begin XCBuildConfiguration section */
 		CEA6D710261F8D2900715333 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F90C64A265EA5E500B2F992 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -697,6 +702,7 @@
 		};
 		CEA6D711261F8D2900715333 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F90C649265EA59C00B2F992 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

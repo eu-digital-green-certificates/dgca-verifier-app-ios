@@ -52,30 +52,42 @@
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>UIAppFonts</key>
-    <array>
-        <string>Roboto-Black.ttf</string>
-        <string>Roboto-LightItalic.ttf</string>
-        <string>Roboto-BlackItalic.ttf</string>
-        <string>Roboto-Medium.ttf</string>
-        <string>Roboto-Bold.ttf</string>
-        <string>Roboto-MediumItalic.ttf</string>
-        <string>Roboto-BoldItalic.ttf</string>
-        <string>Roboto-Regular.ttf</string>
-        <string>Roboto-Italic.ttf</string>
-        <string>Roboto-Thin.ttf</string>
-        <string>Roboto-Light.ttf</string>
-        <string>Roboto-ThinItalic.ttf</string>
-        <string>TitilliumWeb-Black.ttf</string>
-        <string>TitilliumWeb-Light.ttf</string>
-        <string>TitilliumWeb-Bold.ttf</string>
-        <string>TitilliumWeb-LightItalic.ttf</string>
-        <string>TitilliumWeb-BoldItalic.ttf</string>
-        <string>TitilliumWeb-Regular.ttf</string>
-        <string>TitilliumWeb-ExtraLight.ttf</string>
-        <string>TitilliumWeb-SemiBold.ttf</string>
-        <string>TitilliumWeb-ExtraLightItalic.ttf</string>
-        <string>TitilliumWeb-SemiBoldItalic.ttf</string>
-        <string>TitilliumWeb-Italic.ttf</string>
+	<array>
+		<string>Roboto-Black.ttf</string>
+		<string>Roboto-LightItalic.ttf</string>
+		<string>Roboto-BlackItalic.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-MediumItalic.ttf</string>
+		<string>Roboto-BoldItalic.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Thin.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-ThinItalic.ttf</string>
+		<string>TitilliumWeb-Black.ttf</string>
+		<string>TitilliumWeb-Light.ttf</string>
+		<string>TitilliumWeb-Bold.ttf</string>
+		<string>TitilliumWeb-LightItalic.ttf</string>
+		<string>TitilliumWeb-BoldItalic.ttf</string>
+		<string>TitilliumWeb-Regular.ttf</string>
+		<string>TitilliumWeb-ExtraLight.ttf</string>
+		<string>TitilliumWeb-SemiBold.ttf</string>
+		<string>TitilliumWeb-ExtraLightItalic.ttf</string>
+		<string>TitilliumWeb-SemiBoldItalic.ttf</string>
+		<string>TitilliumWeb-Italic.ttf</string>
 	</array>
+	<key>baseUrl</key>
+	<string>$(baseUrl)</string>
+    <key>certificateEvaluator</key>
+    <string>$(certificateEvaluator)</string>
+    <key>certificateFilename</key>
+    <string>$(certificateFilename)</string>
+    <key>updateEndpoint</key>
+    <string>$(updateEndpoint)</string>
+    <key>statusEndpoint</key>
+    <string>$(statusEndpoint)</string>
+    <key>settingsEndpoint</key>
+    <string>$(settingsEndpoint)</string>
 </dict>
 </plist>
