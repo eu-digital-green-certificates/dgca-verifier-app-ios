@@ -15,7 +15,7 @@
 "home.lastUpdate" = "Ultimo aggiornamento: ";
 
 "result.valid.title" = "Certificato valido";
-"result.valid.description" = "Per sicurrezza, confrontare i sequenti dati con un documento ufficiale (es: Carta d'Identità).";
+"result.valid.description" = "Per sicurezza, confrontare i seguenti dati con un documento ufficiale (es: Carta d'Identità).";
 "result.bithdate" = "Data di nascita";
 
 "result.invalid.title" = "Certificato non valido";
@@ -32,9 +32,9 @@
 "alert.nocamera.title" = "Fotocamera non rilevata";
 "alert.nocamera.message" = "Sembra ci sia un problema con la fotocamera del tuo dispositivo.";
 
-"alert.barcodeError.title" = "Barcode error";
+"alert.barcodeError.title" = "Errore nel QR code";
 
-"server.error.noAuthorization" = "403 - No authorization";
+"server.error.noAuthorization" = "403 - Non autorizzato";
 
 "alert.versionOutdated.title" = "Aggiornamento richiesto";
-"alert.versionOutdated.message" = "Per continuare ad utlizzare l’applicazione, scarica la nuova versione dallo store";
+"alert.versionOutdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
