@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -79,15 +81,15 @@
 	</array>
 	<key>baseUrl</key>
 	<string>$(baseUrl)</string>
-    <key>certificateEvaluator</key>
-    <string>$(certificateEvaluator)</string>
-    <key>certificateFilename</key>
-    <string>$(certificateFilename)</string>
-    <key>updateEndpoint</key>
-    <string>$(updateEndpoint)</string>
-    <key>statusEndpoint</key>
-    <string>$(statusEndpoint)</string>
-    <key>settingsEndpoint</key>
-    <string>$(settingsEndpoint)</string>
+	<key>certificateEvaluator</key>
+	<string>$(certificateEvaluator)</string>
+	<key>certificateFilename</key>
+	<string>$(certificateFilename)</string>
+	<key>updateEndpoint</key>
+	<string>$(updateEndpoint)</string>
+	<key>statusEndpoint</key>
+	<string>$(statusEndpoint)</string>
+	<key>settingsEndpoint</key>
+	<string>$(settingsEndpoint)</string>
 </dict>
 </plist>
