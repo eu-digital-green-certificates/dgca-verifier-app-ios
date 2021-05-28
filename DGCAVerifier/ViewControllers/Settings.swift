@@ -71,17 +71,8 @@ class SettingsTableVC: UITableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
 
-    if indexPath.section == 0 {
-      switch indexPath.row {
-      case 0:
-        openPrivacyDoc()
-      case 1:
-        openEuCertDoc()
-      case 2:
-        openGitHubSource()
-      default:
-        return
-      }
+    if indexPath.section == 0 && indexPath.row == 0 {
+      openPrivacyDoc()
     }
     if indexPath.section == 1 {
       loading = true
