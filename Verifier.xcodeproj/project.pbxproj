@@ -89,6 +89,7 @@
 		6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryValidityCheck.swift; sourceTree = "<group>"; };
 		6B155164265BE463001D19E2 /* TestValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestValidityCheck.swift; sourceTree = "<group>"; };
 		6B155165265BE463001D19E2 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		6B24E85A2660E0030003808F /* get-dgc-gov-it.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = "get-dgc-gov-it.der"; sourceTree = "<group>"; };
 		9F315B75264A70E600F07B24 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		9F315B76264A70E600F07B24 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		9F4BB499264A5FAA0046D16E /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
@@ -279,6 +280,7 @@
 			children = (
 				9F90C57B265E591D00B2F992 /* Fonts */,
 				9F90C579265E284A00B2F992 /* testaka4-sogei-it.der */,
+				6B24E85A2660E0030003808F /* get-dgc-gov-it.der */,
 				9F4F3C462649D60B00F59BA2 /* LaunchScreen.storyboard */,
 				9F4F3C472649D60B00F59BA2 /* Assets.xcassets */,
 				9F4F3C632649D71F00F59BA2 /* Localizable.strings */,
