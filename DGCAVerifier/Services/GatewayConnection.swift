@@ -76,7 +76,6 @@ class GatewayConnection {
         }
         timer?.tolerance = 5.0
         update(completion: completion)
-        settings()
     }
     
     func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?) -> Void)?) {
@@ -202,7 +201,7 @@ class GatewayConnection {
             
             // Check min version
             if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-               let minVersion = settings.first(where: { $0.name == "ios" && $0.type == "APP_MIN_VERSION" })?.value {
+               let minVersion = LocalData.sharedInstance.settings.first(where: { $0.name == "ios" && $0.type == "APP_MIN_VERSION" })?.value {
                 if version.compare(minVersion, options: .numeric) == .orderedAscending {
                     completion?(nil, true)
                 }
