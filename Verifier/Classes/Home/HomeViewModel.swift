@@ -7,7 +7,7 @@
 import Foundation
 
 class HomeViewModel {
-            
+    
     var lastUpdateText: Observable<String> = Observable("home.loading".localized)
     var isLoading: Observable<Bool> = Observable(true)
     var isScanEnabled: Observable<Bool> = Observable(false)
@@ -21,11 +21,20 @@ class HomeViewModel {
         lastUpdateText.value = "home.lastUpdate".localized + dateFormatter.string(from: LocalData.sharedInstance.lastFetch)
     }
     
+    private func isCurrentVersionOutdated() -> Bool {
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+              let minVersion = LocalData.sharedInstance.settings.first(where: { $0.name == "ios" && $0.type == "APP_MIN_VERSION" })?.value else {
+            return false
+        }
+        return version.compare(minVersion, options: .numeric) == .orderedAscending
+    }
+    
     func loadCertificates() {
         LocalData.initialize { [weak self] in
             if LocalData.sharedInstance.lastFetch.timeIntervalSince1970 != 0 {
                 self?.updateLastUpdateDate()
                 self?.isScanEnabled.value = true
+                self?.isVersionOutdated.value = self?.isCurrentVersionOutdated()
             }
             
             self?.connection.start { [weak self] error, isVersionOutdated in
