@@ -11,6 +11,7 @@
 		6B155167265BE463001D19E2 /* RecoveryValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */; };
 		6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155164265BE463001D19E2 /* TestValidityCheck.swift */; };
 		6B155169265BE463001D19E2 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155165265BE463001D19E2 /* Setting.swift */; };
+		6B24E85C266275920003808F /* get-dgc-gov-it.der in Resources */ = {isa = PBXBuildFile; fileRef = 6B24E85A2660E0030003808F /* get-dgc-gov-it.der */; };
 		9F315B77264A70E600F07B24 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F315B75264A70E600F07B24 /* Cache.swift */; };
 		9F315B78264A70E600F07B24 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F315B76264A70E600F07B24 /* Observable.swift */; };
 		9F4BB49A264A5FAA0046D16E /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BB499264A5FAA0046D16E /* MockData.swift */; };
@@ -141,7 +142,7 @@
 		9F90C592265E591D00B2F992 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		9F90C649265EA59C00B2F992 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		9F90C64A265EA5E500B2F992 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		CEA6D6E8261F8D2700715333 /* Verifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA6D6E8261F8D2700715333 /* VerificaC19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VerificaC19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6FE261F8D2900715333 /* VerifierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D702261F8D2900715333 /* VerifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifierTests.swift; sourceTree = "<group>"; };
 		CEA6D704261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -344,7 +345,7 @@
 		CEA6D6E9261F8D2700715333 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEA6D6E8261F8D2700715333 /* Verifier.app */,
+				CEA6D6E8261F8D2700715333 /* VerificaC19.app */,
 				CEA6D6FE261F8D2900715333 /* VerifierTests.xctest */,
 				CEA6D709261F8D2900715333 /* VerifierUITests.xctest */,
 			);
@@ -382,9 +383,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CEA6D6E7261F8D2700715333 /* Verifier */ = {
+		CEA6D6E7261F8D2700715333 /* VerificaC19 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEA6D712261F8D2900715333 /* Build configuration list for PBXNativeTarget "Verifier" */;
+			buildConfigurationList = CEA6D712261F8D2900715333 /* Build configuration list for PBXNativeTarget "VerificaC19" */;
 			buildPhases = (
 				CEF91E4D264722D70018888D /* ShellScript */,
 				CEA6D6E4261F8D2700715333 /* Sources */,
@@ -395,7 +396,7 @@
 			);
 			dependencies = (
 			);
-			name = Verifier;
+			name = VerificaC19;
 			packageProductDependencies = (
 				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 				CE8912FA2634C6B900CB92AF /* Alamofire */,
@@ -403,7 +404,7 @@
 				CE1F155B2639F9E700736D48 /* SwiftyJSON */,
 			);
 			productName = DGCAVerifier;
-			productReference = CEA6D6E8261F8D2700715333 /* Verifier.app */;
+			productReference = CEA6D6E8261F8D2700715333 /* VerificaC19.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CEA6D6FD261F8D2900715333 /* VerifierTests */ = {
@@ -483,7 +484,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEA6D6E7261F8D2700715333 /* Verifier */,
+				CEA6D6E7261F8D2700715333 /* VerificaC19 */,
 				CEA6D6FD261F8D2900715333 /* VerifierTests */,
 				CEA6D708261F8D2900715333 /* VerifierUITests */,
 			);
@@ -520,6 +521,7 @@
 				9F90C5A3265E591E00B2F992 /* TitilliumWeb-Italic.ttf in Resources */,
 				9F90C5A7265E591E00B2F992 /* Roboto-Thin.ttf in Resources */,
 				9F90C5A0265E591E00B2F992 /* TitilliumWeb-LightItalic.ttf in Resources */,
+				6B24E85C266275920003808F /* get-dgc-gov-it.der in Resources */,
 				9F90C59A265E591E00B2F992 /* TitilliumWeb-SemiBold.ttf in Resources */,
 				9F90C5A5265E591E00B2F992 /* Roboto-BlackItalic.ttf in Resources */,
 				9F4F3C4D2649D60C00F59BA2 /* VerificationViewController.xib in Resources */,
@@ -616,12 +618,12 @@
 /* Begin PBXTargetDependency section */
 		CEA6D700261F8D2900715333 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CEA6D6E7261F8D2700715333 /* Verifier */;
+			target = CEA6D6E7261F8D2700715333 /* VerificaC19 */;
 			targetProxy = CEA6D6FF261F8D2900715333 /* PBXContainerItemProxy */;
 		};
 		CEA6D70B261F8D2900715333 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CEA6D6E7261F8D2700715333 /* Verifier */;
+			target = CEA6D6E7261F8D2700715333 /* VerificaC19 */;
 			targetProxy = CEA6D70A261F8D2900715333 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -901,7 +903,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEA6D712261F8D2900715333 /* Build configuration list for PBXNativeTarget "Verifier" */ = {
+		CEA6D712261F8D2900715333 /* Build configuration list for PBXNativeTarget "VerificaC19" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA6D713261F8D2900715333 /* Debug */,
