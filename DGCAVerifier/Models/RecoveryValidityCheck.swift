@@ -27,6 +27,6 @@ struct RecoveryValidityCheck {
         let recoveryValidFromTime = dateFormatter.date(from: recoveryValidFromTimeAsString)
         let recoveryValidityStart = Calendar.current.date(byAdding: .day, value: Int(recoveryStartDays) ?? 0, to: recoveryValidFromTime!)!
         let recoveryValidityEnd = Calendar.current.date(byAdding: .day, value: Int(recoveryEndDays) ?? 0, to: recoveryValidFromTime!)!
-        return (Date() > recoveryValidityStart && Date() < recoveryValidityEnd) ? .valid : .expired
+        return (Date() >= recoveryValidityStart && Date() <= recoveryValidityEnd) ? .valid : .expired
     }
 }

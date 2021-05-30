@@ -31,7 +31,7 @@ struct TestValidityCheck {
         let testSampleDateTime = dateFormatter.date(from: testSampleDateTimeAsString.replacingOccurrences(of: " (UTC)", with: ""))
         let testValidityStart = Calendar.current.date(byAdding: .hour, value: Int(testStartHours) ?? 0, to: testSampleDateTime!)!
         let testValidityEnd = Calendar.current.date(byAdding: .hour, value: Int(testEndHours) ?? 0, to: testSampleDateTime!)!
-        return (Date() > testValidityStart && Date() < testValidityEnd) ? .valid : .expired
+        return (Date() >= testValidityStart && Date() <= testValidityEnd) ? .valid : .expired
     }
     
     func isTestValid(_ hcert: HCert) -> Status {
