@@ -187,7 +187,6 @@ class GatewayConnection {
                 LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
             }
             LocalData.sharedInstance.lastFetch = Date()
-            LocalData.sharedInstance.save()
             
             self?.settings(completion: completion)
         }
@@ -198,6 +197,7 @@ class GatewayConnection {
             for setting in settings {
                 LocalData.sharedInstance.addOrUpdateSettings(setting)
             }
+            LocalData.sharedInstance.save()
             
             // Check min version
             if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
