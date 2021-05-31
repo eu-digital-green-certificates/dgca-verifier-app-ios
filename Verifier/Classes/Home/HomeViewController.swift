@@ -98,9 +98,20 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 
+    private func showNoKeysAlert() {
+        let alertController = UIAlertController(title: "alert.noKeys.title".localized, message: "alert.noKeys.message".localized, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func scan(_ sender: Any) {
         if viewModel.isVersionOutdated.value ?? false {
             showOutdatedAlert()
+        } else if LocalData.sharedInstance.lastFetch.timeIntervalSince1970 == 0 {
+            showNoKeysAlert()
         }
         else {
             coordinator?.showCamera()
