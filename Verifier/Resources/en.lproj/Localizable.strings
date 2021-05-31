@@ -13,6 +13,7 @@
 "home.intro" = "This is the system that scans and validates a QR code of a vaccination ticket";
 "home.loading" = "Loading certificates...";
 "home.lastUpdate" = "Last update: ";
+"home.notAvailable" = "N/A";
 
 "result.valid.title" = "Valid vaccination";
 "result.valid.description" = "For security reasons, please present also an identification document (e.g. national id card)";
@@ -34,7 +35,11 @@
 
 "alert.barcodeError.title" = "Barcode error";
 
-"server.error.noAuthorization" = "403 - No authorization";
+"server.error.errorWithStatus" = "Returned error with status ";
+"server.error.genericError" = "Generic error in service invocation";
 
 "alert.versionOutdated.title" = "Update required";
 "alert.versionOutdated.message" = "To continue using the app, download the new version from the store";
+
+"alert.noKeys.title" = "Cannot scan";
+"alert.noKeys.message" = "App must connect to the network at least once to be used";

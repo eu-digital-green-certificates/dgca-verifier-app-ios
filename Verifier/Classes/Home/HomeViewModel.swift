@@ -18,7 +18,8 @@ class HomeViewModel {
     private func updateLastUpdateDate() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy, HH:mm"
-        lastUpdateText.value = "home.lastUpdate".localized + dateFormatter.string(from: LocalData.sharedInstance.lastFetch)
+        
+        lastUpdateText.value = "home.lastUpdate".localized + (LocalData.sharedInstance.lastFetch.timeIntervalSince1970 > 0 ? dateFormatter.string(from: LocalData.sharedInstance.lastFetch) : "home.notAvailable".localized)
     }
     
     private func isCurrentVersionOutdated() -> Bool {
@@ -31,17 +32,16 @@ class HomeViewModel {
     
     func loadCertificates() {
         LocalData.initialize { [weak self] in
-            if LocalData.sharedInstance.lastFetch.timeIntervalSince1970 != 0 {
-                self?.updateLastUpdateDate()
-                self?.isScanEnabled.value = true
-                self?.isVersionOutdated.value = self?.isCurrentVersionOutdated()
-            }
+            self?.updateLastUpdateDate()
+            self?.isScanEnabled.value = true
+            self?.isVersionOutdated.value = self?.isCurrentVersionOutdated()
+            
             
             self?.connection.start { [weak self] error, isVersionOutdated in
                 self?.isLoading.value = false
                 
-                if error != nil {
-                    self?.lastUpdateText.value = error
+                if let error = error {
+                    print(error)
                     return
                 }
                 

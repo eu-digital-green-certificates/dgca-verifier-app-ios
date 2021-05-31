@@ -91,14 +91,19 @@ class GatewayConnection {
                         interceptor: nil,
                         requestModifier: nil)
             .response {
+                guard let status = $0.response?.statusCode else {
+                    completion?(nil, nil, "server.error.genericError".localized)
+                    return
+                }
+                
                 // Everything ok, all certificates downloaded, no more content
-                if let status = $0.response?.statusCode, status == 204 {
+                if status == 204 {
                     completion?(nil, nil, nil)
                     return
                 }
                 
-                if let status = $0.response?.statusCode, status == 403 {
-                    completion?(nil, nil, "server.error.noAuthorization".localized)
+                if status > 204 {
+                    completion?(nil, nil, "server.error.errorWithStatus".localized + "\(status)")
                     return
                 }
                 

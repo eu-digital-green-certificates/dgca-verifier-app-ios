@@ -13,6 +13,7 @@
 "home.intro" = "Questo è il sistema di scannerizzazione dei QR code delle certificazioni di idoneità Covid19.";
 "home.loading" = "Caricamento certificati in corso...";
 "home.lastUpdate" = "Ultimo aggiornamento: ";
+"home.notAvailable" = "N/A";
 
 "result.valid.title" = "Certificato valido";
 "result.valid.description" = "Per sicurezza, confrontare i seguenti dati con un documento ufficiale (es: Carta d'Identità).";
@@ -34,7 +35,11 @@
 
 "alert.barcodeError.title" = "Errore nel QR code";
 
-"server.error.noAuthorization" = "403 - Non autorizzato";
+"server.error.errorWithStatus" = "Ricevuto errore con status ";
+"server.error.genericError" = "Errore generico nell'invocazione del servizio";
 
 "alert.versionOutdated.title" = "Aggiornamento richiesto";
 "alert.versionOutdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
+
+"alert.noKeys.title" = "Impossibile scansionare";
+"alert.noKeys.message" = "L'applicazione deve connettersi alla rete almeno una volta per essere utilizzata";
