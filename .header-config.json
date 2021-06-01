@@ -1,0 +1,15 @@
+{ 
+    "srcFolders": ["./"],
+    "rules": [
+        {
+            "match": [".*\\.swift"],
+            "skipIfContains": "license-start|Created\\sby",
+            "comments": {
+                "start": "/*",
+                "line": " *  ",
+                "end": "*/"
+            },
+            "content": "default_license_header.txt"
+        }
+    ]
+}
