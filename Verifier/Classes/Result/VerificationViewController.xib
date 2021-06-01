@@ -20,7 +20,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationViewController" customModule="Verifier" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationViewController" customModule="VerificaC19" customModuleProvider="target">
             <connections>
                 <outlet property="contentStackView" destination="pDT-wJ-v7T" id="SDf-TQ-cqt"/>
                 <outlet property="descriptionLabel" destination="s2n-Hx-XXJ" id="5j6-xX-YDK"/>
@@ -43,13 +43,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificato valido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgj-PP-ub7">
-                    <rect key="frame" x="20" y="284" width="374" height="40"/>
-                    <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="26"/>
+                    <rect key="frame" x="20" y="284" width="374" height="43"/>
+                    <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="28"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your phone to the internet to update your phone entries." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2n-Hx-XXJ">
-                    <rect key="frame" x="20" y="334" width="374" height="35.5"/>
+                    <rect key="frame" x="20" y="337" width="374" height="35.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-wJ-v7T">
-                    <rect key="frame" x="20" y="409.5" width="374" height="362.5"/>
+                    <rect key="frame" x="20" y="412.5" width="374" height="359.5"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="OzW-CK-pC1"/>
