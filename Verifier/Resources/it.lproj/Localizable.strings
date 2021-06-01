@@ -5,7 +5,7 @@
   
 */
 
-"home.title" = "Scansione Green Pass";
+"home.title" = "VerificaC19";
 "home.subtitle" = "Controlla un certificato";
 "home.description" = "Scannerizza il QR code di una certificazione.";
 "home.scan" = "Avvia scan";
@@ -14,6 +14,7 @@
 "home.loading" = "Caricamento certificati in corso...";
 "home.lastUpdate" = "Ultimo aggiornamento: ";
 "home.notAvailable" = "N/A";
+"home.version" = "v. ";
 
 "result.valid.title" = "Certificato valido";
 "result.valid.description" = "Per sicurezza, confrontare i seguenti dati con un documento ufficiale (es: Carta d'Identità).";

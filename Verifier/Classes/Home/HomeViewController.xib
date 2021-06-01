@@ -17,7 +17,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Verifier" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="VerificaC19" customModuleProvider="target">
             <connections>
                 <outlet property="descriptionLabel" destination="qUS-xt-ZaR" id="0NB-6I-8CE"/>
                 <outlet property="introLabel" destination="Wvf-mj-r7Z" id="5Bc-dt-IVP"/>
@@ -26,6 +26,7 @@
                 <outlet property="scanButton" destination="FRi-Zy-fgZ" id="SjG-3i-OAC"/>
                 <outlet property="titleLabel" destination="iXl-gk-RDc" id="LA2-p9-86o"/>
                 <outlet property="updateStatusLabel" destination="Hnt-zz-kdF" id="g09-xd-w80"/>
+                <outlet property="versionLabel" destination="dVq-wA-ym1" id="R7P-Cu-7UW"/>
                 <outlet property="view" destination="T8R-UI-qcI" id="8R1-82-1s7"/>
                 <outlet property="welcomeLabel" destination="aJb-4f-FYJ" id="hKu-jC-Y13"/>
             </connections>
@@ -36,7 +37,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRa-PJ-CxI">
-                    <rect key="frame" x="20" y="124" width="374" height="374"/>
+                    <rect key="frame" x="20" y="127" width="374" height="374"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check ticket" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e6-ji-FIq">
                             <rect key="frame" x="20" y="20" width="334" height="35"/>
@@ -113,7 +114,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBf-RK-YeW">
-                    <rect key="frame" x="20" y="518" width="374" height="120.5"/>
+                    <rect key="frame" x="20" y="521" width="374" height="120.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offline availability" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJb-4f-FYJ">
                             <rect key="frame" x="20" y="20" width="334" height="35"/>
@@ -157,20 +158,26 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scansione Green Pass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXl-gk-RDc">
-                    <rect key="frame" x="20" y="64" width="374" height="40"/>
-                    <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="26"/>
+                    <rect key="frame" x="20" y="64" width="374" height="43"/>
+                    <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="28"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading certificates..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hnt-zz-kdF">
-                    <rect key="frame" x="20" y="850.5" width="374" height="15.5"/>
+                    <rect key="frame" x="20" y="846" width="374" height="15.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DLF-jL-Tia">
-                    <rect key="frame" x="197" y="820.5" width="20" height="20"/>
+                    <rect key="frame" x="197" y="811" width="20" height="20"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVq-wA-ym1">
+                    <rect key="frame" x="20" y="871.5" width="374" height="14.5"/>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="KfD-9R-RDC"/>
             <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -179,15 +186,18 @@
                 <constraint firstItem="hRa-PJ-CxI" firstAttribute="top" secondItem="iXl-gk-RDc" secondAttribute="bottom" constant="20" id="70u-0I-NVH"/>
                 <constraint firstItem="ZBf-RK-YeW" firstAttribute="top" secondItem="hRa-PJ-CxI" secondAttribute="bottom" constant="20" id="74d-9b-x5l"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="Hnt-zz-kdF" secondAttribute="trailing" constant="20" id="9C5-UZ-aN9"/>
-                <constraint firstAttribute="bottom" secondItem="Hnt-zz-kdF" secondAttribute="bottom" constant="30" id="FLc-e9-Sff"/>
+                <constraint firstItem="dVq-wA-ym1" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="FZg-io-JZY"/>
                 <constraint firstItem="iXl-gk-RDc" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="H10-69-WEA"/>
                 <constraint firstItem="Hnt-zz-kdF" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="KT6-DE-thf"/>
                 <constraint firstItem="iXl-gk-RDc" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" constant="20" id="M4n-Wt-Edo"/>
                 <constraint firstItem="DLF-jL-Tia" firstAttribute="centerX" secondItem="T8R-UI-qcI" secondAttribute="centerX" id="MEE-Kf-vMU"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="hRa-PJ-CxI" secondAttribute="trailing" constant="20" id="QXf-GS-yMG"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="ZBf-RK-YeW" secondAttribute="trailing" constant="20" id="SIB-0Q-Fm1"/>
-                <constraint firstItem="Hnt-zz-kdF" firstAttribute="top" secondItem="DLF-jL-Tia" secondAttribute="bottom" constant="10" id="XnZ-Na-IhR"/>
+                <constraint firstItem="Hnt-zz-kdF" firstAttribute="top" secondItem="DLF-jL-Tia" secondAttribute="bottom" constant="15" id="XnZ-Na-IhR"/>
+                <constraint firstItem="dVq-wA-ym1" firstAttribute="top" secondItem="Hnt-zz-kdF" secondAttribute="bottom" constant="10" id="iDR-gX-O6g"/>
                 <constraint firstItem="ZBf-RK-YeW" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="nHi-hf-BJ0"/>
+                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="dVq-wA-ym1" secondAttribute="trailing" constant="20" id="t6j-fV-4cg"/>
+                <constraint firstAttribute="bottom" secondItem="dVq-wA-ym1" secondAttribute="bottom" constant="10" id="xfz-RV-GO5"/>
                 <constraint firstItem="hRa-PJ-CxI" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="y7E-KX-O7r"/>
             </constraints>
             <point key="canvasLocation" x="-1643" y="-1570"/>

@@ -42,6 +42,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var scanButton: UIButton!
 
     @IBOutlet weak var updateStatusLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var loadingActivityView: UIActivityIndicatorView!
 
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
@@ -73,6 +74,8 @@ class HomeViewController: UIViewController {
                 self?.updateStatusLabel.text = text
             }
         }
+        
+        versionLabel.text = "home.version".localized + (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0")
 
         scanButton.isEnabled = viewModel.isScanEnabled.value ?? true
         viewModel.isScanEnabled.add(observer: self) { [weak self] isEnabled in
