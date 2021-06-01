@@ -5,7 +5,7 @@
   
 */
 
-"home.title" = "Scansione Green Pass";
+"home.title" = "VerificaC19";
 "home.subtitle" = "Controlla un certificato";
 "home.description" = "Scannerizza il QR code di una certificazione.";
 "home.scan" = "Avvia scan";
