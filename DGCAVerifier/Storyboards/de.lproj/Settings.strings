@@ -1,0 +1,36 @@
+
+/* Class = "UILabel"; text = "Licenses"; ObjectID = "3C9-S9-3Vo"; */
+"3C9-S9-3Vo.text" = "Lizenzen";
+
+/* Class = "UINavigationItem"; title = "Licenses"; ObjectID = "5OZ-an-m9k"; */
+"5OZ-an-m9k.title" = "Lizenzen";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "6ZX-Be-rar"; */
+"6ZX-Be-rar.title" = "Einstellungen";
+
+/* Class = "UILabel"; text = "Alamofire"; ObjectID = "FaT-ye-ZEn"; */
+"FaT-ye-ZEn.text" = "Alamofire";
+
+/* Class = "UITableViewSection"; headerTitle = "Links"; ObjectID = "MwP-Io-S91"; */
+"MwP-Io-S91.headerTitle" = "Links";
+
+/* Class = "UILabel"; text = "Package Name"; ObjectID = "NGj-fz-0Cc"; */
+"NGj-fz-0Cc.text" = "Paketname";
+
+/* Class = "UITableViewController"; title = "Licenses"; ObjectID = "PQY-eb-uyP"; */
+"PQY-eb-uyP.title" = "Lizenzen";
+
+/* Class = "UILabel"; text = "App Version 1.0.1"; ObjectID = "YKH-hO-t7T"; */
+"YKH-hO-t7T.text" = "App Version 1.0.1";
+
+/* Class = "UITableViewSection"; footerTitle = "Last updated: 2021-05-01 20:00:00"; ObjectID = "eFb-hd-Bdj"; */
+"eFb-hd-Bdj.footerTitle" = "Letztes Update: 2021-05-01 20:00:00";
+
+/* Class = "UITableViewSection"; headerTitle = "Trusted Public Keys"; ObjectID = "eFb-hd-Bdj"; */
+"eFb-hd-Bdj.headerTitle" = "Vertrauenswürdige öffentliche Schlüssel";
+
+/* Class = "UILabel"; text = "Privacy Information"; ObjectID = "gMd-yI-bmR"; */
+"gMd-yI-bmR.text" = "Informationen zum Datenschutz";
+
+/* Class = "UILabel"; text = "Reload"; ObjectID = "pZh-NG-LMB"; */
+"pZh-NG-LMB.text" = "Neu laden";

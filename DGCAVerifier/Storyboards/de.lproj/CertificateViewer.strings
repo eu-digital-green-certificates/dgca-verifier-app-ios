@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "Identification Number"; ObjectID = "1YP-3x-Q7c"; */
+"1YP-3x-Q7c.text" = "Identifikationsnummer";
+
+/* Class = "UISegmentedControl"; 9hO-yQ-B4J.segmentTitles[0] = "Test"; ObjectID = "9hO-yQ-B4J"; */
+"9hO-yQ-B4J.segmentTitles[0]" = "Test";
+
+/* Class = "UISegmentedControl"; 9hO-yQ-B4J.segmentTitles[1] = "Vac"; ObjectID = "9hO-yQ-B4J"; */
+"9hO-yQ-B4J.segmentTitles[1]" = "Impfung";
+
+/* Class = "UISegmentedControl"; 9hO-yQ-B4J.segmentTitles[2] = "Rec"; ObjectID = "9hO-yQ-B4J"; */
+"9hO-yQ-B4J.segmentTitles[2]" = "Datensatz";
+
+/* Class = "UILabel"; text = "Max Mustermann"; ObjectID = "DVW-2y-e4I"; */
+"DVW-2y-e4I.text" = "Max Mustermann";
+
+/* Class = "UILabel"; text = "Valid"; ObjectID = "NjI-L7-yat"; */
+"NjI-L7-yat.text" = "Gültig";
+
+/* Class = "UIButton"; normalTitle = "Retry"; ObjectID = "a9u-Ia-KEX"; */
+"a9u-Ia-KEX.normalTitle" = "Erneut versuchen";
+
+/* Class = "UILabel"; text = "DE4382974329"; ObjectID = "dbw-zt-5Bq"; */
+"dbw-zt-5Bq.text" = "DE4382974329";
