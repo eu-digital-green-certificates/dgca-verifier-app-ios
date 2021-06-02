@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="DGCAVerifier/Storyboards/Base.lproj/CertificateViewer.storyboard" datatype="plaintext" xml:space="preserve" source-language="en" target-language="cs">
+    <header>
+      <tool tool-id="poeditor.com" tool-name="POEditor"/>
+    </header>
+    <body>
+      <trans-unit id="1YP-3x-Q7c.text" xml:space="preserve">
+        <source>Identification Number</source>
+        <target>Identifikační číslo</target>
+        <note>Class = "UILabel"; text = "Identification Number"; ObjectID = "1YP-3x-Q7c";</note>
+      </trans-unit>
+      <trans-unit id="9hO-yQ-B4J.segmentTitles[0]" xml:space="preserve">
+        <source>Test</source>
+        <target>Test</target>
+        <note>Class = "UISegmentedControl"; 9hO-yQ-B4J.segmentTitles[0] = "Test"; ObjectID = "9hO-yQ-B4J";</note>
+      </trans-unit>
+      <trans-unit id="9hO-yQ-B4J.segmentTitles[1]" xml:space="preserve">
+        <source>Vac</source>
+        <target>Vac</target>
+        <note>Class = "UISegmentedControl"; 9hO-yQ-B4J.segmentTitles[1] = "Vac"; ObjectID = "9hO-yQ-B4J";</note>
+      </trans-unit>
+      <trans-unit id="9hO-yQ-B4J.segmentTitles[2]" xml:space="preserve">
+        <source>Rec</source>
+        <target>Rec</target>
+        <note>Class = "UISegmentedControl"; 9hO-yQ-B4J.segmentTitles[2] = "Rec"; ObjectID = "9hO-yQ-B4J";</note>
+      </trans-unit>
+      <trans-unit id="DVW-2y-e4I.text" xml:space="preserve">
+        <source>Max Mustermann</source>
+        <target>Max Mustermann</target>
+        <note>Class = "UILabel"; text = "Max Mustermann"; ObjectID = "DVW-2y-e4I";</note>
+      </trans-unit>
+      <trans-unit id="NjI-L7-yat.text" xml:space="preserve">
+        <source>Valid</source>
+        <target>Platný</target>
+        <note>Class = "UILabel"; text = "Valid"; ObjectID = "NjI-L7-yat";</note>
+      </trans-unit>
+      <trans-unit id="a9u-Ia-KEX.normalTitle" xml:space="preserve">
+        <source>Retry</source>
+        <target>Zkusit znovu</target>
+        <note>Class = "UIButton"; normalTitle = "Retry"; ObjectID = "a9u-Ia-KEX";</note>
+      </trans-unit>
+      <trans-unit id="dbw-zt-5Bq.text" xml:space="preserve">
+        <source>DE4382974329</source>
+        <target>DE4382974329</target>
+        <note>Class = "UILabel"; text = "DE4382974329"; ObjectID = "dbw-zt-5Bq";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="DGCAVerifier/Storyboards/Base.lproj/LaunchScreen.storyboard" datatype="plaintext" xml:space="preserve" source-language="en" target-language="cs">
+    <header>
+      <tool tool-id="poeditor.com" tool-name="POEditor"/>
+    </header>
+    <body>
+      <trans-unit id="wFi-8m-ARy.text" xml:space="preserve">
+        <source>Verifier App</source>
+        <target>Ověřovací aplikace</target>
+        <note>Class = "UILabel"; text = "Verifier App"; ObjectID = "wFi-8m-ARy";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="DGCAVerifier/Storyboards/Base.lproj/Main.storyboard" datatype="plaintext" xml:space="preserve" source-language="en" target-language="cs">
+    <header>
+      <tool tool-id="poeditor.com" tool-name="POEditor"/>
+    </header>
+    <body>
+      <trans-unit id="NXa-E7-6vV.text" xml:space="preserve">
+        <source>Verifier App</source>
+        <target>Ověřovací aplikace</target>
+        <note>Class = "UILabel"; text = "Verifier App"; ObjectID = "NXa-E7-6vV";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="DGCAVerifier/Storyboards/Base.lproj/Settings.storyboard" datatype="plaintext" xml:space="preserve" source-language="en" target-language="cs">
+    <header>
+      <tool tool-id="poeditor.com" tool-name="POEditor"/>
+    </header>
+    <body>
+      <trans-unit id="3C9-S9-3Vo.text" xml:space="preserve">
+        <source>EU Digital Green Certificate</source>
+        <target>Digitální zelený certifikát EU</target>
+        <note>Class = "UILabel"; text = "EU Digital Green Certificate"; ObjectID = "3C9-S9-3Vo";</note>
+      </trans-unit>
+      <trans-unit id="6ZX-Be-rar.title" xml:space="preserve">
+        <source>Settings</source>
+        <target>Nastavení</target>
+        <note>Class = "UINavigationItem"; title = "Settings"; ObjectID = "6ZX-Be-rar";</note>
+      </trans-unit>
+      <trans-unit id="MwP-Io-S91.headerTitle" xml:space="preserve">
+        <source>Links</source>
+        <target>Odkazy</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Links"; ObjectID = "MwP-Io-S91";</note>
+      </trans-unit>
+      <trans-unit id="U16-Hl-qjj.text" xml:space="preserve">
+        <source>GitHub Page</source>
+        <target>Stránka na GitHub</target>
+        <note>Class = "UILabel"; text = "GitHub Page"; ObjectID = "U16-Hl-qjj";</note>
+      </trans-unit>
+      <trans-unit id="YKH-hO-t7T.text" xml:space="preserve">
+        <source>App Version 1.0.1</source>
+        <target>Aplikace verze 1.0.1</target>
+        <note>Class = "UILabel"; text = "App Version 1.0.1"; ObjectID = "YKH-hO-t7T";</note>
+      </trans-unit>
+      <trans-unit id="eFb-hd-Bdj.footerTitle" xml:space="preserve">
+        <source>Last updated: 2021-05-01 20:00:00</source>
+        <target>Naposledy aktualizováno: Last updated: 2021-05-01 20:00:00</target>
+        <note>Class = "UITableViewSection"; footerTitle = "Last updated: 2021-05-01 20:00:00"; ObjectID = "eFb-hd-Bdj";</note>
+      </trans-unit>
+      <trans-unit id="eFb-hd-Bdj.headerTitle" xml:space="preserve">
+        <source>Trusted Public Keys</source>
+        <target>Důvěryhodné veřejné klíče</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Trusted Public Keys"; ObjectID = "eFb-hd-Bdj";</note>
+      </trans-unit>
+      <trans-unit id="gMd-yI-bmR.text" xml:space="preserve">
+        <source>Privacy Information</source>
+        <target>Informace o soukromí</target>
+        <note>Class = "UILabel"; text = "Privacy Information"; ObjectID = "gMd-yI-bmR";</note>
+      </trans-unit>
+      <trans-unit id="pZh-NG-LMB.text" xml:space="preserve">
+        <source>Reload</source>
+        <target>Načíst znovu</target>
+        <note>Class = "UILabel"; text = "Reload"; ObjectID = "pZh-NG-LMB";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="DGCAVerifier/SupportingFiles/en.lproj/InfoPlist.strings" datatype="plaintext" xml:space="preserve" source-language="en" target-language="cs">
+    <header>
+      <tool tool-id="poeditor.com" tool-name="POEditor"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>Verifier App</source>
+        <target>Ověřovací aplikace</target>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>DGCAVerifier</source>
+        <target>DGCAVerifier</target>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>Scan barcodes with your camera.</source>
+        <target>Skenujte čárové kódy pomocí fotoaparátu.</target>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSFaceIDUsageDescription" xml:space="preserve">
+        <source>Unlock sensitive data.</source>
+        <target>Odemkněte citlivá data.</target>
+        <note>Privacy - Face ID Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="DGCAVerifier/SupportingFiles/en.lproj/Localizable.strings" datatype="plaintext" xml:space="preserve" source-language="en" target-language="cs">
+    <header>
+      <tool tool-id="poeditor.com" tool-name="POEditor"/>
+    </header>
+    <body>
+      <trans-unit id="app-version" xml:space="preserve">
+        <source>App Version %@</source>
+        <target>Verze aplikace %@</target>
+      </trans-unit>
+      <trans-unit id="btn.done" xml:space="preserve">
+        <source>Done</source>
+        <target>Hotovo</target>
+      </trans-unit>
+      <trans-unit id="btn.retry" xml:space="preserve">
+        <source>Retry</source>
+        <target>Zkusit znovu</target>
+      </trans-unit>
+      <trans-unit id="log.keys-loaded" xml:space="preserve">
+        <source>%d pub keys loaded.</source>
+        <target>%d veřejných klíčů načteno.</target>
+        <note>Localizable.strings
+  DGCAVerifier
+
+  Created by Yannick Spreen on 5/6/21.</note>
+      </trans-unit>
+      <trans-unit id="settings.last-updated" xml:space="preserve">
+        <source>Last Updated: %@</source>
+        <target>Naposledy aktualizováno: %@</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
