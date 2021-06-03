@@ -51,10 +51,10 @@ extension HCert {
         self.info.filter { !$0.isPrivate }
     }
     var standardizedFirstName: String? {
-        return listItems?.filter { $0.header == l10n("header.std-fn")}.first?.content
+        return listItems?.filter { $0.header == l10n("header.std-gn")}.first?.content
     }
     var standardizedLastName: String? {
-        return listItems?.filter { $0.header == l10n("header.std-gn")}.first?.content
+        return listItems?.filter { $0.header == l10n("header.std-fn")}.first?.content
     }
 }
 
