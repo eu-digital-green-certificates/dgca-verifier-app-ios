@@ -75,6 +75,7 @@ The following dependencies are used in the project  by the verifier app and the 
 - **[JSONSchema](https://github.com/eu-digital-green-certificates/JSONSchema.swift).** Library used by core module to validate DCC payload JSON schema.
 - **[SwiftCBOR](https://github.com/eu-digital-green-certificates/SwiftCBOR).** Library used by core module for CBOR specification implementation.
 - **[SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON).** Library used by core module to translate data from JSON format.
+All listed dependencies are already included in the [official EU Digital COVID Certificate Verifier App for iOS] (https://github.com/eu-digital-green-certificates/dgca-verifier-app-ios). No new dependencies have been included in the Italian customization of the app.
 
 ## Support and feedback
 
@@ -83,7 +84,6 @@ The following channels are available for discussions, feedback, and support requ
 | Type               | Channel                                                                                                                                                                          |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Issues**         | <a href="/../../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/ministero-salute/dgca-verifier-app-ios?style=flat"></a>                  |
-| **Other requests** | <a href="mailto:opensource@telekom.de" title="Email DGC Team"><img src="https://img.shields.io/badge/email-DGC%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a> |
 
 ## How to contribute
 
