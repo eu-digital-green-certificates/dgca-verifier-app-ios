@@ -16,6 +16,7 @@
 		6BA8B9E0266EB8E80060D767 /* VaccineValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B9DF266EB8E80060D767 /* VaccineValidityCheckTests.swift */; };
 		6BA8B9E2266F7E4C0060D767 /* RecoveryValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B9E1266F7E4C0060D767 /* RecoveryValidityCheckTests.swift */; };
 		6BA8B9E4266F840B0060D767 /* TestValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B9E3266F840B0060D767 /* TestValidityCheckTests.swift */; };
+		6BA8B9E5266FAC150060D767 /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C442649D60B00F59BA2 /* GatewayConnection.swift */; };
 		9F315B77264A70E600F07B24 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F315B75264A70E600F07B24 /* Cache.swift */; };
 		9F315B78264A70E600F07B24 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F315B76264A70E600F07B24 /* Observable.swift */; };
 		9F4BB49A264A5FAA0046D16E /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BB499264A5FAA0046D16E /* MockData.swift */; };
@@ -35,7 +36,6 @@
 		9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */; };
 		9F4F3C5A2649D60C00F59BA2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */; };
 		9F4F3C5B2649D60C00F59BA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C422649D60B00F59BA2 /* AppDelegate.swift */; };
-		9F4F3C5C2649D60C00F59BA2 /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C442649D60B00F59BA2 /* GatewayConnection.swift */; };
 		9F4F3C5D2649D60C00F59BA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F3C462649D60B00F59BA2 /* LaunchScreen.storyboard */; };
 		9F4F3C5E2649D60C00F59BA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F3C472649D60B00F59BA2 /* Assets.xcassets */; };
 		9F4F3C612649D71F00F59BA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F3C632649D71F00F59BA2 /* Localizable.strings */; };
@@ -190,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				9F4F3C3D2649D60B00F59BA2 /* Models */,
+				9F4F3C432649D60B00F59BA2 /* Services */,
 			);
 			path = DGCAVerifier;
 			sourceTree = "<group>";
@@ -266,7 +267,6 @@
 				6B155165265BE463001D19E2 /* Setting.swift */,
 				6B155164265BE463001D19E2 /* TestValidityCheck.swift */,
 				6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */,
-				9F4F3C432649D60B00F59BA2 /* Services */,
 				9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */,
 			);
 			path = Models;
@@ -587,6 +587,7 @@
 				9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */,
 				9F4F3C5B2649D60C00F59BA2 /* AppDelegate.swift in Sources */,
 				9F4F3C4E2649D60C00F59BA2 /* VerificationViewModel.swift in Sources */,
+				6BA8B9E5266FAC150060D767 /* GatewayConnection.swift in Sources */,
 				9F4F3C4F2649D60C00F59BA2 /* ResultView.swift in Sources */,
 				9F4BB49A264A5FAA0046D16E /* MockData.swift in Sources */,
 				6B155169265BE463001D19E2 /* Setting.swift in Sources */,
@@ -597,7 +598,6 @@
 				9F4F3C5A2649D60C00F59BA2 /* MainCoordinator.swift in Sources */,
 				9F4F3C532649D60C00F59BA2 /* CameraViewController.swift in Sources */,
 				6B155167265BE463001D19E2 /* RecoveryValidityCheck.swift in Sources */,
-				9F4F3C5C2649D60C00F59BA2 /* GatewayConnection.swift in Sources */,
 				9F4F3C542649D60C00F59BA2 /* UIViewController+Alert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
