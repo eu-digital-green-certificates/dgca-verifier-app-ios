@@ -56,6 +56,14 @@ extension HCert {
     var standardizedLastName: String? {
         return listItems?.filter { $0.header == l10n("header.std-fn")}.first?.content
     }
+    
+    var firstName: String {
+        return self.body["nam"]["gn"].string ?? ""
+    }
+    
+    var lastName: String {
+        return self.body["nam"]["fn"].string ?? ""
+    }
 }
 
 class VerificationViewModel {
@@ -106,12 +114,11 @@ class VerificationViewModel {
             return nil
         }
         
-        guard let standardizedFirstName = hCert?.standardizedFirstName,
-              let standardizedLastName = hCert?.standardizedLastName
-        else { return nil }
+        let firstName = hCert?.firstName ?? ""
+        let lastName = hCert?.lastName ?? ""
         
         return [
-            ResultItem(title: hCert?.fullName, subtitle: standardizedFirstName + " " + standardizedLastName, imageName: "icon_user"),
+            ResultItem(title: lastName + " " + firstName, subtitle: "", imageName: "icon_user"),
             ResultItem(title: "result.bithdate".localized, subtitle: birthDateString, imageName: "icon_calendar")
         ]
     }
