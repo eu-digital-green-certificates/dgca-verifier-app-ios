@@ -65,7 +65,7 @@ Build steps
 
 ## Documentation
 
-- [ ] TODO: Link to documentation
+- [High level documentation](https://github.com/ministero-salute/it-dgc-documentation)
 
 ## Dependencies
 
