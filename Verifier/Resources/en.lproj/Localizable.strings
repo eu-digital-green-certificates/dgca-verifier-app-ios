@@ -6,41 +6,41 @@
 */
 
 "home.title" = "VerificaC19";
-"home.subtitle" = "Check ticket";
-"home.description" = "Scan the QR code of a vaccination ticket";
-"home.scan" = "Scan QR Code";
-"home.welcome" = "Welcome";
-"home.intro" = "This is the system that scans and validates a QR code of a vaccination ticket";
-"home.loading" = "Loading certificates...";
-"home.lastUpdate" = "Last update: ";
+"home.subtitle" = "Controlla un certificato";
+"home.description" = "Scannerizza il QR code di una certificazione.";
+"home.scan" = "Avvia scan";
+"home.welcome" = "Benvenuto";
+"home.intro" = "Questo è il sistema di scannerizzazione dei QR code delle certificazioni di idoneità Covid19.";
+"home.loading" = "Caricamento certificati in corso...";
+"home.lastUpdate" = "Ultimo aggiornamento: ";
 "home.notAvailable" = "N/A";
 "home.version" = "v. ";
 
-"result.valid.title" = "Valid vaccination";
-"result.valid.description" = "For security reasons, please present also an identification document (e.g. national id card)";
-"result.bithdate" = "Birth date: ";
+"result.valid.title" = "Certificato valido";
+"result.valid.description" = "Per sicurezza, confrontare i seguenti dati con un documento ufficiale (es: Carta d'Identità).";
+"result.bithdate" = "Data di nascita";
 
-"result.invalid.title" = "Check unsuccessful";
-"result.invalidQR.description" = "The QR is not valid.";
-"result.expired.description" = "The certificate is expired.";
-"result.notValid.description" = "The certificate is not valid or could not be verified.";
+"result.invalid.title" = "Certificato non valido";
+"result.invalidQR.description" = "Il QR code, o firma digitale, non è valido.";
+"result.expired.description" = "Il certificato è scaduto.";
+"result.notValid.description" = "Il certificato non è valido o non è stato possibile verificarlo.";
 
-"result.rescan" = "Rescan";
-"result.nextScan" = "Next scan";
+"result.rescan" = "Ripeti scansione";
+"result.nextScan" = "Prossima scansione";
 
-"alert.cameraPermissions.title" = "Camera Permissions";
-"alert.cameraPermissions.message" = "Please open Settings and grant permission for this app to use your camera.";
+"alert.cameraPermissions.title" = "Autorizzazioni fotocamera";
+"alert.cameraPermissions.message" = "Apri Impostazioni e concedi l'autorizzazione a questa app per utilizzare la tua fotocamera.";
 
-"alert.nocamera.title" = "Cannot Find Camera";
-"alert.nocamera.message" = "There seems to be a problem with the camera on your device.";
+"alert.nocamera.title" = "Fotocamera non rilevata";
+"alert.nocamera.message" = "Sembra ci sia un problema con la fotocamera del tuo dispositivo.";
 
-"alert.barcodeError.title" = "Barcode error";
+"alert.barcodeError.title" = "Errore nel QR code";
 
-"server.error.errorWithStatus" = "Returned error with status ";
-"server.error.genericError" = "Generic error in service invocation";
+"server.error.errorWithStatus" = "Ricevuto errore con status ";
+"server.error.genericError" = "Errore generico nell'invocazione del servizio";
 
-"alert.versionOutdated.title" = "Update required";
-"alert.versionOutdated.message" = "To continue using the app, download the new version from the store";
+"alert.versionOutdated.title" = "Aggiornamento richiesto";
+"alert.versionOutdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
 
-"alert.noKeys.title" = "Cannot scan";
-"alert.noKeys.message" = "App must connect to the network at least once to be used";
+"alert.noKeys.title" = "Impossibile scansionare";
+"alert.noKeys.message" = "L'applicazione deve connettersi alla rete almeno una volta per essere utilizzata";
