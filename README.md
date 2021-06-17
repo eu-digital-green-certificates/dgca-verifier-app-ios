@@ -28,7 +28,7 @@ The Italian version adds some medical rules to the validation of the DCCs, defin
 
 ## Translators 💬
 
-You can help the localization of this project by making contributions to the [/Resources/Localizable.strings](Resources/Localizable.strings).
+You can help the localization of this project by making contributions to the [*.lproj folders inside /Verifier/Resources/](/Verifier/Resources/).
 
 ## Development
 
