@@ -127,7 +127,10 @@ class VerificationViewModel {
         guard let dateOfBirth = hCert?.dateOfBirth else { return nil }
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        return dateFormatter.string(from: dateOfBirth)
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        guard let date = dateFormatter.date(from: dateOfBirth) else { return nil }
+        let italianDateFormatter = DateFormatter()
+        italianDateFormatter.dateFormat = "dd/MM/yyyy"
+        return italianDateFormatter.string(from: date)
     }
 }
