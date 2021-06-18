@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+    branches:
+    - develop
+    - feature/*
+    - releases/*
+  pull_request:
+    branches:
+    - develop
+    - releases/*
+
+jobs:
+  build:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: eu-digital-green-certificates/dgca-app-core-ios
+        ref: main
+        path: dgca-app-core-ios
+    - uses: actions/checkout@v2
+      with:
+        path: it-dgc-verificaC19-ios
+    - name: debug
+      run: |-
+        ls -la .
+    - name: xcode version
+      run: |-
+        ls /Applications | grep Xcode
+        sudo xcode-select -switch /Applications/Xcode_12.5.app
+        /usr/bin/xcodebuild -version
+    - name: xcode test
+      run: |-
+        cd ./it-dgc-verificaC19-ios
+        xcodebuild test \
+        -scheme Verifier \
+        -project Verifier.xcodeproj \
+        -resultBundlePath ../TestResults \
+        -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5' | xcpretty && exit ${PIPESTATUS[0]}
+    #- uses: tbartelmess/analyze-xcoderesults-action@0.1.1
+    #  with:
+    #    results: TestResults.xcresult
+    #    testFailureAnnotations: false
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
