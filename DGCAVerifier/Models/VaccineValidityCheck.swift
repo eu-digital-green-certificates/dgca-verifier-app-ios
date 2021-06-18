@@ -48,7 +48,14 @@ struct VaccineValidityCheck {
         let vaccineValidityStart = Calendar.current.date(byAdding: .day, value: Int(vaccineStartDays) ?? 0, to: dateOfVaccination!)!
         let vaccineValidityEnd = Calendar.current.date(byAdding: .day, value: Int(vaccineEndDays) ?? 0, to: dateOfVaccination!)!
         
-        return (Date() >= vaccineValidityStart && Date() <= vaccineValidityEnd) ? .valid : .expired
+        switch Date() {
+        case ..<vaccineValidityStart:
+                return .future
+        case vaccineValidityStart...vaccineValidityEnd:
+            return .valid
+        default:
+            return .expired
+        }
     }
     
     func getDosesFromDoseString(from doseString: String) -> [Int] {
