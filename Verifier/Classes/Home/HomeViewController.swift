@@ -1,14 +1,14 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var introLabel: UILabel!
-
+    @IBOutlet weak var privacyPolicyLabel: UILabel!
+    
     @IBOutlet weak var scanButton: UIButton!
 
     @IBOutlet weak var updateStatusLabel: UILabel!
@@ -47,7 +48,7 @@ class HomeViewController: UIViewController {
 
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
-        self.viewModel = viewModel                
+        self.viewModel = viewModel
 
         super.init(nibName: "HomeViewController", bundle: nil)
     }
@@ -67,6 +68,11 @@ class HomeViewController: UIViewController {
         descriptionLabel.text = "home.description".localized
         welcomeLabel.text = "home.welcome".localized
         introLabel.text = "home.intro".localized
+        privacyPolicyLabel.text = "home.privacyPolicy".localized
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onPrivacyPolicyLinkTap))
+        privacyPolicyLabel.isUserInteractionEnabled = true
+        privacyPolicyLabel.addGestureRecognizer(tap)
         
         updateStatusLabel.text = viewModel.lastUpdateText.value
         viewModel.lastUpdateText.add(observer: self) { [weak self] text in
@@ -103,6 +109,11 @@ class HomeViewController: UIViewController {
 //        scanButton.isEnabled = true
 //        updateStatusLabel.text = "Test certificate loaded locally"
 //        LocalData.sharedInstance.add(encodedPublicKey: mockCertificate)
+    }
+    
+    @IBAction func onPrivacyPolicyLinkTap(sender: UITapGestureRecognizer) {
+        guard let url = URL(string: "https://www.dgc.gov.it/web/pn.html") else { return }
+        UIApplication.shared.open(url)
     }
     
     private func showOutdatedAlert() {
