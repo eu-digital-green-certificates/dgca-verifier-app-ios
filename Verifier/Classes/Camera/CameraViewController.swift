@@ -135,7 +135,7 @@ class CameraViewController: UIViewController {
         cameraView.layer.insertSublayer(cameraPreviewLayer, at: 0)
     }
     
-    private apticFeedback() {
+    private func apticFeedback() {
         DispatchQueue.main.async {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
