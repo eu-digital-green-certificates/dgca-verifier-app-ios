@@ -80,6 +80,8 @@ class CameraViewController: UIViewController {
     }
 
     private func found(payload: String) {
+        guard !(coordinator?.navigationController.visibleViewController is VerificationViewController) else { return }
+        apticFeedback()
         coordinator?.showVerificationFor(payloadString: payload)
     }
 
@@ -131,6 +133,12 @@ class CameraViewController: UIViewController {
         cameraPreviewLayer.connection?.videoOrientation = .portrait
         cameraPreviewLayer.frame = view.frame
         cameraView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+    }
+    
+    private func apticFeedback() {
+        DispatchQueue.main.async {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
     }
 }
 
