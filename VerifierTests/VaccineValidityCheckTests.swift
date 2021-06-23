@@ -59,7 +59,7 @@ class VaccineValidityCheckTests: XCTestCase {
         XCTAssertEqual(isVaccineDateValidResult, .valid)
     }
     
-    func testExpiredVaccineDate() {
+    func testFutureVaccineDate() {
         let vaccineSettingStartDay = Setting(name: "vaccine_start_day_complete", type: "EU/1/20/1528", value: "0")
         let vaccineSettingEndDay = Setting(name: "vaccine_end_day_complete", type: "EU/1/20/1528", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(vaccineSettingStartDay)
@@ -73,7 +73,7 @@ class VaccineValidityCheckTests: XCTestCase {
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isVaccineDateValidResult = vaccineValidityCheck.isVaccineDateValid(hcert)
         
-        XCTAssertEqual(isVaccineDateValidResult, .expired)
+        XCTAssertEqual(isVaccineDateValidResult, .future)
     }
     
     func testMissingSettingVaccineDate() {

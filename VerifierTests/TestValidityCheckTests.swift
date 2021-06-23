@@ -64,7 +64,7 @@ class TestValidityCheckTests: XCTestCase {
         XCTAssertEqual(isTestDateValidResult, .valid)
     }
     
-    func testExpiredRapidTestDate() {
+    func testFutureRapidTestDate() {
         let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
         let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(testSettingStartDay)
@@ -78,7 +78,7 @@ class TestValidityCheckTests: XCTestCase {
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
         
-        XCTAssertEqual(isTestDateValidResult, .expired)
+        XCTAssertEqual(isTestDateValidResult, .future)
     }
     
     func testMissingSettingRapidTestDate() {

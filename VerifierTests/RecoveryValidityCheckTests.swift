@@ -50,7 +50,7 @@ class RecoveryValidityCheckTest: XCTestCase {
         XCTAssertEqual(isRecoveryDateValidResult, .valid)
     }
     
-    func testExpiredRecoveryDate() {
+    func testFutureRecoveryDate() {
         let recoverySettingStartDay = Setting(name: "recovery_cert_start_day", type: "GENERIC", value: "0")
         let recoverySettingEndDay = Setting(name: "recovery_cert_end_day", type: "GENERIC", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
@@ -64,7 +64,7 @@ class RecoveryValidityCheckTest: XCTestCase {
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isRecoveryDateValidResult = recoveryValidityCheck.isRecoveryValid(hcert)
         
-        XCTAssertEqual(isRecoveryDateValidResult, .expired)
+        XCTAssertEqual(isRecoveryDateValidResult, .future)
     }
     
     func testMissingSettingRecoveryDate() {
