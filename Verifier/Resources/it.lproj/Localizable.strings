@@ -23,6 +23,7 @@
 "result.invalid.title" = "Certificato non valido";
 "result.invalidQR.description" = "Il QR code, o firma digitale, non è valido.";
 "result.expired.description" = "Il certificato è scaduto.";
+"result.future.description" = "Il certificato non è ancora valido.";
 "result.notValid.description" = "Il certificato non è valido o non è stato possibile verificarlo.";
 
 "result.rescan" = "Ripeti scansione";

@@ -28,6 +28,7 @@ import SwiftDGC
 enum Status {
     case valid
     case expired
+    case future
     case notValid
     case invalidQR
 }
@@ -99,6 +100,8 @@ class VerificationViewModel {
             return "result.valid.description".localized
         case .expired:
             return "result.expired.description".localized
+        case .future:
+            return "result.future.description".localized
         case .invalidQR:
             return "result.invalidQR.description".localized
         case .notValid:
