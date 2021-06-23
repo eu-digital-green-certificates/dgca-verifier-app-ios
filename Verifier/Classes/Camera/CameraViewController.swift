@@ -80,11 +80,9 @@ class CameraViewController: UIViewController {
     }
 
     private func found(payload: String) {
-        if !(coordinator?.navigationController.visibleViewController is VerificationViewController) {
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.success)
-            coordinator?.showVerificationFor(payloadString: payload)
-        }
+        guard !(coordinator?.navigationController.visibleViewController is VerificationViewController) else { return }
+        apticFeedback()
+        coordinator?.showVerificationFor(payloadString: payload)
     }
 
     // MARK: - Permissions
@@ -135,6 +133,12 @@ class CameraViewController: UIViewController {
         cameraPreviewLayer.connection?.videoOrientation = .portrait
         cameraPreviewLayer.frame = view.frame
         cameraView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+    }
+    
+    private apticFeedback() {
+        DispatchQueue.main.async {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
     }
 }
 
