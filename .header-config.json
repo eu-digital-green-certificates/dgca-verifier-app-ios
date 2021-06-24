@@ -3,7 +3,7 @@
     "rules": [
         {
             "match": [".*\\.swift"],
-            "skipIfContains": "license-start|Created\\sby",
+            "skipIfContains": "license-start|Copyright",
             "comments": {
                 "start": "/*",
                 "line": " *  ",
