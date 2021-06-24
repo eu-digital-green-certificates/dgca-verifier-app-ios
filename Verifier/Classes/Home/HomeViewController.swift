@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
         
         updateStatusLabel.text = viewModel.lastUpdateText.value
         viewModel.lastUpdateText.add(observer: self) { [weak self] text in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 self?.updateStatusLabel.text = text
             }
         }
@@ -79,20 +79,20 @@ class HomeViewController: UIViewController {
 
         scanButton.isEnabled = viewModel.isScanEnabled.value ?? true
         viewModel.isScanEnabled.add(observer: self) { [weak self] isEnabled in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 self?.scanButton.isEnabled = isEnabled ?? true
             }
         }
 
         loadingActivityView.startAnimating()
         viewModel.isLoading.add(observer: self) { [weak self] isLoading in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 (isLoading ?? false) ? self?.loadingActivityView.startAnimating() : self?.loadingActivityView.stopAnimating()
             }
         }
         
         viewModel.isVersionOutdated.add(observer: self) { [weak self] isVersionOutdated in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 if isVersionOutdated ?? false {
                     self?.showOutdatedAlert()
                 }
