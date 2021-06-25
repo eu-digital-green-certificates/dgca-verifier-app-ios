@@ -11,14 +11,12 @@ import SwiftDGC
 struct VaccineValidityCheck {
     
     func isVaccineDateValid(_ hcert: HCert) -> Status {
-        let vaccineDoseString = hcert.statement.typeAddon
-        let vaccineDosesArray = getDosesFromDoseString(from: vaccineDoseString)
         
-        guard !vaccineDosesArray.isEmpty else {
-            return .notValid
-        }
-        
-        let isLastDose = vaccineDosesArray.first == vaccineDosesArray.last
+        guard let currentDoses = hcert.currentDosesNumber else { return .notValid }
+        guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
+        guard currentDoses <= totalDoses else { return .notValid }
+
+        let isLastDose = currentDoses == totalDoses
         
         let vaccineMedicalProduct = hcert.statement.info.filter{ $0.header == l10n("vaccine.product")}.first?.content ?? ""
         let availableMedicalProductsInSettings = LocalData.sharedInstance.settings.filter { $0.name == "vaccine_end_day_complete"}.map { $0.type }
@@ -48,9 +46,9 @@ struct VaccineValidityCheck {
         let vaccineValidityStart = Calendar.current.date(byAdding: .day, value: Int(vaccineStartDays) ?? 0, to: dateOfVaccination!)!
         let vaccineValidityEnd = Calendar.current.date(byAdding: .day, value: Int(vaccineEndDays) ?? 0, to: dateOfVaccination!)!
         
-        switch Date() {
+        switch Date().startOfDay {
         case ..<vaccineValidityStart:
-                return .future
+            return .future
         case vaccineValidityStart...vaccineValidityEnd:
             return .valid
         default:
@@ -58,8 +56,4 @@ struct VaccineValidityCheck {
         }
     }
     
-    func getDosesFromDoseString(from doseString: String) -> [Int] {
-        let doseStringArray = doseString.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        return doseStringArray.compactMap { Int($0) }
-    }
 }

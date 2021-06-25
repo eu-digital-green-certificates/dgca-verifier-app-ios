@@ -35,8 +35,7 @@ class VaccineValidityCheckTests: XCTestCase {
     }
     
     func testGetDosesString() {
-        let vaccineDoseString = hcert.statement.typeAddon
-        let vaccineDosesArray = vaccineValidityCheck.getDosesFromDoseString(from: vaccineDoseString)
+        let vaccineDosesArray = [hcert.currentDosesNumber, hcert.totalDosesNumber]
         
         XCTAssertEqual(vaccineDosesArray.count, 2)
         XCTAssertEqual(vaccineDosesArray[0], 2)

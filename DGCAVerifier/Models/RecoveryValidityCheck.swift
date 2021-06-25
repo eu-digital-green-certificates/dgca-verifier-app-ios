@@ -31,7 +31,7 @@ struct RecoveryValidityCheck {
             return .notValid
         }
     
-        switch Date() {
+        switch Date().startOfDay {
         case ..<recoveryValidityStart:
                 return .future
         case recoveryValidityStart...recoveryValidityEnd:
