@@ -56,8 +56,4 @@ struct VaccineValidityCheck {
         }
     }
     
-    func getDoseNumber() {
-        
-    }
-    
 }
