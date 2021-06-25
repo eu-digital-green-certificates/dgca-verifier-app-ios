@@ -46,7 +46,7 @@ struct VaccineValidityCheck {
         let vaccineValidityStart = Calendar.current.date(byAdding: .day, value: Int(vaccineStartDays) ?? 0, to: dateOfVaccination!)!
         let vaccineValidityEnd = Calendar.current.date(byAdding: .day, value: Int(vaccineEndDays) ?? 0, to: dateOfVaccination!)!
         
-        switch Date() {
+        switch Date().startOfDay {
         case ..<vaccineValidityStart:
                 return .future
         case vaccineValidityStart...vaccineValidityEnd:
