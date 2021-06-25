@@ -48,7 +48,7 @@ struct VaccineValidityCheck {
         
         switch Date().startOfDay {
         case ..<vaccineValidityStart:
-                return .future
+            return .future
         case vaccineValidityStart...vaccineValidityEnd:
             return .valid
         default:
