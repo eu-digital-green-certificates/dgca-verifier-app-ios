@@ -11,6 +11,7 @@
 "home.scan" = "Avvia scan";
 "home.welcome" = "Benvenuto";
 "home.intro" = "Questo è il sistema di scannerizzazione dei QR code delle certificazioni di idoneità Covid19.";
+"home.privacyPolicy" = "Privacy policy";
 "home.loading" = "Caricamento certificati in corso...";
 "home.lastUpdate" = "Ultimo aggiornamento: ";
 "home.notAvailable" = "N/A";
