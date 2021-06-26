@@ -6,32 +6,32 @@
 */
 
 "home.title" = "VerificaC19";
-"home.subtitle" = "Controlla un certificato";
-"home.description" = "Scannerizza il QR code di una certificazione.";
-"home.scan" = "Avvia scan";
+"home.subtitle" = "Verifica una certificazione";
+"home.description" = "Scansiona il QR Code.";
+"home.scan" = "Avvia scansione";
 "home.welcome" = "Benvenuto";
-"home.intro" = "Questo è il sistema di scannerizzazione dei QR code delle certificazioni di idoneità Covid19.";
+"home.intro" = "Con la scansione dei QR Code è possibile verificare la validità e l'autenticità della Certificazione verde COVID-19. VerificaC19 permette anche il controllo dell'EU Digital Covid Certificate emesso da altri paesi europei.";
 "home.privacyPolicy" = "Privacy policy";
-"home.loading" = "Caricamento certificati in corso...";
+"home.loading" = "Caricamento certificati in corso";
 "home.lastUpdate" = "Ultimo aggiornamento: ";
 "home.notAvailable" = "N/A";
 "home.version" = "v. ";
 
-"result.valid.title" = "Certificato valido";
-"result.valid.description" = "Per sicurezza, confrontare i seguenti dati con un documento ufficiale (es: Carta d'Identità).";
+"result.valid.title" = "Certificazione valida";
+"result.valid.description" = "Per completare la verifica è necessario confrontare i dati anagrafici qui sotto riportati con quelli di un valido documento d'identità (es. Carta d'identità).";
 "result.bithdate" = "Data di nascita";
 
-"result.invalid.title" = "Certificato non valido";
+"result.invalid.title" = "Certificazione non valida";
 "result.invalidQR.description" = "Il QR code, o firma digitale, non è valido.";
-"result.expired.description" = "Il certificato è scaduto.";
-"result.future.description" = "Il certificato non è ancora valido.";
-"result.notValid.description" = "Il certificato non è valido o non è stato possibile verificarlo.";
+"result.expired.description" = "La Certificazione è scaduta.";
+"result.future.description" = "La certificazione non è ancora valida.";
+"result.notValid.description" = "La certificazione non è valida o non è stato possibile verificarla.";
 
 "result.rescan" = "Ripeti scansione";
 "result.nextScan" = "Prossima scansione";
 
 "alert.cameraPermissions.title" = "Autorizzazioni fotocamera";
-"alert.cameraPermissions.message" = "Apri Impostazioni e concedi l'autorizzazione a questa app per utilizzare la tua fotocamera.";
+"alert.cameraPermissions.message" = "Apri le impostazioni dello smartphone e concedi all'app l'autorizzazione per utilizzare la fotocamera.";
 
 "alert.nocamera.title" = "Fotocamera non rilevata";
 "alert.nocamera.message" = "Sembra ci sia un problema con la fotocamera del tuo dispositivo.";
@@ -39,7 +39,7 @@
 "alert.barcodeError.title" = "Errore nel QR code";
 
 "server.error.errorWithStatus" = "Ricevuto errore con status ";
-"server.error.genericError" = "Errore generico nell'invocazione del servizio";
+"server.error.genericError" = "Errore generico nell'utilizzo del servizio";
 
 "alert.versionOutdated.title" = "Aggiornamento richiesto";
 "alert.versionOutdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
