@@ -65,7 +65,7 @@ extension MainCoordinator: CameraCoordinator {
 }
 
 extension MainCoordinator: VerificationCoordinator {
-    func dismissVerification() {
-        navigationController.dismiss(animated: true, completion: nil)
+    func dismissVerification(completion: (()->())?) {
+        navigationController.dismiss(animated: true, completion: completion)
     }
 }
