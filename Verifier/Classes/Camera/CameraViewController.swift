@@ -81,7 +81,7 @@ class CameraViewController: UIViewController {
 
     private func found(payload: String) {
         guard !(coordinator?.navigationController.visibleViewController is VerificationViewController) else { return }
-        apticFeedback()
+        hapticFeedback()
         coordinator?.showVerificationFor(payloadString: payload)
     }
 
@@ -90,9 +90,9 @@ class CameraViewController: UIViewController {
     private func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { [self] granted in
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 if !granted {
-                    self.showPermissionsAlert()
+                    self?.showPermissionsAlert()
                 }
             }
         case .denied, .restricted:
@@ -135,7 +135,7 @@ class CameraViewController: UIViewController {
         cameraView.layer.insertSublayer(cameraPreviewLayer, at: 0)
     }
     
-    private func apticFeedback() {
+    private func hapticFeedback() {
         DispatchQueue.main.async {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
@@ -168,16 +168,17 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func processBarcodesRequest(_ request: VNRequest) {
         guard let barcodes = request.results else { return }
 
-        DispatchQueue.main.async { [self] in
-            cameraView.layer.sublayers?.removeSubrange(1...)
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            self.cameraView.layer.sublayers?.removeSubrange(1...)
 
-            if captureSession.isRunning {
+            if self.captureSession.isRunning {
                 for barcode in barcodes {
                     guard let potentialQRCode = barcode as? VNBarcodeObservation,
-                          allowedCodes.contains(potentialQRCode.symbology),
-                          potentialQRCode.confidence > scanConfidence else { return }
+                          self.allowedCodes.contains(potentialQRCode.symbology),
+                          potentialQRCode.confidence > self.scanConfidence else { return }
 
-                    found(payload: potentialQRCode.payloadStringValue ?? "")
+                    self.found(payload: potentialQRCode.payloadStringValue ?? "")
                 }
             }
         }
