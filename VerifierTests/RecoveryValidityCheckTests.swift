@@ -39,10 +39,7 @@ class RecoveryValidityCheckTest: XCTestCase {
         let recoverySettingEndDay = Setting(name: "recovery_cert_end_day", type: "GENERIC", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
         LocalData.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
-        let todayDate : Date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let todayDateFormatted = dateFormatter.string(from: todayDate)
+        let todayDateFormatted = Date().toDateString
         bodyString = bodyString.replacingOccurrences(of: "\"df\": \"2021-05-04\"", with: "\"df\": \"\(todayDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isRecoveryDateValidResult = recoveryValidityCheck.isRecoveryValid(hcert)

@@ -47,10 +47,7 @@ class VaccineValidityCheckTests: XCTestCase {
         let vaccineSettingEndDay = Setting(name: "vaccine_end_day_complete", type: "EU/1/20/1528", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(vaccineSettingStartDay)
         LocalData.sharedInstance.addOrUpdateSettings(vaccineSettingEndDay)
-        let todayDate : Date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let todayDateFormatted = dateFormatter.string(from: todayDate)
+        let todayDateFormatted = Date().toDateString
         bodyString = bodyString.replacingOccurrences(of: "\"dt\": \"2021-06-08\"", with: "\"dt\": \"\(todayDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isVaccineDateValidResult = vaccineValidityCheck.isVaccineDateValid(hcert)
@@ -63,11 +60,7 @@ class VaccineValidityCheckTests: XCTestCase {
         let vaccineSettingEndDay = Setting(name: "vaccine_end_day_complete", type: "EU/1/20/1528", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(vaccineSettingStartDay)
         LocalData.sharedInstance.addOrUpdateSettings(vaccineSettingEndDay)
-        let todayDate : Date = Date()
-        let futureDate = Calendar.current.date(byAdding: .day, value: 2, to: todayDate)!
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let futureDateFormatted = dateFormatter.string(from: futureDate)
+        let futureDateFormatted = Date().add(2, ofType: .day)?.toDateString ?? ""
         bodyString = bodyString.replacingOccurrences(of: "\"dt\": \"2021-06-08\"", with: "\"dt\": \"\(futureDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isVaccineDateValidResult = vaccineValidityCheck.isVaccineDateValid(hcert)
