@@ -100,7 +100,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="dismiss:" destination="-1" eventType="touchUpInside" id="QNA-jZ-3z8"/>
+                        <action selector="goHome:" destination="-1" eventType="touchUpInside" id="B0J-if-v7v"/>
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-wJ-v7T">

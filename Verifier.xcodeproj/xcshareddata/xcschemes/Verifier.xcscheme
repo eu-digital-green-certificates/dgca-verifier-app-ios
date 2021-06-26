@@ -20,6 +20,34 @@
                ReferencedContainer = "container:Verifier.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CEA6D6FD261F8D2900715333"
+               BuildableName = "VerifierTests.xctest"
+               BlueprintName = "VerifierTests"
+               ReferencedContainer = "container:Verifier.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CEA6D708261F8D2900715333"
+               BuildableName = "VerifierUITests.xctest"
+               BlueprintName = "VerifierUITests"
+               ReferencedContainer = "container:Verifier.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -11,6 +11,7 @@
 "home.scan" = "Avvia scansione";
 "home.welcome" = "Benvenuto";
 "home.intro" = "Con la scansione dei QR Code è possibile verificare la validità e l'autenticità della Certificazione verde COVID-19. VerificaC19 permette anche il controllo dell'EU Digital Covid Certificate emesso da altri paesi europei.";
+"home.privacyPolicy" = "Privacy policy";
 "home.loading" = "Caricamento certificati in corso";
 "home.lastUpdate" = "Ultimo aggiornamento: ";
 "home.notAvailable" = "N/A";

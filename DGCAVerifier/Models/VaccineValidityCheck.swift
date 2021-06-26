@@ -11,55 +11,45 @@ import SwiftDGC
 struct VaccineValidityCheck {
     
     func isVaccineDateValid(_ hcert: HCert) -> Status {
-        let vaccineDoseString = hcert.statement.typeAddon
-        let vaccineDosesArray = getDosesFromDoseString(from: vaccineDoseString)
+        guard let currentDoses = hcert.currentDosesNumber else { return .notValid }
+        guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
+        guard currentDoses <= totalDoses else { return .notValid }
+        let isLastDose = currentDoses == totalDoses
         
-        guard !vaccineDosesArray.isEmpty else {
-            return .notValid
-        }
+        guard let product = hcert.medicalProduct else { return .notValid }
+        guard isValid(for: product) else { return .notValid }
         
-        let isLastDose = vaccineDosesArray.first == vaccineDosesArray.last
+        guard let start = getStartDays(for: product, isLastDose) else { return .notValid }
+        guard let end = getEndDays(for: product, isLastDose) else { return .notValid }
         
-        let vaccineMedicalProduct = hcert.statement.info.filter{ $0.header == l10n("vaccine.product")}.first?.content ?? ""
-        let availableMedicalProductsInSettings = LocalData.sharedInstance.settings.filter { $0.name == "vaccine_end_day_complete"}.map { $0.type }
-        let vaccineMedicalProductCode = availableMedicalProductsInSettings.filter { l10n("vac.product.\($0)") == vaccineMedicalProduct }
+        guard let dateString = hcert.vaccineDate else { return .notValid }
+        guard let date = dateString.toVaccineDate else { return .notValid }
+        guard let validityStart = date.add(start, ofType: .day) else { return .notValid }
+        guard let validityEnd = date.add(end, ofType: .day) else { return .notValid }
+
+        guard let currentDate = Date.startOfDay else { return .notValid }
         
-        // Vaccine code not included in settings -> not a valid vaccine for Italy
-        if vaccineMedicalProductCode.isEmpty {
-            return .notValid
-        }
-        // Vaccine code included in settings -> check dates, checking if it is lastDose or not too
-        let settingsNameStartDays = isLastDose ? "vaccine_start_day_complete" : "vaccine_start_day_not_complete"
-        let settingsNameEndDays = isLastDose ? "vaccine_end_day_complete" : "vaccine_end_day_not_complete"
-        guard let vaccineStartDays = LocalData.sharedInstance.settings.filter({ $0.name == settingsNameStartDays && $0.type == vaccineMedicalProductCode[0] }).first?.value else {
-            return .notValid
-        }
-        guard let vaccineEndDays = LocalData.sharedInstance.settings.filter({ $0.name == settingsNameEndDays && $0.type == vaccineMedicalProductCode[0] }).first?.value else {
-            return .notValid
-        }
-        guard let dateOfVaccinationAsString = hcert.statement.info.filter({ $0.header == l10n("vaccine.date")}).first?.content else {
-            return .notValid
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = .current
-        dateFormatter.timeStyle = .none
-        dateFormatter.dateStyle = .medium
-        let dateOfVaccination = dateFormatter.date(from: dateOfVaccinationAsString)
-        let vaccineValidityStart = Calendar.current.date(byAdding: .day, value: Int(vaccineStartDays) ?? 0, to: dateOfVaccination!)!
-        let vaccineValidityEnd = Calendar.current.date(byAdding: .day, value: Int(vaccineEndDays) ?? 0, to: dateOfVaccination!)!
-        
-        switch Date() {
-        case ..<vaccineValidityStart:
-                return .future
-        case vaccineValidityStart...vaccineValidityEnd:
-            return .valid
-        default:
-            return .expired
-        }
+        return Validator.validate(currentDate, from: validityStart, to: validityEnd)
     }
     
-    func getDosesFromDoseString(from doseString: String) -> [Int] {
-        let doseStringArray = doseString.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        return doseStringArray.compactMap { Int($0) }
+    private func isValid(for medicalProduct: String) -> Bool {
+        // Vaccine code not included in settings -> not a valid vaccine for Italy
+        let name = "vaccine_end_day_complete"
+        return getProduct(from: name, type: medicalProduct) != nil
     }
+     
+    private func getStartDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
+        let name = isLastDose ? "vaccine_start_day_complete" : "vaccine_start_day_not_complete"
+        return getProduct(from: name, type: medicalProduct)?.intValue
+    }
+    
+    private func getEndDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
+        let name = isLastDose ? "vaccine_end_day_complete" : "vaccine_end_day_not_complete"
+        return getProduct(from: name, type: medicalProduct)?.intValue
+    }
+    
+    private func getProduct(from name: String, type: String) -> String? {
+        return LocalData.getSetting(from: name, type: type)
+    }
+    
 }

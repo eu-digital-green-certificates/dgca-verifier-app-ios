@@ -25,7 +25,7 @@
 import UIKit
 
 protocol VerificationCoordinator: Coordinator {
-    func dismissVerification()
+    func dismissVerification(completion: (()->())?)
 }
 
 class VerificationViewController: UIViewController {
@@ -70,6 +70,12 @@ class VerificationViewController: UIViewController {
     }
     
     @IBAction func dismiss(_ sender: Any) {
-        coordinator?.dismissVerification()
+        coordinator?.dismissVerification(completion: nil)
+    }
+    
+    @IBAction func goHome(_ sender: Any) {
+        coordinator?.dismissVerification(completion: { [weak self] in
+            self?.coordinator?.navigationController.popViewController(animated: true)
+        })
     }
 }

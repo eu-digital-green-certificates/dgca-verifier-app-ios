@@ -26,8 +26,8 @@ extension UIViewController {
 
         self.present(alert, animated: true)
 
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            alert.dismiss(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) { [weak alert] in
+            alert?.dismiss(animated: true)
         }
     }
 }

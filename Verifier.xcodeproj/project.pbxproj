@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6574094F2686562800499706 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574094E2686562800499706 /* String+Date.swift */; };
+		657409512686576300499706 /* LocalData+Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657409502686576300499706 /* LocalData+Setting.swift */; };
+		6574095326868CAD00499706 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574095226868CAD00499706 /* Date+String.swift */; };
+		6574095626868F4100499706 /* DateFormatter+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574095526868F4100499706 /* DateFormatter+Default.swift */; };
+		65740958268690E500499706 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65740957268690E500499706 /* Validator.swift */; };
+		6574095C268692C300499706 /* HCert+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574095B268692C300499706 /* HCert+Test.swift */; };
+		6574095E268692CA00499706 /* HCert+Recovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574095D268692CA00499706 /* HCert+Recovery.swift */; };
+		657409612686987800499706 /* String+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657409602686987800499706 /* String+Int.swift */; };
+		657409632686A72900499706 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657409622686A72900499706 /* Date.swift */; };
+		65A4579B2685E0B9003AD868 /* HCert+Vaccine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4579A2685E0B9003AD868 /* HCert+Vaccine.swift */; };
+		65A4579D2685F6F2003AD868 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4579C2685F6F2003AD868 /* Date+Utils.swift */; };
+		65D6D7D42684FCA90022C816 /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 65D6D7D32684FCA90022C816 /* SwiftDGC */; };
 		6B155166265BE463001D19E2 /* VaccineValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */; };
 		6B155167265BE463001D19E2 /* RecoveryValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */; };
 		6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155164265BE463001D19E2 /* TestValidityCheck.swift */; };
@@ -88,6 +100,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6574094E2686562800499706 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
+		657409502686576300499706 /* LocalData+Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalData+Setting.swift"; sourceTree = "<group>"; };
+		6574095226868CAD00499706 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
+		6574095526868F4100499706 /* DateFormatter+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Default.swift"; sourceTree = "<group>"; };
+		65740957268690E500499706 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		6574095B268692C300499706 /* HCert+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+Test.swift"; sourceTree = "<group>"; };
+		6574095D268692CA00499706 /* HCert+Recovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+Recovery.swift"; sourceTree = "<group>"; };
+		657409602686987800499706 /* String+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Int.swift"; sourceTree = "<group>"; };
+		657409622686A72900499706 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		65A4579A2685E0B9003AD868 /* HCert+Vaccine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+Vaccine.swift"; sourceTree = "<group>"; };
+		65A4579C2685F6F2003AD868 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineValidityCheck.swift; sourceTree = "<group>"; };
 		6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryValidityCheck.swift; sourceTree = "<group>"; };
 		6B155164265BE463001D19E2 /* TestValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestValidityCheck.swift; sourceTree = "<group>"; };
@@ -154,7 +177,6 @@
 		CEA6D709261F8D2900715333 /* VerifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* VerifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifierUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEDCA7972639E6E700FCB83E /* SwiftDGC */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftDGC; path = "../dgca-app-core-ios"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +186,7 @@
 			files = (
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
 				CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */,
+				65D6D7D42684FCA90022C816 /* SwiftDGC in Frameworks */,
 				CE1F155C2639F9E700736D48 /* SwiftyJSON in Frameworks */,
 				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 			);
@@ -186,6 +209,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6574095426868CB300499706 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				65A4579C2685F6F2003AD868 /* Date+Utils.swift */,
+				6574095226868CAD00499706 /* Date+String.swift */,
+				6574094E2686562800499706 /* String+Date.swift */,
+				6574095526868F4100499706 /* DateFormatter+Default.swift */,
+				657409622686A72900499706 /* Date.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		6574095A268692AC00499706 /* HCert */ = {
+			isa = PBXGroup;
+			children = (
+				65A4579A2685E0B9003AD868 /* HCert+Vaccine.swift */,
+				6574095B268692C300499706 /* HCert+Test.swift */,
+				6574095D268692CA00499706 /* HCert+Recovery.swift */,
+			);
+			path = HCert;
+			sourceTree = "<group>";
+		};
+		6574095F2686986600499706 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				9F4F3C3C2649D60B00F59BA2 /* String+Localization.swift */,
+				657409602686987800499706 /* String+Int.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
 		9F2AF7EE2653D27F00619B9C /* DGCAVerifier */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,9 +307,12 @@
 			isa = PBXGroup;
 			children = (
 				9F315B74264A70E600F07B24 /* Observable */,
+				6574095426868CB300499706 /* Date */,
+				6574095A268692AC00499706 /* HCert */,
+				6574095F2686986600499706 /* String */,
 				9F4F3C3A2649D60B00F59BA2 /* UIViewController+Alert.swift */,
 				9F4F3C3B2649D60B00F59BA2 /* UIView+Shadow.swift */,
-				9F4F3C3C2649D60B00F59BA2 /* String+Localization.swift */,
+				657409502686576300499706 /* LocalData+Setting.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -263,11 +320,12 @@
 		9F4F3C3D2649D60B00F59BA2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */,
 				6B155165265BE463001D19E2 /* Setting.swift */,
 				6B155164265BE463001D19E2 /* TestValidityCheck.swift */,
+				6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */,
 				6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */,
 				9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */,
+				65740957268690E500499706 /* Validator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,7 +394,6 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
-				CEDCA7972639E6E700FCB83E /* SwiftDGC */,
 				9F2AF7EE2653D27F00619B9C /* DGCAVerifier */,
 				CEA6D6EA261F8D2700715333 /* Verifier */,
 				CEA6D701261F8D2900715333 /* VerifierTests */,
@@ -408,6 +465,7 @@
 				CE8912FA2634C6B900CB92AF /* Alamofire */,
 				CE56B5042639F48E00FB31B1 /* SwiftDGC */,
 				CE1F155B2639F9E700736D48 /* SwiftyJSON */,
+				65D6D7D32684FCA90022C816 /* SwiftDGC */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* VerificaC19.app */;
@@ -485,6 +543,7 @@
 				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CE1F155A2639F9E700736D48 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				65D6D7D22684FCA90022C816 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -580,23 +639,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */,
+				65740958268690E500499706 /* Validator.swift in Sources */,
 				9F315B78264A70E600F07B24 /* Observable.swift in Sources */,
 				9F4F3C552649D60C00F59BA2 /* UIView+Shadow.swift in Sources */,
 				6B155166265BE463001D19E2 /* VaccineValidityCheck.swift in Sources */,
 				9F315B77264A70E600F07B24 /* Cache.swift in Sources */,
 				9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */,
+				65A4579B2685E0B9003AD868 /* HCert+Vaccine.swift in Sources */,
 				9F4F3C5B2649D60C00F59BA2 /* AppDelegate.swift in Sources */,
 				9F4F3C4E2649D60C00F59BA2 /* VerificationViewModel.swift in Sources */,
 				6BA8B9E5266FAC150060D767 /* GatewayConnection.swift in Sources */,
 				9F4F3C4F2649D60C00F59BA2 /* ResultView.swift in Sources */,
+				6574095C268692C300499706 /* HCert+Test.swift in Sources */,
 				9F4BB49A264A5FAA0046D16E /* MockData.swift in Sources */,
+				657409632686A72900499706 /* Date.swift in Sources */,
+				657409512686576300499706 /* LocalData+Setting.swift in Sources */,
+				6574095326868CAD00499706 /* Date+String.swift in Sources */,
 				6B155169265BE463001D19E2 /* Setting.swift in Sources */,
 				9F4F3C562649D60C00F59BA2 /* String+Localization.swift in Sources */,
 				9F4F3C502649D60C00F59BA2 /* VerificationViewController.swift in Sources */,
+				6574095E268692CA00499706 /* HCert+Recovery.swift in Sources */,
 				9F4F3C4A2649D60B00F59BA2 /* HomeViewModel.swift in Sources */,
+				6574095626868F4100499706 /* DateFormatter+Default.swift in Sources */,
 				9F4F3C4C2649D60C00F59BA2 /* HomeViewController.swift in Sources */,
 				9F4F3C5A2649D60C00F59BA2 /* MainCoordinator.swift in Sources */,
+				657409612686987800499706 /* String+Int.swift in Sources */,
 				9F4F3C532649D60C00F59BA2 /* CameraViewController.swift in Sources */,
+				65A4579D2685F6F2003AD868 /* Date+Utils.swift in Sources */,
+				6574094F2686562800499706 /* String+Date.swift in Sources */,
 				6B155167265BE463001D19E2 /* RecoveryValidityCheck.swift in Sources */,
 				9F4F3C542649D60C00F59BA2 /* UIViewController+Alert.swift in Sources */,
 			);
@@ -774,8 +844,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
 				INFOPLIST_FILE = Verifier/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -783,10 +854,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = VerificaC19ProdProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -797,8 +868,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
 				INFOPLIST_FILE = Verifier/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -806,10 +878,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = VerificaC19ProdProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -957,6 +1029,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		65D6D7D22684FCA90022C816 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
@@ -984,6 +1064,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		65D6D7D32684FCA90022C816 /* SwiftDGC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65D6D7D22684FCA90022C816 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
+			productName = SwiftDGC;
+		};
 		CE13CEFF262DCC180070C80E /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */;

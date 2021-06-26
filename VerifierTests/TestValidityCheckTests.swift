@@ -53,10 +53,7 @@ class TestValidityCheckTests: XCTestCase {
         let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(testSettingStartDay)
         LocalData.sharedInstance.addOrUpdateSettings(testSettingEndDay)
-        let todayDate : Date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let todayDateFormatted = dateFormatter.string(from: todayDate)
+        let todayDateFormatted = Date().toDateTimeString
         bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
@@ -69,11 +66,7 @@ class TestValidityCheckTests: XCTestCase {
         let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
         LocalData.sharedInstance.addOrUpdateSettings(testSettingStartDay)
         LocalData.sharedInstance.addOrUpdateSettings(testSettingEndDay)
-        let todayDate : Date = Date()
-        let futureDate = Calendar.current.date(byAdding: .hour, value: 2, to: todayDate)!
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let futureDateFormatted = dateFormatter.string(from: futureDate)
+        let futureDateFormatted = Date().add(2, ofType: .hour)?.toDateTimeString ?? ""
         bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(futureDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
