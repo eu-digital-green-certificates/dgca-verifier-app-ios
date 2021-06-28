@@ -41,10 +41,26 @@ class HomeVC: UIViewController {
 
   var loaded = false
   func load() {
+    let loadingGroup = DispatchGroup()
     GatewayConnection.timer?.invalidate()
+    loadingGroup.enter()
+
+    RulesDataStorage.initialize {
+      GatewayConnection.rulesList { _ in
+        CertLogicEngineManager.sharedInstance.setRules(ruleList: RulesDataStorage.sharedInstance.rules)
+        loadingGroup.leave()
+      }
+    }
+    loadingGroup.enter()
+    ValueSetsDataStorage.initialize {
+      GatewayConnection.valueSetsList()
+      loadingGroup.leave()
+    }
+    loadingGroup.enter()
     LocalData.initialize {
       DispatchQueue.main.async { [weak self] in
         guard let self = self else {
+          loadingGroup.leave()
           return
         }
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
@@ -52,8 +68,11 @@ class HomeVC: UIViewController {
           self.view.layer.render(in: rendererContext.cgContext)
         }
         self.loaded = true
-        self.loadComplete()
+        loadingGroup.leave()
       }
+    }
+    loadingGroup.notify(queue: .main) {
+      self.loadComplete()
     }
   }
 

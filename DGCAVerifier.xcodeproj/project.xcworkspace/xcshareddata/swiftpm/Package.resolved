@@ -11,11 +11,11 @@
         }
       },
       {
-        "package": "SwiftDGC",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios",
+        "package": "CertLogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
         "state": {
-          "branch": "main",
-          "revision": "91775cfc517331d39196dbdac26cff1a40eb9c71",
+          "branch": "develop",
+          "revision": "8da892cc31b9602322dca7078866d51fe6975265",
           "version": null
         }
       },
@@ -29,44 +29,17 @@
         }
       },
       {
-        "package": "JSONSchema",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
-        "state": {
-          "branch": "master",
-          "revision": "4809e8a105b3fd2818a08caf9e3cbcdd7d319af2",
-          "version": null
-        }
-      },
-      {
-        "package": "PathKit",
-        "repositoryURL": "https://github.com/kylef/PathKit.git",
+        "package": "jsonlogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
           "branch": null,
-          "revision": "73f8e9dca9b7a3078cb79128217dc8f2e585a511",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "Spectre",
-        "repositoryURL": "https://github.com/kylef/Spectre.git",
-        "state": {
-          "branch": null,
-          "revision": "d02129a9af77729de049d328dd61e530b6f2bb2b",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftCBOR",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/SwiftCBOR",
-        "state": {
-          "branch": "master",
-          "revision": "b76024995f6909e4615f943c7a03268fd29778fc",
-          "version": null
+          "revision": "4a385289bf0ab35bba5840310368013d1592d530",
+          "version": "1.1.4"
         }
       },
       {
         "package": "SwiftyJSON",
-        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {
           "branch": null,
           "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",

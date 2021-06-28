@@ -25,6 +25,9 @@
   
 */
 "log.keys-loaded" = "%d pub keys loaded.";
+"log.country" = "%d country loaded.";
+"log.rules" = "%d rules loaded.";
+"log.valueSets" = "%d ValueSets loaded.";
 "app-version" = "App Version %@";
 "btn.done" = "Done";
 "btn.retry" = "Retry";

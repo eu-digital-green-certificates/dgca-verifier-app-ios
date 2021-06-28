@@ -30,6 +30,7 @@ import Alamofire
 import SwiftDGC
 import SwiftyJSON
 import UIKit
+import CertLogic
 
 struct GatewayConnection: ContextConnection {
   public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
@@ -154,4 +155,193 @@ struct GatewayConnection: ContextConnection {
   static var config: JSON {
     LocalData.sharedInstance.versionedConfig
   }
+}
+
+// MARK: Country, Rules, Valuesets extension
+
+extension GatewayConnection {
+  // Country list
+  public static func getListOfCountry(completion: (([CountryModel]) -> Void)?) {
+    request(["endpoints", "countryList"], method: .get).response {
+      guard
+        case let .success(result) = $0.result,
+        let response = result,
+        let responseStr = String(data: response, encoding: .utf8),
+        let json = JSON(parseJSON: responseStr).array
+      else {
+        return
+      }
+      let codes = json.compactMap { $0.string }
+      var countryList: [CountryModel] = []
+      codes.forEach { code in
+        countryList.append(CountryModel(code: code))
+      }
+      completion?(countryList)
+    }
+  }
+  static func countryList(completion: (([CountryModel]) -> Void)? = nil) {
+    CountryDataStorage.initialize {
+      if CountryDataStorage.sharedInstance.countryCodes.count > 0 {
+        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { countryOne, countryTwo in
+          return countryOne.name < countryTwo.name
+        }))
+      }
+      getListOfCountry { countryList in
+        CountryDataStorage.sharedInstance.countryCodes.removeAll()
+        countryList.forEach { country in
+          CountryDataStorage.sharedInstance.add(country: country)
+        }
+        CountryDataStorage.sharedInstance.lastFetch = Date()
+        CountryDataStorage.sharedInstance.save()
+        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { countryOne, countryTwo in
+          return countryOne.name < countryTwo.name
+        }))
+      }
+    }
+  }
+  // Rules
+  public static func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
+    request(["endpoints", "rules"], method: .get).response {
+      guard
+        case let .success(result) = $0.result,
+        let response = result,
+        let responseStr = String(data: response, encoding: .utf8)
+      else {
+        return
+      }
+      let ruleHashes: [RuleHash] = CertLogicEngine.getItems(from: responseStr)
+      // Remove old hashes
+      RulesDataStorage.sharedInstance.rules = RulesDataStorage.sharedInstance.rules.filter { rule in
+          return !ruleHashes.contains(where: { ruleHash in
+              return ruleHash.hash == rule.hash
+          })
+      }
+      // Downloading new hashes
+      var rulesItems = [CertLogic.Rule]()
+      let downloadingGroup = DispatchGroup()
+      ruleHashes.forEach { ruleHash in
+        downloadingGroup.enter()
+        if !RulesDataStorage.sharedInstance.isRuleExistWithHash(hash: ruleHash.hash) {
+          getRules(ruleHash: ruleHash) { rule in
+            if let rule = rule {
+              rulesItems.append(rule)
+            }
+            downloadingGroup.leave()
+          }
+        } else {
+          downloadingGroup.leave()
+        }
+      }
+      downloadingGroup.notify(queue: .main) {
+        completion?(rulesItems)
+        print("Finished all requests.")
+      }
+    }
+  }
+  public static func getRules(ruleHash: CertLogic.RuleHash, completion: ((CertLogic.Rule?) -> Void)?) {
+    request(["endpoints", "rules"], externalLink: "/\(ruleHash.country)/\(ruleHash.hash)", method: .get).response {
+      guard
+        case let .success(result) = $0.result,
+        let response = result,
+        let responseStr = String(data: response, encoding: .utf8)
+      else {
+        completion?(nil)
+        return
+      }
+      if let rule: Rule = CertLogicEngine.getItem(from: responseStr) {
+        rule.setHash(hash: ruleHash.hash)
+        completion?(rule)
+        return
+      }
+      completion?(nil)
+    }
+  }
+  static func rulesList(completion: (([CertLogic.Rule]) -> Void)? = nil) {
+    RulesDataStorage.initialize {
+      if RulesDataStorage.sharedInstance.rules.count > 0 {
+        completion?(RulesDataStorage.sharedInstance.rules)
+      }
+      getListOfRules { rulesList in
+        rulesList.forEach { rule in
+          RulesDataStorage.sharedInstance.add(rule: rule)
+        }
+        RulesDataStorage.sharedInstance.lastFetch = Date()
+        RulesDataStorage.sharedInstance.save()
+        completion?(RulesDataStorage.sharedInstance.rules)
+      }
+    }
+  }
+  // ValueSets
+  public static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
+    request(["endpoints", "valuesets"], method: .get).response {
+      guard
+        case let .success(result) = $0.result,
+        let response = result,
+        let responseStr = String(data: response, encoding: .utf8)
+      else {
+        return
+      }
+      let valueSetsHashes: [ValueSetHash] = CertLogicEngine.getItems(from: responseStr)
+      // Remove old hashes
+      ValueSetsDataStorage.sharedInstance.valueSets = ValueSetsDataStorage.sharedInstance.valueSets.filter { valueSet in
+          return !valueSetsHashes.contains(where: { valueSetHashe in
+              return valueSetHashe.hash == valueSet.hash
+          })
+      }
+      // Downloading new hashes
+      var valueSetsItems = [CertLogic.ValueSet]()
+      let downloadingGroup = DispatchGroup()
+      valueSetsHashes.forEach { valueSetHash in
+        downloadingGroup.enter()
+        if !ValueSetsDataStorage.sharedInstance.isValueSetExistWithHash(hash: valueSetHash.hash) {
+          getValueSets(valueSetHash: valueSetHash) { valueSet in
+            if let valueSet = valueSet {
+              valueSetsItems.append(valueSet)
+            }
+            downloadingGroup.leave()
+          }
+        } else {
+          downloadingGroup.leave()
+        }
+      }
+      downloadingGroup.notify(queue: .main) {
+        completion?(valueSetsItems)
+        print("Finished all requests.")
+      }
+    }
+  }
+  public static func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
+    request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
+      guard
+        case let .success(result) = $0.result,
+        let response = result,
+        let responseStr = String(data: response, encoding: .utf8)
+      else {
+        completion?(nil)
+        return
+      }
+      if let valueSet: ValueSet = CertLogicEngine.getItem(from: responseStr) {
+        valueSet.setHash(hash: valueSetHash.hash)
+        completion?(valueSet)
+        return
+      }
+      completion?(nil)
+    }
+  }
+  static func valueSetsList(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
+    ValueSetsDataStorage.initialize {
+      if ValueSetsDataStorage.sharedInstance.valueSets.count > 0 {
+        completion?(ValueSetsDataStorage.sharedInstance.valueSets)
+      }
+      getListOfValueSets { valueSetsList in
+        valueSetsList.forEach { valueSet in
+          ValueSetsDataStorage.sharedInstance.add(valueSet: valueSet)
+        }
+        ValueSetsDataStorage.sharedInstance.lastFetch = Date()
+        ValueSetsDataStorage.sharedInstance.save()
+        completion?(ValueSetsDataStorage.sharedInstance.valueSets)
+      }
+    }
+  }
+
 }

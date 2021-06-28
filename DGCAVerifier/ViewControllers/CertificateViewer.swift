@@ -28,6 +28,7 @@ import Foundation
 import UIKit
 import FloatingPanel
 import SwiftDGC
+import CertLogic
 
 let dismissTimeout = 15.0
 
@@ -55,12 +56,12 @@ class CertificateViewerVC: UIViewController {
   @IBOutlet weak var dismissButton: UIButton!
 
   var hCert: HCert?
-
+  
   weak var childDismissedDelegate: CertViewerDelegate?
   var settingsOpened = false
 
   func draw() {
-    guard let hCert = hCert else {
+    guard var hCert = hCert else {
       return
     }
     typeSegments.tintColor = .white
@@ -81,14 +82,41 @@ class CertificateViewerVC: UIViewController {
       HCertType.vaccine,
       HCertType.recovery
     ].firstIndex(of: hCert.type) ?? 0
-    let validity = hCert.validity
+    let certType = getCertificationType(type: hCert.type)
+    var validity = hCert.validity
+    if validity == .valid {
+      if let countryCode = hCert.ruleCountryCode {
+        let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+        let externalParameters = ExternalParameter(validationClock: Date(), valueSets: valueSets, countryCode: countryCode, exp: hCert.exp, iat: hCert.iat, certificationType: certType)
+        let result = CertLogicEngineManager.sharedInstance.validate(external: externalParameters, payload: hCert.body.description)
+        let failsAndOpen = result.filter { validationResult in
+          return validationResult.result != .passed
+        }
+        if failsAndOpen.count > 0 {
+          validity = .invalid
+          if hCert.info.count > 0 {
+            let preferredLanguage = Locale.preferredLanguages[0] as String
+            let arr = preferredLanguage.components(separatedBy: "-")
+            let deviceLanguage = (arr.first ?? "EN")
+            var errorString = ""
+            if let error = failsAndOpen[0].rule?.getLocalizedErrorString(locale: deviceLanguage) {
+              errorString = error
+            }
+            if let rule = failsAndOpen[0].rule {
+              errorString += errorString + CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule, external: externalParameters)
+            }
+            self.hCert?.makeSectionForRuleError(errorString: errorString)
+            self.infoTable.reloadData()
+          }
+        }
+      }
+    }
     dismissButton.setTitle(buttonText[validity], for: .normal)
     dismissButton.backgroundColor = backgroundColor[validity]
     validityLabel.text = validity.l10n
     headerBackground.backgroundColor = backgroundColor[validity]
     validityImage.image = validityIcon[validity]
   }
-
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -152,5 +180,21 @@ extension CertificateViewerVC: UITableViewDataSource {
     }
     cell.draw(listItems[indexPath.row])
     return cell
+  }
+}
+
+// MARK: External CertType from HCert type
+extension CertificateViewerVC {
+  func getCertificationType(type: SwiftDGC.HCertType) -> CertificateType {
+    var certType: CertificateType = .general
+    switch type {
+    case .recovery:
+      certType = .recovery
+    case .test:
+      certType = .test
+    case .vaccine:
+      certType = .vacctination
+    }
+    return certType
   }
 }

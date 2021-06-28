@@ -33,8 +33,13 @@ import FloatingPanel
 class ScanVC: SwiftDGC.ScanVC {
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    self.setVisibleCountrySelection(visible: true)
     delegate = self
+    GatewayConnection.countryList { countryList in
+      DispatchQueue.main.async {
+        self.setListOfRuleCounties(list: countryList)
+      }
+    }
     GatewayConnection.initialize()
     let settingsButton = UIButton(frame: .zero)
     settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
