@@ -26,9 +26,9 @@
 
 import Foundation
 import UIKit
-import FloatingPanel
 import SwiftDGC
 import CertLogic
+import FloatingPanel
 
 let dismissTimeout = 15.0
 

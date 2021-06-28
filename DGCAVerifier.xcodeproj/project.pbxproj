@@ -15,7 +15,9 @@
 		5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 5C696F5726836F280005DE71 /* SwiftyJSON */; };
 		5C696F5A268372280005DE71 /* CertLogicEngineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F59268372280005DE71 /* CertLogicEngineManager.swift */; };
 		5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
-		CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CE13CEFF262DCC180070C80E /* FloatingPanel */; };
+		5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4434268A584400E09EAC /* SwiftDGC */; };
+		5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4437268A591600E09EAC /* FloatingPanel */; };
+		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
@@ -118,9 +120,10 @@
 			files = (
 				5C3151E92681BDCF00309E45 /* CertLogic in Frameworks */,
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
-				CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */,
 				5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */,
-				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
+				5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */,
+				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
+				5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */,
 				CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,11 +314,12 @@
 			);
 			name = DGCAVerifier;
 			packageProductDependencies = (
-				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 				CE8912FA2634C6B900CB92AF /* Alamofire */,
 				CE713CD12651A65F003DD1DE /* SwiftDGC */,
 				5C3151E82681BDCF00309E45 /* CertLogic */,
 				5C696F5726836F280005DE71 /* SwiftyJSON */,
+				5CAC4434268A584400E09EAC /* SwiftDGC */,
+				5CAC4437268A591600E09EAC /* FloatingPanel */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -389,10 +393,11 @@
 			);
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
-				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */,
 				5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
+				5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -854,7 +859,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios";
 			requirement = {
-				branch = develop;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -866,12 +871,20 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+		5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.0;
+				minimumVersion = 2.4.0;
 			};
 		};
 		CE713CD02651A65F003DD1DE /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
@@ -902,6 +915,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		5CAC4434268A584400E09EAC /* SwiftDGC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
+			productName = SwiftDGC;
+		};
+		5CAC4437268A591600E09EAC /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
 		};
 		CE713CD12651A65F003DD1DE /* SwiftDGC */ = {
 			isa = XCSwiftPackageProductDependency;
