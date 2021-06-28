@@ -66,7 +66,7 @@ struct LocalData: Codable {
     Self.storage.save(self)
   }
 
-  static let storage = SecureStorage<LocalData>()
+  static let storage = SecureStorage<LocalData>(fileName: "secure")
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: LocalData.sharedInstance) { success in
