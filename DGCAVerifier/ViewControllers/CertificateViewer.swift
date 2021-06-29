@@ -56,12 +56,11 @@ class CertificateViewerVC: UIViewController {
   @IBOutlet weak var dismissButton: UIButton!
 
   var hCert: HCert?
-  
   weak var childDismissedDelegate: CertViewerDelegate?
   var settingsOpened = false
 
   func draw() {
-    guard var hCert = hCert else {
+    guard let hCert = hCert else {
       return
     }
     typeSegments.tintColor = .white
@@ -82,40 +81,61 @@ class CertificateViewerVC: UIViewController {
       HCertType.vaccine,
       HCertType.recovery
     ].firstIndex(of: hCert.type) ?? 0
-    let certType = getCertificationType(type: hCert.type)
     var validity = hCert.validity
     if validity == .valid {
-      if let countryCode = hCert.ruleCountryCode {
-        let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
-        let externalParameters = ExternalParameter(validationClock: Date(), valueSets: valueSets, countryCode: countryCode, exp: hCert.exp, iat: hCert.iat, certificationType: certType)
-        let result = CertLogicEngineManager.sharedInstance.validate(external: externalParameters, payload: hCert.body.description)
-        let failsAndOpen = result.filter { validationResult in
-          return validationResult.result != .passed
-        }
-        if failsAndOpen.count > 0 {
-          validity = .invalid
-          if hCert.info.count > 0 {
-            let preferredLanguage = Locale.preferredLanguages[0] as String
-            let arr = preferredLanguage.components(separatedBy: "-")
-            let deviceLanguage = (arr.first ?? "EN")
-            var errorString = ""
-            if let error = failsAndOpen[0].rule?.getLocalizedErrorString(locale: deviceLanguage) {
-              errorString = error
-            }
-            if let rule = failsAndOpen[0].rule {
-              errorString += errorString + CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule, external: externalParameters)
-            }
-            self.hCert?.makeSectionForRuleError(errorString: errorString)
-            self.infoTable.reloadData()
-          }
-        }
-      }
+      validity = validateCertLogicRules()
     }
     dismissButton.setTitle(buttonText[validity], for: .normal)
     dismissButton.backgroundColor = backgroundColor[validity]
     validityLabel.text = validity.l10n
     headerBackground.backgroundColor = backgroundColor[validity]
     validityImage.image = validityIcon[validity]
+  }
+  func validateCertLogicRules() -> HCertValidity {
+    var validity: HCertValidity = .valid
+    guard let hCert = hCert else {
+      return validity
+    }
+    let certType = getCertificationType(type: hCert.type)
+    if let countryCode = hCert.ruleCountryCode {
+      let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+      let externalParameters = ExternalParameter(validationClock: Date(),
+                                                 valueSets: valueSets,
+                                                 countryCode: countryCode,
+                                                 exp: hCert.exp,
+                                                 iat: hCert.iat,
+                                                 certificationType: certType)
+      let result = CertLogicEngineManager.sharedInstance.validate(external: externalParameters,
+                                                                  payload: hCert.body.description)
+      let failsAndOpen = result.filter { validationResult in
+        return validationResult.result != .passed
+      }
+      if failsAndOpen.count > 0 {
+        validity = .invalid
+        if failsAndOpen.first?.validationErrors?.count ?? 0 > 0 {
+          if let error = failsAndOpen.first?.validationErrors?.first {
+            self.hCert?.makeSectionForRuleError(errorString: error.localizedDescription)
+            return validity
+          }
+        }
+        if hCert.info.count > 0 {
+          let preferredLanguage = Locale.preferredLanguages[0] as String
+          let arr = preferredLanguage.components(separatedBy: "-")
+          let deviceLanguage = (arr.first ?? "EN")
+          var errorString = ""
+          if let error = failsAndOpen[0].rule?.getLocalizedErrorString(locale: deviceLanguage) {
+            errorString = error
+          }
+          if let rule = failsAndOpen[0].rule {
+            errorString += errorString + CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
+                                                                                                   external: externalParameters)
+          }
+          self.hCert?.makeSectionForRuleError(errorString: errorString)
+          self.infoTable.reloadData()
+        }
+      }
+    }
+    return validity
   }
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
