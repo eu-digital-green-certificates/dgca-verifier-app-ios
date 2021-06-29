@@ -118,21 +118,19 @@ class CertificateViewerVC: UIViewController {
             return validity
           }
         }
-        if hCert.info.count > 0 {
-          let preferredLanguage = Locale.preferredLanguages[0] as String
-          let arr = preferredLanguage.components(separatedBy: "-")
-          let deviceLanguage = (arr.first ?? "EN")
-          var errorString = ""
-          if let error = failsAndOpen[0].rule?.getLocalizedErrorString(locale: deviceLanguage) {
-            errorString = error
-          }
-          if let rule = failsAndOpen[0].rule {
-            errorString += errorString + CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
-                                                                                                   external: externalParameters)
-          }
-          self.hCert?.makeSectionForRuleError(errorString: errorString)
-          self.infoTable.reloadData()
+        let preferredLanguage = Locale.preferredLanguages[0] as String
+        let arr = preferredLanguage.components(separatedBy: "-")
+        let deviceLanguage = (arr.first ?? "EN")
+        var errorString = ""
+        if let error = failsAndOpen[0].rule?.getLocalizedErrorString(locale: deviceLanguage) {
+          errorString = error
         }
+        if let rule = failsAndOpen[0].rule {
+          errorString += errorString + CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
+                                                                                                 external: externalParameters)
+        }
+        self.hCert?.makeSectionForRuleError(errorString: errorString)
+        self.infoTable.reloadData()
       }
     }
     return validity
