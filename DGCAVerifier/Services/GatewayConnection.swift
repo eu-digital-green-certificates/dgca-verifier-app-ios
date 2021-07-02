@@ -98,9 +98,10 @@ struct GatewayConnection: ContextConnection {
     guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
       return
     }
-    fetchContext {
+    //WARNING not fetch mocked data
+    //    fetchContext {
       update()
-    }
+//    }
   }
 
   static func update(completion: (() -> Void)? = nil) {
@@ -258,19 +259,21 @@ extension GatewayConnection {
   }
   static func rulesList(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     RulesDataStorage.initialize {
-      if RulesDataStorage.sharedInstance.rules.count > 0 {
         completion?(RulesDataStorage.sharedInstance.rules)
-      }
-      getListOfRules { rulesList in
-        rulesList.forEach { rule in
-          RulesDataStorage.sharedInstance.add(rule: rule)
-        }
-        RulesDataStorage.sharedInstance.lastFetch = Date()
-        RulesDataStorage.sharedInstance.save()
-        completion?(RulesDataStorage.sharedInstance.rules)
-      }
     }
   }
+  
+  static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
+    getListOfRules { rulesList in
+      rulesList.forEach { rule in
+        RulesDataStorage.sharedInstance.add(rule: rule)
+      }
+      RulesDataStorage.sharedInstance.lastFetch = Date()
+      RulesDataStorage.sharedInstance.save()
+      completion?(RulesDataStorage.sharedInstance.rules)
+    }
+  }
+  
   // ValueSets
   public static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
     request(["endpoints", "valuesets"], method: .get).response {
@@ -330,18 +333,18 @@ extension GatewayConnection {
   }
   static func valueSetsList(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
     ValueSetsDataStorage.initialize {
-      if ValueSetsDataStorage.sharedInstance.valueSets.count > 0 {
         completion?(ValueSetsDataStorage.sharedInstance.valueSets)
-      }
-      getListOfValueSets { valueSetsList in
-        valueSetsList.forEach { valueSet in
-          ValueSetsDataStorage.sharedInstance.add(valueSet: valueSet)
-        }
-        ValueSetsDataStorage.sharedInstance.lastFetch = Date()
-        ValueSetsDataStorage.sharedInstance.save()
-        completion?(ValueSetsDataStorage.sharedInstance.valueSets)
-      }
     }
   }
 
+  static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil){
+    getListOfValueSets { valueSetsList in
+      valueSetsList.forEach { valueSet in
+        ValueSetsDataStorage.sharedInstance.add(valueSet: valueSet)
+      }
+      ValueSetsDataStorage.sharedInstance.lastFetch = Date()
+      ValueSetsDataStorage.sharedInstance.save()
+      completion?(ValueSetsDataStorage.sharedInstance.valueSets)
+    }
+  }
 }

@@ -31,6 +31,7 @@ import CertLogic
 
 struct RulesDataStorage: Codable {
   static var sharedInstance = RulesDataStorage()
+  static let storage = SecureStorage<RulesDataStorage>(fileName: "rules_secure")
 
   var rules = [CertLogic.Rule]()
   var lastFetchRaw: Date?
@@ -42,7 +43,6 @@ struct RulesDataStorage: Codable {
       lastFetchRaw = value
     }
   }
-  var config = Config.load()
 
   mutating func add(rule: CertLogic.Rule) {
     let list = rules
@@ -67,7 +67,6 @@ struct RulesDataStorage: Codable {
       rule.hash == hash
     })
   }
-  static let storage = SecureStorage<RulesDataStorage>(fileName: "rules_secure")
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: RulesDataStorage.sharedInstance) { success in
       guard let result = success else {

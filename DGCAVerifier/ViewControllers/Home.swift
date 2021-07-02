@@ -43,18 +43,28 @@ class HomeVC: UIViewController {
   func load() {
     let loadingGroup = DispatchGroup()
     GatewayConnection.timer?.invalidate()
-    loadingGroup.enter()
 
+    loadingGroup.enter()
     RulesDataStorage.initialize {
       GatewayConnection.rulesList { _ in
+        CertLogicEngineManager.sharedInstance.setRules(ruleList: RulesDataStorage.sharedInstance.rules)
+        loadingGroup.leave()
+      }
+      loadingGroup.enter()
+      GatewayConnection.loadRulesFromServer { _ in
         CertLogicEngineManager.sharedInstance.setRules(ruleList: RulesDataStorage.sharedInstance.rules)
         loadingGroup.leave()
       }
     }
     loadingGroup.enter()
     ValueSetsDataStorage.initialize {
-      GatewayConnection.valueSetsList()
-      loadingGroup.leave()
+      GatewayConnection.valueSetsList { _ in
+        loadingGroup.leave()
+      }
+      loadingGroup.enter()
+      GatewayConnection.loadValueSetsFromServer { _ in
+        loadingGroup.leave()
+      }
     }
     loadingGroup.enter()
     LocalData.initialize {
