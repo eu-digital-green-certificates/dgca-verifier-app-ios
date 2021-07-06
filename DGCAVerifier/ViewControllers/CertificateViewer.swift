@@ -34,15 +34,18 @@ let dismissTimeout = 15.0
 
 let validityIcon = [
   HCertValidity.valid: UIImage(named: "check")!,
-  HCertValidity.invalid: UIImage(named: "error")!
+  HCertValidity.invalid: UIImage(named: "error")!,
+  HCertValidity.ruleInvalid: UIImage(named: "check")!
 ]
 let buttonText = [
   HCertValidity.valid: l10n("btn.done"),
-  HCertValidity.invalid: l10n("btn.retry")
+  HCertValidity.invalid: l10n("btn.retry"),
+  HCertValidity.ruleInvalid: l10n("btn.retry")
 ]
 let backgroundColor = [
   HCertValidity.valid: UIColor(named: "green")!,
-  HCertValidity.invalid: UIColor(named: "red")!
+  HCertValidity.invalid: UIColor(named: "red")!,
+  HCertValidity.ruleInvalid: UIColor(named: "yellow")!
 ]
 class CertificateViewerVC: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
@@ -51,7 +54,6 @@ class CertificateViewerVC: UIViewController {
   @IBOutlet weak var headerBackground: UIView!
   @IBOutlet weak var loadingBackground: UIView!
   @IBOutlet weak var loadingBackgroundTrailing: NSLayoutConstraint!
-  @IBOutlet weak var typeSegments: UISegmentedControl!
   @IBOutlet weak var infoTable: UITableView!
   @IBOutlet weak var dismissButton: UIButton!
 
@@ -63,24 +65,18 @@ class CertificateViewerVC: UIViewController {
     guard let hCert = hCert else {
       return
     }
-    typeSegments.tintColor = .white
-    // selected option color
-    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black!], for: .selected)
-    // color of other options
-    typeSegments.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.disabledText!], for: .normal)
-    typeSegments.backgroundColor = UIColor(white: 1.0, alpha: 0.06)
 
     infoTable.dataSource = self
+    infoTable.register(UINib(nibName: "RuleErrorTVC", bundle: nil), forCellReuseIdentifier: "RuleErrorTVC")
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
     settingsOpened = false
     loadingBackground.isUserInteractionEnabled = false
     nameLabel.text = hCert.fullName
-    infoTable.reloadData()
-    typeSegments.selectedSegmentIndex = [
-      HCertType.test,
-      HCertType.vaccine,
-      HCertType.recovery
-    ].firstIndex(of: hCert.type) ?? 0
+//    typeSegments.selectedSegmentIndex = [
+//      HCertType.test,
+//      HCertType.vaccine,
+//      HCertType.recovery
+//    ].firstIndex(of: hCert.type) ?? 0
     var validity = hCert.validity
     if validity == .valid {
       validity = validateCertLogicRules()
@@ -90,6 +86,7 @@ class CertificateViewerVC: UIViewController {
     validityLabel.text = validity.l10n
     headerBackground.backgroundColor = backgroundColor[validity]
     validityImage.image = validityIcon[validity]
+    infoTable.reloadData()
   }
   func validateCertLogicRules() -> HCertValidity {
     var validity: HCertValidity = .valid
@@ -112,25 +109,65 @@ class CertificateViewerVC: UIViewController {
         return validationResult.result != .passed
       }
       if failsAndOpen.count > 0 {
-        validity = .invalid
-        if failsAndOpen.first?.validationErrors?.count ?? 0 > 0 {
-          if let error = failsAndOpen.first?.validationErrors?.first {
-            self.hCert?.makeSectionForRuleError(errorString: error.localizedDescription)
-            return validity
+        validity = .ruleInvalid
+        var section = InfoSection(header: "Possible limitation", content: "Country rules validation failed")
+        var listOfRulesSection: [InfoSection] = []
+        result.forEach { validationResult in
+          if let error = validationResult.validationErrors?.first {
+            switch validationResult.result {
+            case .fail:
+              listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
+                                                    content: error.localizedDescription,
+                                                    countryName: hCert.ruleCountryCode,
+                                                    ruleValidationResult: SwiftDGC.RuleValidationResult.error))
+            case .open:
+              listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
+                                                    content: error.localizedDescription,
+                                                    countryName: hCert.ruleCountryCode,
+                                                    ruleValidationResult: SwiftDGC.RuleValidationResult.open))
+            case .passed:
+              listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
+                                                    content: error.localizedDescription,
+                                                    countryName: hCert.ruleCountryCode,
+                                                    ruleValidationResult: SwiftDGC.RuleValidationResult.passed))
+            }
+          } else {
+            let preferredLanguage = Locale.preferredLanguages[0] as String
+            let arr = preferredLanguage.components(separatedBy: "-")
+            let deviceLanguage = (arr.first ?? "EN")
+            var errorString = ""
+            if let error = validationResult.rule?.getLocalizedErrorString(locale: deviceLanguage) {
+              errorString = error
+            }
+            var detailsError = ""
+            if let rule = validationResult.rule {
+               let dict = CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
+                                                                                external: externalParameters)
+              dict.keys.forEach({ key in
+                    detailsError += key + ": " + (dict[key] ?? "") + " "
+              })
+            }
+            switch validationResult.result {
+            case .fail:
+              listOfRulesSection.append(InfoSection(header: errorString,
+                                                    content: detailsError,
+                                                    countryName: hCert.ruleCountryCode,
+                                                    ruleValidationResult: SwiftDGC.RuleValidationResult.error))
+            case .open:
+              listOfRulesSection.append(InfoSection(header: errorString,
+                                                    content: detailsError,
+                                                    countryName: hCert.ruleCountryCode,
+                                                    ruleValidationResult: SwiftDGC.RuleValidationResult.open))
+            case .passed:
+              listOfRulesSection.append(InfoSection(header: errorString,
+                                                    content: detailsError,
+                                                    countryName: hCert.ruleCountryCode,
+                                                    ruleValidationResult: SwiftDGC.RuleValidationResult.passed))
+            }
           }
         }
-        let preferredLanguage = Locale.preferredLanguages[0] as String
-        let arr = preferredLanguage.components(separatedBy: "-")
-        let deviceLanguage = (arr.first ?? "EN")
-        var errorString = ""
-        if let error = failsAndOpen[0].rule?.getLocalizedErrorString(locale: deviceLanguage) {
-          errorString = error
-        }
-        if let rule = failsAndOpen[0].rule {
-          errorString += errorString + CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
-                                                                                                 external: externalParameters)
-        }
-        self.hCert?.makeSectionForRuleError(errorString: errorString)
+        section.sectionItems = listOfRulesSection
+        self.hCert?.makeSectionForRuleError(infoSections: section)
         self.infoTable.reloadData()
       }
     }
@@ -189,16 +226,54 @@ extension CertificateViewerVC: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    let section: InfoSection = listItems[section]
+    if section.sectionItems.count == 0 {
+      return 1
+    }
+    if !section.isExpanded {
+      return 1
+    }
+    return section.sectionItems.count + 1
+  }
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
     return listItems.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let base = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
-    guard let cell = base as? InfoCell else {
-      return base
+    var section: InfoSection = listItems[indexPath.section]
+    if section.sectionItems.count == 0 {
+      let base = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
+      guard let cell = base as? InfoCell else {
+        return base
+      }
+      cell.draw(section)
+      return cell
+    } else {
+      if indexPath.row == 0 {
+        let base = tableView.dequeueReusableCell(withIdentifier: "infoCellDropDown", for: indexPath)
+        guard let cell = base as? InfoCellDropDown else {
+          return base
+        }
+        cell.setupCell(with: section) { state in
+          section.isExpanded = state
+          if let row = self.hCert?.info.firstIndex(where: {$0.header == section.header}) {
+            self.hCert?.info[row] = section
+          }
+          tableView.reloadData()
+        }
+        return cell
+      } else {
+        let base = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath)
+        guard let cell = base as? RuleErrorTVC else {
+          return base
+        }
+        let item = section.sectionItems[indexPath.row - 1]
+        cell.setupCell(with: item)
+        return cell
+
+      }
     }
-    cell.draw(listItems[indexPath.row])
-    return cell
   }
 }
 
@@ -213,6 +288,8 @@ extension CertificateViewerVC {
       certType = .test
     case .vaccine:
       certType = .vacctination
+    case .unknown:
+      certType = .general
     }
     return certType
   }

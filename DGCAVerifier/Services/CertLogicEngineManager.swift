@@ -41,7 +41,7 @@ class CertLogicEngineManager {
   func validate(external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(external: external, payload: payload)
   }
-  func getRuleDetailsError(rule: Rule, external: ExternalParameter) -> String {
+  func getRuleDetailsError(rule: Rule, external: ExternalParameter) -> Dictionary<String, String> {
     return certLogicEngine.getDetailsOfError(rule: rule, external: external)
   }
 }
