@@ -879,7 +879,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios";
 			requirement = {
-				branch = main;
+				branch = feature/rule_filtering;
 				kind = branch;
 			};
 		};

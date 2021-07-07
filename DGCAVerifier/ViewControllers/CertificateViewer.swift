@@ -112,7 +112,9 @@ class CertificateViewerVC: UIViewController {
         validity = .ruleInvalid
         var section = InfoSection(header: "Possible limitation", content: "Country rules validation failed")
         var listOfRulesSection: [InfoSection] = []
-        result.forEach { validationResult in
+        result.sorted(by: { vdResultOne, vdResultTwo in
+          vdResultOne.result.rawValue < vdResultTwo.result.rawValue
+        }).forEach { validationResult in
           if let error = validationResult.validationErrors?.first {
             switch validationResult.result {
             case .fail:
@@ -287,7 +289,7 @@ extension CertificateViewerVC {
     case .test:
       certType = .test
     case .vaccine:
-      certType = .vacctination
+      certType = .vaccination
     case .unknown:
       certType = .general
     }

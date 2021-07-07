@@ -36,7 +36,7 @@ class RuleErrorTVC: UITableViewCell {
   @IBOutlet weak var currentValueLabel: UILabel!
   @IBOutlet weak var resultLabel: UILabel!
   @IBOutlet weak var resultValueLabel: UILabel!
-  @IBOutlet weak var failedLabel: UILabel!  
+  @IBOutlet weak var failedLabel: UILabel!
   private var infoItem: InfoSection? {
     didSet {
       setupView()
@@ -65,10 +65,13 @@ class RuleErrorTVC: UITableViewCell {
     switch infoItem.ruleValidationResult {
     case .error:
       failedLabel.textColor = .red
+      failedLabel.text = l10n("failed")
     case .passed:
       failedLabel.textColor = .green
+      failedLabel.text = l10n("passed")
     case .open:
       failedLabel.textColor = .green
+      failedLabel.text = l10n("open")
     }
 
     if let countryName = infoItem.countryName {
@@ -85,7 +88,7 @@ class RuleErrorTVC: UITableViewCell {
       case .error:
         resultValueLabel.text = l10n("failed")
       case .passed:
-        resultValueLabel.text = l10n("passwd")
+        resultValueLabel.text = l10n("passed")
       case .open:
         resultValueLabel.text = l10n("open")
       }
