@@ -102,7 +102,8 @@ class CertificateViewerVC: UIViewController {
                                                  exp: hCert.exp,
                                                  iat: hCert.iat,
                                                  certificationType: certType,
-                                                 issueCountryCode: hCert.issCode)
+                                                 issuerCountryCode: hCert.issCode,
+                                                 kid: hCert.kidStr)
       let result = CertLogicEngineManager.sharedInstance.validate(external: externalParameters,
                                                                   payload: hCert.body.description)
       let failsAndOpen = result.filter { validationResult in
