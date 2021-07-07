@@ -24,6 +24,8 @@ This repository contains the source code of the EU Digital COVID Certificate Ver
 
 The DGC Verifier Apps are responsible for scanning and verifying DGCs using public keys from national backend servers. Offline verification is supported, if the latest public keys are present in the app's key store. Consequently, once up-to-date keys have been downloaded, the verification works without active internet connection.
 
+**A note on using the apps and released APK files found in this GitHub organization**: The apps are reference implementations that cannot be used in production environments as-is, but rather need to be configured by EU member states to access their national backends.
+
 ## Translators 💬
 
 You can help the localization of this project by making contributions to the [/Localization folder](Localization/DGCAVerifier).
