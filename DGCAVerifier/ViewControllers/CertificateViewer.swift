@@ -72,11 +72,6 @@ class CertificateViewerVC: UIViewController {
     settingsOpened = false
     loadingBackground.isUserInteractionEnabled = false
     nameLabel.text = hCert.fullName
-//    typeSegments.selectedSegmentIndex = [
-//      HCertType.test,
-//      HCertType.vaccine,
-//      HCertType.recovery
-//    ].firstIndex(of: hCert.type) ?? 0
     var validity = hCert.validity
     if validity == .valid {
       validity = validateCertLogicRules()
@@ -96,15 +91,16 @@ class CertificateViewerVC: UIViewController {
     let certType = getCertificationType(type: hCert.type)
     if let countryCode = hCert.ruleCountryCode {
       let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+      let filterParameter = FilterParameter(validationClock: Date(),
+                                            countryCode: countryCode,
+                                            certificationType: certType)
       let externalParameters = ExternalParameter(validationClock: Date(),
                                                  valueSets: valueSets,
-                                                 countryCode: countryCode,
                                                  exp: hCert.exp,
                                                  iat: hCert.iat,
-                                                 certificationType: certType,
                                                  issuerCountryCode: hCert.issCode,
                                                  kid: hCert.kidStr)
-      let result = CertLogicEngineManager.sharedInstance.validate(external: externalParameters,
+      let result = CertLogicEngineManager.sharedInstance.validate(filter: filterParameter, external: externalParameters,
                                                                   payload: hCert.body.description)
       let failsAndOpen = result.filter { validationResult in
         return validationResult.result != .passed
@@ -145,7 +141,7 @@ class CertificateViewerVC: UIViewController {
             var detailsError = ""
             if let rule = validationResult.rule {
                let dict = CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
-                                                                                external: externalParameters)
+                                                                                filter: filterParameter)
               dict.keys.forEach({ key in
                     detailsError += key + ": " + (dict[key] ?? "") + " "
               })
@@ -238,7 +234,6 @@ extension CertificateViewerVC: UITableViewDataSource {
     }
     return section.sectionItems.count + 1
   }
-  
   func numberOfSections(in tableView: UITableView) -> Int {
     return listItems.count
   }

@@ -262,7 +262,6 @@ extension GatewayConnection {
         completion?(RulesDataStorage.sharedInstance.rules)
     }
   }
-  
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
       rulesList.forEach { rule in
@@ -273,7 +272,6 @@ extension GatewayConnection {
       completion?(RulesDataStorage.sharedInstance.rules)
     }
   }
-  
   // ValueSets
   public static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
     request(["endpoints", "valuesets"], method: .get).response {
