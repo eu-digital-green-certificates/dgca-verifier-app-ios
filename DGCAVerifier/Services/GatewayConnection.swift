@@ -250,8 +250,13 @@ extension GatewayConnection {
         return
       }
       if let rule: Rule = CertLogicEngine.getItem(from: responseStr) {
-        rule.setHash(hash: ruleHash.hash)
-        completion?(rule)
+        let downloadedRuleHash = SHA256.digest(input: response as NSData)
+        if downloadedRuleHash.hexString == ruleHash.hash {
+          rule.setHash(hash: ruleHash.hash)
+          completion?(rule)
+        } else {
+          completion?(nil)
+        }
         return
       }
       completion?(nil)
@@ -322,8 +327,13 @@ extension GatewayConnection {
         return
       }
       if let valueSet: ValueSet = CertLogicEngine.getItem(from: responseStr) {
-        valueSet.setHash(hash: valueSetHash.hash)
-        completion?(valueSet)
+        let downloadedValueSetHash = SHA256.digest(input: response as NSData)
+        if downloadedValueSetHash.hexString == valueSetHash.hash {
+          valueSet.setHash(hash: valueSetHash.hash)
+          completion?(valueSet)
+        } else {
+          completion?(nil)
+        }
         return
       }
       completion?(nil)
