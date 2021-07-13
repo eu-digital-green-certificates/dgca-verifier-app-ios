@@ -121,7 +121,7 @@ class CertificateViewerVC: UIViewController {
                                                     ruleValidationResult: SwiftDGC.RuleValidationResult.error))
             case .open:
               listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
-                                                    content: error.localizedDescription,
+                                                    content: l10n(error.localizedDescription),
                                                     countryName: hCert.ruleCountryCode,
                                                     ruleValidationResult: SwiftDGC.RuleValidationResult.open))
             case .passed:

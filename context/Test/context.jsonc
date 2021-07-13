@@ -1,0 +1,47 @@
+{
+  // Origin in ISO alpha 2 code:
+  "origin": "DE",
+  "versions": {
+    "default": {
+      // catch-all for normal versions
+      "privacyUrl": "https://publications.europa.eu/en/web/about-us/legal-notices/eu-mobile-apps",
+      "context": {
+        // Currently this url is empty still, subject to change:
+        "url": "https://dgca-verifier-service-eu-acc.cfapps.eu10.hana.ondemand.com/context",
+        "pubKeys": [
+          "lKdU1EbQubxyDDm2q3N8KclZ2C94Num3xXjG0pk+3eI=",
+          "r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E="
+        ]
+      },
+      "endpoints": {
+        "status": {
+          "url": "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/signercertificateStatus",
+          "pubKeys": [
+            "lKdU1EbQubxyDDm2q3N8KclZ2C94Num3xXjG0pk+3eI=",
+            "r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E="
+          ]
+        },
+        "update": {
+          "url": "https://dgca-verifier-service.cfapps.eu10.hana.ondemand.com/signercertificateUpdate",
+          "pubKeys": [
+            "lKdU1EbQubxyDDm2q3N8KclZ2C94Num3xXjG0pk+3eI=",
+            "r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E="
+          ]
+        },
+        "countryList": {
+          "url": "https://dgca-businessrule-service.cfapps.eu10.hana.ondemand.com/countrylist"
+        },
+        "rules": {
+          "url": "https://dgca-businessrule-service.cfapps.eu10.hana.ondemand.com/rules"
+        },
+        "valuesets": {
+          "url": "https://dgca-businessrule-service.cfapps.eu10.hana.ondemand.com/valuesets"
+        }
+      }
+    },
+    "0.1.0": {
+      // Example for a version that is insecure and shouldn't start.
+      "outdated": true
+    }
+  }
+}
