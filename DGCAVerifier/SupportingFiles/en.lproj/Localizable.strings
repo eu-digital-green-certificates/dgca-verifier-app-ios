@@ -25,7 +25,21 @@
   
 */
 "log.keys-loaded" = "%d pub keys loaded.";
+"log.country" = "%d country loaded.";
+"log.rules" = "%d rules loaded.";
+"log.valueSets" = "%d ValueSets loaded.";
 "app-version" = "App Version %@";
 "btn.done" = "Done";
 "btn.retry" = "Retry";
 "settings.last-updated" = "Last Updated: %@";
+"rule" = "Rule";
+"current" = "Current";
+"result" = "Result";
+"failed_for_country" = "Failed for %@ (see settings)";
+"passed_for_country" = "Passed for %@ (see settings)";
+"open_for_country" = "Open for %@ (see settings)";
+"failed" = "Failed";
+"passed" = "Passed";
+"open" = "Open";
+"recheck_rule" = "Check Re-open EU for further details and travel-related rules";
+

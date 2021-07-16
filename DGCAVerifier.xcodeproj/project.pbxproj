@@ -7,12 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CE13CEFF262DCC180070C80E /* FloatingPanel */; };
+		5C17C8DF26942FCA002AA34D /* InfoCellDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C8DE26942FCA002AA34D /* InfoCellDropDown.swift */; };
+		5C2E51262681E50700712521 /* CountryDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataStorage.swift */; };
+		5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataStorage.swift */; };
+		5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataStorage.swift */; };
+		5C2E512A2682152F00712521 /* RulesDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataStorage.swift */; };
+		5C3151E92681BDCF00309E45 /* CertLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 5C3151E82681BDCF00309E45 /* CertLogic */; };
+		5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 5C696F5726836F280005DE71 /* SwiftyJSON */; };
+		5C696F5A268372280005DE71 /* CertLogicEngineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F59268372280005DE71 /* CertLogicEngineManager.swift */; };
+		5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
+		5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4434268A584400E09EAC /* SwiftDGC */; };
+		5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4437268A591600E09EAC /* FloatingPanel */; };
+		5CCBA69B26A0B0D700C6735A /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		5CCBA69C26A0B0D700C6735A /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		5CCBA69D26A0B0D800C6735A /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
+		5CE07C8A26938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
+		5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
+		5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
+		5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
+		5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
+		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
-		CE1F155C2639F9E700736D48 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = CE1F155B2639F9E700736D48 /* SwiftyJSON */; };
 		CE345FAC26446694003B457E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
 		CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* CertificateViewer.storyboard */; };
 		CE345FB426446817003B457E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB626446817003B457E /* Localizable.strings */; };
@@ -35,7 +54,6 @@
 		CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
 		CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D702261F8D2900715333 /* DGCAVerifierTests.swift */; };
 		CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D70D261F8D2900715333 /* DGCAVerifierUITests.swift */; };
-		CEC7FEE1264C819D005561BA /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = CEC7FEE0264C819D005561BA /* context.jsonc */; };
 		CED2726026398683003D47A9 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
@@ -61,6 +79,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C17C8DE26942FCA002AA34D /* InfoCellDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellDropDown.swift; sourceTree = "<group>"; };
+		5C2E51252681E50700712521 /* CountryDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDataStorage.swift; sourceTree = "<group>"; };
+		5C2E51272682152F00712521 /* RulesDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDataStorage.swift; sourceTree = "<group>"; };
+		5C696F59268372280005DE71 /* CertLogicEngineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertLogicEngineManager.swift; sourceTree = "<group>"; };
+		5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSetsDataStorage.swift; sourceTree = "<group>"; };
+		5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleErrorTVC.swift; sourceTree = "<group>"; };
+		5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleErrorTVC.xib; sourceTree = "<group>"; };
+		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
+		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateViewer.swift; sourceTree = "<group>"; };
 		CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -91,7 +118,6 @@
 		CEA6D709261F8D2900715333 /* DGCAVerifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DGCAVerifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* DGCAVerifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCAVerifierUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEC7FEE0264C819D005561BA /* context.jsonc */ = {isa = PBXFileReference; lastKnownFileType = text; path = context.jsonc; sourceTree = SOURCE_ROOT; };
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
@@ -105,9 +131,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3151E92681BDCF00309E45 /* CertLogic in Frameworks */,
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
-				CE1F155C2639F9E700736D48 /* SwiftyJSON in Frameworks */,
-				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
+				5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */,
+				5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */,
+				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
+				5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */,
 				CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +158,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5CFEDB08269D72B600074F66 /* context */ = {
+			isa = PBXGroup;
+			children = (
+				5CFEDB09269D72B600074F66 /* Test */,
+				5CFEDB0B269D72B600074F66 /* Release */,
+			);
+			path = context;
+			sourceTree = SOURCE_ROOT;
+		};
+		5CFEDB09269D72B600074F66 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				5CFEDB0A269D72B600074F66 /* context.jsonc */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		5CFEDB0B269D72B600074F66 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				5CFEDB0C269D72B600074F66 /* context.jsonc */,
+			);
+			path = Release;
+			sourceTree = "<group>";
+		};
 		CE13CF19262DDE200070C80E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +199,7 @@
 			children = (
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
+				5C696F59268372280005DE71 /* CertLogicEngineManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -177,7 +232,10 @@
 				CE13CF22262DDF810070C80E /* RoundedButton.swift */,
 				CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */,
 				CEA1556F262F79DE0024B7AC /* InfoCell.swift */,
+				5C17C8DE26942FCA002AA34D /* InfoCellDropDown.swift */,
 				DA793259265BC00F0043BA06 /* LicenseCell.swift */,
+				5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */,
+				5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -185,6 +243,7 @@
 		CE13CF1E262DDE800070C80E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				5CFEDB08269D72B600074F66 /* context */,
 				CE81533B263FF8FE0030D777 /* README.md */,
 				CEDCA79B2639E77800FCB83E /* Package.resolved */,
 				CEA6D6EB261F8D2700715333 /* AppDelegate.swift */,
@@ -192,7 +251,6 @@
 				CEA6D6F4261F8D2900715333 /* Assets.xcassets */,
 				CEA6D6F9261F8D2900715333 /* Info.plist */,
 				CE345FB626446817003B457E /* Localizable.strings */,
-				CEC7FEE0264C819D005561BA /* context.jsonc */,
 				DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */,
 			);
 			path = SupportingFiles;
@@ -202,6 +260,9 @@
 			isa = PBXGroup;
 			children = (
 				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
+				5C2E51252681E50700712521 /* CountryDataStorage.swift */,
+				5C2E51272682152F00712521 /* RulesDataStorage.swift */,
+				5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,10 +355,12 @@
 			);
 			name = DGCAVerifier;
 			packageProductDependencies = (
-				CE13CEFF262DCC180070C80E /* FloatingPanel */,
 				CE8912FA2634C6B900CB92AF /* Alamofire */,
-				CE1F155B2639F9E700736D48 /* SwiftyJSON */,
 				CE713CD12651A65F003DD1DE /* SwiftDGC */,
+				5C3151E82681BDCF00309E45 /* CertLogic */,
+				5C696F5726836F280005DE71 /* SwiftyJSON */,
+				5CAC4434268A584400E09EAC /* SwiftDGC */,
+				5CAC4437268A591600E09EAC /* FloatingPanel */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -371,10 +434,11 @@
 			);
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
-				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */,
-				CE1F155A2639F9E700736D48 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				CE713CD02651A65F003DD1DE /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
+				5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */,
+				5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
+				5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -394,11 +458,12 @@
 			files = (
 				CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
+				5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				CE81533C263FF8FE0030D777 /* README.md in Resources */,
+				5CCBA69B26A0B0D700C6735A /* context.jsonc in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
-				CEC7FEE1264C819D005561BA /* context.jsonc in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 				CE345FAC26446694003B457E /* Settings.storyboard in Resources */,
 			);
@@ -408,6 +473,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
+				5CCBA69C26A0B0D700C6735A /* context.jsonc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +482,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
+				5CCBA69D26A0B0D800C6735A /* context.jsonc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,16 +519,22 @@
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
+				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
+				5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
 				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
+				5C696F5A268372280005DE71 /* CertLogicEngineManager.swift in Sources */,
 				CE891305263581D900CB92AF /* Home.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* Settings.swift in Sources */,
+				5C17C8DF26942FCA002AA34D /* InfoCellDropDown.swift in Sources */,
+				5C2E51262681E50700712521 /* CountryDataStorage.swift in Sources */,
+				5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
 				CEA15563262F6DAB0024B7AC /* CertViewerDelegate.swift in Sources */,
 				CEA15570262F79DE0024B7AC /* InfoCell.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
@@ -470,7 +545,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE07C8A26938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
+				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +557,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
+				5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
+				5C2E512A2682152F00712521 /* RulesDataStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,17 +742,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.DGCAVerifier.dev";
+				MARKETING_VERSION = 1.1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -684,17 +766,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KH99XNF745;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.DGCAVerifier.dev";
+				MARKETING_VERSION = 1.1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -826,20 +911,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+		5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.0;
-			};
-		};
-		CE1F155A2639F9E700736D48 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
+				minimumVersion = 2.4.0;
 			};
 		};
 		CE713CD02651A65F003DD1DE /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
@@ -861,15 +962,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE13CEFF262DCC180070C80E /* FloatingPanel */ = {
+		5C3151E82681BDCF00309E45 /* CertLogic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */;
-			productName = FloatingPanel;
+			package = 5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */;
+			productName = CertLogic;
 		};
-		CE1F155B2639F9E700736D48 /* SwiftyJSON */ = {
+		5C696F5726836F280005DE71 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CE1F155A2639F9E700736D48 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			package = 5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		5CAC4434268A584400E09EAC /* SwiftDGC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
+			productName = SwiftDGC;
+		};
+		5CAC4437268A591600E09EAC /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
 		};
 		CE713CD12651A65F003DD1DE /* SwiftDGC */ = {
 			isa = XCSwiftPackageProductDependency;

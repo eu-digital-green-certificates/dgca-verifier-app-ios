@@ -24,7 +24,6 @@
 //  
 //  Created by Paul Ballmann on 24.05.21.
 //  
-
 import Foundation
 import UIKit
 import SwiftyJSON
@@ -36,13 +35,13 @@ class LicenseTableVC: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    loadLicenses()
+    self.loadLicenses()
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.destination is LicenseVC {
       if let destVC = segue.destination as? LicenseVC {
-        destVC.licenseObject = selectedLicense
+        destVC.licenseObject = self.selectedLicense
       }
     }
   }
@@ -53,20 +52,20 @@ class LicenseTableVC: UITableViewController {
       return UITableViewCell()
     }
     let index = indexPath.row
-    cell.drawLabel(licenses[index])
+    cell.drawLabel(self.licenses[index])
     return cell
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if let cell = tableView.cellForRow(at: indexPath) as? LicenseCell {
-      selectedLicense = cell.licenseObject
+      self.selectedLicense = cell.licenseObject
     }
     // segue to the vc
     performSegue(withIdentifier: "licenseSegue", sender: nil)
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return licenses.count
+    return self.licenses.count
   }
 
   private func loadLicenses() {
@@ -80,13 +79,13 @@ class LicenseTableVC: UITableViewController {
         return
       }
       let jsonDoc = try JSON(data: jsonData)
-      licenses = jsonDoc["licenses"].array ?? []
+      self.licenses = jsonDoc["licenses"].array ?? []
     } catch {
       print(error)
       return
     }
 
-    print(licenses)
+    print(self.licenses)
   }
 }
 
@@ -100,35 +99,29 @@ class LicenseVC: UIViewController, WKNavigationDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    packageNameLabel.text = licenseObject["name"].string
-    licenseWebView.isUserInteractionEnabled = false
-    licenseWebView.navigationDelegate = self
-    if #available(iOS 13.0, *) {
-      activityIndicator.style = .medium
-    } else {
-      activityIndicator.style = .gray
-    }
-
+    self.packageNameLabel.text = licenseObject["name"].string
+    self.licenseWebView.isUserInteractionEnabled = false
+    self.licenseWebView.navigationDelegate = self
     if let licenseUrl = licenseObject["licenseUrl"].string {
       loadWebView(licenseUrl)
     }
   }
 
   func loadWebView(_ packageLink: String) {
-    DispatchQueue.main.async { [weak self] in
-      let request = URLRequest(url: URL(string: packageLink)!)
-      self?.licenseWebView?.load(request)
+    DispatchQueue.main.async {
+     let request = URLRequest(url: URL(string: packageLink)!)
+      self.licenseWebView?.load(request)
     }
 
-    activityIndicator.startAnimating()
-    licenseWebView.navigationDelegate = self
+    self.activityIndicator.startAnimating()
+    self.licenseWebView.navigationDelegate = self
   }
 
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    activityIndicator.stopAnimating()
+    self.activityIndicator.stopAnimating()
   }
 
   func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-    activityIndicator.stopAnimating()
+    self.activityIndicator.stopAnimating()
   }
 }

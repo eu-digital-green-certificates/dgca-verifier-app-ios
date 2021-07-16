@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="icon_collapsed" transform="translate(24) rotate(90)">
+    <path id="Path" d="M17.5,11.135a1.245,1.245,0,0,1-.885-.365L9.383,3.535,2.148,10.77A1.25,1.25,0,1,1,.383,9l9-9,9,9a1.26,1.26,0,0,1,0,1.77A1.245,1.245,0,0,1,17.5,11.135Z" transform="translate(2.617 6.175)" fill="#404040"/>
+  </g>
+</svg>

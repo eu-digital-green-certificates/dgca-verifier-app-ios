@@ -80,7 +80,8 @@ struct LocalData: Codable {
       }
       LocalData.sharedInstance = result
       completion()
-      GatewayConnection.fetchContext()
+      // Mocked data
+//WARNING:      //GatewayConnection.fetchContext()
     }
     HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
   }
