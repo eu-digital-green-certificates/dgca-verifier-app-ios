@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
         "state": {
           "branch": "main",
-          "revision": "bd7223fa142bdd3f3d5ad770b12e06ffbb9149b3",
+          "revision": "8b7f86a2aed4f2c60dd2c7c4f28eb129d9fe379d",
           "version": null
         }
       },
@@ -33,7 +33,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git",
         "state": {
           "branch": "main",
-          "revision": "bc84072b43299ee18b65ccb5d44bbed00de8cdd8",
+          "revision": "1dbcdb800312a7986404ec76764ed592aa895875",
           "version": null
         }
       },
@@ -89,15 +89,6 @@
           "branch": "master",
           "revision": "b76024995f6909e4615f943c7a03268fd29778fc",
           "version": null
-        }
-      },
-      {
-        "package": "SwiftyJSON",
-        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
-        "state": {
-          "branch": null,
-          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
-          "version": "5.0.1"
         }
       }
     ]

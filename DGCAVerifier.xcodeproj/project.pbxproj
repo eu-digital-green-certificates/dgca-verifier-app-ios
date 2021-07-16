@@ -18,15 +18,15 @@
 		5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
 		5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4434268A584400E09EAC /* SwiftDGC */; };
 		5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4437268A591600E09EAC /* FloatingPanel */; };
+		5CCBA69B26A0B0D700C6735A /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		5CCBA69C26A0B0D700C6735A /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		5CCBA69D26A0B0D800C6735A /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
 		5CE07C8A26938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
 		5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
 		5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
 		5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
 		5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
-		5CFEDB0D269D72B600074F66 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		5CFEDB0E269D72B600074F66 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		5CFEDB0F269D72B600074F66 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
@@ -460,7 +460,7 @@
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				CE81533C263FF8FE0030D777 /* README.md in Resources */,
-				5CFEDB0D269D72B600074F66 /* context.jsonc in Resources */,
+				5CCBA69B26A0B0D700C6735A /* context.jsonc in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
@@ -474,7 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
-				5CFEDB0E269D72B600074F66 /* context.jsonc in Resources */,
+				5CCBA69C26A0B0D700C6735A /* context.jsonc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,7 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
-				5CFEDB0F269D72B600074F66 /* context.jsonc in Resources */,
+				5CCBA69D26A0B0D800C6735A /* context.jsonc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,17 +742,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82EG8LG7YH;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.DGCAVerifier.dev";
+				MARKETING_VERSION = 1.1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -763,17 +766,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82EG8LG7YH;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.DGCAVerifier.dev";
+				MARKETING_VERSION = 1.1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
