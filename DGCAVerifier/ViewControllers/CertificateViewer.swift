@@ -166,7 +166,7 @@ class CertificateViewerVC: UIViewController {
           }
         }
         section.sectionItems = listOfRulesSection
-        self.hCert?.makeSectionForRuleError(infoSections: section)
+        self.hCert?.makeSectionForRuleError(infoSections: section, for: .verifier)
         self.infoTable.reloadData()
       }
     }
