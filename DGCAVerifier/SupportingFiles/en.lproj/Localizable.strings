@@ -42,4 +42,5 @@
 "passed" = "Passed";
 "open" = "Open";
 "recheck_rule" = "Check Re-open EU for further details and travel-related rules";
+"issuer.country" = "Issuer Country";
 

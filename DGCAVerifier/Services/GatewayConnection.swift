@@ -98,10 +98,9 @@ struct GatewayConnection: ContextConnection {
     guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
       return
     }
-    //WARNING not fetch mocked data
-    //    fetchContext {
+      fetchContext {
       update()
-//    }
+    }
   }
 
   static func update(completion: (() -> Void)? = nil) {
