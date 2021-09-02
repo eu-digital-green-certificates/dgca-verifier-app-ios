@@ -22,6 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>Scan NFC certificate</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan barcodes with your camera.</string>
 	<key>NSFaceIDUsageDescription</key>

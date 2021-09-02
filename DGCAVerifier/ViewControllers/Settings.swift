@@ -48,6 +48,11 @@ class SettingsVC: UINavigationController {
 class SettingsTableVC: UITableViewController {
   var loading = false
 
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+  
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     let format = l10n("settings.last-updated")
 
@@ -74,6 +79,9 @@ class SettingsTableVC: UITableViewController {
     if indexPath.section == 0 && indexPath.row == 0 {
       openPrivacyDoc()
     }
+    if indexPath.section == 0 && indexPath.row == 2 {
+      openDebugSettings()
+    }
     if indexPath.section == 1 {
       loading = true
       tableView.reloadData()
@@ -99,6 +107,10 @@ class SettingsTableVC: UITableViewController {
   func openGitHubSource() {
     let link = "https://github.com/eu-digital-green-certificates"
     openUrl(link)
+  }
+
+  func openDebugSettings() {
+    performSegue(withIdentifier: "DebugVC", sender: self)
   }
 
   func openUrl(_ string: String!) {

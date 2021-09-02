@@ -53,6 +53,23 @@ class ScanVC: SwiftDGC.ScanVC {
       settingsButton.heightAnchor.constraint(equalToConstant: 30),
       settingsButton.widthAnchor.constraint(equalToConstant: 30)
     ])
+
+    let nfcButton = UIButton(frame: .zero)
+    nfcButton.addTarget(self, action: #selector(scanNFC), for: .touchUpInside)
+    nfcButton.translatesAutoresizingMaskIntoConstraints = false
+    if #available(iOS 13.0, *) {
+      nfcButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white), for: .normal)
+    } else {
+      nfcButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
+    }
+    view.addSubview(nfcButton)
+    NSLayoutConstraint.activate([
+      nfcButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 32.0),
+      nfcButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0),
+      nfcButton.heightAnchor.constraint(equalToConstant: 30),
+      nfcButton.widthAnchor.constraint(equalToConstant: 30)
+    ])
+
   }
 
   var presentingViewer: UIViewController?
@@ -141,6 +158,36 @@ extension ScanVC: FloatingPanelControllerDelegate {
         return (velocity.dy >= threshold)
     case .right:
         return (velocity.dx >= threshold)
+    }
+  }
+}
+extension ScanVC {
+  @objc private func scanNFC() {
+    let helper = NFCHelper()
+    helper.onNFCResult = onNFCResult(success:msg:)
+    helper.restartSession()
+  }
+  func onNFCResult(success: Bool, msg: String) {
+    DispatchQueue.main.async { [weak self] in
+      print("\(msg)")
+      if success, var hCert = HCert(from: msg, applicationType: .wallet) {
+        hCert.ruleCountryCode = self?.getSelectedCountryCode()
+        self?.presentViewer(for: hCert)
+      } else {
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(title: l10n("error"),
+                                               message: l10n("read.dcc.from.nfc"),
+                                               preferredStyle: .alert)
+          let actionRetry = UIAlertAction(title: l10n("retry"), style: .default) { _ in
+            self?.scanNFC()
+          }
+            controller.addAction(actionRetry)
+          let actionOk = UIAlertAction(title: l10n("ok"), style: .default)
+          controller.addAction(actionOk)
+            return controller
+        }()
+        self?.present(alertController, animated: true)
+      }
     }
   }
 }
