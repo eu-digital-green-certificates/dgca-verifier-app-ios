@@ -415,6 +415,33 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="niZ-Hh-gZm">
                                 <rect key="frame" x="20" y="419" width="374" height="389"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="DebugTVC" rowHeight="54" id="p3Y-HN-fH0" customClass="DebugTVC" customModule="DGCAVerifier" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="374" height="54"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p3Y-HN-fH0" id="uRk-9x-DNg">
+                                            <rect key="frame" x="0.0" y="0.0" width="333.5" height="54"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEb-Xb-2PL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="54"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="sEb-Xb-2PL" secondAttribute="bottom" id="VoL-7h-R3d"/>
+                                                <constraint firstAttribute="trailing" secondItem="sEb-Xb-2PL" secondAttribute="trailing" constant="7.5" id="WyD-62-GIS"/>
+                                                <constraint firstItem="sEb-Xb-2PL" firstAttribute="top" secondItem="uRk-9x-DNg" secondAttribute="top" id="bbD-Vy-SeS"/>
+                                                <constraint firstItem="sEb-Xb-2PL" firstAttribute="leading" secondItem="uRk-9x-DNg" secondAttribute="leading" id="cWP-UH-qrI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="sEb-Xb-2PL" id="7LB-gP-Txw"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aNy-x3-zXE"/>
@@ -453,6 +480,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gxW-2c-Vt1"/>
+                    <connections>
+                        <outlet property="debugSwitcher" destination="ujI-6j-G6k" id="xpU-gG-ZdL"/>
+                        <outlet property="level1" destination="7Vf-7q-rFX" id="qVu-i3-4aG"/>
+                        <outlet property="level2" destination="qoc-Ag-8pF" id="6Zu-Uz-OcB"/>
+                        <outlet property="level3" destination="fbR-rP-xH8" id="q0o-3u-Art"/>
+                        <outlet property="tableView" destination="niZ-Hh-gZm" id="4oa-gq-vKs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Di6-nK-dFz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

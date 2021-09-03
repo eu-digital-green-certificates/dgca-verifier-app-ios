@@ -52,6 +52,15 @@ struct CountryDataStorage: Codable {
     }
     countryCodes.append(country)
   }
+  
+  mutating func update(country: CountryModel) {
+    let list = countryCodes
+    guard let countryFromDB = list.filter({ savedCountry in
+      savedCountry.code == country.code
+    }).first else { return }
+    countryFromDB.debugModeEnabled = country.debugModeEnabled
+    save()
+  }
 
   public func save() {
     Self.storage.save(self)

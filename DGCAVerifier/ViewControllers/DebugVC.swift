@@ -26,36 +26,150 @@
 //  
         
 let debugKey = "UDDebugSwitchConstants"
+let logLevelKey = "UDLogLevelConstants"
 
 import UIKit
+import SwiftDGC
+import SwiftyJSON
 
 class DebugVC: UIViewController {
 
+  private enum Constants {
+    static let fontSize: CGFloat = 16
+  }
+  
   @IBOutlet weak var debugSwitcher: UISwitch!
+  @IBOutlet weak var level1: UILabel!
+  @IBOutlet weak var level2: UILabel!
+  @IBOutlet weak var level3: UILabel!
+  @IBOutlet weak var tableView: UITableView!
+  
+  private var countryList = [CountryModel]()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-     
-      //debugSwitcher.isOn = UserDefaults.standard.bool(forKey: debugKey)
-      // Do any additional setup after loading the view.
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
+    tableView.dataSource = self
+    tableView.delegate = self
+    
+    self.countryList = CountryDataStorage.sharedInstance.countryCodes.sorted(by: { model1, model2 in
+      model1.name < model2.name
+    })
+    self.tableView.reloadData()
+    debugSwitcher.isOn = UserDefaults.standard.bool(forKey: debugKey)
+    
+    var tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel1))
+    level1.isUserInteractionEnabled = true
+    level1.addGestureRecognizer(tap)
 
-    /*
-    // MARK: - Navigation
+    tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel2))
+    level2.isUserInteractionEnabled = true
+    level2.addGestureRecognizer(tap)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel3))
+    level3.isUserInteractionEnabled = true
+    level3.addGestureRecognizer(tap)
+    
+    setLabelsColor()
+    // Do any additional setup after loading the view.
+  }
   
   @IBAction func debugSwitchAction(_ sender: Any) {
     UserDefaults.standard.set(debugSwitcher.isOn, forKey: debugKey)
     UserDefaults.standard.synchronize()
   }
+  
+  @IBAction func tapOnLabel1(sender: UITapGestureRecognizer) {
+    print("tap working")
+    UserDefaults.standard.set(0, forKey: logLevelKey)
+    UserDefaults.standard.synchronize()
+    setLabelsColor()
+  }
+  @IBAction func tapOnLabel2(sender: UITapGestureRecognizer) {
+    print("tap working")
+    UserDefaults.standard.set(1, forKey: logLevelKey)
+    UserDefaults.standard.synchronize()
+    setLabelsColor()
+  }
+  @IBAction func tapOnLabel3(sender: UITapGestureRecognizer) {
+    print("tap working")
+    UserDefaults.standard.set(2, forKey: logLevelKey)
+    UserDefaults.standard.synchronize()
+    setLabelsColor()
+  }
+  
+  func setLabelsColor() {
+    switch UserDefaults.standard.integer(forKey: logLevelKey) {
+    case 0:
+      level1.textColor = .blue
+      level2.textColor = .black
+      level3.textColor = .black
+      level1.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
+      level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
+    case 1:
+      level1.textColor = .black
+      level2.textColor = .blue
+      level3.textColor = .black
+      level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      level2.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
+      level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
+    case 2:
+      level1.textColor = .black
+      level2.textColor = .black
+      level3.textColor = .blue
+      level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      level3.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
+    default:
+      level1.textColor = .blue
+      level2.textColor = .black
+      level3.textColor = .black
+      level1.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
+      level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
+    }
+  }
+}
 
+extension DebugVC: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    countryList.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let base = tableView.dequeueReusableCell(withIdentifier: "DebugTVC", for: indexPath)
+    let countryModel = countryList[indexPath.row]
+    guard let cell = base as? DebugTVC else {
+      return base
+    }
+    cell.setCountry(countryModel: countryModel)
+    cell.selectionStyle = .none
+    if countryModel.debugModeEnabled {
+      cell.accessoryType = .checkmark
+    } else {
+      cell.accessoryType = .none
+    }
+    return cell
+  }
+}
 
+extension DebugVC: UITableViewDelegate{
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let countryModel = countryList[indexPath.row]
+    countryModel.debugModeEnabled = !countryModel.debugModeEnabled
+    CountryDataStorage.sharedInstance.update(country: countryModel)
+    if let cell = tableView.cellForRow(at: indexPath) {
+      if countryModel.debugModeEnabled {
+        cell.accessoryType = .checkmark
+      } else {
+        cell.accessoryType = .none
+      }
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 60
+  }
 }

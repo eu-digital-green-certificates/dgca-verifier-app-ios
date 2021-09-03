@@ -187,7 +187,15 @@ extension GatewayConnection {
         }))
       }
       getListOfCountry { countryList in
-        CountryDataStorage.sharedInstance.countryCodes.removeAll()
+        
+        // Remove old countryCodes
+        CountryDataStorage.sharedInstance.countryCodes = CountryDataStorage.sharedInstance.countryCodes.filter { countryCode in
+            return countryList.contains(where: { countryCodeNew in
+                return countryCodeNew.code == countryCode.code
+            })
+        }
+//
+//        CountryDataStorage.sharedInstance.countryCodes.removeAll()
         countryList.forEach { country in
           CountryDataStorage.sharedInstance.add(country: country)
         }

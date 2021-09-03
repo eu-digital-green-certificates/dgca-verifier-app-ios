@@ -32,8 +32,8 @@
         "package": "SwiftDGC",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git",
         "state": {
-          "branch": "main",
-          "revision": "d31c610a3b7439f4532b9f4d64c03e27e88c127d",
+          "branch": "feature/1.2.0",
+          "revision": "77b7441879ff5e08ffe042cc11177603db2b4a84",
           "version": null
         }
       },
