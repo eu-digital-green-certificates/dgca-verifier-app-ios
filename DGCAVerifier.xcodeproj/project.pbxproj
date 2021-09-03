@@ -68,6 +68,7 @@
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
+		FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6868526E24FF500D2A100 /* DebugModeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +102,7 @@
 		5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleErrorTVC.xib; sourceTree = "<group>"; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
-		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateViewer.swift; sourceTree = "<group>"; };
+		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewer.swift; sourceTree = "<group>"; };
 		CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE1D1EF5263597A2004C8919 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
+		FEB6868526E24FF500D2A100 /* DebugModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugModeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
 				5C696F59268372280005DE71 /* CertLogicEngineManager.swift */,
+				FEB6868526E24FF500D2A100 /* DebugModeManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -530,7 +533,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#if which swiftlint >/dev/null; then\n#  swiftlint\n#else\n#  echo \"warning: SwiftLint not installed, #download from #https://github.com/realm/SwiftLint\"\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -543,6 +546,7 @@
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
+				FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
