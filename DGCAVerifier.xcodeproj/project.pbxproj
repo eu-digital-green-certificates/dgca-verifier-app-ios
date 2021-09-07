@@ -29,6 +29,9 @@
 		5CA450AD26E0F4C20029324E /* DebugTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450AC26E0F4C20029324E /* DebugTVC.swift */; };
 		5CA450AE26E0F4C20029324E /* DebugTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450AC26E0F4C20029324E /* DebugTVC.swift */; };
 		5CA450AF26E0F4C20029324E /* DebugTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450AC26E0F4C20029324E /* DebugTVC.swift */; };
+		5CA450B426E605710029324E /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B326E605710029324E /* DebugManager.swift */; };
+		5CA450B526E605710029324E /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B326E605710029324E /* DebugManager.swift */; };
+		5CA450B626E605710029324E /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B326E605710029324E /* DebugManager.swift */; };
 		5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4434268A584400E09EAC /* SwiftDGC */; };
 		5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4437268A591600E09EAC /* FloatingPanel */; };
 		5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
@@ -97,6 +100,7 @@
 		5CA4509B26DCCA770029324E /* NFCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCHelper.swift; sourceTree = "<group>"; };
 		5CA450A526E0BA640029324E /* DebugVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugVC.swift; sourceTree = "<group>"; };
 		5CA450AC26E0F4C20029324E /* DebugTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTVC.swift; sourceTree = "<group>"; };
+		5CA450B326E605710029324E /* DebugManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugManager.swift; sourceTree = "<group>"; };
 		5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleErrorTVC.swift; sourceTree = "<group>"; };
 		5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleErrorTVC.xib; sourceTree = "<group>"; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
 				5C696F59268372280005DE71 /* CertLogicEngineManager.swift */,
+				5CA450B326E605710029324E /* DebugManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -542,6 +547,7 @@
 				CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */,
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
+				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
@@ -580,6 +586,7 @@
 				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 				5CA450AE26E0F4C20029324E /* DebugTVC.swift in Sources */,
+				5CA450B526E605710029324E /* DebugManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +597,7 @@
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA4509E26DCCA770029324E /* NFCHelper.swift in Sources */,
 				5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
+				5CA450B626E605710029324E /* DebugManager.swift in Sources */,
 				5C2E512A2682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450A826E0BA640029324E /* DebugVC.swift in Sources */,
 				5CA450AF26E0F4C20029324E /* DebugTVC.swift in Sources */,

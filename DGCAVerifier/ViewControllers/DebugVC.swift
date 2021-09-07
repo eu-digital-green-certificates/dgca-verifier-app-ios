@@ -25,8 +25,6 @@
 //  Created by Alexandr Chernyy on 02.09.2021.
 //  
         
-let debugKey = "UDDebugSwitchConstants"
-let logLevelKey = "UDLogLevelConstants"
 
 import UIKit
 import SwiftDGC
@@ -56,7 +54,7 @@ class DebugVC: UIViewController {
       model1.name < model2.name
     })
     self.tableView.reloadData()
-    debugSwitcher.isOn = UserDefaults.standard.bool(forKey: debugKey)
+    debugSwitcher.isOn = DebugManager.sharedInstance.isDebugMode
     
     var tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel1))
     level1.isUserInteractionEnabled = true
@@ -71,63 +69,48 @@ class DebugVC: UIViewController {
     level3.addGestureRecognizer(tap)
     
     setLabelsColor()
-    // Do any additional setup after loading the view.
   }
-  
   @IBAction func debugSwitchAction(_ sender: Any) {
-    UserDefaults.standard.set(debugSwitcher.isOn, forKey: debugKey)
-    UserDefaults.standard.synchronize()
+    DebugManager.sharedInstance.isDebugMode = debugSwitcher.isOn
   }
-  
   @IBAction func tapOnLabel1(sender: UITapGestureRecognizer) {
     print("tap working")
-    UserDefaults.standard.set(0, forKey: logLevelKey)
-    UserDefaults.standard.synchronize()
+    DebugManager.sharedInstance.debugLevel = .level1
     setLabelsColor()
   }
   @IBAction func tapOnLabel2(sender: UITapGestureRecognizer) {
     print("tap working")
-    UserDefaults.standard.set(1, forKey: logLevelKey)
-    UserDefaults.standard.synchronize()
+    DebugManager.sharedInstance.debugLevel = .level2
     setLabelsColor()
   }
   @IBAction func tapOnLabel3(sender: UITapGestureRecognizer) {
     print("tap working")
-    UserDefaults.standard.set(2, forKey: logLevelKey)
-    UserDefaults.standard.synchronize()
+    DebugManager.sharedInstance.debugLevel = .level3
     setLabelsColor()
   }
-  
   func setLabelsColor() {
-    switch UserDefaults.standard.integer(forKey: logLevelKey) {
-    case 0:
+    switch DebugManager.sharedInstance.debugLevel {
+    case .level1:
       level1.textColor = .blue
       level2.textColor = .black
       level3.textColor = .black
       level1.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
-    case 1:
+    case .level2:
       level1.textColor = .black
       level2.textColor = .blue
       level3.textColor = .black
       level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
-    case 2:
+    case .level3:
       level1.textColor = .black
       level2.textColor = .black
       level3.textColor = .blue
       level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
-    default:
-      level1.textColor = .blue
-      level2.textColor = .black
-      level3.textColor = .black
-      level1.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
-      level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
-      level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
     }
   }
 }

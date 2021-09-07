@@ -366,6 +366,9 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ujI-6j-G6k">
                                 <rect key="frame" x="345" y="127" width="51" height="31"/>
+                                <connections>
+                                    <action selector="debugSwitchAction:" destination="bsF-c3-r8z" eventType="valueChanged" id="vSd-fF-9lJ"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Privacy Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHy-A7-7cn">
                                 <rect key="frame" x="20" y="198" width="374" height="21"/>
