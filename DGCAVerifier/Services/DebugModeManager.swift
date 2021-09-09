@@ -32,9 +32,11 @@ import SwiftCBOR
 
 class DebugModeManager {
   func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<Data, Error>) -> Void) {
-    var data : Data = Data(count: 32)
+    var data = Data()
     
     do {
+      try createCertificateFolder()
+      
       try generateVersion()
       try generateReadme()
       try generatePayloadSHABin(cert)
@@ -47,10 +49,41 @@ class DebugModeManager {
       try generateQRSHATxt(cert)
       try generateCOSESHABin(cert)
       try generateCOSESHATxt(cert)
+      try generateCOSEBase64(cert)
+      try generatePayloadBase64(cert)
+      
+      data = try archive()
+      try deleteCertificateFolder()
     } catch {
       completionHandler(.failure(error))
     }
     completionHandler(.success(data))
+  }
+  
+  private func archive() throws -> Data {
+    var archiveUrl: URL?
+    var coordError: NSError?
+    let coordinator = NSFileCoordinator()
+    
+    coordinator.coordinate(readingItemAt: getCertificateDirectoryURL(), options: [.forUploading], error: &coordError) { (zipUrl) in
+        let tmpUrl = try! FileManager.default.url(
+            for: .itemReplacementDirectory,
+            in: .userDomainMask,
+            appropriateFor: zipUrl,
+            create: true
+        ).appendingPathComponent("archive.zip")
+      try! FileManager.default.moveItem(at: zipUrl, to: tmpUrl)
+        archiveUrl = tmpUrl
+    }
+    
+    guard archiveUrl != nil else { throw coordError! }
+    
+    do {
+      return try Data(contentsOf: archiveUrl!)
+    } catch {
+      throw error
+    }
+    
   }
   
   private func generateVersion() throws {
@@ -184,7 +217,6 @@ class DebugModeManager {
   
   private func generateCOSESHATxt(_ certificate: HCert) throws {
     if let cose = COSE.signedPayloadBytes(from: certificate.cborData) {
-      
       let shaData = SHA256.digest(input: cose as NSData)
       do {
         try writeTextToFile(filename: "cose-sha.txt", text: shaData.hexString + "\n")
@@ -194,32 +226,70 @@ class DebugModeManager {
     }
   }
   
+  private func generateCOSEBase64(_ certificate: HCert) throws {
+    if let cose = COSE.signedPayloadBytes(from: certificate.cborData) {
+      do {
+        try writeDataToFile(data: cose.base64EncodedData(options: .endLineWithLineFeed), filename: "cose.base64")
+      } catch {
+        throw error
+      }
+    }
+  }
+  
+  private func generatePayloadBase64(_ certificate: HCert) throws {
+      do {
+        try writeDataToFile(data: certificate.fullPayloadString.data(using:.utf8)!.base64EncodedData(options: .endLineWithLineFeed), filename: "payload.base64")
+      } catch {
+        throw error
+      }
+    }
 }
 
 extension DebugModeManager {
+  fileprivate func getCertificateDirectoryURL() -> URL {
+      let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+      let fileURL = dir.appendingPathComponent("Certificate")
+      return fileURL
+  }
+  
+  fileprivate func createCertificateFolder() throws {
+    if !FileManager.default.fileExists(atPath: getCertificateDirectoryURL().path) {
+      do {
+        try FileManager.default.createDirectory(atPath: getCertificateDirectoryURL().path, withIntermediateDirectories: true, attributes: nil)
+      } catch {
+        throw error
+      }
+    }
+  }
+  
+  fileprivate func deleteCertificateFolder() throws {
+    do {
+      try FileManager.default.removeItem(at: getCertificateDirectoryURL())
+    } catch {
+      throw error
+    }
+  }
+  
   fileprivate func writeTextToFile(filename: String,text: String) throws {
-    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-      let fileURL = dir.appendingPathComponent(filename)
-      
+      let fileURL = getCertificateDirectoryURL().appendingPathComponent(filename)
+      print(getCertificateDirectoryURL().absoluteString)
       do {
         try text.write(to: fileURL, atomically: true, encoding: .utf8)
       }
       catch {
         throw error
       }
-    }
   }
   
   fileprivate func writeDataToFile(data: Data,filename: String) throws {
-    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-      let fileURL = dir.appendingPathComponent(filename)
+      let fileURL = getCertificateDirectoryURL().appendingPathComponent(filename)
       
       do {
         try data.write(to: fileURL, options: .noFileProtection)
       }
       catch {
+        print(error)
         throw error
       }
-    }
   }
 }
