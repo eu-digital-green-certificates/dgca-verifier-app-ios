@@ -29,6 +29,7 @@ let debugKey = "UDDebugSwitchConstants"
 let logLevelKey = "UDLogLevelConstants"
 
 import UIKit
+import SwiftDGC
 
 enum DebugLevel: Int {
   case level1 = 0
@@ -63,15 +64,20 @@ class DebugManager: NSObject {
     }
   }
   
-  func isDebugModeFor(country: String) -> Bool {
+  func isDebugModeFor(country: String, hCert: HCert?) -> Bool {
+    guard let hCert = hCert else {
+      return false
+    }
     if !isDebugMode {
       return false
     }
-    guard let countryModel = CountryDataStorage.sharedInstance.countryCodes.filter({ $0.code == country }).first else {
-      return false
-    }
-    if countryModel.debugModeEnabled {
-      return true
+    if hCert.technicalVerification != .valid || hCert.issuerInvalidation != .passed || hCert.destinationAcceptence != .passed || hCert.travalerAcceptence != .passed {
+      guard let countryModel = CountryDataStorage.sharedInstance.countryCodes.filter({ $0.code == country }).first else {
+        return false
+      }
+      if countryModel.debugModeEnabled {
+        return true
+      }
     }
     return false
   }

@@ -385,7 +385,7 @@ extension CertificateViewerVC: UITableViewDataSource {
     guard let hCert = hCert else {
       return 0
     }
-    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "") {
+    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert ) {
       let debugSection = debugSections[section]
       return debugSection.numberOfItems
     }
@@ -403,7 +403,7 @@ extension CertificateViewerVC: UITableViewDataSource {
     guard let hCert = hCert else {
       return 0
     }
-    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "") {
+    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert) {
       return debugSections.count
     }
     return listItems.count
@@ -414,7 +414,7 @@ extension CertificateViewerVC: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "") {
+    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert) {
       let debugSection = debugSections[indexPath.section]
       if indexPath.row == 0 {
         let base = tableView.dequeueReusableCell(withIdentifier: "DebugSectionTVC", for: indexPath)
