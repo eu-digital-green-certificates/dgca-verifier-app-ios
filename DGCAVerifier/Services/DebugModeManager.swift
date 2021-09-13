@@ -29,6 +29,8 @@ import SwiftDGC
 import UIKit
 import Foundation
 import SwiftCBOR
+import Zip
+import SwiftyJSON
 
 class DebugModeManager {
   func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<Data, Error>) -> Void) {
@@ -53,37 +55,23 @@ class DebugModeManager {
       try generatePayloadBase64(cert)
       
       data = try archive()
-      try deleteCertificateFolder()
+      try deleteCertificateFolderAndZip()
     } catch {
       completionHandler(.failure(error))
+      return
     }
     completionHandler(.success(data))
   }
   
   private func archive() throws -> Data {
-    var archiveUrl: URL?
-    var coordError: NSError?
-    let coordinator = NSFileCoordinator()
-    
-    coordinator.coordinate(readingItemAt: getCertificateDirectoryURL(), options: [.forUploading], error: &coordError) { (zipUrl) in
-        let tmpUrl = try! FileManager.default.url(
-            for: .itemReplacementDirectory,
-            in: .userDomainMask,
-            appropriateFor: zipUrl,
-            create: true
-        ).appendingPathComponent("archive.zip")
-      try! FileManager.default.moveItem(at: zipUrl, to: tmpUrl)
-        archiveUrl = tmpUrl
-    }
-    
-    guard archiveUrl != nil else { throw coordError! }
-    
     do {
-      return try Data(contentsOf: archiveUrl!)
-    } catch {
+      let filesURLs = getCertificateFolderContentsURLs()
+      let zipFilePath = try Zip.quickZipFiles(filesURLs, fileName: "archive")
+      return try Data(contentsOf: zipFilePath)
+    }
+    catch {
       throw error
     }
-    
   }
   
   private func generateVersion() throws {
@@ -151,10 +139,44 @@ class DebugModeManager {
   
   private func generatePayloadJson(_ certificate: HCert) throws {
     do {
-      try writeTextToFile(filename: "payload.json", text: certificate.body.rawString() ?? "")
+      let jsonString = anonymizedJsonPayload(certificate.body)
+      try writeTextToFile(filename: "payload.json", text: jsonString)
     } catch {
       throw error
     }
+  }
+  
+  private func anonymizedJsonPayload(_ json : JSON) -> String {
+    var anonimzedJSON = json
+    
+    anonimzedJSON["nam"]["gnt"].string = anonimzedJSON["nam"]["gnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+    anonimzedJSON["nam"]["gn"].string = anonimzedJSON["nam"]["gn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+    anonimzedJSON["nam"]["fn"].string = anonimzedJSON["nam"]["fn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+    anonimzedJSON["nam"]["fnt"].string = anonimzedJSON["nam"]["fnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+    
+    if let dob = anonimzedJSON["dob"].string {
+      var strchars = Array(dob)
+      strchars[5] = "9"
+      strchars[6] = "9"
+      strchars[8] = "9"
+      strchars[9] = "9"
+      let dobStringAnonimized = String(strchars)
+      anonimzedJSON["dob"].string = dobStringAnonimized
+    }
+    
+    if let dt = anonimzedJSON["v"]["dt"].string {
+      var strchars = Array(dt)
+      strchars[5] = "9"
+      strchars[6] = "9"
+      strchars[8] = "9"
+      strchars[9] = "9"
+      let dtStringAnonimized = String(strchars)
+      anonimzedJSON["v"]["dt"].string = dtStringAnonimized
+    }
+    anonimzedJSON["ci"].string?.removeLast(26)
+    anonimzedJSON["ci"].string?.append("XXXXXXXXXXXXXXXXXXXXXXXXXX")
+    
+    return anonimzedJSON.rawString() ?? ""
   }
   
   private func generateQRSHABin(_ certificate: HCert) throws {
@@ -184,13 +206,10 @@ class DebugModeManager {
   private func generateQRImage(_ certificate: HCert) throws {
     if let image = certificate.qrCode {
       if let data = image.pngData() {
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-          let fileURL = dir.appendingPathComponent("QR.png")
-          do {
-            try data.write(to: fileURL)
-          } catch {
-            throw error
-          }
+        do {
+          try data.write(to: getCertificateDirectoryURL().appendingPathComponent("QR.png"))
+        } catch {
+          throw error
         }
       }
     }
@@ -205,91 +224,92 @@ class DebugModeManager {
   }
   
   private func generateCOSESHABin(_ certificate: HCert) throws {
-    if let cose = COSE.signedPayloadBytes(from: certificate.cborData) {
-      let shaData = SHA256.digest(input: cose as NSData)
-      do {
-        try writeDataToFile(data: shaData, filename: "cose-sha.bin")
-      } catch {
-        throw error
-      }
+    let shaData = SHA256.digest(input: certificate.cborData as NSData)
+    do {
+      try writeDataToFile(data: shaData, filename: "cose-sha.bin")
+    } catch {
+      throw error
     }
   }
   
   private func generateCOSESHATxt(_ certificate: HCert) throws {
-    if let cose = COSE.signedPayloadBytes(from: certificate.cborData) {
-      let shaData = SHA256.digest(input: cose as NSData)
-      do {
-        try writeTextToFile(filename: "cose-sha.txt", text: shaData.hexString + "\n")
-      } catch {
-        throw error
-      }
+    let shaData = SHA256.digest(input: certificate.cborData as NSData)
+    do {
+      try writeTextToFile(filename: "cose-sha.txt", text: shaData.hexString + "\n")
+    } catch {
+      throw error
     }
   }
   
   private func generateCOSEBase64(_ certificate: HCert) throws {
-    if let cose = COSE.signedPayloadBytes(from: certificate.cborData) {
       do {
-        try writeDataToFile(data: cose.base64EncodedData(options: .endLineWithLineFeed), filename: "cose.base64")
+        try writeDataToFile(data: certificate.cborData.base64EncodedData(options: .endLineWithLineFeed), filename: "cose.base64")
       } catch {
         throw error
       }
-    }
   }
   
   private func generatePayloadBase64(_ certificate: HCert) throws {
-      do {
-        try writeDataToFile(data: certificate.fullPayloadString.data(using:.utf8)!.base64EncodedData(options: .endLineWithLineFeed), filename: "payload.base64")
-      } catch {
-        throw error
-      }
+    do {
+      try writeDataToFile(data: certificate.fullPayloadString.data(using:.utf8)!.base64EncodedData(options: .endLineWithLineFeed), filename: "payload.base64")
+    } catch {
+      throw error
     }
+  }
 }
 
 extension DebugModeManager {
   fileprivate func getCertificateDirectoryURL() -> URL {
-      let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-      let fileURL = dir.appendingPathComponent("Certificate")
-      return fileURL
+    let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let fileURL = dir.appendingPathComponent("Certificate", isDirectory: true)
+    return fileURL
+  }
+  
+  func getCertificateFolderContentsURLs() -> [URL] {
+    guard let urls = try? FileManager().contentsOfDirectory(at: getCertificateDirectoryURL(), includingPropertiesForKeys: nil, options: .skipsHiddenFiles) else { return [] }
+    return urls
   }
   
   fileprivate func createCertificateFolder() throws {
-    if !FileManager.default.fileExists(atPath: getCertificateDirectoryURL().path) {
+    var isDirectory:ObjCBool = true
+    
+    if !FileManager.default.fileExists(atPath: getCertificateDirectoryURL().path, isDirectory: &isDirectory) {
       do {
-        try FileManager.default.createDirectory(atPath: getCertificateDirectoryURL().path, withIntermediateDirectories: true, attributes: nil)
+        try FileManager.default.createDirectory(at: getCertificateDirectoryURL(), withIntermediateDirectories: false, attributes: nil)
       } catch {
         throw error
       }
     }
   }
   
-  fileprivate func deleteCertificateFolder() throws {
+  fileprivate func deleteCertificateFolderAndZip() throws {
     do {
       try FileManager.default.removeItem(at: getCertificateDirectoryURL())
+      try FileManager.default.removeItem(at: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("archive.zip", isDirectory: false))
     } catch {
       throw error
     }
   }
   
   fileprivate func writeTextToFile(filename: String,text: String) throws {
-      let fileURL = getCertificateDirectoryURL().appendingPathComponent(filename)
-      print(getCertificateDirectoryURL().absoluteString)
-      do {
-        try text.write(to: fileURL, atomically: true, encoding: .utf8)
-      }
-      catch {
-        throw error
-      }
+    let fileURL = getCertificateDirectoryURL().appendingPathComponent(filename)
+    
+    do {
+      try text.write(to: fileURL, atomically: true, encoding: .utf8)
+    }
+    catch {
+      throw error
+    }
   }
   
   fileprivate func writeDataToFile(data: Data,filename: String) throws {
-      let fileURL = getCertificateDirectoryURL().appendingPathComponent(filename)
-      
-      do {
-        try data.write(to: fileURL, options: .noFileProtection)
-      }
-      catch {
-        print(error)
-        throw error
-      }
+    let fileURL = getCertificateDirectoryURL().appendingPathComponent(filename)
+    
+    do {
+      try data.write(to: fileURL, options: .noFileProtection)
+    }
+    catch {
+      throw error
+    }
   }
 }

@@ -68,6 +68,7 @@
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
+		FEAAF97926EF2B3500757634 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = FEAAF97826EF2B3500757634 /* Zip */; };
 		FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6868526E24FF500D2A100 /* DebugModeManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -138,7 +139,6 @@
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
-		FE9A5AB026E77AF60000838F /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../dgca-app-core-ios"; sourceTree = "<group>"; };
 		FEB6868526E24FF500D2A100 /* DebugModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugModeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +153,7 @@
 				5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */,
 				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
 				5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */,
+				FEAAF97926EF2B3500757634 /* Zip in Frameworks */,
 				CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,7 +313,6 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
-				FE9A5AB026E77AF60000838F /* dgca-app-core-ios */,
 				CEA6D6EA261F8D2700715333 /* DGCAVerifier */,
 				CEA6D701261F8D2900715333 /* DGCAVerifierTests */,
 				CEA6D70C261F8D2900715333 /* DGCAVerifierUITests */,
@@ -391,6 +391,7 @@
 				5C696F5726836F280005DE71 /* SwiftyJSON */,
 				5CAC4434268A584400E09EAC /* SwiftDGC */,
 				5CAC4437268A591600E09EAC /* FloatingPanel */,
+				FEAAF97826EF2B3500757634 /* Zip */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -469,6 +470,7 @@
 				5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
 				5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -973,7 +975,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git";
 			requirement = {
-				branch = feature/1.2.0;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -999,6 +1001,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.4.3;
+			};
+		};
+		FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1033,6 +1043,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		FEAAF97826EF2B3500757634 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
