@@ -60,30 +60,73 @@ class CertificateViewerVC: UIViewController {
   var hCert: HCert?
   weak var childDismissedDelegate: CertViewerDelegate?
   var settingsOpened = false
-
+  private var debugSections = [DebugSectionModel]()
+  private var needReload: Bool = true
+  
   func draw() {
     guard let hCert = hCert else {
       return
     }
 
     infoTable.dataSource = self
+    infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
+    infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
     infoTable.register(UINib(nibName: "RuleErrorTVC", bundle: nil), forCellReuseIdentifier: "RuleErrorTVC")
+    infoTable.register(UINib(nibName: "DebugSectionTVC", bundle: nil), forCellReuseIdentifier: "DebugSectionTVC")
+    infoTable.register(UINib(nibName: "DebugRawTVC", bundle: nil), forCellReuseIdentifier: "DebugRawTVC")
+    infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
+    infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
     settingsOpened = false
     loadingBackground.isUserInteractionEnabled = false
     nameLabel.text = hCert.fullName
     var validity = hCert.validity
+    self.hCert?.technicalVerification = validity
+    
+    var validResutl = validateCertLogicForIssuer()
+    switch validResutl {
+      case .valid:
+        self.hCert?.issuerInvalidation = .passed
+      case .invalid:
+        self.hCert?.issuerInvalidation = .error
+      case .ruleInvalid:
+        self.hCert?.issuerInvalidation = .open
+    }
+
+    validResutl = validateCertLogicForDestination()
+    switch validResutl {
+      case .valid:
+        self.hCert?.destinationAcceptence = .passed
+      case .invalid:
+        self.hCert?.destinationAcceptence = .error
+      case .ruleInvalid:
+        self.hCert?.destinationAcceptence = .open
+    }
+
+    validResutl = validateCertLogicForTraveller()
+    switch validResutl {
+      case .valid:
+        self.hCert?.travalerAcceptence = .passed
+      case .invalid:
+        self.hCert?.travalerAcceptence = .error
+      case .ruleInvalid:
+        self.hCert?.travalerAcceptence = .open
+    }
     if validity == .valid {
-      validity = validateCertLogicRules()
+      validity = validateCertLogicForAllRules()
     }
     dismissButton.setTitle(buttonText[validity], for: .normal)
     dismissButton.backgroundColor = backgroundColor[validity]
     validityLabel.text = validity.l10n
     headerBackground.backgroundColor = backgroundColor[validity]
     validityImage.image = validityIcon[validity]
+    debugSections.append(DebugSectionModel(hCert: self.hCert ?? hCert, sectionType: .verification))
+    debugSections.append(DebugSectionModel(hCert: self.hCert ?? hCert, sectionType: .general))
+    debugSections.append(DebugSectionModel(hCert: self.hCert ?? hCert, sectionType: .raw))
     infoTable.reloadData()
   }
-  func validateCertLogicRules() -> HCertValidity {
+  
+  func validateCertLogicForAllRules() -> HCertValidity {
     var validity: HCertValidity = .valid
     guard let hCert = hCert else {
       return validity
@@ -167,11 +210,121 @@ class CertificateViewerVC: UIViewController {
         }
         section.sectionItems = listOfRulesSection
         self.hCert?.makeSectionForRuleError(infoSections: section, for: .verifier)
+        debugSections.forEach { section in
+          section.update(hCert: self.hCert!)
+        }
         self.infoTable.reloadData()
       }
     }
     return validity
   }
+  
+  func validateCertLogicForIssuer() -> HCertValidity {
+    let validity: HCertValidity = .valid
+    guard let hCert = hCert else {
+      return validity
+    }
+    let certType = getCertificationType(type: hCert.type)
+    if let countryCode = hCert.ruleCountryCode {
+      let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+      let filterParameter = FilterParameter(validationClock: Date(),
+                                            countryCode: countryCode,
+                                            certificationType: certType)
+      let externalParameters = ExternalParameter(validationClock: Date(),
+                                                 valueSets: valueSets,
+                                                 exp: hCert.exp,
+                                                 iat: hCert.iat,
+                                                 issuerCountryCode: hCert.issCode,
+                                                 kid: hCert.kidStr)
+      let result = CertLogicEngineManager.sharedInstance.validateIssuer(filter: filterParameter, external: externalParameters,
+                                                                  payload: hCert.body.description)
+      let fails = result.filter { validationResult in
+        return validationResult.result == .fail
+      }
+      if !fails.isEmpty {
+        return .invalid
+      }
+      let open = result.filter { validationResult in
+        return validationResult.result == .open
+      }
+      if !open.isEmpty {
+        return .ruleInvalid
+      }
+    }
+    return validity
+  }
+
+  func validateCertLogicForDestination() -> HCertValidity {
+    let validity: HCertValidity = .valid
+    guard let hCert = hCert else {
+      return validity
+    }
+    let certType = getCertificationType(type: hCert.type)
+    if let countryCode = hCert.ruleCountryCode {
+      let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+      let filterParameter = FilterParameter(validationClock: Date(),
+                                            countryCode: countryCode,
+                                            certificationType: certType)
+      let externalParameters = ExternalParameter(validationClock: Date(),
+                                                 valueSets: valueSets,
+                                                 exp: hCert.exp,
+                                                 iat: hCert.iat,
+                                                 issuerCountryCode: hCert.issCode,
+                                                 kid: hCert.kidStr)
+      let result = CertLogicEngineManager.sharedInstance.validateDestination(filter: filterParameter, external: externalParameters,
+                                                                  payload: hCert.body.description)
+      let fails = result.filter { validationResult in
+        return validationResult.result == .fail
+      }
+      if !fails.isEmpty {
+        return .invalid
+      }
+      let open = result.filter { validationResult in
+        return validationResult.result == .open
+      }
+      if !open.isEmpty {
+        return .ruleInvalid
+      }
+    }
+    return validity
+  }
+  
+  func validateCertLogicForTraveller() -> HCertValidity {
+    let validity: HCertValidity = .valid
+    guard let hCert = hCert else {
+      return validity
+    }
+    let certType = getCertificationType(type: hCert.type)
+    if let countryCode = hCert.ruleCountryCode {
+      let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+      let filterParameter = FilterParameter(validationClock: Date(),
+                                            countryCode: countryCode,
+                                            certificationType: certType)
+      let externalParameters = ExternalParameter(validationClock: Date(),
+                                                 valueSets: valueSets,
+                                                 exp: hCert.exp,
+                                                 iat: hCert.iat,
+                                                 issuerCountryCode: hCert.issCode,
+                                                 kid: hCert.kidStr)
+      let result = CertLogicEngineManager.sharedInstance.validateTraveller(filter: filterParameter, external: externalParameters,
+                                                                  payload: hCert.body.description)
+      let fails = result.filter { validationResult in
+        return validationResult.result == .fail
+      }
+      if !fails.isEmpty {
+        return .invalid
+      }
+      let open = result.filter { validationResult in
+        return validationResult.result == .open
+      }
+      if !open.isEmpty {
+        return .ruleInvalid
+      }
+    }
+    return validity
+  }
+
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -224,7 +377,15 @@ extension CertificateViewerVC: UITableViewDataSource {
     } ?? []
   }
 
+  // Number of rows
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    guard let hCert = hCert else {
+      return 0
+    }
+    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "") {
+      let debugSection = debugSections[section]
+      return debugSection.numberOfItems
+    }
     let section: InfoSection = listItems[section]
     if section.sectionItems.count == 0 {
       return 1
@@ -234,14 +395,67 @@ extension CertificateViewerVC: UITableViewDataSource {
     }
     return section.sectionItems.count + 1
   }
+  // Number of Sections
   func numberOfSections(in tableView: UITableView) -> Int {
+    guard let hCert = hCert else {
+      return 0
+    }
+    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "") {
+      return debugSections.count
+    }
     return listItems.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let hCert = hCert else {
+      return UITableViewCell()
+    }
+    
+    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "") {
+      let debugSection = debugSections[indexPath.section]
+      if indexPath.row == 0 {
+        let base = tableView.dequeueReusableCell(withIdentifier: "DebugSectionTVC", for: indexPath)
+        guard let cell = base as? DebugSectionTVC else {
+          return base
+        }
+        cell.setDebugSection(debugSection: debugSection)
+        cell.expandCallback = { debugSectionFromCB in
+          debugSection.isExpanded = debugSectionFromCB?.isExpanded ?? false
+          tableView.reloadData()
+        }
+        return cell
+      }
+      switch debugSection.sectionType {
+      case .raw:
+          let base = tableView.dequeueReusableCell(withIdentifier: "DebugRawTVC", for: indexPath)
+          guard let cell = base as? DebugRawTVC else {
+            return base
+          }
+          cell.setDebugSection(debugSection: debugSection)
+          return cell
+      case .verification:
+        let base = tableView.dequeueReusableCell(withIdentifier: "DebugValidationTVC", for: indexPath)
+        guard let cell = base as? DebugValidationTVC else {
+          return base
+        }
+        cell.setDebugSection(debugSection: debugSection)
+        return cell
+      case .general:
+        let base = tableView.dequeueReusableCell(withIdentifier: "DebugGeneralTVC", for: indexPath)
+        guard let cell = base as? DebugGeneralTVC else {
+          return base
+        }
+        cell.reload = {
+          tableView.reloadData()
+        }
+        cell.setDebugSection(debugSection: debugSection, needReload: self.needReload)
+        return cell
+      }
+    }
+    
     var section: InfoSection = listItems[indexPath.section]
     if section.sectionItems.count == 0 {
-      let base = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
+      let base = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath)
       guard let cell = base as? InfoCell else {
         return base
       }
@@ -249,7 +463,7 @@ extension CertificateViewerVC: UITableViewDataSource {
       return cell
     } else {
       if indexPath.row == 0 {
-        let base = tableView.dequeueReusableCell(withIdentifier: "infoCellDropDown", for: indexPath)
+        let base = tableView.dequeueReusableCell(withIdentifier: "InfoCellDropDown", for: indexPath)
         guard let cell = base as? InfoCellDropDown else {
           return base
         }
