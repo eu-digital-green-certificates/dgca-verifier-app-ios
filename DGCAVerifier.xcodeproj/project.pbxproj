@@ -82,6 +82,8 @@
 		5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55C526EF59D600269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
+		5CEA55C626EF5D3B00269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
+		5CEA55C726EF5D3B00269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
@@ -113,7 +115,6 @@
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
 		FEAAF97926EF2B3500757634 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = FEAAF97826EF2B3500757634 /* Zip */; };
-		FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6868526E24FF500D2A100 /* DebugModeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,7 +200,6 @@
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
-		FEB6868526E24FF500D2A100 /* DebugModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugModeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,14 +267,6 @@
 				5CA450E626E78DB50029324E /* InfoCellDropDown.xib */,
 			);
 			path = Info;
-			sourceTree = "<group>";
-		};
-		5CEA55C326EF59C600269702 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				FEB6868526E24FF500D2A100 /* DebugModeManager.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		5CFEDB08269D72B600074F66 /* context */ = {
@@ -417,7 +409,6 @@
 				CEA6D70C261F8D2900715333 /* DGCAVerifierUITests */,
 				CEA6D6E9261F8D2700715333 /* Products */,
 				CE56B5032639F48E00FB31B1 /* Frameworks */,
-				5CEA55C326EF59C600269702 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -672,7 +663,6 @@
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
-				FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
@@ -717,6 +707,7 @@
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
 				5CA450D726E783B20029324E /* DebugGeneralTVC.swift in Sources */,
 				5CA450CB26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
+				5CEA55C626EF5D3B00269702 /* DebugModeManager.swift in Sources */,
 				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawTVC.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
@@ -732,6 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA450CC26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
+				5CEA55C726EF5D3B00269702 /* DebugModeManager.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA450BC26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
 				5CA4509E26DCCA770029324E /* NFCHelper.swift in Sources */,

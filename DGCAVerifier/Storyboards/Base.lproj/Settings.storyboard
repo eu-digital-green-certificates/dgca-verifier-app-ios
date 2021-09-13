@@ -345,6 +345,9 @@
                                 <state key="normal" title="Done">
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="doneButtonAction:" destination="bsF-c3-r8z" eventType="touchUpInside" id="55w-MR-0zx"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ljm-5J-O2g">
                                 <rect key="frame" x="20" y="20" width="294" height="30"/>

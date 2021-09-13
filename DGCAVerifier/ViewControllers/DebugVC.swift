@@ -113,6 +113,10 @@ class DebugVC: UIViewController {
       level3.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
     }
   }
+  
+  @IBAction func doneButtonAction(_ sender: Any) {
+    dismiss(animated: true)
+  }
 }
 
 extension DebugVC: UITableViewDataSource {

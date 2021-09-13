@@ -64,7 +64,16 @@ class DebugManager: NSObject {
   }
   
   func isDebugModeFor(country: String) -> Bool {
-    return true
+    if !isDebugMode {
+      return false
+    }
+    guard let countryModel = CountryDataStorage.sharedInstance.countryCodes.filter({ $0.code == country }).first else {
+      return false
+    }
+    if countryModel.debugModeEnabled {
+      return true
+    }
+    return false
   }
   
 }
