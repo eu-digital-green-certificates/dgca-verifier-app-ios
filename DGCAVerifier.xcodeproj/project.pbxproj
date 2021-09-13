@@ -81,9 +81,9 @@
 		5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
-		5CEA55C526EF59D600269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
-		5CEA55C626EF5D3B00269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
-		5CEA55C726EF5D3B00269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
+		5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* ZipManager.swift */; };
+		5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* ZipManager.swift */; };
+		5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* ZipManager.swift */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
@@ -161,7 +161,7 @@
 		5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleErrorTVC.swift; sourceTree = "<group>"; };
 		5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleErrorTVC.xib; sourceTree = "<group>"; };
 		5CEA55BD26E9EAF000269702 /* awesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = awesome.ttf; sourceTree = "<group>"; };
-		5CEA55C426EF59D600269702 /* DebugModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugModeManager.swift; sourceTree = "<group>"; };
+		5CEA55C426EF59D600269702 /* ZipManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipManager.swift; sourceTree = "<group>"; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewer.swift; sourceTree = "<group>"; };
@@ -308,7 +308,7 @@
 		CE13CF1A262DDE330070C80E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5CEA55C426EF59D600269702 /* DebugModeManager.swift */,
+				5CEA55C426EF59D600269702 /* ZipManager.swift */,
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
 				5C696F59268372280005DE71 /* CertLogicEngineManager.swift */,
@@ -668,7 +668,7 @@
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
-				5CEA55C526EF59D600269702 /* DebugModeManager.swift in Sources */,
+				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
 				5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */,
 				5CA450BA26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
@@ -707,7 +707,7 @@
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
 				5CA450D726E783B20029324E /* DebugGeneralTVC.swift in Sources */,
 				5CA450CB26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
-				5CEA55C626EF5D3B00269702 /* DebugModeManager.swift in Sources */,
+				5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */,
 				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawTVC.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
@@ -723,7 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA450CC26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
-				5CEA55C726EF5D3B00269702 /* DebugModeManager.swift in Sources */,
+				5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA450BC26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
 				5CA4509E26DCCA770029324E /* NFCHelper.swift in Sources */,

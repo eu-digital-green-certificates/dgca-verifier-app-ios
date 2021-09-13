@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="147.66666666666666" y="643" width="80" height="39"/>
+                                        <rect key="frame" x="147.66666666666666" y="631" width="80" height="51"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="xeq-VK-puN"/>
@@ -51,7 +51,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="199.66666666666666" width="375" height="439.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="199.66666666666666" width="375" height="427.33333333333337"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
@@ -63,7 +63,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Enm-XG-fIc">
-                                        <rect key="frame" x="0.0" y="607" width="375" height="32"/>
+                                        <rect key="frame" x="0.0" y="595" width="375" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="1kc-qQ-0OX"/>
                                         </constraints>
@@ -160,7 +160,7 @@
     </scenes>
     <designables>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="56" height="39"/>
+            <size key="intrinsicContentSize" width="80" height="51"/>
         </designable>
     </designables>
     <resources>

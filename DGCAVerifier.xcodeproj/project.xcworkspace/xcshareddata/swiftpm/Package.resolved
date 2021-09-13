@@ -60,7 +60,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
         "state": {
           "branch": "master",
-          "revision": "4809e8a105b3fd2818a08caf9e3cbcdd7d319af2",
+          "revision": "addef0a5c7ed181d877f1fdfde1e3fc1c6c28cfe",
           "version": null
         }
       },
@@ -87,7 +87,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/SwiftCBOR",
         "state": {
           "branch": "master",
-          "revision": "b76024995f6909e4615f943c7a03268fd29778fc",
+          "revision": "642e9e93fb4a51b564c1bf21bf3c5b4c6bc79416",
           "version": null
         }
       },

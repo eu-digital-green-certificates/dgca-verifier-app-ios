@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugModeManager.swift
+//  ZipManager.swift
 //  DGCAVerifier
 //  
 //  Created by Illia Vlasov on 03.09.2021.
@@ -32,7 +32,7 @@ import SwiftCBOR
 import Zip
 import SwiftyJSON
 
-class DebugModeManager {
+class ZipManager {
   func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<Data, Error>) -> Void) {
     var data = Data()
     
@@ -45,14 +45,20 @@ class DebugModeManager {
       try generatePayloadSHATxt(cert)
       try generateQRBase64(cert)
       try generatePayloadJson(cert)
-      try generateQRSHABin(cert)
-      try generateQRSHATxt(cert)
-      try generateQRImage(cert)
-      try generateQRSHATxt(cert)
-      try generateCOSESHABin(cert)
-      try generateCOSESHATxt(cert)
-      try generateCOSEBase64(cert)
-      try generatePayloadBase64(cert)
+      
+      if DebugManager.sharedInstance.debugLevel == .level2 {
+        try generateQRSHABin(cert)
+        try generateQRSHATxt(cert)
+      } else if DebugManager.sharedInstance.debugLevel == .level3 {
+        try generateQRSHABin(cert)
+        try generateQRSHATxt(cert)
+        try generateQRImage(cert)
+        try generateQRSHATxt(cert)
+        try generateCOSESHABin(cert)
+        try generateCOSESHATxt(cert)
+        try generateCOSEBase64(cert)
+        try generatePayloadBase64(cert)
+      }
       
       data = try archive()
       try deleteCertificateFolderAndZip()
@@ -128,13 +134,11 @@ class DebugModeManager {
   }
   
   private func generateQRBase64(_ certificate: HCert) throws {
-    if let cose = COSE.signedPayloadBytes(from: certificate.cborData) {
       do {
-        try writeDataToFile(data: cose.base64EncodedData(options: .endLineWithLineFeed), filename: "QR.base64")
+        try writeDataToFile(data: certificate.cborData.base64EncodedData(options: .endLineWithLineFeed), filename: "QR.base64")
       } catch {
         throw error
       }
-    }
   }
   
   private func generatePayloadJson(_ certificate: HCert) throws {
@@ -148,33 +152,51 @@ class DebugModeManager {
   
   private func anonymizedJsonPayload(_ json : JSON) -> String {
     var anonimzedJSON = json
-    
-    anonimzedJSON["nam"]["gnt"].string = anonimzedJSON["nam"]["gnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
-    anonimzedJSON["nam"]["gn"].string = anonimzedJSON["nam"]["gn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
-    anonimzedJSON["nam"]["fn"].string = anonimzedJSON["nam"]["fn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
-    anonimzedJSON["nam"]["fnt"].string = anonimzedJSON["nam"]["fnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
-    
-    if let dob = anonimzedJSON["dob"].string {
-      var strchars = Array(dob)
-      strchars[5] = "9"
-      strchars[6] = "9"
-      strchars[8] = "9"
-      strchars[9] = "9"
-      let dobStringAnonimized = String(strchars)
-      anonimzedJSON["dob"].string = dobStringAnonimized
+    if DebugManager.sharedInstance.debugLevel == .level1 {
+      anonimzedJSON["nam"]["gnt"].string = anonimzedJSON["nam"]["gnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      anonimzedJSON["nam"]["gn"].string = anonimzedJSON["nam"]["gn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      anonimzedJSON["nam"]["fn"].string = anonimzedJSON["nam"]["fn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      anonimzedJSON["nam"]["fnt"].string = anonimzedJSON["nam"]["fnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      
+      if let dob = anonimzedJSON["dob"].string {
+        var strchars = Array(dob)
+        strchars[5] = "9"
+        strchars[6] = "9"
+        strchars[8] = "9"
+        strchars[9] = "9"
+        let dobStringAnonimized = String(strchars)
+        anonimzedJSON["dob"].string = dobStringAnonimized
+      }
+      
+      if let dt = anonimzedJSON["v"]["dt"].string {
+        var strchars = Array(dt)
+        strchars[5] = "9"
+        strchars[6] = "9"
+        strchars[8] = "9"
+        strchars[9] = "9"
+        let dtStringAnonimized = String(strchars)
+        anonimzedJSON["v"]["dt"].string = dtStringAnonimized
+      }
+      
+      anonimzedJSON["ci"].string?.removeLast(26)
+      anonimzedJSON["ci"].string?.append("XXXXXXXXXXXXXXXXXXXXXXXXXX")
+      
+    } else if DebugManager.sharedInstance.debugLevel == .level2 {
+      anonimzedJSON["nam"]["gnt"].string = anonimzedJSON["nam"]["gnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      anonimzedJSON["nam"]["gn"].string = anonimzedJSON["nam"]["gn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      anonimzedJSON["nam"]["fn"].string = anonimzedJSON["nam"]["fn"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      anonimzedJSON["nam"]["fnt"].string = anonimzedJSON["nam"]["fnt"].string?.replacingOccurrences(of: "[a-zA-Z]", with: "X", options: .regularExpression, range: nil)
+      
+      if let dob = anonimzedJSON["dob"].string {
+        var strchars = Array(dob)
+        strchars[5] = "9"
+        strchars[6] = "9"
+        strchars[8] = "9"
+        strchars[9] = "9"
+        let dobStringAnonimized = String(strchars)
+        anonimzedJSON["dob"].string = dobStringAnonimized
+      }
     }
-    
-    if let dt = anonimzedJSON["v"]["dt"].string {
-      var strchars = Array(dt)
-      strchars[5] = "9"
-      strchars[6] = "9"
-      strchars[8] = "9"
-      strchars[9] = "9"
-      let dtStringAnonimized = String(strchars)
-      anonimzedJSON["v"]["dt"].string = dtStringAnonimized
-    }
-    anonimzedJSON["ci"].string?.removeLast(26)
-    anonimzedJSON["ci"].string?.append("XXXXXXXXXXXXXXXXXXXXXXXXXX")
     
     return anonimzedJSON.rawString() ?? ""
   }
@@ -258,7 +280,7 @@ class DebugModeManager {
   }
 }
 
-extension DebugModeManager {
+extension ZipManager {
   fileprivate func getCertificateDirectoryURL() -> URL {
     let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     let fileURL = dir.appendingPathComponent("Certificate", isDirectory: true)

@@ -349,16 +349,6 @@ class CertificateViewerVC: UIViewController {
     DispatchQueue.main.asyncAfter(deadline: .now() + dismissTimeout) { [weak self] in
       self?.dismiss(animated: true, completion: nil)
     }
-    if let cert = hCert {
-        DebugModeManager().prepareZipData(cert) { result in
-            switch result{
-            case .failure(let error):
-                print("Error: %@",error)
-            case .success(let data):
-                print(data)
-            }
-        }
-    }
     
   }
 
