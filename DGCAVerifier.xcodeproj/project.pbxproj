@@ -81,6 +81,7 @@
 		5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
+		5CEA55C526EF59D600269702 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* DebugModeManager.swift */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
 		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
@@ -111,6 +112,8 @@
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
+		FEAAF97926EF2B3500757634 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = FEAAF97826EF2B3500757634 /* Zip */; };
+		FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6868526E24FF500D2A100 /* DebugModeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,9 +160,10 @@
 		5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleErrorTVC.swift; sourceTree = "<group>"; };
 		5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleErrorTVC.xib; sourceTree = "<group>"; };
 		5CEA55BD26E9EAF000269702 /* awesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = awesome.ttf; sourceTree = "<group>"; };
+		5CEA55C426EF59D600269702 /* DebugModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugModeManager.swift; sourceTree = "<group>"; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
-		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateViewer.swift; sourceTree = "<group>"; };
+		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewer.swift; sourceTree = "<group>"; };
 		CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE1D1EF5263597A2004C8919 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
+		FEB6868526E24FF500D2A100 /* DebugModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugModeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +213,7 @@
 				5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */,
 				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
 				5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */,
+				FEAAF97926EF2B3500757634 /* Zip in Frameworks */,
 				CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +269,14 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
+		5CEA55C326EF59C600269702 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				FEB6868526E24FF500D2A100 /* DebugModeManager.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		5CFEDB08269D72B600074F66 /* context */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +316,7 @@
 		CE13CF1A262DDE330070C80E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				5CEA55C426EF59D600269702 /* DebugModeManager.swift */,
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
 				5C696F59268372280005DE71 /* CertLogicEngineManager.swift */,
@@ -402,6 +417,7 @@
 				CEA6D70C261F8D2900715333 /* DGCAVerifierUITests */,
 				CEA6D6E9261F8D2700715333 /* Products */,
 				CE56B5032639F48E00FB31B1 /* Frameworks */,
+				5CEA55C326EF59C600269702 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -475,6 +491,7 @@
 				5C696F5726836F280005DE71 /* SwiftyJSON */,
 				5CAC4434268A584400E09EAC /* SwiftDGC */,
 				5CAC4437268A591600E09EAC /* FloatingPanel */,
+				FEAAF97826EF2B3500757634 /* Zip */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -553,6 +570,7 @@
 				5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
 				5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -640,7 +658,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#if which swiftlint >/dev/null; then\n#  swiftlint\n#else\n#  echo \"warning: SwiftLint not installed, #download from #https://github.com/realm/SwiftLint\"\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -654,11 +672,13 @@
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
 				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
+				FEB6868626E24FF500D2A100 /* DebugModeManager.swift in Sources */,
 				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
+				5CEA55C526EF59D600269702 /* DebugModeManager.swift in Sources */,
 				5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */,
 				5CA450BA26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
 				CEA6D6F0261F8D2700715333 /* Scan.swift in Sources */,
@@ -912,7 +932,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 82EG8LG7YH;
+				DEVELOPMENT_TEAM = 8FB4WRK36A;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -937,7 +957,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 82EG8LG7YH;
+				DEVELOPMENT_TEAM = 8FB4WRK36A;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1127,6 +1147,14 @@
 				minimumVersion = 5.4.3;
 			};
 		};
+		FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1159,6 +1187,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		FEAAF97826EF2B3500757634 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

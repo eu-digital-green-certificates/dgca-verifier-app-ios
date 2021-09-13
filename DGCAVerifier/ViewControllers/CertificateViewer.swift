@@ -125,12 +125,14 @@ class CertificateViewerVC: UIViewController {
     debugSections.append(DebugSectionModel(hCert: self.hCert ?? hCert, sectionType: .raw))
     infoTable.reloadData()
   }
-  
+
   func validateCertLogicForAllRules() -> HCertValidity {
     var validity: HCertValidity = .valid
+    
     guard let hCert = hCert else {
       return validity
     }
+    
     let certType = getCertificationType(type: hCert.type)
     if let countryCode = hCert.ruleCountryCode {
       let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
@@ -327,7 +329,7 @@ class CertificateViewerVC: UIViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-
+    
     if #available(iOS 13.0, *) {
       draw()
     } else {
@@ -347,6 +349,17 @@ class CertificateViewerVC: UIViewController {
     DispatchQueue.main.asyncAfter(deadline: .now() + dismissTimeout) { [weak self] in
       self?.dismiss(animated: true, completion: nil)
     }
+    if let cert = hCert {
+        DebugModeManager().prepareZipData(cert) { result in
+            switch result{
+            case .failure(let error):
+                print("Error: %@",error)
+            case .success(let data):
+                print(data)
+            }
+        }
+    }
+    
   }
 
   override func viewDidDisappear(_ animated: Bool) {

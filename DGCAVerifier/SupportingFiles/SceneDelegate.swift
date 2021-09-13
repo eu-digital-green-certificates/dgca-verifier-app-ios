@@ -36,6 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       self.window = UIWindow(windowScene: windowScene)
       self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
       self.window!.makeKeyAndVisible()
+        
     }
   }
 
