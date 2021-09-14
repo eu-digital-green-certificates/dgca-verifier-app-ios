@@ -33,8 +33,8 @@ import Zip
 import SwiftyJSON
 
 class ZipManager {
-  func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<Data, Error>) -> Void) {
-    var data = Data()
+  func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<URL, Error>) -> Void) {
+    var data : URL!
     
     do {
       try createCertificateFolder()
@@ -61,7 +61,7 @@ class ZipManager {
       }
       
       data = try archive()
-      try deleteCertificateFolderAndZip()
+      
     } catch {
       completionHandler(.failure(error))
       return
@@ -69,11 +69,11 @@ class ZipManager {
     completionHandler(.success(data))
   }
   
-  private func archive() throws -> Data {
+  private func archive() throws -> URL {
     do {
       let filesURLs = getCertificateFolderContentsURLs()
       let zipFilePath = try Zip.quickZipFiles(filesURLs, fileName: "archive")
-      return try Data(contentsOf: zipFilePath)
+      return zipFilePath
     }
     catch {
       throw error

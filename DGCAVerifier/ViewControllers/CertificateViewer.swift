@@ -29,6 +29,7 @@ import UIKit
 import SwiftDGC
 import CertLogic
 import FloatingPanel
+import OSLog
 
 let dismissTimeout = 15.0
 
@@ -67,6 +68,14 @@ class CertificateViewerVC: UIViewController {
   func draw() {
     guard let hCert = hCert else {
       return
+    }
+    
+    if !DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert) {
+      shareButton.isEnabled = false
+      shareButton.isHidden = true
+    } else {
+      shareButton.isEnabled = true
+      shareButton.isHidden = false
     }
 
     infoTable.dataSource = self
@@ -373,6 +382,22 @@ class CertificateViewerVC: UIViewController {
     dismiss(animated: true, completion: nil)
   }
   @IBAction func shareButtonAction(_ sender: Any) {
+    guard let cert = hCert else {
+      return
+    }
+    ZipManager().prepareZipData(cert) { result in
+      switch result {
+      case .success(let url):
+        var filesToShare = [Any]()
+        filesToShare.append(url)
+        let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+
+        self.present(activityViewController, animated: true, completion: nil)
+      case .failure(let error):
+        os_log("Error while creating zip archive: %@", log: .default, type: .error, String(describing: error))
+      }
+      
+    }
     
   }
   
