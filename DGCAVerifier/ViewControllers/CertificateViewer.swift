@@ -56,7 +56,8 @@ class CertificateViewerVC: UIViewController {
   @IBOutlet weak var loadingBackgroundTrailing: NSLayoutConstraint!
   @IBOutlet weak var infoTable: UITableView!
   @IBOutlet weak var dismissButton: UIButton!
-
+  @IBOutlet weak var shareButton: RoundedButton!
+  
   var hCert: HCert?
   weak var childDismissedDelegate: CertViewerDelegate?
   var settingsOpened = false
@@ -371,6 +372,11 @@ class CertificateViewerVC: UIViewController {
     settingsOpened = true
     dismiss(animated: true, completion: nil)
   }
+  @IBAction func shareButtonAction(_ sender: Any) {
+    
+  }
+  
+  
 }
 
 extension CertificateViewerVC: UITableViewDataSource {
