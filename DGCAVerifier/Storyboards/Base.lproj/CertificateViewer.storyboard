@@ -51,8 +51,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="199" width="375" height="439.33333333333326"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
+                                        <rect key="frame" x="0.0" y="199.66666666666666" width="375" height="463.33333333333337"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
@@ -63,14 +63,14 @@
                                             <constraint firstAttribute="height" constant="42" id="qVr-fW-Dys"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Enm-XG-fIc">
-                                        <rect key="frame" x="0.0" y="607" width="375" height="32"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Enm-XG-fIc">
+                                        <rect key="frame" x="0.0" y="631" width="375" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="1kc-qQ-0OX"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EU_logo" translatesAutoresizingMaskIntoConstraints="NO" id="91E-ya-yA8">
-                                        <rect key="frame" x="15.999999999999996" y="690" width="43.666666666666657" height="28"/>
+                                        <rect key="frame" x="15.999999999999996" y="698" width="43.666666666666657" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="Gby-j7-pOP"/>
                                             <constraint firstAttribute="width" secondItem="91E-ya-yA8" secondAttribute="height" multiplier="14:9" id="c8z-zA-Sj0"/>
@@ -107,6 +107,7 @@
                                     <constraint firstItem="DVW-2y-e4I" firstAttribute="top" secondItem="yEe-AH-rsr" secondAttribute="top" constant="32" id="6Py-fR-Th3"/>
                                     <constraint firstItem="91E-ya-yA8" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="712-2d-TTa"/>
                                     <constraint firstItem="8o5-7A-9qC" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="E54-64-eiq"/>
+                                    <constraint firstItem="a9u-Ia-KEX" firstAttribute="top" secondItem="Enm-XG-fIc" secondAttribute="bottom" constant="16" id="K3x-Jc-PXb"/>
                                     <constraint firstItem="Enm-XG-fIc" firstAttribute="bottom" secondItem="NIJ-V3-NpL" secondAttribute="bottom" id="NWZ-cm-Psu"/>
                                     <constraint firstAttribute="trailing" secondItem="NjI-L7-yat" secondAttribute="trailing" constant="16" id="NyM-Cn-N2e"/>
                                     <constraint firstAttribute="bottom" secondItem="91E-ya-yA8" secondAttribute="bottom" constant="16" id="QF9-Hk-hdE"/>
@@ -184,10 +185,10 @@
     </scenes>
     <designables>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="80" height="51"/>
+            <size key="intrinsicContentSize" width="56" height="39"/>
         </designable>
         <designable name="bGm-tp-pgj">
-            <size key="intrinsicContentSize" width="84" height="51"/>
+            <size key="intrinsicContentSize" width="60" height="39"/>
         </designable>
     </designables>
     <resources>

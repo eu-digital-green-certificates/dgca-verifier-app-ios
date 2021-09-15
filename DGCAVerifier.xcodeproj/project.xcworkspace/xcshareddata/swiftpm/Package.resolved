@@ -23,8 +23,8 @@
         "package": "CertLogic",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
         "state": {
-          "branch": "feature/1.2.0",
-          "revision": "8e1da1c4a7df992184ab170e9ccf14843f1dbd89",
+          "branch": "main",
+          "revision": "5da95101196898090ef36e6189cb32f32b60ddc7",
           "version": null
         }
       },
@@ -32,8 +32,8 @@
         "package": "SwiftDGC",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git",
         "state": {
-          "branch": "feature/1.2.0",
-          "revision": "54009a053f3c04dc3d7515a8e1876217aa6bdd69",
+          "branch": "main",
+          "revision": "4dbecb01a8e48e7ea9aabbe5aae5a615f7ce3934",
           "version": null
         }
       },
@@ -60,7 +60,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
         "state": {
           "branch": "master",
-          "revision": "addef0a5c7ed181d877f1fdfde1e3fc1c6c28cfe",
+          "revision": "4809e8a105b3fd2818a08caf9e3cbcdd7d319af2",
           "version": null
         }
       },
@@ -87,7 +87,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/SwiftCBOR",
         "state": {
           "branch": "master",
-          "revision": "642e9e93fb4a51b564c1bf21bf3c5b4c6bc79416",
+          "revision": "b76024995f6909e4615f943c7a03268fd29778fc",
           "version": null
         }
       },
