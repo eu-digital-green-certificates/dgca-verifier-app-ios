@@ -48,9 +48,8 @@ class LicenseTableVC: UITableViewController {
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "LicenseCell", for: indexPath) as? LicenseCell
-    else {
-      return UITableViewCell()
-    }
+    else { return UITableViewCell() }
+      
     let index = indexPath.row
     cell.drawLabel(self.licenses[index])
     return cell

@@ -18,7 +18,7 @@
  * ---license-end
  */
 //
-//  ViewController.swift
+//  ScanController.swift
 //  DGCAVerifier
 //
 //  Created by Yannick Spreen on 4/8/21.
@@ -30,7 +30,9 @@ import UIKit
 import SwiftDGC
 import FloatingPanel
 
-class ScanVC: SwiftDGC.ScanVC {
+class ScanController: SwiftDGC.ScanCertificateController {
+  var presentingViewer: UIViewController?
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setVisibleCountrySelection(visible: true)
@@ -41,6 +43,12 @@ class ScanVC: SwiftDGC.ScanVC {
       }
     }
     GatewayConnection.initialize()
+    let settingsButton = setupSettingsButton()
+
+    setupNFCButton(constraintView: settingsButton)
+  }
+  
+  private func setupSettingsButton() -> UIButton {
     let settingsButton = UIButton(frame: .zero)
     settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +61,11 @@ class ScanVC: SwiftDGC.ScanVC {
       settingsButton.heightAnchor.constraint(equalToConstant: 30),
       settingsButton.widthAnchor.constraint(equalToConstant: 30)
     ])
-
+    return settingsButton
+  }
+  
+  private func setupNFCButton(constraintView box: UIView) {
+    let settingsButton = box
     let nfcButton = UIButton(frame: .zero)
     nfcButton.addTarget(self, action: #selector(scanNFC), for: .touchUpInside)
     nfcButton.translatesAutoresizingMaskIntoConstraints = false
@@ -63,16 +75,16 @@ class ScanVC: SwiftDGC.ScanVC {
       nfcButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
     }
     view.addSubview(nfcButton)
+    let guide = view.safeAreaLayoutGuide
+
     NSLayoutConstraint.activate([
       nfcButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 32.0),
       nfcButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0),
       nfcButton.heightAnchor.constraint(equalToConstant: 30),
       nfcButton.widthAnchor.constraint(equalToConstant: 30)
     ])
-
   }
 
-  var presentingViewer: UIViewController?
   func presentViewer(for certificate: HCert) {
     guard
       presentingViewer == nil,
@@ -103,7 +115,11 @@ class ScanVC: SwiftDGC.ScanVC {
   }
 }
 
-extension ScanVC: ScanVCDelegate {
+extension ScanController: ScanCertificateDelegate {
+  func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
+    presentViewer(for: certificate)
+  }
+      
   func disableBackgroundDetection() {
     SecureBackground.paused = true
   }
@@ -111,15 +127,10 @@ extension ScanVC: ScanVCDelegate {
   func enableBackgroundDetection() {
     SecureBackground.paused = false
   }
-
-  func hCertScanned(_ cert: HCert) {
-    presentViewer(for: cert)
-  }
 }
 
-extension ScanVC: CertViewerDelegate {
-  @IBAction
-  func openSettings() {
+extension ScanController: CertViewerDelegate {
+  @IBAction func openSettings() {
     guard
       presentingViewer == nil,
       let contentVC = UIStoryboard(name: "Settings", bundle: nil)
@@ -138,12 +149,10 @@ extension ScanVC: CertViewerDelegate {
   }
 }
 
-extension ScanVC: FloatingPanelControllerDelegate {
-  func floatingPanel(
-    _ fpc: FloatingPanelController,
+extension ScanController: FloatingPanelControllerDelegate {
+  func floatingPanel(_ fpc: FloatingPanelController,
     shouldRemoveAt location: CGPoint,
-    with velocity: CGVector
-  ) -> Bool {
+    with velocity: CGVector) -> Bool {
     let pos = location.y / view.bounds.height
     if pos >= 0.33 {
       return true
@@ -161,12 +170,14 @@ extension ScanVC: FloatingPanelControllerDelegate {
     }
   }
 }
-extension ScanVC {
+
+extension ScanController {
   @objc private func scanNFC() {
     let helper = NFCHelper()
     helper.onNFCResult = onNFCResult(success:msg:)
     helper.restartSession()
   }
+  
   func onNFCResult(success: Bool, msg: String) {
     DispatchQueue.main.async { [weak self] in
       print("\(msg)")

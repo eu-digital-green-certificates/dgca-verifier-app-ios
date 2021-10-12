@@ -30,6 +30,10 @@ import UIKit
 import SwiftDGC
 
 class HomeVC: UIViewController {
+    private enum Constants {
+        static let scannerSegueID = "scannerSegueID"
+    }
+    
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
@@ -40,6 +44,7 @@ class HomeVC: UIViewController {
   }
 
   var loaded = false
+    
   func load() {
     let loadingGroup = DispatchGroup()
     GatewayConnection.timer?.invalidate()
@@ -91,6 +96,18 @@ class HomeVC: UIViewController {
       showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
       return
     }
-    performSegue(withIdentifier: "scanner", sender: self)
+      performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
   }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      switch segue.identifier {
+      case Constants.scannerSegueID:
+        if let destinationController = segue.destination as? ScanController {
+          ()
+        }
+      default:
+        break
+      }
+    }
+
 }
