@@ -34,7 +34,7 @@ class InfoCell: UITableViewCell {
   @IBOutlet weak var headerLabel: UILabel!
   @IBOutlet weak var contentLabel: UILabel!
 
-  func draw(_ info: InfoSection) {
+  func setupCell(with info: InfoSection) {
     headerLabel?.text = info.header
     contentLabel?.text = info.content
     let fontSize = contentLabel.font.pointSize

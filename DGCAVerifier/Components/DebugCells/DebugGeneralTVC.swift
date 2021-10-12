@@ -24,7 +24,6 @@
 //  
 //  Created by Alexandr Chernyy on 07.09.2021.
 //  
-        
 
 import UIKit
 import SwiftDGC
@@ -36,8 +35,10 @@ class DebugGeneralTVC: UITableViewCell {
   @IBOutlet weak var tableHeight: NSLayoutConstraint!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var view: UIView!
+  
   private var needReload = true
   var reload: ReloadBlock?
+  
   private var debugSection: DebugSectionModel? {
     didSet {
       setupView()
@@ -56,9 +57,8 @@ class DebugGeneralTVC: UITableViewCell {
     // Initialization code
   }
   private func setupView() {
-    guard let _ = debugSection else {
-      return
-    }
+    guard let _ = debugSection else { return }
+    
     tableView.reloadData()
     tableView.performBatchUpdates({ () -> Void in
 
@@ -82,59 +82,54 @@ class DebugGeneralTVC: UITableViewCell {
 
 extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
   var listItems: [InfoSection] {
-    debugSection?.hCert.info.filter {
-      !$0.isPrivate
-    } ?? []
+    debugSection?.hCert.info.filter { !$0.isPrivate } ?? []
   }
 
-  // Number of rows
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     let section: InfoSection = listItems[section]
     if section.sectionItems.count == .zero {
       return 1
-    }
-    if !section.isExpanded {
+    } else if !section.isExpanded {
       return 1
+    } else {
+      return section.sectionItems.count + 1
     }
-    return section.sectionItems.count + 1
   }
-  // Number of Sections
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     return listItems.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    var section: InfoSection = listItems[indexPath.section]
-    if section.sectionItems.count == 0 {
-      let base = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath)
-      guard let cell = base as? InfoCell else {
-        return base
-      }
-      cell.draw(section)
+    var sectionInfo: InfoSection = listItems[indexPath.section]
+    if sectionInfo.sectionItems.count == 0 {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as?
+          InfoCell else { return UITableViewCell() }
+        
+      cell.setupCell(with: sectionInfo)
       return cell
+      
     } else {
       if indexPath.row == .zero {
-        let base = tableView.dequeueReusableCell(withIdentifier: "InfoCellDropDown", for: indexPath)
-        guard let cell = base as? InfoCellDropDown else {
-          return base
-        }
-        cell.setupCell(with: section) { [weak self] state in
-          section.isExpanded = state
-          if let row = self?.debugSection?.hCert.info.firstIndex(where: {$0.header == section.header}) {
-            self?.debugSection?.hCert.info[row] = section
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCellDropDown", for: indexPath) as?
+              InfoCellDropDown else { return UITableViewCell() }
+          
+        cell.setupCell(with: sectionInfo) { [weak self] state in
+          sectionInfo.isExpanded = state
+          if let row = self?.debugSection?.hCert.info.firstIndex(where: {$0.header == sectionInfo.header}) {
+            self?.debugSection?.hCert.info[row] = sectionInfo
           }
           tableView.reloadData()
         }
         return cell
+        
       } else {
-        let base = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath)
-        guard let cell = base as? RuleErrorTVC else {
-          return base
-        }
-        let item = section.sectionItems[indexPath.row - 1]
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath) as?
+              RuleErrorTVC else { return UITableViewCell() }
+        
+        let item = sectionInfo.sectionItems[indexPath.row - 1]
         cell.setupCell(with: item)
         return cell
-
       }
     }
   }

@@ -63,10 +63,12 @@ final class DebugSectionModel {
       return 2
     }
   }
+    
   init(hCert: HCert, sectionType: DebugSectionType) {
     self.hCert = hCert
     self.sectionType = sectionType
   }
+    
   func update(hCert: HCert) {
     self.hCert = hCert
   }
