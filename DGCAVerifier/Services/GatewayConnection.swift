@@ -117,9 +117,7 @@ struct GatewayConnection: ContextConnection {
 
   static func status(completion: (() -> Void)? = nil) {
     certStatus { validKids in
-      let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
-        !validKids.contains($0)
-      }
+      let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter { !validKids.contains($0) }
       for key in invalid {
         LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
       }
@@ -144,9 +142,8 @@ struct GatewayConnection: ContextConnection {
       LocalData.sharedInstance.config.merge(other: json)
       LocalData.sharedInstance.save()
       if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
-        (
-          UIApplication.shared.windows[0].rootViewController as? UINavigationController
-        )?.popToRootViewController(animated: false)
+        (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
+            .popToRootViewController(animated: false)
         return
       }
       completion?()
@@ -168,42 +165,31 @@ extension GatewayConnection {
         let response = result,
         let responseStr = String(data: response, encoding: .utf8),
         let json = JSON(parseJSON: responseStr).array
-      else {
-        return
-      }
+      else { return }
+        
       let codes = json.compactMap { $0.string }
       var countryList: [CountryModel] = []
-      codes.forEach { code in
-        countryList.append(CountryModel(code: code))
-      }
+      codes.forEach { countryList.append(CountryModel(code: $0)) }
       completion?(countryList)
     }
   }
   static func countryList(completion: (([CountryModel]) -> Void)? = nil) {
     CountryDataStorage.initialize {
       if CountryDataStorage.sharedInstance.countryCodes.count > 0 {
-        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { countryOne, countryTwo in
-          return countryOne.name < countryTwo.name
-        }))
+        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { return $0.name < $1.name }))
       }
       getListOfCountry { countryList in
         
         // Remove old countryCodes
         CountryDataStorage.sharedInstance.countryCodes = CountryDataStorage.sharedInstance.countryCodes.filter { countryCode in
-            return countryList.contains(where: { countryCodeNew in
-                return countryCodeNew.code == countryCode.code
-            })
+            return countryList.contains(where: { $0.code == countryCode.code })
         }
 //
 //        CountryDataStorage.sharedInstance.countryCodes.removeAll()
-        countryList.forEach { country in
-          CountryDataStorage.sharedInstance.add(country: country)
-        }
+        countryList.forEach { CountryDataStorage.sharedInstance.add(country: $0) }
         CountryDataStorage.sharedInstance.lastFetch = Date()
         CountryDataStorage.sharedInstance.save()
-        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { countryOne, countryTwo in
-          return countryOne.name < countryTwo.name
-        }))
+        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { $0.name < $1.name }))
       }
     }
   }
@@ -220,9 +206,7 @@ extension GatewayConnection {
       let ruleHashes: [RuleHash] = CertLogicEngine.getItems(from: responseStr)
       // Remove old hashes
       RulesDataStorage.sharedInstance.rules = RulesDataStorage.sharedInstance.rules.filter { rule in
-          return !ruleHashes.contains(where: { ruleHash in
-              return ruleHash.hash == rule.hash
-          })
+          return !ruleHashes.contains(where: { $0.hash == rule.hash })
       }
       // Downloading new hashes
       var rulesItems = [CertLogic.Rule]()
@@ -269,6 +253,7 @@ extension GatewayConnection {
       completion?(nil)
     }
   }
+    
   static func rulesList(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     RulesDataStorage.initialize {
         completion?(RulesDataStorage.sharedInstance.rules)
@@ -276,9 +261,7 @@ extension GatewayConnection {
   }
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
-      rulesList.forEach { rule in
-        RulesDataStorage.sharedInstance.add(rule: rule)
-      }
+      rulesList.forEach { RulesDataStorage.sharedInstance.add(rule: $0) }
       RulesDataStorage.sharedInstance.lastFetch = Date()
       RulesDataStorage.sharedInstance.save()
       completion?(RulesDataStorage.sharedInstance.rules)
@@ -297,9 +280,7 @@ extension GatewayConnection {
       let valueSetsHashes: [ValueSetHash] = CertLogicEngine.getItems(from: responseStr)
       // Remove old hashes
       ValueSetsDataStorage.sharedInstance.valueSets = ValueSetsDataStorage.sharedInstance.valueSets.filter { valueSet in
-          return !valueSetsHashes.contains(where: { valueSetHashe in
-              return valueSetHashe.hash == valueSet.hash
-          })
+          return !valueSetsHashes.contains(where: { $0.hash == valueSet.hash })
       }
       // Downloading new hashes
       var valueSetsItems = [CertLogic.ValueSet]()
@@ -323,6 +304,7 @@ extension GatewayConnection {
       }
     }
   }
+    
   public static func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
     request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
       guard
@@ -346,6 +328,7 @@ extension GatewayConnection {
       completion?(nil)
     }
   }
+    
   static func valueSetsList(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
     ValueSetsDataStorage.initialize {
         completion?(ValueSetsDataStorage.sharedInstance.valueSets)
@@ -354,9 +337,7 @@ extension GatewayConnection {
 
   static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil){
     getListOfValueSets { valueSetsList in
-      valueSetsList.forEach { valueSet in
-        ValueSetsDataStorage.sharedInstance.add(valueSet: valueSet)
-      }
+      valueSetsList.forEach { ValueSetsDataStorage.sharedInstance.add(valueSet: $0) }
       ValueSetsDataStorage.sharedInstance.lastFetch = Date()
       ValueSetsDataStorage.sharedInstance.save()
       completion?(ValueSetsDataStorage.sharedInstance.valueSets)
