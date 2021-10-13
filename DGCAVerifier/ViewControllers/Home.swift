@@ -34,17 +34,14 @@ class HomeVC: UIViewController {
         static let scannerSegueID = "scannerSegueID"
     }
     
+  var loaded = false
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
-    if !loaded {
-      return load()
-    }
-    return loadComplete()
+    
+    loaded ? loadComplete() : load()
   }
 
-  var loaded = false
-    
   func load() {
     let loadingGroup = DispatchGroup()
     GatewayConnection.timer?.invalidate()
@@ -96,18 +93,17 @@ class HomeVC: UIViewController {
       showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
       return
     }
-      performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
+    performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
   }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      switch segue.identifier {
-      case Constants.scannerSegueID:
-        if let destinationController = segue.destination as? ScanController {
-          ()
-        }
-      default:
-        break
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case Constants.scannerSegueID:
+      if let destinationController = segue.destination as? ScanController {
+        destinationController.modalPresentationStyle = .fullScreen
       }
+    default:
+      break
     }
-
+  }
 }
