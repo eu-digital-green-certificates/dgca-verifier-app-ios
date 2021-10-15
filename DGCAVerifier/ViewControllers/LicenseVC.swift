@@ -69,14 +69,9 @@ class LicenseTableVC: UITableViewController {
 
   private func loadLicenses() {
     do {
-      guard let licenseFileLocation = Bundle.main.path(forResource: "OpenSourceNotices", ofType: "json")
-      else {
-        return
-      }
-      guard let jsonData = try String(contentsOfFile: licenseFileLocation).data(using: .utf8)
-      else {
-        return
-      }
+      guard let licenseFileLocation = Bundle.main.path(forResource: "OpenSourceNotices", ofType: "json") else { return }
+      guard let jsonData = try String(contentsOfFile: licenseFileLocation).data(using: .utf8) else { return }
+        
       let jsonDoc = try JSON(data: jsonData)
       self.licenses = jsonDoc["licenses"].array ?? []
     } catch {

@@ -86,31 +86,27 @@ class ScanController: SwiftDGC.ScanCertificateController {
   }
 
   func presentViewer(for certificate: HCert) {
-    guard
-      presentingViewer == nil,
-      let contentVC = UIStoryboard(name: "CertificateViewer", bundle: nil)
-        .instantiateInitialViewController(),
-      let viewer = contentVC as? CertificateViewerVC
-    else {
-      return
-    }
+    guard presentingViewer == nil,
+      let viewerController = UIStoryboard(name: "CertificateViewer", bundle: nil).instantiateInitialViewController() as?
+        CertificateViewerVC
+    else { return }
 
-    viewer.hCert = certificate
-    viewer.childDismissedDelegate = self
-    showFloatingPanel(for: viewer)
+    viewerController.hCert = certificate
+    viewerController.childDismissedDelegate = self
+    showFloatingPanel(for: viewerController)
   }
 
   func showFloatingPanel(for controller: UIViewController) {
-    let fpc = FloatingPanelController()
-    fpc.set(contentViewController: controller)
-    fpc.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
-    fpc.layout = FullFloatingPanelLayout()
-    fpc.surfaceView.layer.cornerRadius = 24.0
-    fpc.surfaceView.clipsToBounds = true
-    fpc.delegate = self
+    let panelController = FloatingPanelController()
+    panelController.set(contentViewController: controller)
+    panelController.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
+    panelController.layout = FullFloatingPanelLayout()
+    panelController.surfaceView.layer.cornerRadius = 24.0
+    panelController.surfaceView.clipsToBounds = true
+    panelController.delegate = self
     presentingViewer = controller
 
-    present(fpc, animated: true, completion: nil)
+    present(panelController, animated: true, completion: nil)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
   }
 }
@@ -131,17 +127,12 @@ extension ScanController: ScanCertificateDelegate {
 
 extension ScanController: CertViewerDelegate {
   @IBAction func openSettings() {
-    guard
-      presentingViewer == nil,
-      let contentVC = UIStoryboard(name: "Settings", bundle: nil)
-        .instantiateInitialViewController(),
-      let viewer = contentVC as? SettingsVC
-    else {
-      return
-    }
+    guard presentingViewer == nil,
+      let viewerController = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as? SettingsVC
+    else { return }
 
-    viewer.childDismissedDelegate = self
-    showFloatingPanel(for: viewer)
+    viewerController.childDismissedDelegate = self
+    showFloatingPanel(for: viewerController)
   }
 
   func childDismissed() {
@@ -150,9 +141,7 @@ extension ScanController: CertViewerDelegate {
 }
 
 extension ScanController: FloatingPanelControllerDelegate {
-  func floatingPanel(_ fpc: FloatingPanelController,
-    shouldRemoveAt location: CGPoint,
-    with velocity: CGVector) -> Bool {
+  func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
     let pos = location.y / view.bounds.height
     if pos >= 0.33 {
       return true

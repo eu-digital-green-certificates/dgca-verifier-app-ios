@@ -83,8 +83,8 @@ class HomeVC: UIViewController {
         loadingGroup.leave()
       }
     }
-    loadingGroup.notify(queue: .main) {
-      self.loadComplete()
+    loadingGroup.notify(queue: .main) { [weak self] in
+      self?.loadComplete()
     }
   }
 

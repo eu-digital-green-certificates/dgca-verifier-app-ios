@@ -76,22 +76,27 @@ class SettingsTableVC: UITableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
 
-    if indexPath.section == 0 && indexPath.row == 0 {
-      openPrivacyDoc()
-    }
-    if indexPath.section == 0 && indexPath.row == 2 {
-      openDebugSettings()
-    }
-    if indexPath.section == 1 {
-      loading = true
-      tableView.reloadData()
-      return GatewayConnection.update {
-        DispatchQueue.main.async { [weak self] in
-          self?.loading = false
-          self?.tableView.reloadData()
-        }
+      switch indexPath.section {
+      case 0:
+          if indexPath.row == 0 {
+            openPrivacyDoc()
+          } else if indexPath.row == 1 {
+              break
+          } else if indexPath.row == 2 {
+            openDebugSettings()
+          }
+      case 1:
+          loading = true
+          tableView.reloadData()
+          return GatewayConnection.update {
+            DispatchQueue.main.async { [weak self] in
+              self?.loading = false
+              self?.tableView.reloadData()
+            }
+          }
+      default:
+          break
       }
-    }
   }
 
   func openPrivacyDoc() {
@@ -119,8 +124,7 @@ class SettingsTableVC: UITableViewController {
     }
   }
 
-  @IBAction
-  func cancelButton() {
+  @IBAction func cancelButton() {
     dismiss(animated: true, completion: nil)
   }
 }

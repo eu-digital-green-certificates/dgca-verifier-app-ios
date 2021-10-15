@@ -68,7 +68,6 @@ class CertificateViewerVC: UIViewController {
   // MARK: View Controller life cycle
   override func viewDidLoad() {
       super.viewDidLoad()
-        
       setupInterface()
   }
 
@@ -76,8 +75,8 @@ class CertificateViewerVC: UIViewController {
     super.viewDidAppear(animated)
 
     loadingBackgroundTrailing.priority = .init(200)
-    UIView.animate(withDuration: dismissTimeout, delay: 0, options: .curveLinear) { [weak self] in
-      self?.view.layoutIfNeeded()
+    UIView.animate(withDuration: dismissTimeout, delay: 0, options: .curveLinear) {
+      self.view.layoutIfNeeded()
     }
     DispatchQueue.main.asyncAfter(deadline: .now() + dismissTimeout) { [weak self] in
       self?.dismiss(animated: true, completion: nil)
@@ -179,7 +178,8 @@ class CertificateViewerVC: UIViewController {
            iat: hCert.iat,
            issuerCountryCode: hCert.issCode,
            kid: hCert.kidStr)
-      let result = CertLogicEngineManager.sharedInstance.validate(filter: filterParameter, external: externalParameters, payload: hCert.body.description)
+      let result = CertLogicEngineManager.sharedInstance.validate(filter: filterParameter,
+          external: externalParameters, payload: hCert.body.description)
       let failsAndOpen = result.filter { $0.result != .passed }
       
       if failsAndOpen.count > 0 {
@@ -217,9 +217,7 @@ class CertificateViewerVC: UIViewController {
             if let rule = validationResult.rule {
                let dict = CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule,
                   filter: filterParameter)
-              dict.keys.forEach({ key in
-                    detailsError += key + ": " + (dict[key] ?? "") + " "
-              })
+              dict.keys.forEach({ detailsError += $0 + ": " + (dict[$0] ?? "") + " " })
             }
             switch validationResult.result {
             case .fail:
@@ -295,7 +293,8 @@ class CertificateViewerVC: UIViewController {
         iat: hCert.iat,
         issuerCountryCode: hCert.issCode,
         kid: hCert.kidStr)
-      let result = CertLogicEngineManager.sharedInstance.validateDestination(filter: filterParameter, external: externalParameters, payload: hCert.body.description)
+      let result = CertLogicEngineManager.sharedInstance.validateDestination(filter: filterParameter,
+          external: externalParameters, payload: hCert.body.description)
       let fails = result.filter { $0.result == .fail }
       if !fails.isEmpty {
         return .invalid
@@ -324,7 +323,8 @@ class CertificateViewerVC: UIViewController {
          iat: hCert.iat,
          issuerCountryCode: hCert.issCode,
          kid: hCert.kidStr)
-      let result = CertLogicEngineManager.sharedInstance.validateTraveller(filter: filterParameter, external: externalParameters, payload: hCert.body.description)
+      let result = CertLogicEngineManager.sharedInstance.validateTraveller(filter: filterParameter,
+          external: externalParameters, payload: hCert.body.description)
       
       let fails = result.filter { $0.result == .fail }
       if !fails.isEmpty {
@@ -349,9 +349,8 @@ class CertificateViewerVC: UIViewController {
   }
   
   @IBAction func shareButtonAction(_ sender: Any) {
-    guard let cert = hCert else {
-      return
-    }
+    guard let cert = hCert else { return }
+    
     ZipManager().prepareZipData(cert) { result in
       switch result {
       case .success(let url):
@@ -364,7 +363,6 @@ class CertificateViewerVC: UIViewController {
       case .failure(let error):
         os_log("Error while creating zip archive: %@", log: .default, type: .error, String(describing: error))
       }
-      
     }
   }
 }
@@ -409,7 +407,8 @@ extension CertificateViewerVC: UITableViewDataSource {
     if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert) {
       let debugSection = debugSections[indexPath.section]
       if indexPath.row == 0 {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugSectionTVC", for: indexPath) as? DebugSectionTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugSectionTVC",
+            for: indexPath) as? DebugSectionTVC else { return UITableViewCell() }
         
         cell.setDebugSection(debugSection: debugSection)
         cell.expandCallback = { debugSectionFromCB in

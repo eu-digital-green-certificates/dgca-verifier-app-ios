@@ -125,18 +125,14 @@ extension DebugVC: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let base = tableView.dequeueReusableCell(withIdentifier: "DebugTVC", for: indexPath)
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugTVC", for: indexPath) as?
+          DebugTVC else { return UITableViewCell() }
+    
     let countryModel = countryList[indexPath.row]
-    guard let cell = base as? DebugTVC else {
-      return base
-    }
     cell.setCountry(countryModel: countryModel)
     cell.selectionStyle = .none
-    if countryModel.debugModeEnabled {
-      cell.accessoryType = .checkmark
-    } else {
-      cell.accessoryType = .none
-    }
+    cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
+
     return cell
   }
 }
@@ -148,11 +144,7 @@ extension DebugVC: UITableViewDelegate{
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
     CountryDataStorage.sharedInstance.update(country: countryModel)
     if let cell = tableView.cellForRow(at: indexPath) {
-      if countryModel.debugModeEnabled {
-        cell.accessoryType = .checkmark
-      } else {
-        cell.accessoryType = .none
-      }
+      cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
     }
   }
   

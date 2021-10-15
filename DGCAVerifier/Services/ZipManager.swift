@@ -39,25 +39,25 @@ class ZipManager {
     do {
       try createCertificateFolder()
       
-      try generateVersion()
-      try generateReadme()
-      try generatePayloadSHABin(cert)
-      try generatePayloadSHATxt(cert)
-      try generateQRBase64(cert)
-      try generatePayloadJson(cert)
-      
-      if DebugManager.sharedInstance.debugLevel == .level2 {
-        try generateQRSHABin(cert)
-        try generateQRSHATxt(cert)
-      } else if DebugManager.sharedInstance.debugLevel == .level3 {
-        try generateQRSHABin(cert)
-        try generateQRSHATxt(cert)
+      switch DebugManager.sharedInstance.debugLevel {
+      case .level3:
         try generateQRImage(cert)
-        try generateQRSHATxt(cert)
         try generateCOSESHABin(cert)
         try generateCOSESHATxt(cert)
         try generateCOSEBase64(cert)
         try generatePayloadBase64(cert)
+        fallthrough
+      case .level2:
+        try generateQRSHABin(cert)
+        try generateQRSHATxt(cert)
+        fallthrough
+      case .level1:
+        try generateVersion()
+        try generateReadme()
+        try generatePayloadSHABin(cert)
+        try generatePayloadSHATxt(cert)
+        try generateQRBase64(cert)
+        try generatePayloadJson(cert)
       }
       
       data = try archive()
@@ -226,13 +226,11 @@ class ZipManager {
   }
   
   private func generateQRImage(_ certificate: HCert) throws {
-    if let image = certificate.qrCode {
-      if let data = image.pngData() {
-        do {
-          try data.write(to: getCertificateDirectoryURL().appendingPathComponent("QR.png"))
-        } catch {
-          throw error
-        }
+    if let image = certificate.qrCode, let data = image.pngData() {
+      do {
+        try data.write(to: getCertificateDirectoryURL().appendingPathComponent("QR.png"))
+      } catch {
+        throw error
       }
     }
   }
