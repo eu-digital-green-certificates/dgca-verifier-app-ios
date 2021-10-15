@@ -76,7 +76,7 @@ class ScanController: SwiftDGC.ScanCertificateController {
     }
     view.addSubview(nfcButton)
     let guide = view.safeAreaLayoutGuide
-
+    
     NSLayoutConstraint.activate([
       nfcButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 32.0),
       nfcButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -24.0),
@@ -84,18 +84,18 @@ class ScanController: SwiftDGC.ScanCertificateController {
       nfcButton.widthAnchor.constraint(equalToConstant: 30)
     ])
   }
-
+  
   func presentViewer(for certificate: HCert) {
     guard presentingViewer == nil,
       let viewerController = UIStoryboard(name: "CertificateViewer", bundle: nil).instantiateInitialViewController() as?
         CertificateViewerVC
     else { return }
-
+    
     viewerController.hCert = certificate
     viewerController.childDismissedDelegate = self
     showFloatingPanel(for: viewerController)
   }
-
+  
   func showFloatingPanel(for controller: UIViewController) {
     let panelController = FloatingPanelController()
     panelController.set(contentViewController: controller)
@@ -105,7 +105,7 @@ class ScanController: SwiftDGC.ScanCertificateController {
     panelController.surfaceView.clipsToBounds = true
     panelController.delegate = self
     presentingViewer = controller
-
+    
     present(panelController, animated: true, completion: nil)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
   }
@@ -115,11 +115,11 @@ extension ScanController: ScanCertificateDelegate {
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
     presentViewer(for: certificate)
   }
-      
+  
   func disableBackgroundDetection() {
     SecureBackground.paused = true
   }
-
+  
   func enableBackgroundDetection() {
     SecureBackground.paused = false
   }
@@ -130,7 +130,7 @@ extension ScanController: CertViewerDelegate {
     guard presentingViewer == nil,
       let viewerController = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as? SettingsVC
     else { return }
-
+    
     viewerController.childDismissedDelegate = self
     showFloatingPanel(for: viewerController)
   }

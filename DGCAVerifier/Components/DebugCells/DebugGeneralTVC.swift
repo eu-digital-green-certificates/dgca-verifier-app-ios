@@ -38,7 +38,8 @@ class DebugGeneralTVC: UITableViewCell {
   
   private var needReload = true
   var reload: ReloadBlock?
-  
+  var validator: CertificateValidator?
+
   private var debugSection: DebugSectionModel? {
     didSet {
       setupView()
@@ -53,15 +54,13 @@ class DebugGeneralTVC: UITableViewCell {
     tableView.dataSource = self
     tableView.estimatedRowHeight = 800
     tableView.rowHeight = UITableView.automaticDimension
-    tableView.reloadData()
-    // Initialization code
   }
+  
   private func setupView() {
-    guard let _ = debugSection else { return }
+    guard debugSection != nil else { return }
     
     tableView.reloadData()
     tableView.performBatchUpdates({ () -> Void in
-
     }, completion: { [weak self] _ in
       self?.needReload = false
       if self?.tableHeight.constant != self?.tableView.contentSize.height {
@@ -74,7 +73,7 @@ class DebugGeneralTVC: UITableViewCell {
       })
   }
 
-  public func setDebugSection(debugSection: DebugSectionModel, needReload: Bool = true) {
+  public func setupDebugSection(debugSection: DebugSectionModel, needReload: Bool = true) {
     self.needReload = needReload
     self.debugSection = debugSection
   }
@@ -82,7 +81,7 @@ class DebugGeneralTVC: UITableViewCell {
 
 extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
   var listItems: [InfoSection] {
-    debugSection?.hCert.info.filter { !$0.isPrivate } ?? []
+    validator?.infoSection.filter { !$0.isPrivate } ?? []
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,7 +98,7 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
   func numberOfSections(in tableView: UITableView) -> Int {
     return listItems.count
   }
-
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     var sectionInfo: InfoSection = listItems[indexPath.section]
     if sectionInfo.sectionItems.count == 0 {
@@ -116,8 +115,8 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
           
         cell.setupCell(with: sectionInfo) { [weak self] state in
           sectionInfo.isExpanded = state
-          if let row = self?.debugSection?.hCert.info.firstIndex(where: {$0.header == sectionInfo.header}) {
-            self?.debugSection?.hCert.info[row] = sectionInfo
+          if let row = self?.validator?.infoSection.firstIndex(where: {$0.header == sectionInfo.header}) {
+            self?.validator?.infoSection[row] = sectionInfo
           }
           tableView.reloadData()
         }

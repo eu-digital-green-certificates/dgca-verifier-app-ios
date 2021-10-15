@@ -60,6 +60,7 @@ final class InfoCellDropDown: UITableViewCell {
     self.info = info
     self.dropDownBlock = dropDownBlock
   }
+    
   private func setupView() {
     setDropDownIcon()
     headerLabel?.text = info.header

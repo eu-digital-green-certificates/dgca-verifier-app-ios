@@ -55,14 +55,9 @@ class DebugValidationTVC: UITableViewCell {
       setupView()
     }
   }
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-    setupView()
-  }
-  
-  public func setDebugSection(debugSection: DebugSectionModel) {
+  var validator: CertificateValidator?
+      
+  func setupDebugSection(debugSection: DebugSectionModel) {
     self.debugSection = debugSection
   }
   
@@ -83,15 +78,14 @@ class DebugValidationTVC: UITableViewCell {
     issuerView.layer.borderColor = UIColor.brown.cgColor
     destinationView.layer.borderColor = UIColor.brown.cgColor
     travvelerView.layer.borderColor = UIColor.brown.cgColor
-    setIcons()
-    setColors()
+    
+    setupIcons()
+    setupColors()
   }
   
-  func setIcons() {
-    guard let hCert = debugSection?.hCert else {
-      return
-    }
-    switch hCert.technicalVerification {
+  private func setupIcons() {
+    guard let validator = validator else { return }
+    switch validator.technicalVerification {
       case .valid:
         technivalView.text = Icons.ok.rawValue
       case .invalid:
@@ -100,7 +94,7 @@ class DebugValidationTVC: UITableViewCell {
         technivalView.text = Icons.limited.rawValue
     }
 
-    switch hCert.issuerInvalidation {
+    switch validator.issuerInvalidation {
       case .passed:
         issuerView.text = Icons.ok.rawValue
       case .error:
@@ -109,7 +103,7 @@ class DebugValidationTVC: UITableViewCell {
         issuerView.text = Icons.limited.rawValue
     }
 
-    switch hCert.destinationAcceptence {
+    switch validator.destinationAcceptence {
     case .passed:
       destinationView.text = Icons.ok.rawValue
     case .error:
@@ -118,7 +112,7 @@ class DebugValidationTVC: UITableViewCell {
       destinationView.text = Icons.limited.rawValue
     }
 
-    switch hCert.travalerAcceptence {
+    switch validator.travalerAcceptence {
     case .passed:
       travvelerView.text = Icons.ok.rawValue
     case .error:
@@ -128,11 +122,10 @@ class DebugValidationTVC: UITableViewCell {
     }
   }
   
-  func setColors() {
-    guard let hCert = debugSection?.hCert else {
-      return
-    }
-    switch hCert.technicalVerification {
+  private func setupColors() {
+      guard let validator = validator else { return }
+
+    switch validator.technicalVerification {
       case .valid:
         technivalView.backgroundColor = valid
       case .invalid:
@@ -141,7 +134,7 @@ class DebugValidationTVC: UITableViewCell {
         technivalView.backgroundColor = open
     }
 
-    switch hCert.issuerInvalidation {
+    switch validator.issuerInvalidation {
       case .passed:
         issuerView.backgroundColor = valid
       case .error:
@@ -150,7 +143,7 @@ class DebugValidationTVC: UITableViewCell {
         issuerView.backgroundColor = open
     }
 
-    switch hCert.destinationAcceptence {
+    switch validator.destinationAcceptence {
     case .passed:
       destinationView.backgroundColor = valid
     case .error:
@@ -159,7 +152,7 @@ class DebugValidationTVC: UITableViewCell {
       destinationView.backgroundColor = open
     }
 
-    switch hCert.travalerAcceptence {
+    switch validator.travalerAcceptence {
     case .passed:
       travvelerView.backgroundColor = valid
     case .error:
