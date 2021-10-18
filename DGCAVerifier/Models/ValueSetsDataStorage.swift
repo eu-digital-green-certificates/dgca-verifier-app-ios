@@ -87,7 +87,7 @@ extension ValueSetsDataStorage {
   public func getValueSetsForExternalParameters() -> Dictionary<String, [String]> {
     var returnValue = Dictionary<String, [String]>()
     valueSets.forEach { valueSet in
-      if let keys: [String] = Array(valueSet.valueSetValues.keys) as? [String] {
+      if let keys = Array(valueSet.valueSetValues.keys) as? [String] {
         returnValue[valueSet.valueSetId] = keys
       }
     }

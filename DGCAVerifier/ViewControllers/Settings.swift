@@ -45,13 +45,43 @@ class SettingsVC: UINavigationController {
   }
 }
 
-class SettingsTableVC: UITableViewController {
+class SettingsTableVC: UITableViewController, DebugControllerDelegate {
+  
   var loading = false
+
+  @IBOutlet weak var licensesLabelName: UILabel!
+  @IBOutlet weak var privacyLabelName: UILabel!
+    @IBOutlet weak var debugLabelName: UILabel!
+    @IBOutlet weak var debugLabel: UILabel!
 
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    debugLabelName.text = l10n("Debug mode")
+    licensesLabelName.text = l10n("Licenses")
+    privacyLabelName.text = l10n("Privacy Information")
+    updateInterface()
   }
+  
+  private func updateInterface() {
+    if !DebugManager.sharedInstance.isDebugMode {
+      debugLabel.text = l10n("Disabled")
+    } else {
+      switch DebugManager.sharedInstance.debugLevel {
+      case .level1:
+        debugLabel.text = l10n("Level 1")
+      case .level2:
+        debugLabel.text = l10n("Level 2")
+      case .level3:
+        debugLabel.text = l10n("Level 3")
+       }
+    }
+  }
+  
+  func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
+    updateInterface()
+  }
+
   
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     let format = l10n("settings.last-updated")
@@ -127,4 +157,16 @@ class SettingsTableVC: UITableViewController {
   @IBAction func cancelButton() {
     dismiss(animated: true, completion: nil)
   }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case "DebugVC":
+      if let destinationController = segue.destination as? DebugVC {
+        destinationController.delegate = self
+      }
+    default:
+      break
+    }
+  }
+
 }

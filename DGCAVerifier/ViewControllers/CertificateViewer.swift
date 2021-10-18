@@ -63,7 +63,7 @@ class CertificateViewerVC: UIViewController {
   
   var hCert: HCert?
   private var sectionBuilder: SectionBuilder?
-  private var certificateValidity = CertificateValidity.invalid
+  private var certificateValidity: CertificateValidity = .invalid
   private var debugSections = [DebugSectionModel]()
   
   // MARK: View Controller life cycle
@@ -213,7 +213,6 @@ extension CertificateViewerVC: UITableViewDataSource {
           tableView.reloadData()
         }
         cell.setupDebugSection(validity: certificateValidity, bulder: sectionBuilder, reload: reloadHandler, needReload: true)
-
         return cell
       }
       

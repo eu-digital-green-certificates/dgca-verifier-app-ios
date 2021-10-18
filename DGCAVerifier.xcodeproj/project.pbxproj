@@ -75,9 +75,6 @@
 		5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
 		5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
 		5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
-		5CEA55BA26E9E26600269702 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
-		5CEA55BB26E9E26600269702 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
-		5CEA55BC26E9E26600269702 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
 		5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
@@ -122,6 +119,9 @@
 		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
+		D2B70B05271DF251003B0AA6 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D2B70B06271DF252003B0AA6 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D2B70B07271DF253003B0AA6 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
@@ -183,7 +183,7 @@
 		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CertificateViewer.storyboard; sourceTree = "<group>"; };
 		CE345FB526446817003B457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE37B642263867D700DEE13D /* SecureBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBackground.swift; sourceTree = "<group>"; };
-		CE59D1B526428D78004EBDD6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		CE59D1B526428D78004EBDD6 /* Settings.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CE8096D8263B07BB00A65AD6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; };
@@ -599,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */,
+				D2B70B05271DF251003B0AA6 /* context.jsonc in Resources */,
 				5CA450E226E78D990029324E /* InfoCell.xib in Resources */,
 				5CA450BD26E7419F0029324E /* DebugSectionTVC.xib in Resources */,
 				5CA450C526E741BB0029324E /* DebugRawTVC.xib in Resources */,
@@ -612,7 +613,6 @@
 				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 				5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */,
-				5CEA55BA26E9E26600269702 /* context.jsonc in Resources */,
 				5CA450EA26E78DB50029324E /* InfoCellDropDown.xib in Resources */,
 				CE345FAC26446694003B457E /* Settings.storyboard in Resources */,
 			);
@@ -627,8 +627,8 @@
 				5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				5CA450C626E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CE26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
+				D2B70B06271DF252003B0AA6 /* context.jsonc in Resources */,
 				5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */,
-				5CEA55BB26E9E26600269702 /* context.jsonc in Resources */,
 				5CA450DA26E783B20029324E /* DebugGeneralTVC.xib in Resources */,
 				5CA450EB26E78DB50029324E /* InfoCellDropDown.xib in Resources */,
 			);
@@ -643,8 +643,8 @@
 				5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				5CA450C726E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CF26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
+				D2B70B07271DF253003B0AA6 /* context.jsonc in Resources */,
 				5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */,
-				5CEA55BC26E9E26600269702 /* context.jsonc in Resources */,
 				5CA450DB26E783B20029324E /* DebugGeneralTVC.xib in Resources */,
 				5CA450EC26E78DB50029324E /* InfoCellDropDown.xib in Resources */,
 			);

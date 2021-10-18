@@ -30,6 +30,10 @@ import UIKit
 import SwiftDGC
 import SwiftyJSON
 
+protocol DebugControllerDelegate: AnyObject {
+  func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel)
+}
+
 class DebugVC: UIViewController {
 
   private enum Constants {
@@ -43,7 +47,8 @@ class DebugVC: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
   private var countryList = [CountryModel]()
-
+  weak var delegate: DebugControllerDelegate?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -70,24 +75,37 @@ class DebugVC: UIViewController {
     
     setLabelsColor()
   }
+  
   @IBAction func debugSwitchAction(_ sender: Any) {
-    DebugManager.sharedInstance.isDebugMode = debugSwitcher.isOn
+    let isValue = debugSwitcher.isOn
+    DebugManager.sharedInstance.isDebugMode = isValue
+    delegate?.debugControllerDidSelect(isDebugMode: isValue, level: DebugManager.sharedInstance.debugLevel)
   }
+  
   @IBAction func tapOnLabel1(sender: UITapGestureRecognizer) {
     print("tap working")
     DebugManager.sharedInstance.debugLevel = .level1
     setLabelsColor()
+    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+        level: DebugManager.sharedInstance.debugLevel)
   }
+  
   @IBAction func tapOnLabel2(sender: UITapGestureRecognizer) {
     print("tap working")
     DebugManager.sharedInstance.debugLevel = .level2
     setLabelsColor()
+    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+        level: DebugManager.sharedInstance.debugLevel)
   }
+  
   @IBAction func tapOnLabel3(sender: UITapGestureRecognizer) {
     print("tap working")
     DebugManager.sharedInstance.debugLevel = .level3
     setLabelsColor()
+    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+        level: DebugManager.sharedInstance.debugLevel)
   }
+  
   func setLabelsColor() {
     switch DebugManager.sharedInstance.debugLevel {
     case .level1:
