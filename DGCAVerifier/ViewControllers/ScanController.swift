@@ -31,8 +31,11 @@ import SwiftDGC
 import FloatingPanel
 
 class ScanController: SwiftDGC.ScanCertificateController {
-  var presentingViewer: UIViewController?
-
+  private struct Constants {
+    static let showSettingsSegueID = "showSettingsSegueID"
+    static let showCertificateViewer = "showCertificateViewer"
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setVisibleCountrySelection(visible: true)
@@ -85,35 +88,26 @@ class ScanController: SwiftDGC.ScanCertificateController {
     ])
   }
   
-  func presentViewer(for certificate: HCert) {
-    guard presentingViewer == nil,
-      let viewerController = UIStoryboard(name: "CertificateViewer", bundle: nil).instantiateInitialViewController() as?
-        CertificateViewerVC
-    else { return }
-    
-    viewerController.hCert = certificate
-    viewerController.childDismissedDelegate = self
-    showFloatingPanel(for: viewerController)
+  @objc func openSettings() {
+    performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
   }
-  
-  func showFloatingPanel(for controller: UIViewController) {
-    let panelController = FloatingPanelController()
-    panelController.set(contentViewController: controller)
-    panelController.isRemovalInteractionEnabled = true // Let it removable by a swipe-down
-    panelController.layout = FullFloatingPanelLayout()
-    panelController.surfaceView.layer.cornerRadius = 24.0
-    panelController.surfaceView.clipsToBounds = true
-    panelController.delegate = self
-    presentingViewer = controller
-    
-    present(panelController, animated: true, completion: nil)
-    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case Constants.showCertificateViewer:
+      if let destinationController = segue.destination as? CertificateViewerVC,
+          let certificate = sender as? HCert {
+        destinationController.hCert = certificate
+      }
+    default:
+      break
+    }
   }
 }
 
 extension ScanController: ScanCertificateDelegate {
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
-    presentViewer(for: certificate)
+    performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
   }
   
   func disableBackgroundDetection() {
@@ -122,41 +116,6 @@ extension ScanController: ScanCertificateDelegate {
   
   func enableBackgroundDetection() {
     SecureBackground.paused = false
-  }
-}
-
-extension ScanController: CertViewerDelegate {
-  @IBAction func openSettings() {
-    guard presentingViewer == nil,
-      let viewerController = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as? SettingsVC
-    else { return }
-    
-    viewerController.childDismissedDelegate = self
-    showFloatingPanel(for: viewerController)
-  }
-
-  func childDismissed() {
-    presentingViewer = nil
-  }
-}
-
-extension ScanController: FloatingPanelControllerDelegate {
-  func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
-    let pos = location.y / view.bounds.height
-    if pos >= 0.33 {
-      return true
-    }
-    let threshold: CGFloat = 5.0
-    switch fpc.layout.position {
-    case .top:
-        return (velocity.dy <= -threshold)
-    case .left:
-        return (velocity.dx <= -threshold)
-    case .bottom:
-        return (velocity.dy >= threshold)
-    case .right:
-        return (velocity.dx >= threshold)
-    }
   }
 }
 
@@ -172,19 +131,18 @@ extension ScanController {
       print("\(msg)")
       if success, var hCert = HCert(from: msg, applicationType: .wallet) {
         hCert.ruleCountryCode = self?.getSelectedCountryCode()
-        self?.presentViewer(for: hCert)
+        self?.performSegue(withIdentifier: Constants.showCertificateViewer, sender: hCert)
       } else {
         let alertController: UIAlertController = {
             let controller = UIAlertController(title: l10n("error"),
-                                               message: l10n("read.dcc.from.nfc"),
-                                               preferredStyle: .alert)
+                message: l10n("read.dcc.from.nfc"), preferredStyle: .alert)
           let actionRetry = UIAlertAction(title: l10n("retry"), style: .default) { _ in
             self?.scanNFC()
           }
-            controller.addAction(actionRetry)
+          controller.addAction(actionRetry)
           let actionOk = UIAlertAction(title: l10n("ok"), style: .default)
           controller.addAction(actionOk)
-            return controller
+          return controller
         }()
         self?.present(alertController, animated: true)
       }

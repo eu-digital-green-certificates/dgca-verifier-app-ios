@@ -38,13 +38,10 @@ class DebugGeneralTVC: UITableViewCell {
   
   private var needReload = true
   var reload: ReloadBlock?
-  var validator: CertificateValidator?
-
-  private var debugSection: DebugSectionModel? {
-    didSet {
-      setupView()
-    }
-  }
+  private var certificateValidity: CertificateValidity?
+  private var sectionBuilder: SectionBuilder?
+  
+  private var debugSection: DebugSectionModel?
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -57,8 +54,6 @@ class DebugGeneralTVC: UITableViewCell {
   }
   
   private func setupView() {
-    guard debugSection != nil else { return }
-    
     tableView.reloadData()
     tableView.performBatchUpdates({ () -> Void in
     }, completion: { [weak self] _ in
@@ -67,21 +62,25 @@ class DebugGeneralTVC: UITableViewCell {
         self?.tableHeight.constant = self?.tableView.contentSize.height ?? 0
         self?.needReload = true
       }
-        if self?.needReload ?? true {
+        if self?.needReload ?? false {
           self?.reload?()
         }
       })
   }
 
-  public func setupDebugSection(debugSection: DebugSectionModel, needReload: Bool = true) {
+  public func setupDebugSection(validity: CertificateValidity, bulder: SectionBuilder?, reload: ReloadBlock?,
+      needReload: Bool = true) {
+    self.certificateValidity = validity
     self.needReload = needReload
-    self.debugSection = debugSection
+    self.sectionBuilder = bulder
+    self.reload = reload
+    setupView()
   }
 }
 
 extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
   var listItems: [InfoSection] {
-    validator?.infoSection.filter { !$0.isPrivate } ?? []
+    sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,8 +114,8 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
           
         cell.setupCell(with: sectionInfo) { [weak self] state in
           sectionInfo.isExpanded = state
-          if let row = self?.validator?.infoSection.firstIndex(where: {$0.header == sectionInfo.header}) {
-            self?.validator?.infoSection[row] = sectionInfo
+          if let row = self?.sectionBuilder?.infoSection.firstIndex(where: {$0.header == sectionInfo.header}) {
+            self?.sectionBuilder?.infoSection[row] = sectionInfo
           }
           tableView.reloadData()
         }

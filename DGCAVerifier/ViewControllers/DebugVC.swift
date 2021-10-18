@@ -91,23 +91,23 @@ class DebugVC: UIViewController {
   func setLabelsColor() {
     switch DebugManager.sharedInstance.debugLevel {
     case .level1:
-      level1.textColor = .blue
-      level2.textColor = .black
-      level3.textColor = .black
+      level1.textColor = .congressBlue
+      level2.textColor = .charcoalGrey
+      level3.textColor = .charcoalGrey
       level1.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
     case .level2:
-      level1.textColor = .black
-      level2.textColor = .blue
-      level3.textColor = .black
+      level1.textColor = .charcoalGrey
+      level2.textColor = .congressBlue
+      level3.textColor = .charcoalGrey
       level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
     case .level3:
-      level1.textColor = .black
-      level2.textColor = .black
-      level3.textColor = .blue
+      level1.textColor = .charcoalGrey
+      level2.textColor = .charcoalGrey
+      level3.textColor = .congressBlue
       level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)

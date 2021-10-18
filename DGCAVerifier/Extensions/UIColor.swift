@@ -28,9 +28,12 @@
 import UIKit
 
 extension UIColor {
-  static var red: UIColor! { UIColor(named: "red") }
-  static var green: UIColor! { UIColor(named: "green") }
-  static var blue: UIColor! { UIColor(named: "blue") }
-  static var black: UIColor! { UIColor(named: "black") }
-  static var disabledText: UIColor! { UIColor(named: "disabledText") }
+  static var roseRed: UIColor { UIColor(named: "roseRed")! }
+  static var forestGreen: UIColor { UIColor(named: "forestGreen")! }
+  static var congressBlue: UIColor { UIColor(named: "congressBlue")! }
+  static var charcoalGrey: UIColor { UIColor(named: "charcoalGrey")! }
+  static var disabledText: UIColor { UIColor(named: "disabledText")! }
+  static var valid: UIColor { UIColor(named: "valid")! }
+  static var invalid: UIColor! { UIColor(named: "invalid")! }
+  static var open: UIColor { UIColor(named: "open")! }
 }

@@ -30,10 +30,9 @@ import UIKit
 import SwiftDGC
 
 class HomeVC: UIViewController {
-    private enum Constants {
-        static let scannerSegueID = "scannerSegueID"
-    }
-    
+  private enum Constants {
+    static let scannerSegueID = "scannerSegueID"
+  }
   var loaded = false
   
   override func viewDidAppear(_ animated: Bool) {

@@ -27,7 +27,6 @@
 import UIKit
 import SwiftDGC
 import CertLogic
-import FloatingPanel
 import OSLog
 
 let dismissTimeout = 15.0
@@ -43,59 +42,44 @@ let buttonText = [
   HCertValidity.ruleInvalid: l10n("btn.retry")
 ]
 let backgroundColor = [
-  HCertValidity.valid: UIColor(named: "green")!,
-  HCertValidity.invalid: UIColor(named: "red")!,
-  HCertValidity.ruleInvalid: UIColor(named: "yellow")!
+  HCertValidity.valid: UIColor.forestGreen,
+  HCertValidity.invalid: UIColor.roseRed,
+  HCertValidity.ruleInvalid: UIColor.yellow
 ]
+
 class CertificateViewerVC: UIViewController {
+  
+  private struct Constants {
+    static let showSettingsController = "showSettingsController"
+  }
+
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var validityLabel: UILabel!
   @IBOutlet weak var validityImage: UIImageView!
   @IBOutlet weak var headerBackground: UIView!
-  @IBOutlet weak var loadingBackground: UIView!
-  @IBOutlet weak var loadingBackgroundTrailing: NSLayoutConstraint!
   @IBOutlet weak var infoTable: UITableView!
   @IBOutlet weak var dismissButton: UIButton!
   @IBOutlet weak var shareButton: RoundedButton!
   
-  var hCert: HCert? {
-    didSet {
-      if hCert != nil {
-        validator = CertificateValidator(with: hCert!)
-      } else {
-        validator = nil
-      }
-    }
-  }
-  
-  var validator: CertificateValidator?
-  
-  weak var childDismissedDelegate: CertViewerDelegate?
+  var hCert: HCert?
+  private var sectionBuilder: SectionBuilder?
+  private var certificateValidity = CertificateValidity.invalid
   private var debugSections = [DebugSectionModel]()
-  private var needReload = true
   
   // MARK: View Controller life cycle
-  override func viewDidLoad() {
-      super.viewDidLoad()
-      setupInterface()
-  }
-
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-
-    loadingBackgroundTrailing.priority = .init(200)
-    UIView.animate(withDuration: dismissTimeout, delay: 0, options: .curveLinear) {
-      self.view.layoutIfNeeded()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    guard let hCert = hCert else { return }
+    
+    let validator = CertificateValidator(with: hCert)
+    certificateValidity = validator.validate()
+    let builder = SectionBuilder(with: hCert, validity: certificateValidity)
+    builder.makeSections(for: .verifier)
+    if let section = certificateValidity.infoRulesSection {
+      builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
     }
-    DispatchQueue.main.asyncAfter(deadline: .now() + dismissTimeout) { [weak self] in
-      self?.dismiss(animated: true, completion: nil)
-    }
-  }
-
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-
-    childDismissedDelegate?.childDismissed()
+    sectionBuilder = builder
+    setupInterface()
   }
 
   func setupInterface() {
@@ -104,7 +88,7 @@ class CertificateViewerVC: UIViewController {
     let isDebugMode = DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert)
     shareButton.isEnabled = !isDebugMode
     shareButton.isHidden = !isDebugMode
-
+    
     infoTable.dataSource = self
     infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
     infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
@@ -115,16 +99,16 @@ class CertificateViewerVC: UIViewController {
     infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
     
-    loadingBackground.isUserInteractionEnabled = false
     nameLabel.text = hCert.fullName
     
-    let validationResult = validator?.validate() ?? .invalid
+    let validityResult = certificateValidity.allRulesValidity
+      
+    dismissButton.setTitle(buttonText[validityResult], for: .normal)
+    dismissButton.backgroundColor = backgroundColor[validityResult]
+    validityLabel.text = validityResult.l10n
+    headerBackground.backgroundColor = backgroundColor[validityResult]
+    validityImage.image = validityIcon[validityResult]
     
-    dismissButton.setTitle(buttonText[validationResult], for: .normal)
-    dismissButton.backgroundColor = backgroundColor[validationResult]
-    validityLabel.text = validationResult.l10n
-    headerBackground.backgroundColor = backgroundColor[validationResult]
-    validityImage.image = validityIcon[validationResult]
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .verification))
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .general))
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .raw))
@@ -134,13 +118,14 @@ class CertificateViewerVC: UIViewController {
   }
   
   // MARK: Actions
-  @IBAction func settingsButton() {
-    
-    dismiss(animated: true) {
-      self.childDismissedDelegate?.openSettings()
-    }
+  @IBAction func settingsButtonAction() {
+      self.performSegue(withIdentifier: Constants.showSettingsController, sender: nil)
   }
   
+  @IBAction func dissmissButtonAction() {
+    dismiss(animated: true, completion: nil)
+  }
+
   @IBAction func shareButtonAction(_ sender: Any) {
     guard let cert = hCert else { return }
     
@@ -150,7 +135,6 @@ class CertificateViewerVC: UIViewController {
         var filesToShare = [Any]()
         filesToShare.append(url)
         let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-
         self.present(activityViewController, animated: true, completion: nil)
         
       case .failure(let error):
@@ -163,7 +147,7 @@ class CertificateViewerVC: UIViewController {
 // MARK: UITableViewDataSource
 extension CertificateViewerVC: UITableViewDataSource {
   var listItems: [InfoSection] {
-    return validator?.infoSection.filter {!$0.isPrivate} ?? []
+    return sectionBuilder?.infoSection.filter {!$0.isPrivate} ?? []
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -210,7 +194,7 @@ extension CertificateViewerVC: UITableViewDataSource {
       switch debugSection.sectionType {
       case .raw:
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugRawTVC", for: indexPath) as?
-            DebugRawTVC else { return UITableViewCell() }
+          DebugRawTVC else { return UITableViewCell() }
         
           cell.setDebugSection(debugSection: debugSection)
           return cell
@@ -218,21 +202,21 @@ extension CertificateViewerVC: UITableViewDataSource {
       case .verification:
         guard let cell  = tableView.dequeueReusableCell(withIdentifier: "DebugValidationTVC", for: indexPath) as?
             DebugValidationTVC else { return UITableViewCell() }
-        cell.validator = self.validator
-        cell.setupDebugSection(debugSection: debugSection)
+        cell.setupCell(with: certificateValidity)
         return cell
         
       case .general:
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugGeneralTVC", for: indexPath) as?
             DebugGeneralTVC else { return UITableViewCell() }
         
-        cell.validator = self.validator
-        cell.reload = {
+        let reloadHandler = {
           tableView.reloadData()
         }
-        cell.setupDebugSection(debugSection: debugSection, needReload: self.needReload)
+        cell.setupDebugSection(validity: certificateValidity, bulder: sectionBuilder, reload: reloadHandler, needReload: true)
+
         return cell
       }
+      
     } else {
       var infoSection: InfoSection = listItems[indexPath.section]
       if infoSection.sectionItems.count == 0 {
@@ -249,8 +233,8 @@ extension CertificateViewerVC: UITableViewDataSource {
           
           cell.setupCell(with: infoSection) { [weak self] state in
             infoSection.isExpanded = state
-            if let row = self?.validator?.infoSection.firstIndex(where: {$0.header == infoSection.header}) {
-              self?.validator?.infoSection[row] = infoSection
+            if let row = self?.sectionBuilder?.infoSection.firstIndex(where: {$0.header == infoSection.header}) {
+              self?.sectionBuilder?.infoSection[row] = infoSection
             }
             tableView.reloadData()
           }

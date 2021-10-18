@@ -48,13 +48,7 @@ class DebugSectionTVC: UITableViewCell {
     // Initialization code
     setupView()
   }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
-    
+      
   @IBAction func expandAction(_ sender: Any) {
     debugSection?.isExpanded = !(debugSection?.isExpanded ?? false)
     expandCallback?(debugSection)
@@ -64,7 +58,6 @@ class DebugSectionTVC: UITableViewCell {
       expandButton.setTitle("+", for: .normal)
     }
   }
-  
   
   private func setupView() {
     guard let debugSection = debugSection else {

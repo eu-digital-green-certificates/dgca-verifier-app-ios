@@ -196,7 +196,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="6ZX-Be-rar">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="GAN-DV-Te7">
-                            <color key="tintColor" name="blue"/>
+                            <color key="tintColor" name="congressBlue"/>
                             <connections>
                                 <action selector="cancelButton" destination="3yC-8G-HqR" id="sf2-iC-tyY"/>
                             </connections>
@@ -502,6 +502,9 @@
     <resources>
         <image name="spinner" width="22" height="22"/>
         <namedColor name="blue">
+            <color red="0.0" green="0.2669999897480011" blue="0.57999998331069946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="congressBlue">
             <color red="0.0" green="0.2669999897480011" blue="0.57999998331069946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">

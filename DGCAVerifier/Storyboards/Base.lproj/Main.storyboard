@@ -20,10 +20,30 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="DC8-2u-JQC"/>
+                    <connections>
+                        <segue destination="Bq5-EK-ZXe" kind="presentation" identifier="showSettingsSegueID" id="AUB-ge-vqn"/>
+                        <segue destination="aag-vh-0jp" kind="presentation" identifier="showCertificateViewer" id="6bX-o3-GKF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133" y="851"/>
+            <point key="canvasLocation" x="322" y="106"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="PfS-io-eWH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="Bq5-EK-ZXe" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dy8-lS-KeY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1288" y="-2"/>
+        </scene>
+        <!--CertificateViewer-->
+        <scene sceneID="5ro-Ce-zs5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CertificateViewer" id="aag-vh-0jp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7CM-GC-6sP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1374" y="266"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ET7-36-BP0">

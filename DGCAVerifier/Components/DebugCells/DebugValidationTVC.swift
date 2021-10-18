@@ -34,10 +34,6 @@ enum Icons: String {
   case error = "\u{f05e}"
 }
 
-let valid = UIColor(red: 183.0/255.0, green: 190.0/255.0, blue: 77.0/255.0, alpha: 1.0)
-let invalid = UIColor(red: 207.0/255.0, green: 28.0/255.0, blue: 4.0/255.0, alpha: 1.0)
-let open = UIColor(red: 237.0/255.0, green: 210.0/255.0, blue: 65.0/255.0, alpha: 1.0)
-
 class DebugValidationTVC: UITableViewCell {
 
   @IBOutlet weak var techninalLabel: UILabel!
@@ -50,18 +46,16 @@ class DebugValidationTVC: UITableViewCell {
   @IBOutlet weak var destinationView: UILabel!
   @IBOutlet weak var travvelerView: UILabel!
   
-  private var debugSection: DebugSectionModel? {
-    didSet {
-      setupView()
-    }
-  }
-  var validator: CertificateValidator?
+  private var certificateValidity: CertificateValidity!
       
-  func setupDebugSection(debugSection: DebugSectionModel) {
-    self.debugSection = debugSection
+  func setupCell(with validity: CertificateValidity) {
+    self.certificateValidity = validity
+    setupView()
+    setupIcons()
+    setupColors()
   }
   
-  func setupView() {
+  private func setupView() {
     technivalView.layer.cornerRadius = 15
     technivalView.layer.masksToBounds = true
     issuerView.layer.cornerRadius = 15
@@ -78,14 +72,10 @@ class DebugValidationTVC: UITableViewCell {
     issuerView.layer.borderColor = UIColor.brown.cgColor
     destinationView.layer.borderColor = UIColor.brown.cgColor
     travvelerView.layer.borderColor = UIColor.brown.cgColor
-    
-    setupIcons()
-    setupColors()
   }
   
   private func setupIcons() {
-    guard let validator = validator else { return }
-    switch validator.technicalVerification {
+    switch certificateValidity.technicalValidity {
       case .valid:
         technivalView.text = Icons.ok.rawValue
       case .invalid:
@@ -94,7 +84,7 @@ class DebugValidationTVC: UITableViewCell {
         technivalView.text = Icons.limited.rawValue
     }
 
-    switch validator.issuerInvalidation {
+    switch certificateValidity.issuerInvalidation {
       case .passed:
         issuerView.text = Icons.ok.rawValue
       case .error:
@@ -103,7 +93,7 @@ class DebugValidationTVC: UITableViewCell {
         issuerView.text = Icons.limited.rawValue
     }
 
-    switch validator.destinationAcceptence {
+    switch certificateValidity.destinationAcceptence {
     case .passed:
       destinationView.text = Icons.ok.rawValue
     case .error:
@@ -112,7 +102,7 @@ class DebugValidationTVC: UITableViewCell {
       destinationView.text = Icons.limited.rawValue
     }
 
-    switch validator.travalerAcceptence {
+    switch certificateValidity.travalerAcceptence {
     case .passed:
       travvelerView.text = Icons.ok.rawValue
     case .error:
@@ -123,42 +113,40 @@ class DebugValidationTVC: UITableViewCell {
   }
   
   private func setupColors() {
-      guard let validator = validator else { return }
-
-    switch validator.technicalVerification {
+    switch certificateValidity.technicalValidity {
       case .valid:
-        technivalView.backgroundColor = valid
+      technivalView.backgroundColor = UIColor.valid
       case .invalid:
-        technivalView.backgroundColor = invalid
+      technivalView.backgroundColor = UIColor.invalid
       case .ruleInvalid:
-        technivalView.backgroundColor = open
+      technivalView.backgroundColor = UIColor.open
     }
 
-    switch validator.issuerInvalidation {
+    switch certificateValidity.issuerInvalidation {
       case .passed:
-        issuerView.backgroundColor = valid
+      issuerView.backgroundColor = UIColor.valid
       case .error:
-        issuerView.backgroundColor = invalid
+      issuerView.backgroundColor = UIColor.invalid
       case .open:
-        issuerView.backgroundColor = open
+      issuerView.backgroundColor = UIColor.open
     }
 
-    switch validator.destinationAcceptence {
+    switch certificateValidity.destinationAcceptence {
     case .passed:
-      destinationView.backgroundColor = valid
+      destinationView.backgroundColor = UIColor.valid
     case .error:
-      destinationView.backgroundColor = invalid
+      destinationView.backgroundColor = UIColor.invalid
     case .open:
-      destinationView.backgroundColor = open
+      destinationView.backgroundColor = UIColor.open
     }
 
-    switch validator.travalerAcceptence {
+    switch certificateValidity.travalerAcceptence {
     case .passed:
-      travvelerView.backgroundColor = valid
+      travvelerView.backgroundColor = UIColor.valid
     case .error:
-      travvelerView.backgroundColor = invalid
+      travvelerView.backgroundColor = UIColor.invalid
     case .open:
-      travvelerView.backgroundColor = open
+      travvelerView.backgroundColor = UIColor.open
     }
   }
 }
