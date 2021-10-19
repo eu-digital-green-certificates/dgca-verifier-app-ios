@@ -146,7 +146,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ghT-Ae-92i"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="YKQ-nV-gL0" firstAttribute="top" secondItem="ghT-Ae-92i" secondAttribute="top" constant="24" id="6de-XA-YN7"/>
                             <constraint firstAttribute="trailing" secondItem="yEe-AH-rsr" secondAttribute="trailing" id="6hb-Qt-RV8"/>
@@ -205,6 +205,9 @@
         <namedColor name="forestGreen">
             <color red="0.27450980392156865" green="0.47450980392156861" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -35,7 +35,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Upg-ED-yGr">
                                 <rect key="frame" x="24" y="39" width="30" height="30"/>
-                                <color key="backgroundColor" name="green"/>
+                                <color key="backgroundColor" name="forestGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="N02-Pc-DVN"/>
                                     <constraint firstAttribute="height" constant="30" id="pQV-RU-rJp"/>
@@ -68,7 +68,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLm-I4-KXO">
                                 <rect key="frame" x="23.5" y="39" width="30" height="30"/>
-                                <color key="backgroundColor" name="green"/>
+                                <color key="backgroundColor" name="forestGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PPr-rm-yhZ"/>
                                     <constraint firstAttribute="width" constant="30" id="mac-Vm-coP"/>
@@ -100,7 +100,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRy-43-acW">
                                 <rect key="frame" x="24" y="39" width="30" height="30"/>
-                                <color key="backgroundColor" name="green"/>
+                                <color key="backgroundColor" name="forestGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="cpz-20-AEb"/>
                                     <constraint firstAttribute="height" constant="30" id="l4F-IZ-OVF"/>
@@ -132,7 +132,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joO-VU-Acp">
                                 <rect key="frame" x="23.5" y="39" width="30" height="30"/>
-                                <color key="backgroundColor" name="green"/>
+                                <color key="backgroundColor" name="forestGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3cu-Xc-OhU"/>
                                     <constraint firstAttribute="width" constant="30" id="nTC-tw-Wdh"/>
@@ -198,8 +198,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="green">
-            <color red="0.27500000596046448" green="0.4779999852180481" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="forestGreen">
+            <color red="0.27450980392156865" green="0.47450980392156861" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

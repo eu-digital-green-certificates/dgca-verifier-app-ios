@@ -26,7 +26,6 @@
 
 import Foundation
 import UIKit
-import FloatingPanel
 import SwiftDGC
 
 class SettingsVC: UINavigationController {
@@ -51,10 +50,9 @@ class SettingsTableVC: UITableViewController, DebugControllerDelegate {
 
   @IBOutlet weak var licensesLabelName: UILabel!
   @IBOutlet weak var privacyLabelName: UILabel!
-    @IBOutlet weak var debugLabelName: UILabel!
-    @IBOutlet weak var debugLabel: UILabel!
+  @IBOutlet weak var debugLabelName: UILabel!
+  @IBOutlet weak var debugLabel: UILabel!
 
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     debugLabelName.text = l10n("Debug mode")
@@ -82,7 +80,6 @@ class SettingsTableVC: UITableViewController, DebugControllerDelegate {
     updateInterface()
   }
 
-  
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     let format = l10n("settings.last-updated")
 
@@ -168,5 +165,4 @@ class SettingsTableVC: UITableViewController, DebugControllerDelegate {
       break
     }
   }
-
 }

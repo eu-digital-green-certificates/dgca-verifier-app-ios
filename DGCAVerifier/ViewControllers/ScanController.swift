@@ -28,7 +28,6 @@
 
 import UIKit
 import SwiftDGC
-import FloatingPanel
 
 class ScanController: SwiftDGC.ScanCertificateController {
   private struct Constants {

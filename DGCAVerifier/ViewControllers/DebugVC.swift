@@ -55,9 +55,7 @@ class DebugVC: UIViewController {
     tableView.dataSource = self
     tableView.delegate = self
     
-    self.countryList = CountryDataStorage.sharedInstance.countryCodes.sorted(by: { model1, model2 in
-      model1.name < model2.name
-    })
+    self.countryList = CountryDataStorage.sharedInstance.countryCodes.sorted(by: { $0.name < $1.name })
     self.tableView.reloadData()
     debugSwitcher.isOn = DebugManager.sharedInstance.isDebugMode
     

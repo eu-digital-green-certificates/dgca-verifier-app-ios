@@ -69,11 +69,7 @@ class HomeVC: UIViewController {
     }
     loadingGroup.enter()
     LocalData.initialize {
-      DispatchQueue.main.async { [weak self] in
-        guard let self = self else {
-          loadingGroup.leave()
-          return
-        }
+      DispatchQueue.main.async { [unowned self] in
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
         SecureBackground.image = renderer.image { rendererContext in
           self.view.layer.render(in: rendererContext.cgContext)
@@ -82,8 +78,8 @@ class HomeVC: UIViewController {
         loadingGroup.leave()
       }
     }
-    loadingGroup.notify(queue: .main) { [weak self] in
-      self?.loadComplete()
+    loadingGroup.notify(queue: .main) { [unowned self] in
+      self.loadComplete()
     }
   }
 

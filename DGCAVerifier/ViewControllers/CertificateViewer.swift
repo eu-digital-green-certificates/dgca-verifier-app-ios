@@ -29,8 +29,6 @@ import SwiftDGC
 import CertLogic
 import OSLog
 
-let dismissTimeout = 15.0
-
 let validityIcon = [
   HCertValidity.valid: UIImage(named: "check")!,
   HCertValidity.invalid: UIImage(named: "error")!,
@@ -241,7 +239,7 @@ extension CertificateViewerVC: UITableViewDataSource {
           
         } else {
           guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath) as?
-              RuleErrorTVC else { return UITableViewCell() }
+                  RuleErrorTVC else { return UITableViewCell() }
           
           let item = infoSection.sectionItems[indexPath.row - 1]
           cell.setupCell(with: item)

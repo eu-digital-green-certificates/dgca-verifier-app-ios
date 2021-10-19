@@ -98,7 +98,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eo3-Vz-9CR"/>
-                        <color key="backgroundColor" name="blue"/>
+                        <color key="backgroundColor" name="congressBlue"/>
                         <constraints>
                             <constraint firstItem="SJI-m9-dcF" firstAttribute="top" secondItem="U1k-Fz-tlt" secondAttribute="bottom" constant="8" id="6jC-ko-79y"/>
                             <constraint firstAttribute="trailing" secondItem="SnU-NM-uwu" secondAttribute="trailing" id="Agf-JR-qgn"/>
@@ -129,8 +129,8 @@
     <resources>
         <image name="EU_logo" width="72" height="48"/>
         <image name="verifier_icon" width="112" height="112"/>
-        <namedColor name="blue">
-            <color red="0.0" green="0.2669999897480011" blue="0.57999998331069946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="congressBlue">
+            <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
