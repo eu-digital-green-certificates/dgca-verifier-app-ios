@@ -52,7 +52,7 @@ class ScanController: SwiftDGC.ScanCertificateController {
   
   private func setupSettingsButton() -> UIButton {
     let settingsButton = UIButton(frame: .zero)
-    settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
+    settingsButton.addTarget(self, action: #selector(openSettingsController), for: .touchUpInside)
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
     settingsButton.setBackgroundImage(UIImage(named: "gear_white"), for: .normal)
     view.addSubview(settingsButton)
@@ -87,7 +87,7 @@ class ScanController: SwiftDGC.ScanCertificateController {
     ])
   }
   
-  @objc func openSettings() {
+  @objc func openSettingsController() {
     performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
   }
 
@@ -105,6 +105,10 @@ class ScanController: SwiftDGC.ScanCertificateController {
 }
 
 extension ScanController: ScanCertificateDelegate {
+  func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError) {
+    self.showInfoAlert(withTitle: l10n("err.barcode"), message: l10n("err.misc"))
+  }
+  
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
     performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
   }

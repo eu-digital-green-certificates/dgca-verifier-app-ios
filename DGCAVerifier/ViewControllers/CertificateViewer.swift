@@ -65,6 +65,20 @@ class CertificateViewerVC: UIViewController {
   private var debugSections = [DebugSectionModel]()
   
   // MARK: View Controller life cycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    infoTable.dataSource = self
+    infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
+    infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
+    infoTable.register(UINib(nibName: "RuleErrorTVC", bundle: nil), forCellReuseIdentifier: "RuleErrorTVC")
+    infoTable.register(UINib(nibName: "DebugSectionTVC", bundle: nil), forCellReuseIdentifier: "DebugSectionTVC")
+    infoTable.register(UINib(nibName: "DebugRawTVC", bundle: nil), forCellReuseIdentifier: "DebugRawTVC")
+    infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
+    infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
+    infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     guard let hCert = hCert else { return }
@@ -87,16 +101,6 @@ class CertificateViewerVC: UIViewController {
     shareButton.isEnabled = !isDebugMode
     shareButton.isHidden = !isDebugMode
     
-    infoTable.dataSource = self
-    infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
-    infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
-    infoTable.register(UINib(nibName: "RuleErrorTVC", bundle: nil), forCellReuseIdentifier: "RuleErrorTVC")
-    infoTable.register(UINib(nibName: "DebugSectionTVC", bundle: nil), forCellReuseIdentifier: "DebugSectionTVC")
-    infoTable.register(UINib(nibName: "DebugRawTVC", bundle: nil), forCellReuseIdentifier: "DebugRawTVC")
-    infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
-    infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
-    infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
-    
     nameLabel.text = hCert.fullName
     
     let validityResult = certificateValidity.allRulesValidity
@@ -107,6 +111,7 @@ class CertificateViewerVC: UIViewController {
     headerBackground.backgroundColor = backgroundColor[validityResult]
     validityImage.image = validityIcon[validityResult]
     
+    debugSections.removeAll()
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .verification))
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .general))
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .raw))
@@ -219,7 +224,6 @@ extension CertificateViewerVC: UITableViewDataSource {
       if infoSection.sectionItems.count == 0 {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell",
           for: indexPath) as? InfoCell else { return UITableViewCell() }
-
         cell.setupCell(with: infoSection)
         return cell
         
@@ -227,7 +231,6 @@ extension CertificateViewerVC: UITableViewDataSource {
         if indexPath.row == 0 {
           guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCellDropDown", for: indexPath) as?
               InfoCellDropDown else { return UITableViewCell() }
-          
           cell.setupCell(with: infoSection) { [weak self] state in
             infoSection.isExpanded = state
             if let row = self?.sectionBuilder?.infoSection.firstIndex(where: {$0.header == infoSection.header}) {
@@ -239,8 +242,7 @@ extension CertificateViewerVC: UITableViewDataSource {
           
         } else {
           guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath) as?
-                  RuleErrorTVC else { return UITableViewCell() }
-          
+              RuleErrorTVC else { return UITableViewCell() }
           let item = infoSection.sectionItems[indexPath.row - 1]
           cell.setupCell(with: item)
           return cell

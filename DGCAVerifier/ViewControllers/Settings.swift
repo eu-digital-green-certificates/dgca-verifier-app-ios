@@ -28,22 +28,6 @@ import Foundation
 import UIKit
 import SwiftDGC
 
-class SettingsVC: UINavigationController {
-  weak var childDismissedDelegate: CertViewerDelegate?
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    additionalSafeAreaInsets.top = 16.0
-  }
-
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-
-    childDismissedDelegate?.childDismissed()
-  }
-}
-
 class SettingsTableVC: UITableViewController, DebugControllerDelegate {
   
   var loading = false
