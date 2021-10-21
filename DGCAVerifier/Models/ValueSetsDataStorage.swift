@@ -61,19 +61,18 @@ struct ValueSetsDataStorage: Codable {
   public mutating func deleteValueSetWithHash(hash: String) {
     self.valueSets = self.valueSets.filter { $0.hash != hash }
   }
+    
   public func isValueSetExistWithHash(hash: String) -> Bool {
     let list = valueSets
-    return list.contains(where: { valueSet in
-      valueSet.hash == hash
-    })
+    return list.contains(where: { $0.hash == hash })
   }
+    
   static let storage = SecureStorage<ValueSetsDataStorage>(fileName: "valueSets_secure")
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: ValueSetsDataStorage.sharedInstance) { success in
-      guard let result = success else {
-        return
-      }
+      guard let result = success else { return }
+        
       let format = l10n("log.valueSets")
       print(String.localizedStringWithFormat(format, result.valueSets.count))
       ValueSetsDataStorage.sharedInstance = result
@@ -87,9 +86,8 @@ extension ValueSetsDataStorage {
   public func getValueSetsForExternalParameters() -> Dictionary<String, [String]> {
     var returnValue = Dictionary<String, [String]>()
     valueSets.forEach { valueSet in
-      if let keys = Array(valueSet.valueSetValues.keys) as? [String] {
+        let keys = Array(valueSet.valueSetValues.keys)
         returnValue[valueSet.valueSetId] = keys
-      }
     }
     return returnValue
   }

@@ -83,7 +83,6 @@
 		5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEA55C426EF59D600269702 /* ZipManager.swift */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */; };
-		CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
 		CE345FAC26446694003B457E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
@@ -96,10 +95,8 @@
 		CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912F42634C60E00CB92AF /* GatewayConnection.swift */; };
 		CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE8912FA2634C6B900CB92AF /* Alamofire */; };
 		CE891305263581D900CB92AF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* Home.swift */; };
-		CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */; };
 		CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EB261F8D2700715333 /* AppDelegate.swift */; };
 		CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */; };
-		CEA6D6F0261F8D2700715333 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D6EF261F8D2700715333 /* ScanController.swift */; };
 		CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F1261F8D2700715333 /* Main.storyboard */; };
 		CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F4261F8D2900715333 /* Assets.xcassets */; };
 		CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
@@ -109,6 +106,14 @@
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
 		D23EF79E272026A90097D82B /* CountryDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataStorage.swift */; };
 		D23EF79F272026AA0097D82B /* CountryDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataStorage.swift */; };
+		D23EF7A8272067E00097D82B /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
+		D23EF7A9272067E00097D82B /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
+		D23EF7AA272067F80097D82B /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
+		D23EF7AB272067F80097D82B /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
+		D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
+		D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
+		D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
+		D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
@@ -170,7 +175,6 @@
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewer.swift; sourceTree = "<group>"; tabWidth = 2; };
-		CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE1D1EF5263597A2004C8919 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
@@ -182,12 +186,10 @@
 		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; };
 		CE891304263581D900CB92AF /* Home.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; tabWidth = 2; };
-		CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		CEA1556F262F79DE0024B7AC /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DGCAVerifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6EB261F8D2700715333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA6D6ED261F8D2700715333 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CEA6D6EF261F8D2700715333 /* ScanController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CEA6D6F2261F8D2700715333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEA6D6F4261F8D2900715333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEA6D6F7261F8D2900715333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -201,6 +203,8 @@
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
+		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
+		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
@@ -335,7 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				CE13CF09262DCDDA0070C80E /* CertificateViewer.swift */,
-				CEA6D6EF261F8D2700715333 /* ScanController.swift */,
+				D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */,
 				CE891304263581D900CB92AF /* Home.swift */,
 				CE59D1B526428D78004EBDD6 /* Settings.swift */,
 				DA793257265BBFB50043BA06 /* LicenseVC.swift */,
@@ -349,9 +353,7 @@
 			children = (
 				5CA450DC26E78D850029324E /* Info */,
 				5CA450B726E741820029324E /* DebugCells */,
-				CE13CF0E262DD0D80070C80E /* FullFloatingPanelLayout.swift */,
 				CE13CF22262DDF810070C80E /* RoundedButton.swift */,
-				CEA1556A262F784E0024B7AC /* SelfSizedTableView.swift */,
 				CEA1556F262F79DE0024B7AC /* InfoCell.swift */,
 				5C17C8DE26942FCA002AA34D /* InfoCellDropDown.swift */,
 				DA793259265BC00F0043BA06 /* LicenseCell.swift */,
@@ -383,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
+				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
 				5C2E51252681E50700712521 /* CountryDataStorage.swift */,
 				5C2E51272682152F00712521 /* RulesDataStorage.swift */,
 				5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */,
@@ -667,8 +670,6 @@
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
-				CE13CF0F262DD0D80070C80E /* FullFloatingPanelLayout.swift in Sources */,
-				CEA1556B262F784E0024B7AC /* SelfSizedTableView.swift in Sources */,
 				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
@@ -676,11 +677,11 @@
 				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
 				5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */,
 				5CA450BA26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
-				CEA6D6F0261F8D2700715333 /* ScanController.swift in Sources */,
 				5CA450CA26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
 				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
 				5CA450D626E783B20029324E /* DebugGeneralTVC.swift in Sources */,
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
+				D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */,
 				5CA450E726E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */,
 				5CA450AD26E0F4C20029324E /* DebugTVC.swift in Sources */,
@@ -691,6 +692,7 @@
 				5CA450A626E0BA640029324E /* DebugVC.swift in Sources */,
 				5C2E51262681E50700712521 /* CountryDataStorage.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
+				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,
 				5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
 				5CA450C226E741BB0029324E /* DebugRawTVC.swift in Sources */,
 				5CA450DF26E78D990029324E /* InfoCell.swift in Sources */,
@@ -703,6 +705,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */,
 				5CA450BB26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
 				5CA450A726E0BA640029324E /* DebugVC.swift in Sources */,
 				5CA4509D26DCCA770029324E /* NFCHelper.swift in Sources */,
@@ -714,11 +717,13 @@
 				D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */,
 				5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */,
+				D23EF7A8272067E00097D82B /* LocalData.swift in Sources */,
 				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawTVC.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 				5CA450AE26E0F4C20029324E /* DebugTVC.swift in Sources */,
 				D23EF79E272026A90097D82B /* CountryDataStorage.swift in Sources */,
+				D23EF7AA272067F80097D82B /* ValueSetsDataStorage.swift in Sources */,
 				5CA450E826E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				5CA450B526E605710029324E /* DebugManager.swift in Sources */,
 				5CA450E026E78D990029324E /* InfoCell.swift in Sources */,
@@ -733,6 +738,7 @@
 				5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA450BC26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
+				D23EF7AB272067F80097D82B /* ValueSetsDataStorage.swift in Sources */,
 				5CA4509E26DCCA770029324E /* NFCHelper.swift in Sources */,
 				5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
 				5CA450B626E605710029324E /* DebugManager.swift in Sources */,
@@ -741,7 +747,9 @@
 				D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				5C2E512A2682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
+				D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
+				D23EF7A9272067E00097D82B /* LocalData.swift in Sources */,
 				D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */,
 				D23EF79F272026AA0097D82B /* CountryDataStorage.swift in Sources */,
 				5CA450A826E0BA640029324E /* DebugVC.swift in Sources */,

@@ -204,7 +204,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="6ZX-Be-rar">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="GAN-DV-Te7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="GAN-DV-Te7">
                             <color key="tintColor" name="congressBlue"/>
                             <connections>
                                 <action selector="cancelButton" destination="3yC-8G-HqR" id="sf2-iC-tyY"/>

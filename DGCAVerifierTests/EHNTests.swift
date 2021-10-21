@@ -65,7 +65,7 @@ class EHNTests: XCTestCase {
         let yNum = (elem["coord"] as? [String])?[1]
       {
         print("We know this KID - check if this sig works...")
-        if COSE.verify(data, with: xNum, and: yNum) {
+        if COSE.verify(data, with: xNum) && COSE.verify(data, with: yNum){
           print("All is well! Payload: ", payload)
           return
         }

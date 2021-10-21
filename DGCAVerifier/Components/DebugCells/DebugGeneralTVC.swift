@@ -38,7 +38,7 @@ class DebugGeneralTVC: UITableViewCell {
   
   private var needReload = true
   var reload: ReloadBlock?
-  private var certificateValidity: CertificateValidity?
+  private var validityState: ValidityState?
   private var sectionBuilder: SectionBuilder?
   
   private var debugSection: DebugSectionModel?
@@ -68,9 +68,9 @@ class DebugGeneralTVC: UITableViewCell {
       })
   }
 
-  public func setupDebugSection(validity: CertificateValidity, bulder: SectionBuilder?, reload: ReloadBlock?,
+  public func setupDebugSection(validity: ValidityState, bulder: SectionBuilder?, reload: ReloadBlock?,
       needReload: Bool = true) {
-    self.certificateValidity = validity
+    self.validityState = validity
     self.needReload = needReload
     self.sectionBuilder = bulder
     self.reload = reload

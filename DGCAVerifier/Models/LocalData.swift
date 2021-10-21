@@ -82,7 +82,7 @@ struct LocalData: Codable {
       completion()
       //GatewayConnection.fetchContext()
     }
-    HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+    VerificationManager.sharedManager.publicKeyStorageDelegate = LocalDataDelegate.instance
   }
 
   var versionedConfig: JSON {

@@ -61,17 +61,18 @@ struct RulesDataStorage: Codable {
   public mutating func deleteRuleWithHash(hash: String) {
     self.rules = self.rules.filter { $0.hash != hash }
   }
+    
   public func isRuleExistWithHash(hash: String) -> Bool {
     let list = rules
     return list.contains(where: { rule in
       rule.hash == hash
     })
   }
+    
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: RulesDataStorage.sharedInstance) { success in
-      guard let result = success else {
-        return
-      }
+      guard let result = success else { return }
+        
       let format = l10n("log.rules")
       print(String.localizedStringWithFormat(format, result.rules.count))
       RulesDataStorage.sharedInstance = result

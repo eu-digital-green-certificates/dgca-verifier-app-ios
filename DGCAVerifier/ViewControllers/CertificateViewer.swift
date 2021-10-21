@@ -61,7 +61,7 @@ class CertificateViewerVC: UIViewController {
   
   var hCert: HCert?
   private var sectionBuilder: SectionBuilder?
-  private var certificateValidity: CertificateValidity = .invalid
+  private var validityState: ValidityState = .invalid
   private var debugSections = [DebugSectionModel]()
   
   // MARK: View Controller life cycle
@@ -84,10 +84,10 @@ class CertificateViewerVC: UIViewController {
     guard let hCert = hCert else { return }
     
     let validator = CertificateValidator(with: hCert)
-    certificateValidity = validator.validate()
-    let builder = SectionBuilder(with: hCert, validity: certificateValidity)
+    validityState = validator.validate()
+    let builder = SectionBuilder(with: hCert, validity: validityState)
     builder.makeSections(for: .verifier)
-    if let section = certificateValidity.infoRulesSection {
+    if let section = validityState.infoRulesSection {
       builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
     }
     sectionBuilder = builder
@@ -103,7 +103,7 @@ class CertificateViewerVC: UIViewController {
     
     nameLabel.text = hCert.fullName
     
-    let validityResult = certificateValidity.allRulesValidity
+    let validityResult = validityState.allRulesValidity
       
     dismissButton.setTitle(buttonText[validityResult], for: .normal)
     dismissButton.backgroundColor = backgroundColor[validityResult]
@@ -205,7 +205,7 @@ extension CertificateViewerVC: UITableViewDataSource {
       case .verification:
         guard let cell  = tableView.dequeueReusableCell(withIdentifier: "DebugValidationTVC", for: indexPath) as?
             DebugValidationTVC else { return UITableViewCell() }
-        cell.setupCell(with: certificateValidity)
+        cell.setupCell(with: validityState)
         return cell
         
       case .general:
@@ -215,7 +215,7 @@ extension CertificateViewerVC: UITableViewDataSource {
         let reloadHandler = {
           tableView.reloadData()
         }
-        cell.setupDebugSection(validity: certificateValidity, bulder: sectionBuilder, reload: reloadHandler, needReload: true)
+        cell.setupDebugSection(validity: validityState, bulder: sectionBuilder, reload: reloadHandler, needReload: true)
         return cell
       }
       

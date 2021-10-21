@@ -27,6 +27,7 @@
         
 
 import UIKit
+import SwiftDGC
 
 enum Icons: String {
   case ok = "\u{f00c}"
@@ -46,10 +47,10 @@ class DebugValidationTVC: UITableViewCell {
   @IBOutlet weak var destinationView: UILabel!
   @IBOutlet weak var travvelerView: UILabel!
   
-  private var certificateValidity: CertificateValidity!
+  private var validityState: ValidityState!
       
-  func setupCell(with validity: CertificateValidity) {
-    self.certificateValidity = validity
+  func setupCell(with validity: ValidityState) {
+    self.validityState = validity
     setupView()
     setupIcons()
     setupColors()
@@ -75,7 +76,7 @@ class DebugValidationTVC: UITableViewCell {
   }
   
   private func setupIcons() {
-    switch certificateValidity.technicalValidity {
+    switch validityState.technicalValidity {
       case .valid:
         technivalView.text = Icons.ok.rawValue
       case .invalid:
@@ -84,7 +85,7 @@ class DebugValidationTVC: UITableViewCell {
         technivalView.text = Icons.limited.rawValue
     }
 
-    switch certificateValidity.issuerInvalidation {
+    switch validityState.issuerInvalidation {
       case .passed:
         issuerView.text = Icons.ok.rawValue
       case .error:
@@ -93,7 +94,7 @@ class DebugValidationTVC: UITableViewCell {
         issuerView.text = Icons.limited.rawValue
     }
 
-    switch certificateValidity.destinationAcceptence {
+    switch validityState.destinationAcceptence {
     case .passed:
       destinationView.text = Icons.ok.rawValue
     case .error:
@@ -102,7 +103,7 @@ class DebugValidationTVC: UITableViewCell {
       destinationView.text = Icons.limited.rawValue
     }
 
-    switch certificateValidity.travalerAcceptence {
+    switch validityState.travalerAcceptence {
     case .passed:
       travvelerView.text = Icons.ok.rawValue
     case .error:
@@ -113,7 +114,7 @@ class DebugValidationTVC: UITableViewCell {
   }
   
   private func setupColors() {
-    switch certificateValidity.technicalValidity {
+    switch validityState.technicalValidity {
       case .valid:
       technivalView.backgroundColor = UIColor.valid
       case .invalid:
@@ -122,7 +123,7 @@ class DebugValidationTVC: UITableViewCell {
       technivalView.backgroundColor = UIColor.open
     }
 
-    switch certificateValidity.issuerInvalidation {
+    switch validityState.issuerInvalidation {
       case .passed:
       issuerView.backgroundColor = UIColor.valid
       case .error:
@@ -131,7 +132,7 @@ class DebugValidationTVC: UITableViewCell {
       issuerView.backgroundColor = UIColor.open
     }
 
-    switch certificateValidity.destinationAcceptence {
+    switch validityState.destinationAcceptence {
     case .passed:
       destinationView.backgroundColor = UIColor.valid
     case .error:
@@ -140,7 +141,7 @@ class DebugValidationTVC: UITableViewCell {
       destinationView.backgroundColor = UIColor.open
     }
 
-    switch certificateValidity.travalerAcceptence {
+    switch validityState.travalerAcceptence {
     case .passed:
       travvelerView.backgroundColor = UIColor.valid
     case .error:

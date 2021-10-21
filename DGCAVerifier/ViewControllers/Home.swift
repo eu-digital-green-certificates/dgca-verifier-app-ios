@@ -35,6 +35,11 @@ class HomeVC: UIViewController {
   }
   var loaded = false
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    VerificationManager.sharedManager.config = HCertConfig()
+  }
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
@@ -89,16 +94,5 @@ class HomeVC: UIViewController {
       return
     }
     performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
-  }
-    
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    switch segue.identifier {
-    case Constants.scannerSegueID:
-      if let destinationController = segue.destination as? ScanController {
-        destinationController.modalPresentationStyle = .fullScreen
-      }
-    default:
-      break
-    }
   }
 }

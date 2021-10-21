@@ -48,15 +48,17 @@ final class InfoCellDropDown: UITableViewCell {
     super.awakeFromNib()
     clearView()
   }
+    
   override func prepareForReuse() {
     super.prepareForReuse()
-
     clearView()
   }
+    
   func setupCell(with info: InfoSection, dropDownBlock: @escaping DropDownBlock) {
     self.info = info
     self.dropDownBlock = dropDownBlock
   }
+    
   private func setupView() {
     setDropDownIcon()
     headerLabel?.text = info.header
@@ -74,15 +76,18 @@ final class InfoCellDropDown: UITableViewCell {
       contentLabel.font = .systemFont(ofSize: fontSize, weight: fontWeight)
     }
   }
+    
   private func clearView() {
     headerLabel.text = ""
     contentLabel.text = ""
   }
+    
   @IBAction func dropDownUpAction(_ sender: Any) {
     info.isExpanded = !info.isExpanded
     setDropDownIcon()
     dropDownBlock?(info.isExpanded)
   }
+    
   private func setDropDownIcon() {
     if !info.isExpanded {
       dropDownButton.setImage(UIImage(named: Constants.iconCollapsed), for: .normal)
