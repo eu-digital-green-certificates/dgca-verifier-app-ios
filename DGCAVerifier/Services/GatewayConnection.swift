@@ -25,11 +25,10 @@
 //  Created by Yannick Spreen on 4/24/21.
 //  
 
-import Foundation
+import UIKit
 import Alamofire
 import SwiftDGC
 import SwiftyJSON
-import UIKit
 import CertLogic
 
 struct GatewayConnection: ContextConnection {

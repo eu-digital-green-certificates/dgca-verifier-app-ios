@@ -29,7 +29,6 @@ import UIKit
 import SwiftDGC
 
 class RuleErrorTVC: UITableViewCell {
-
   @IBOutlet weak var ruleLabel: UILabel!
   @IBOutlet weak var ruleValueLabel: UILabel!
   @IBOutlet weak var currentLabel: UILabel!
@@ -37,11 +36,13 @@ class RuleErrorTVC: UITableViewCell {
   @IBOutlet weak var resultLabel: UILabel!
   @IBOutlet weak var resultValueLabel: UILabel!
   @IBOutlet weak var failedLabel: UILabel!
+    
   private var infoItem: InfoSection? {
     didSet {
       setupView()
     }
   }
+    
   override func awakeFromNib() {
     super.awakeFromNib()
     setLabels()
@@ -50,6 +51,7 @@ class RuleErrorTVC: UITableViewCell {
   override func prepareForReuse() {
     setLabels()
   }
+    
   private func setLabels() {
     ruleLabel.text = l10n("rule")
     ruleValueLabel.text = ""
@@ -58,6 +60,7 @@ class RuleErrorTVC: UITableViewCell {
     resultLabel.text = l10n("result")
     resultValueLabel.text = ""
   }
+    
   private func setupView() {
     guard let infoItem = infoItem else { return }
     ruleValueLabel.text = infoItem.header
@@ -94,6 +97,7 @@ class RuleErrorTVC: UITableViewCell {
       }
     }
   }
+    
   public func setupCell(with info: InfoSection) {
     self.infoItem = info
   }

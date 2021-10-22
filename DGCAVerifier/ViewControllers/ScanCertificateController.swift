@@ -278,7 +278,7 @@ extension ScanCertificateController {
             }
             potentialQRCode = potentialCode
           }
-          print(potentialQRCode.symbology)
+          DGCLogger.logInfo(potentialQRCode.symbology.rawValue.description)
           self.observationHandler(payloadString: potentialQRCode.payloadStringValue)
         }
       }
@@ -295,7 +295,7 @@ extension ScanCertificateController {
       delegate?.scanController(self, didScanCertificate: hCert)
       
     } catch let error as CertificateParsingError {
-      print("Error when validating the certificate? \(barcodeString)")
+      DGCLogger.logInfo("Error when validating the certificate? \(barcodeString)")
       delegate?.scanController(self, didFailWithError: error)
     } catch {
       ()
@@ -313,7 +313,7 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
     do {
       try imageRequestHandler.perform([detectBarcodeRequest])
     } catch {
-      print(error)
+      DGCLogger.logError(error)
     }
   }
 }
@@ -341,10 +341,10 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
 extension ScanCertificateController {
   func onNFCResult(success: Bool, message: String) {
     guard success else {
-      print("No success with message: \(message)")
+      DGCLogger.logInfo("NFC: No success with message: \(message)")
       return
     }
-    print("\(message)")
+    DGCLogger.logInfo("NFC: \(message)")
     do {
       let countryCode = self.selectedCounty?.code
       let hCert = try HCert(from: message, ruleCountryCode: countryCode)
@@ -352,7 +352,7 @@ extension ScanCertificateController {
 
     } catch let error as CertificateParsingError {
       //throw error
-      print("Error when validating the certificate from NFC? \(message)")
+      DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
       delegate?.scanController(self, didFailWithError: error)
     } catch {
       ()

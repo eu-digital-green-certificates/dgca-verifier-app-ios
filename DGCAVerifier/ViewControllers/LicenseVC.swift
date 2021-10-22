@@ -23,11 +23,11 @@
 //  DGCAVerifier
 //  
 //  Created by Paul Ballmann on 24.05.21.
-//  
-import Foundation
+//
 import UIKit
 import SwiftyJSON
 import WebKit
+import SwiftDGC
 
 class LicenseTableVC: UITableViewController {
   public var licenses: [JSON] = []
@@ -75,11 +75,11 @@ class LicenseTableVC: UITableViewController {
       let jsonDoc = try JSON(data: jsonData)
       self.licenses = jsonDoc["licenses"].array ?? []
     } catch {
-      print(error)
+        DGCLogger.logError(error)
       return
     }
 
-    print(self.licenses)
+      DGCLogger.logInfo(self.licenses.description)
   }
 }
 

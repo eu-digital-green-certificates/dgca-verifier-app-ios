@@ -27,7 +27,6 @@
 
 import SwiftDGC
 import UIKit
-import Foundation
 import SwiftCBOR
 import Zip
 import SwiftyJSON

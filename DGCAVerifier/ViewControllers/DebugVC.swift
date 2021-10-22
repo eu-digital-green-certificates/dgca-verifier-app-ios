@@ -81,7 +81,7 @@ class DebugVC: UIViewController {
   }
   
   @IBAction func tapOnLabel1(sender: UITapGestureRecognizer) {
-    print("tap working")
+    DGCLogger.logInfo("tapOnLabel1 working")
     DebugManager.sharedInstance.debugLevel = .level1
     setLabelsColor()
     delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
@@ -89,7 +89,7 @@ class DebugVC: UIViewController {
   }
   
   @IBAction func tapOnLabel2(sender: UITapGestureRecognizer) {
-    print("tap working")
+    DGCLogger.logInfo("tapOnLabel2 working")
     DebugManager.sharedInstance.debugLevel = .level2
     setLabelsColor()
     delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
@@ -97,7 +97,7 @@ class DebugVC: UIViewController {
   }
   
   @IBAction func tapOnLabel3(sender: UITapGestureRecognizer) {
-    print("tap working")
+    DGCLogger.logInfo("tapOnLabel3 working")
     DebugManager.sharedInstance.debugLevel = .level3
     setLabelsColor()
     delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,

@@ -25,7 +25,6 @@
 //  Created by Yannick Spreen on 4/27/21.
 //  
 
-import Foundation
 import UIKit
 
 struct SecureBackground {

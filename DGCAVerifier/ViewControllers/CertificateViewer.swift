@@ -29,21 +29,24 @@ import SwiftDGC
 import CertLogic
 import OSLog
 
-let validityIcon = [
-  HCertValidity.valid: UIImage(named: "check")!,
-  HCertValidity.invalid: UIImage(named: "error")!,
-  HCertValidity.ruleInvalid: UIImage(named: "check")!
-]
-let buttonText = [
-  HCertValidity.valid: l10n("btn.done"),
-  HCertValidity.invalid: l10n("btn.retry"),
-  HCertValidity.ruleInvalid: l10n("btn.retry")
-]
-let backgroundColor = [
-  HCertValidity.valid: UIColor.forestGreen,
-  HCertValidity.invalid: UIColor.roseRed,
-  HCertValidity.ruleInvalid: UIColor.yellow
-]
+struct ViewerParts {
+  static let validityIcon = [
+    HCertValidity.valid: UIImage(named: "check")!,
+    HCertValidity.invalid: UIImage(named: "error")!,
+    HCertValidity.ruleInvalid: UIImage(named: "check")!
+  ]
+  static let buttonText = [
+    HCertValidity.valid: l10n("btn.done"),
+    HCertValidity.invalid: l10n("btn.retry"),
+    HCertValidity.ruleInvalid: l10n("btn.retry")
+  ]
+  static let backgroundColor = [
+    HCertValidity.valid: UIColor.forestGreen,
+    HCertValidity.invalid: UIColor.roseRed,
+    HCertValidity.ruleInvalid: UIColor.yellow
+  ]
+
+}
 
 class CertificateViewerVC: UIViewController {
   
@@ -105,11 +108,11 @@ class CertificateViewerVC: UIViewController {
     
     let validityResult = validityState.allRulesValidity
       
-    dismissButton.setTitle(buttonText[validityResult], for: .normal)
-    dismissButton.backgroundColor = backgroundColor[validityResult]
+    dismissButton.setTitle(ViewerParts.buttonText[validityResult], for: .normal)
+    dismissButton.backgroundColor = ViewerParts.backgroundColor[validityResult]
     validityLabel.text = validityResult.l10n
-    headerBackground.backgroundColor = backgroundColor[validityResult]
-    validityImage.image = validityIcon[validityResult]
+    headerBackground.backgroundColor = ViewerParts.backgroundColor[validityResult]
+    validityImage.image = ViewerParts.validityIcon[validityResult]
     
     debugSections.removeAll()
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .verification))
@@ -203,7 +206,7 @@ extension CertificateViewerVC: UITableViewDataSource {
           return cell
         
       case .verification:
-        guard let cell  = tableView.dequeueReusableCell(withIdentifier: "DebugValidationTVC", for: indexPath) as?
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugValidationTVC", for: indexPath) as?
             DebugValidationTVC else { return UITableViewCell() }
         cell.setupCell(with: validityState)
         return cell

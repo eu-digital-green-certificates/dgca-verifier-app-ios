@@ -46,7 +46,6 @@ class DebugManager: NSObject {
   var isDebugMode: Bool {
     set {
       UserDefaults.standard.set(newValue, forKey: debugKey)
-      UserDefaults.standard.synchronize()
     }
     get {
       return UserDefaults.standard.bool(forKey: debugKey)
@@ -56,7 +55,6 @@ class DebugManager: NSObject {
   var debugLevel: DebugLevel {
     set {
       UserDefaults.standard.set(newValue.rawValue, forKey: logLevelKey)
-      UserDefaults.standard.synchronize()
     }
     get {
       let logLevel = UserDefaults.standard.integer(forKey: logLevelKey)
