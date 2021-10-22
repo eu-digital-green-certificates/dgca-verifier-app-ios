@@ -74,7 +74,7 @@ struct RulesDataStorage: Codable {
       guard let result = success else { return }
         
       let format = l10n("log.rules")
-      print(String.localizedStringWithFormat(format, result.rules.count))
+    DGCLogger.logInfo(String.localizedStringWithFormat(format, result.rules.count))
       RulesDataStorage.sharedInstance = result
       completion()
     }

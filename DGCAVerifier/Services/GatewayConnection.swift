@@ -226,7 +226,7 @@ extension GatewayConnection {
       }
       downloadingGroup.notify(queue: .main) {
         completion?(rulesItems)
-        print("Finished all requests.")
+        DGCLogger.logInfo("Finished all requests.")
       }
     }
   }
@@ -300,15 +300,14 @@ extension GatewayConnection {
       }
       downloadingGroup.notify(queue: .main) {
         completion?(valueSetsItems)
-        print("Finished all requests.")
+        DGCLogger.logInfo("Finished all requests.")
       }
     }
   }
     
   public static func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
     request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {

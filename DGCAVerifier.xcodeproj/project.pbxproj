@@ -114,6 +114,7 @@
 		D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
 		D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
 		D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
+		D24C894F2721FC9A0090398A /* DGCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C894E2721FC9A0090398A /* DGCLogger.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
@@ -205,6 +206,7 @@
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
 		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
+		D24C894E2721FC9A0090398A /* DGCLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCLogger.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
+				D24C894E2721FC9A0090398A /* DGCLogger.swift */,
 				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
 				5C2E51252681E50700712521 /* CountryDataStorage.swift */,
 				5C2E51272682152F00712521 /* RulesDataStorage.swift */,
@@ -690,6 +693,7 @@
 				CE891305263581D900CB92AF /* Home.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* Settings.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugVC.swift in Sources */,
+				D24C894F2721FC9A0090398A /* DGCLogger.swift in Sources */,
 				5C2E51262681E50700712521 /* CountryDataStorage.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
 				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,

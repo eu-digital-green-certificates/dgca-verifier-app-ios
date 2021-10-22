@@ -74,7 +74,7 @@ struct ValueSetsDataStorage: Codable {
       guard let result = success else { return }
         
       let format = l10n("log.valueSets")
-      print(String.localizedStringWithFormat(format, result.valueSets.count))
+      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.valueSets.count))
       ValueSetsDataStorage.sharedInstance = result
       completion()
     }

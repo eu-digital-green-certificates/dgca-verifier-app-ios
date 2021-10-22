@@ -50,7 +50,9 @@ class ScanCertificateController: UIViewController {
   @IBOutlet weak var aNFCButton: UIButton!
   @IBOutlet weak var settingsButton: UIButton!
   @IBOutlet weak var camView: UIView!
-
+  @IBOutlet weak var countryCodeView: UIPickerView!
+  @IBOutlet weak var countryCodeLabel: UILabel!
+  
   var captureSession: AVCaptureSession?
   weak var delegate: ScanCertificateDelegate?
   private var countryItems: [CountryModel] = []
@@ -70,7 +72,7 @@ class ScanCertificateController: UIViewController {
       do {
         try userDefaults.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
       } catch {
-        print(error.localizedDescription)
+        DGCLogger.logError(error)
       }
     }
     get {
@@ -79,7 +81,7 @@ class ScanCertificateController: UIViewController {
         let selected = try userDefaults.getObject(forKey: Constants.userDefaultsCountryKey, castTo: CountryModel.self)
         return selected
       } catch {
-        print(error.localizedDescription)
+        DGCLogger.logError(error)
         return nil
       }
     }
@@ -94,6 +96,8 @@ class ScanCertificateController: UIViewController {
     }
 
     delegate = self
+    countryCodeLabel.text = l10n("scanner.select.country")
+
     GatewayConnection.countryList { countryList in
       DispatchQueue.main.async {
         self.setListOfRuleCounties(list: countryList)
@@ -106,7 +110,6 @@ class ScanCertificateController: UIViewController {
       self.observationHandler(payloadString: "HC1:6BFA70$90T9WTWGSLKC 4X7923S%CA.48Y+6/AB3XK5F3 026003F3RD6Z*B1JC X8Y50.FK8ZKO/EZKEZ967L6C56..DX%DZJC2/D:+9 QE5$CLPCG/D0.CHY8ITAUIAI3DG8DXFF 8DXEDU3EI3DAWE1Z9CN9IB85T9JPCT3E5JDOA73467463W5-A67:EDOL9WEQDD+Q6TW6FA7C466KCK9E2H9G:6V6BEM6Q$D.UDRYA 96NF6L/5QW6307B$D% D3IA4W5646946%96X47XJC$+D3KC.SCXJCCWENF6OF63W5CA7746WJCT3E0ZA%JCIQEAZAWJC0FD6A5AIA%G7X+AQB9F+ALG7$X85+8+*81IA3H87+8/R8/A8+M986APH9$59/Y9WA627B873 3K9UD5M3JFG.BOO3L-GE828UE0T46/*JSTLE4MEJRX797NEXF5I$2+.LGOJXF24D2WR9 W8WQT:HHJ$7:TKP2RT+J:G4V5GT7E")
     }
   #else
-    
     captureSession = AVCaptureSession()
     checkPermissions()
     setupCameraLiveView()
@@ -146,6 +149,42 @@ class ScanCertificateController: UIViewController {
     default:
       break
     }
+  }
+  
+  private func setListOfRuleCounties(list: [CountryModel]) {
+    self.countryItems = list
+    self.countryCodeView.reloadAllComponents()
+    guard self.countryItems.count > 0 else { return }
+    
+    if let selected = self.selectedCounty,
+      let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
+        countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
+    } else {
+      self.selectedCounty = self.countryItems.first
+      countryCodeView.selectRow(0, inComponent: 0, animated: false)
+    }
+  }
+
+  private func configurePreviewLayer() {
+    guard let captureSession = captureSession else { return }
+    
+    let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+    cameraPreviewLayer.videoGravity = .resizeAspectFill
+    cameraPreviewLayer.connection?.videoOrientation = .portrait
+    cameraPreviewLayer.frame = view.frame
+    camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+  }
+
+  private func showAlert(withTitle title: String, message: String) {
+    DispatchQueue.main.async {
+      let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+      alertController.addAction(UIAlertAction(title: "OK", style: .default))
+      self.present(alertController, animated: true)
+    }
+  }
+
+  private func showPermissionsAlert() {
+    showAlert(withTitle: l10n("err.cam.perm"), message: l10n("err.cam.perm.desc"))
   }
 }
 
@@ -279,30 +318,6 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
   }
 }
 
-extension ScanCertificateController {
-  private func configurePreviewLayer() {
-    guard let captureSession = captureSession else { return }
-    
-    let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-    cameraPreviewLayer.videoGravity = .resizeAspectFill
-    cameraPreviewLayer.connection?.videoOrientation = .portrait
-    cameraPreviewLayer.frame = view.frame
-    camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
-  }
-
-  private func showAlert(withTitle title: String, message: String) {
-    DispatchQueue.main.async {
-      let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alertController.addAction(UIAlertAction(title: "OK", style: .default))
-      self.present(alertController, animated: true)
-    }
-  }
-
-  private func showPermissionsAlert() {
-    showAlert(withTitle: l10n("err.cam.perm"), message: l10n("err.cam.perm.desc"))
-  }
-}
-
 extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegate {
   public func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
@@ -324,18 +339,6 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
 }
 
 extension ScanCertificateController {
-  public func setListOfRuleCounties(list: [CountryModel]) {
-    self.countryItems = list
-    guard self.countryItems.count > 0 else { return }
-    
-    if self.selectedCounty == nil {
-      self.selectedCounty = self.countryItems.first
-    }
-  }
-}
-
-extension ScanCertificateController {
-  
   func onNFCResult(success: Bool, message: String) {
     guard success else {
       print("No success with message: \(message)")

@@ -70,11 +70,10 @@ struct LocalData: Codable {
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: LocalData.sharedInstance) { success in
-      guard var result = success else {
-        return
-      }
+      guard var result = success else { return }
+        
       let format = l10n("log.keys-loaded")
-      print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
+     DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
       if result.lastLaunchedAppVersion != Self.appVersion {
         result.config = LocalData.sharedInstance.config
       }

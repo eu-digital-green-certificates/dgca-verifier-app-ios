@@ -45,20 +45,19 @@ class NFCHelper: NSObject, NFCNDEFReaderSessionDelegate {
   func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
     guard let onNFCResult = onNFCResult else { return }
     
-    print("Detected NDEF")
+    DGCLogger.logInfo("Detected NDEF")
     var payload = ""
     for message in messages {
       for record in message.records {
-        print("NFC_READ: RECORD IDENTIFIER\(record.identifier)")
-        print("NFC_READ: RECORD payload\(record.payload)")
-        print("NFC_READ: RECORD type\(record.type)")
-        print("NFC_READ: RECORD typeNameFormat\(record.typeNameFormat)")
+        DGCLogger.logInfo("NFC_READ: RECORD IDENTIFIER\(record.identifier)")
+        DGCLogger.logInfo("NFC_READ: RECORD payload\(record.payload)")
+        DGCLogger.logInfo("NFC_READ: RECORD type\(record.type)")
+        DGCLogger.logInfo("NFC_READ: RECORD typeNameFormat\(record.typeNameFormat)")
         
         payload += "\(record.identifier)\n"
         payload += "\(record.payload)\n"
         payload += "\(record.type)\n"
         payload += "\(record.typeNameFormat)\n"
-        
         
         if let resultString = String(data: record.payload, encoding: .utf8) {
           onNFCResult(true, resultString)

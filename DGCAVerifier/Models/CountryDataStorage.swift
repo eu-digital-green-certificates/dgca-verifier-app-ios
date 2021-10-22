@@ -70,11 +70,10 @@ struct CountryDataStorage: Codable {
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: CountryDataStorage.sharedInstance) { success in
-      guard let result = success else {
-        return
-      }
+      guard let result = success else { return }
+        
       let format = l10n("log.country")
-      print(String.localizedStringWithFormat(format, result.countryCodes.count))
+      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.countryCodes.count))
       CountryDataStorage.sharedInstance = result
       completion()
     }
