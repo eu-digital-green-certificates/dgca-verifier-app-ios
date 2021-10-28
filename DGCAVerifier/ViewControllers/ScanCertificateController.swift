@@ -18,8 +18,7 @@
  * ---license-end
  */
 //
-//  ViewController.swift
-//
+//  ScanCertificateController.swift
 //
 //  Created by Yannick Spreen on 4/8/21.
 //

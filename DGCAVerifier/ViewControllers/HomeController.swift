@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  Home.swift
+//  HomeController.swift
 //  DGCAVerifier
 //  
 //  Created by Yannick Spreen on 4/25/21.
@@ -28,10 +28,12 @@
 import UIKit
 import SwiftDGC
 
-class HomeVC: UIViewController {
+class HomeController: UIViewController {
   private enum Constants {
     static let scannerSegueID = "scannerSegueID"
   }
+  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+
   var loaded = false
   
   override func viewDidLoad() {
@@ -46,6 +48,8 @@ class HomeVC: UIViewController {
   }
 
   func load() {
+    self.activityIndicator.startAnimating()
+    
     let loadingGroup = DispatchGroup()
     GatewayConnection.timer?.invalidate()
 
@@ -83,6 +87,7 @@ class HomeVC: UIViewController {
       }
     }
     loadingGroup.notify(queue: .main) { [unowned self] in
+      self.activityIndicator.stopAnimating()
       self.loadComplete()
     }
   }

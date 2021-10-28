@@ -27,7 +27,6 @@
 import UIKit
 import SwiftDGC
 import CertLogic
-import OSLog
 
 struct ViewerParts {
   static let validityIcon = [
@@ -45,7 +44,6 @@ struct ViewerParts {
     HCertValidity.invalid: UIColor.roseRed,
     HCertValidity.ruleInvalid: UIColor.yellow
   ]
-
 }
 
 class CertificateViewerVC: UIViewController {
@@ -144,7 +142,7 @@ class CertificateViewerVC: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
         
       case .failure(let error):
-        os_log("Error while creating zip archive: %@", log: .default, type: .error, String(describing: error))
+        DGCLogger.logInfo(String(format: "Error while creating zip archive: %@", error.localizedDescription))
       }
     }
   }

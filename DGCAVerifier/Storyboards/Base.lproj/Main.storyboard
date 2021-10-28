@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q2g-Cz-5x2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q2g-Cz-5x2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -130,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="-1504" y="106"/>
         </scene>
-        <!--HomeVC-->
+        <!--Home Controller-->
         <scene sceneID="bL6-rz-qET">
             <objects>
-                <viewController id="WAh-yr-kBl" customClass="HomeVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WAh-yr-kBl" customClass="HomeController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TSz-Wk-1F3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,12 +166,17 @@
                                     <constraint firstAttribute="width" constant="180" id="xGF-P2-WEp"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="yXf-VE-y9w">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eo3-Vz-9CR"/>
                         <color key="backgroundColor" name="congressBlue"/>
                         <constraints>
                             <constraint firstItem="SJI-m9-dcF" firstAttribute="top" secondItem="U1k-Fz-tlt" secondAttribute="bottom" constant="8" id="6jC-ko-79y"/>
                             <constraint firstAttribute="trailing" secondItem="SnU-NM-uwu" secondAttribute="trailing" id="Agf-JR-qgn"/>
+                            <constraint firstItem="yXf-VE-y9w" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="DDn-jm-sv0"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="EnG-PV-xVf"/>
                             <constraint firstAttribute="bottom" secondItem="SnU-NM-uwu" secondAttribute="bottom" id="Gb3-2j-P5W"/>
                             <constraint firstItem="Eo3-Vz-9CR" firstAttribute="bottom" secondItem="69c-5J-Njm" secondAttribute="bottom" constant="32" id="Gl5-Xp-V82"/>
@@ -180,6 +185,7 @@
                             <constraint firstItem="69c-5J-Njm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="PeV-gt-gBw"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="top" secondItem="TSz-Wk-1F3" secondAttribute="top" id="cdZ-XD-qKo"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="top" secondItem="SJI-m9-dcF" secondAttribute="bottom" constant="8" id="eK4-uU-snd"/>
+                            <constraint firstItem="yXf-VE-y9w" firstAttribute="centerY" secondItem="TSz-Wk-1F3" secondAttribute="centerY" id="exJ-Jk-0iP"/>
                             <constraint firstItem="69c-5J-Njm" firstAttribute="top" secondItem="SnU-NM-uwu" secondAttribute="top" constant="24" id="jZM-r0-jp4"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="mL1-PH-CIz"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="pWb-aN-K7H"/>
@@ -188,6 +194,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="gBj-fB-LXt"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="yXf-VE-y9w" id="clo-fF-NoU"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="scannerSegueID" id="rRW-gu-ad2"/>
                     </connections>
                 </viewController>
