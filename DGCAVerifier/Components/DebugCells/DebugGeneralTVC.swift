@@ -99,7 +99,7 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    var sectionInfo: InfoSection = listItems[indexPath.section]
+    let sectionInfo = listItems[indexPath.section]
     if sectionInfo.sectionItems.count == 0 {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as?
           InfoCell else { return UITableViewCell() }

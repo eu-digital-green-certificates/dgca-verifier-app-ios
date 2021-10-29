@@ -221,7 +221,7 @@ extension CertificateViewerVC: UITableViewDataSource {
       }
       
     } else {
-      var infoSection: InfoSection = listItems[indexPath.section]
+      let infoSection = listItems[indexPath.section]
       if infoSection.sectionItems.count == 0 {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell",
           for: indexPath) as? InfoCell else { return UITableViewCell() }

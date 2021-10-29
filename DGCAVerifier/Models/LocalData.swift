@@ -29,7 +29,7 @@ import Foundation
 import SwiftDGC
 import SwiftyJSON
 
-struct LocalData: Codable {
+class LocalData: Codable {
   static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   static var sharedInstance = LocalData()
 
@@ -45,9 +45,9 @@ struct LocalData: Codable {
     }
   }
   var config = Config.load()
-  var lastLaunchedAppVersion = Self.appVersion
+  var lastLaunchedAppVersion = LocalData.appVersion
 
-  mutating func add(encodedPublicKey: String) {
+  func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
     let kidStr = KID.string(from: kid)
 
@@ -69,11 +69,11 @@ struct LocalData: Codable {
   static let storage = SecureStorage<LocalData>(fileName: "secure")
 
   static func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: LocalData.sharedInstance) { success in
-      guard var result = success else { return }
-        
+      storage.loadOverride(fallback: LocalData.sharedInstance) { success in
+      guard let result = success else { return }
+          
       let format = l10n("log.keys-loaded")
-     DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
+       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
       if result.lastLaunchedAppVersion != Self.appVersion {
         result.config = LocalData.sharedInstance.config
       }
@@ -81,21 +81,22 @@ struct LocalData: Codable {
       completion()
       //GatewayConnection.fetchContext()
     }
-    VerificationManager.sharedManager.publicKeyStorageDelegate = LocalDataDelegate.instance
+    VerificationManager.sharedManager.publicKeyEncoder = LocalDataKeyEncoder.instance
   }
-
+  
   var versionedConfig: JSON {
     if config["versions"][Self.appVersion].exists() {
       return config["versions"][Self.appVersion]
+    } else {
+      return config["versions"]["default"]
     }
-    return config["versions"]["default"]
   }
 }
 
-class LocalDataDelegate: PublicKeyStorageDelegate {
+class LocalDataKeyEncoder: PublicKeyStorageDelegate {
   func getEncodedPublicKeys(for kidStr: String) -> [String] {
     LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? []
   }
 
-  static var instance = LocalDataDelegate()
+  static let instance = LocalDataKeyEncoder()
 }
