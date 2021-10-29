@@ -62,21 +62,4 @@ class DebugManager: NSObject {
     }
   }
   
-  func isDebugModeFor(country: String, hCert: HCert?) -> Bool {
-    guard isDebugMode, let hCert = hCert else { return false }
-    
-    let validator = CertificateValidator(with: hCert)
-    let validationResult = validator.validate()
-    if validationResult.technicalValidity != .valid ||
-        validationResult.issuerInvalidation != .passed ||
-        validationResult.destinationAcceptence != .passed ||
-        validationResult.travalerAcceptence != .passed {
-      let codes = CountryDataStorage.sharedInstance.countryCodes
-      guard let countryModel = codes.filter({ $0.code == country }).first else { return false }
-      if countryModel.debugModeEnabled {
-        return true
-      }
-    }
-    return false
-  }
 }

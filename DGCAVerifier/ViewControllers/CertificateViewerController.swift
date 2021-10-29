@@ -18,7 +18,7 @@
  * ---license-end
  */
 //
-//  CertificateViewer.swift
+//  CertificateViewerController.swift
 //  DGCAVerifier
 //
 //  Created by Yannick Spreen on 4/19/21.
@@ -28,25 +28,7 @@ import UIKit
 import SwiftDGC
 import CertLogic
 
-struct ViewerParts {
-  static let validityIcon = [
-    HCertValidity.valid: UIImage(named: "check")!,
-    HCertValidity.invalid: UIImage(named: "error")!,
-    HCertValidity.ruleInvalid: UIImage(named: "check")!
-  ]
-  static let buttonText = [
-    HCertValidity.valid: l10n("btn.done"),
-    HCertValidity.invalid: l10n("btn.retry"),
-    HCertValidity.ruleInvalid: l10n("btn.retry")
-  ]
-  static let backgroundColor = [
-    HCertValidity.valid: UIColor.forestGreen,
-    HCertValidity.invalid: UIColor.roseRed,
-    HCertValidity.ruleInvalid: UIColor.yellow
-  ]
-}
-
-class CertificateViewerVC: UIViewController {
+class CertificateViewerController: UIViewController {
   
   private struct Constants {
     static let showSettingsController = "showSettingsController"
@@ -59,16 +41,18 @@ class CertificateViewerVC: UIViewController {
   @IBOutlet weak var infoTable: UITableView!
   @IBOutlet weak var dismissButton: UIButton!
   @IBOutlet weak var shareButton: RoundedButton!
-  
+  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+
   var hCert: HCert?
   private var sectionBuilder: SectionBuilder?
   private var validityState: ValidityState = .invalid
   private var debugSections = [DebugSectionModel]()
+  private var isDebugMode = false
   
   // MARK: View Controller life cycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     infoTable.dataSource = self
     infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
     infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
@@ -78,39 +62,60 @@ class CertificateViewerVC: UIViewController {
     infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
     infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
+    validateAndSetupInterface()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+  func validateAndSetupInterface() {
     guard let hCert = hCert else { return }
     
+    activityIndicator.startAnimating()
     let validator = CertificateValidator(with: hCert)
-    validityState = validator.validate()
-    let builder = SectionBuilder(with: hCert, validity: validityState)
-    builder.makeSections(for: .verifier)
-    if let section = validityState.infoRulesSection {
-      builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
+    DispatchQueue.global(qos: .userInitiated).async {
+      validator.validate {[weak self] (validityState) in
+        self?.validityState = validityState
+        if validityState.technicalValidity != .valid ||
+            validityState.issuerInvalidation != .passed ||
+            validityState.destinationAcceptence != .passed ||
+            validityState.travalerAcceptence != .passed {
+          
+          let codes = CountryDataStorage.sharedInstance.countryCodes
+          let country = hCert.ruleCountryCode ?? ""
+          
+          if let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
+            self?.isDebugMode = true
+          } else {
+            self?.isDebugMode = false
+          }
+        }
+        
+        let builder = SectionBuilder(with: hCert, validity: validityState)
+        builder.makeSections(for: .verifier)
+        if let section = validityState.infoRulesSection {
+          builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
+        }
+        self?.sectionBuilder = builder
+        DispatchQueue.main.async {
+          self?.activityIndicator.stopAnimating()
+          self?.setupInterface()
+        }
+      }
     }
-    sectionBuilder = builder
-    setupInterface()
   }
 
   func setupInterface() {
     guard let hCert = hCert else { return }
     
-    let isDebugMode = DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert)
     shareButton.isEnabled = !isDebugMode
     shareButton.isHidden = !isDebugMode
     
     nameLabel.text = hCert.fullName
-    
-    let validityResult = validityState.allRulesValidity
+    let validity = validityState.allRulesValidity
       
-    dismissButton.setTitle(ViewerParts.buttonText[validityResult], for: .normal)
-    dismissButton.backgroundColor = ViewerParts.backgroundColor[validityResult]
-    validityLabel.text = validityResult.l10n
-    headerBackground.backgroundColor = ViewerParts.backgroundColor[validityResult]
-    validityImage.image = ViewerParts.validityIcon[validityResult]
+    dismissButton.setTitle(validity.validityButtonTitle, for: .normal)
+    dismissButton.backgroundColor = validity.validityBackground
+    validityLabel.text = validity.validityResult
+    headerBackground.backgroundColor = validity.validityBackground
+    validityImage.image = validity.validityImage
     
     debugSections.removeAll()
     debugSections.append(DebugSectionModel(hCert: hCert, sectionType: .verification))
@@ -146,42 +151,50 @@ class CertificateViewerVC: UIViewController {
       }
     }
   }
+  
+  // MARK: Navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case Constants.showSettingsController:
+      if let destinationController = segue.destination as? UINavigationController,
+         let rootController = destinationController.viewControllers.first as? SettingsTableVC {
+        rootController.delegate = self
+      }
+    default:
+      break
+    }
+  }
 }
 
 // MARK: UITableViewDataSource
-extension CertificateViewerVC: UITableViewDataSource {
+extension CertificateViewerController: UITableViewDataSource {
   var listItems: [InfoSection] {
     return sectionBuilder?.infoSection.filter {!$0.isPrivate} ?? []
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let hCert = hCert else { return 0 }
     
-    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert ) {
+    if isDebugMode {
       let debugSection = debugSections[section]
       return debugSection.numberOfItems
-    }
-    let infoSection: InfoSection = listItems[section]
-    if infoSection.sectionItems.isEmpty {
-      return 1
-    } else if !infoSection.isExpanded {
-      return 1
     } else {
-      return infoSection.sectionItems.count + 1
+      let infoSection: InfoSection = listItems[section]
+      if infoSection.sectionItems.isEmpty {
+        return 1
+      } else if !infoSection.isExpanded {
+        return 1
+      } else {
+        return infoSection.sectionItems.count + 1
+      }
     }
   }
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    guard let hCert = hCert else { return 0 }
-    
-    let isDebug = DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert)
-    return isDebug ? debugSections.count : listItems.count
+    return isDebugMode ? debugSections.count : listItems.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let hCert = hCert else { return UITableViewCell() }
-    
-    if DebugManager.sharedInstance.isDebugModeFor(country: hCert.ruleCountryCode ?? "", hCert: hCert) {
+    if isDebugMode {
       let debugSection = debugSections[indexPath.section]
       if indexPath.row == 0 {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugSectionTVC",
@@ -250,5 +263,11 @@ extension CertificateViewerVC: UITableViewDataSource {
         }
       }
     }
+  }
+}
+
+extension CertificateViewerController: DebugControllerDelegate {
+  func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
+    validateAndSetupInterface()
   }
 }

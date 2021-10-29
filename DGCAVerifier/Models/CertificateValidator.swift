@@ -38,8 +38,7 @@ class CertificateValidator {
     self.certificate = cert
   }
 
-  @discardableResult
-  func validate() -> ValidityState {
+  func validate(completion: ((ValidityState) -> Void)? = nil) {
     let failures = findValidityFailures()
     
     let technicalValidity: HCertValidity = failures.isEmpty ? .valid : .invalid
@@ -54,15 +53,15 @@ class CertificateValidator {
     }
     
     let validity = ValidityState(
-        technicalValidity: technicalValidity,
-        issuerValidity: issuerValidity,
-        destinationValidity: destinationValidity,
-        travalerValidity: travalerValidity,
-        allRulesValidity: allRulesValidity,
-        validityFailures: failures,
-        infoRulesSection: infoRulesSection)
+      technicalValidity: technicalValidity,
+      issuerValidity: issuerValidity,
+      destinationValidity: destinationValidity,
+      travalerValidity: travalerValidity,
+      allRulesValidity: allRulesValidity,
+      validityFailures: failures,
+      infoRulesSection: infoRulesSection)
     
-    return validity
+    completion?(validity)
   }
   
   private func findValidityFailures() -> [String] {

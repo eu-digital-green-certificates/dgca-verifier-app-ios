@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Certificate ViewerVC-->
+        <!--Certificate Viewer Controller-->
         <scene sceneID="uZX-v2-ZjL">
             <objects>
-                <viewController id="WCj-Xf-fml" customClass="CertificateViewerVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WCj-Xf-fml" customClass="CertificateViewerController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zct-pN-WQt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,18 +22,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKu-7E-jAI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
-                                        <color key="backgroundColor" name="forestGreen"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="180" id="oIe-Bm-Xyk"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="166.66666666666666"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="318" y="681" width="80" height="39"/>
+                                        <rect key="frame" x="302" y="676" width="96" height="44"/>
                                         <color key="backgroundColor" name="congressBlue"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="39" id="fL8-yY-fXm"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="nvR-zt-kQA"/>
+                                            <constraint firstAttribute="height" constant="44" id="fL8-yY-fXm"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="nvR-zt-kQA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Retry">
@@ -48,17 +44,21 @@
                                             <action selector="dissmissButtonAction" destination="WCj-Xf-fml" eventType="touchUpInside" id="FCZ-JZ-Vlt"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Mustermann" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVW-2y-e4I">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVW-2y-e4I">
                                         <rect key="frame" x="16" y="32" width="344" height="38.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="180" width="414" height="485"/>
+                                        <rect key="frame" x="0.0" y="166.66666666666666" width="414" height="493.33333333333337"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aIi-Io-dJc">
+                                        <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
+                                        <color key="color" name="congressBlue"/>
+                                    </activityIndicatorView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="8o5-7A-9qC">
                                         <rect key="frame" x="16" y="90.666666666666671" width="42" height="42.000000000000014"/>
                                         <constraints>
@@ -67,30 +67,30 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Enm-XG-fIc">
-                                        <rect key="frame" x="0.0" y="633" width="414" height="32"/>
+                                        <rect key="frame" x="0.0" y="628" width="414" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="1kc-qQ-0OX"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EU_logo" translatesAutoresizingMaskIntoConstraints="NO" id="91E-ya-yA8">
-                                        <rect key="frame" x="15.999999999999996" y="686.66666666666663" width="43.666666666666657" height="28"/>
+                                        <rect key="frame" x="15.999999999999996" y="684" width="43.666666666666657" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="Gby-j7-pOP"/>
                                             <constraint firstAttribute="width" secondItem="91E-ya-yA8" secondAttribute="height" multiplier="14:9" id="c8z-zA-Sj0"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjI-L7-yat">
-                                        <rect key="frame" x="66" y="86.333333333333329" width="332" height="50.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjI-L7-yat">
+                                        <rect key="frame" x="74" y="86.333333333333329" width="324" height="50.333333333333329"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGm-tp-pgj" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="214" y="681" width="88" height="39"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGm-tp-pgj" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
+                                        <rect key="frame" x="186" y="676" width="96" height="44"/>
                                         <color key="backgroundColor" name="congressBlue"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="88" id="PKD-kR-ymB"/>
-                                            <constraint firstAttribute="height" constant="39" id="jyJ-Vy-syc"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="PKD-kR-ymB"/>
+                                            <constraint firstAttribute="height" constant="44" id="jyJ-Vy-syc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <state key="normal" title="Share">
@@ -122,13 +122,16 @@
                                     <constraint firstAttribute="trailing" secondItem="NIJ-V3-NpL" secondAttribute="trailing" id="bMe-Iq-2qV"/>
                                     <constraint firstAttribute="trailing" secondItem="a9u-Ia-KEX" secondAttribute="trailing" constant="16" id="bqQ-YF-Jjh"/>
                                     <constraint firstAttribute="bottom" secondItem="bGm-tp-pgj" secondAttribute="bottom" constant="16" id="cbN-Ze-weI"/>
-                                    <constraint firstItem="NjI-L7-yat" firstAttribute="leading" secondItem="8o5-7A-9qC" secondAttribute="trailing" constant="8" id="ddO-1I-SiX"/>
-                                    <constraint firstItem="a9u-Ia-KEX" firstAttribute="leading" secondItem="bGm-tp-pgj" secondAttribute="trailing" constant="16" id="dzq-qW-nVb"/>
+                                    <constraint firstItem="NjI-L7-yat" firstAttribute="leading" secondItem="8o5-7A-9qC" secondAttribute="trailing" constant="16" id="ddO-1I-SiX"/>
+                                    <constraint firstItem="a9u-Ia-KEX" firstAttribute="leading" secondItem="bGm-tp-pgj" secondAttribute="trailing" constant="20" id="dzq-qW-nVb"/>
+                                    <constraint firstItem="aIi-Io-dJc" firstAttribute="centerY" secondItem="yEe-AH-rsr" secondAttribute="centerY" id="fFA-LS-ZzM"/>
                                     <constraint firstItem="DVW-2y-e4I" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" constant="16" id="iQB-29-cRZ"/>
+                                    <constraint firstItem="aIi-Io-dJc" firstAttribute="centerX" secondItem="yEe-AH-rsr" secondAttribute="centerX" id="jM2-fy-Pc7"/>
                                     <constraint firstAttribute="bottom" secondItem="a9u-Ia-KEX" secondAttribute="bottom" constant="16" id="kCW-SK-BNW"/>
                                     <constraint firstItem="NjI-L7-yat" firstAttribute="top" secondItem="DVW-2y-e4I" secondAttribute="bottom" constant="16" id="lP1-ux-6At"/>
                                     <constraint firstItem="Enm-XG-fIc" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" id="lRw-rQ-ghB"/>
                                     <constraint firstAttribute="trailing" secondItem="Enm-XG-fIc" secondAttribute="trailing" id="pfk-p7-CvN"/>
+                                    <constraint firstItem="NIJ-V3-NpL" firstAttribute="top" secondItem="NjI-L7-yat" secondAttribute="bottom" constant="30" id="w9L-hN-Fde"/>
                                     <constraint firstItem="NIJ-V3-NpL" firstAttribute="top" secondItem="fKu-7E-jAI" secondAttribute="bottom" id="wsu-QI-e5g"/>
                                     <constraint firstItem="fKu-7E-jAI" firstAttribute="leading" secondItem="yEe-AH-rsr" secondAttribute="leading" id="y06-cd-bVU"/>
                                 </constraints>
@@ -158,6 +161,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="aIi-Io-dJc" id="MxA-VD-sh1"/>
                         <outlet property="dismissButton" destination="a9u-Ia-KEX" id="Jy0-Qx-2Y9"/>
                         <outlet property="headerBackground" destination="fKu-7E-jAI" id="hMd-mX-TM4"/>
                         <outlet property="infoTable" destination="NIJ-V3-NpL" id="MVc-Gh-ijP"/>
@@ -204,9 +208,6 @@
         <image name="gradient" width="1" height="100"/>
         <namedColor name="congressBlue">
             <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="forestGreen">
-            <color red="0.27450980392156865" green="0.47450980392156861" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

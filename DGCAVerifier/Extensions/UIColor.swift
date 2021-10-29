@@ -33,6 +33,7 @@ extension UIColor {
   static var congressBlue: UIColor { UIColor(named: "congressBlue")! }
   static var charcoalGrey: UIColor { UIColor(named: "charcoalGrey")! }
   static var disabledText: UIColor { UIColor(named: "disabledText")! }
+  static var walletYellow: UIColor { UIColor(named: "walletYellow")! }
   static var valid: UIColor { UIColor(named: "valid")! }
   static var invalid: UIColor! { UIColor(named: "invalid")! }
   static var open: UIColor { UIColor(named: "open")! }

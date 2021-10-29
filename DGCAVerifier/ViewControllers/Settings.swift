@@ -28,9 +28,9 @@ import UIKit
 import SwiftDGC
 
 class SettingsTableVC: UITableViewController, DebugControllerDelegate {
-  
   var loading = false
-
+  weak var delegate: DebugControllerDelegate?
+  
   @IBOutlet weak var licensesLabelName: UILabel!
   @IBOutlet weak var privacyLabelName: UILabel!
   @IBOutlet weak var debugLabelName: UILabel!
@@ -44,6 +44,12 @@ class SettingsTableVC: UITableViewController, DebugControllerDelegate {
     updateInterface()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+        level: DebugManager.sharedInstance.debugLevel)
+  }
+
   private func updateInterface() {
     if !DebugManager.sharedInstance.isDebugMode {
       debugLabel.text = l10n("Disabled")
@@ -65,13 +71,7 @@ class SettingsTableVC: UITableViewController, DebugControllerDelegate {
 
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     let format = l10n("settings.last-updated")
-
-    return [
-      "",
-      String(format: format, LocalData.sharedInstance.lastFetch.dateTimeString),
-      "",
-      ""
-    ][section]
+    return [ "", String(format: format, LocalData.sharedInstance.lastFetch.dateTimeString), "", "" ][section]
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

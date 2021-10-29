@@ -141,8 +141,8 @@ class ScanCertificateController: UIViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier {
     case Constants.showCertificateViewer:
-      if let destinationController = segue.destination as? CertificateViewerVC,
-          let certificate = sender as? HCert {
+      if let destinationController = segue.destination as? CertificateViewerController,
+        let certificate = sender as? HCert {
         destinationController.hCert = certificate
       }
     default:
@@ -247,10 +247,10 @@ extension ScanCertificateController {
     captureOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
     captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: DispatchQoS.QoSClass.default))
     captureSession?.addOutput(captureOutput)
-
+    
     configurePreviewLayer()
   }
-
+  
   func processClassification(_ request: VNRequest) {
     guard let barcodes = request.results else { return }
     
@@ -258,23 +258,21 @@ extension ScanCertificateController {
       if self.captureSession?.isRunning == true {
         self.camView.layer.sublayers?.removeSubrange(1...)
 
-        for barcode in barcodes {
+        if let barcode = barcodes.first {
           let potentialQRCode: VNBarcodeObservation
           if #available(iOS 15, *) {
             guard let potentialCode = barcode as? VNBarcodeObservation,
               [.Aztec, .QR, .DataMatrix].contains(potentialCode.symbology),
               potentialCode.confidence > 0.9
-            else {
-              return
-            }
+            else { return }
+            
             potentialQRCode = potentialCode
           } else {
             guard let potentialCode = barcode as? VNBarcodeObservation,
               [.aztec, .qr, .dataMatrix].contains(potentialCode.symbology),
               potentialCode.confidence > 0.9
-            else {
-              return
-            }
+            else { return }
+            
             potentialQRCode = potentialCode
           }
           DGCLogger.logInfo(potentialQRCode.symbology.rawValue.description)
@@ -285,9 +283,7 @@ extension ScanCertificateController {
   }
 
   private func observationHandler(payloadString: String?) {
-    guard let barcodeString = payloadString, !barcodeString.isEmpty else {
-      return
-    }
+    guard let barcodeString = payloadString, !barcodeString.isEmpty else { return }
     do {
       let countryCode = self.selectedCounty?.code
       let hCert = try HCert(from: barcodeString, ruleCountryCode: countryCode)
@@ -297,7 +293,7 @@ extension ScanCertificateController {
       DGCLogger.logInfo("Error when validating the certificate? \(barcodeString)")
       delegate?.scanController(self, didFailWithError: error)
     } catch {
-      ()
+      //delegate?.scanController(self, didFailWithError: error)
     }
   }
 }

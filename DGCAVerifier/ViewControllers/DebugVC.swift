@@ -74,34 +74,33 @@ class DebugVC: UIViewController {
     setLabelsColor()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+        level: DebugManager.sharedInstance.debugLevel)
+  }
+  
   @IBAction func debugSwitchAction(_ sender: Any) {
     let isValue = debugSwitcher.isOn
     DebugManager.sharedInstance.isDebugMode = isValue
-    delegate?.debugControllerDidSelect(isDebugMode: isValue, level: DebugManager.sharedInstance.debugLevel)
-  }
+   }
   
   @IBAction func tapOnLabel1(sender: UITapGestureRecognizer) {
     DGCLogger.logInfo("tapOnLabel1 working")
     DebugManager.sharedInstance.debugLevel = .level1
     setLabelsColor()
-    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
-        level: DebugManager.sharedInstance.debugLevel)
   }
   
   @IBAction func tapOnLabel2(sender: UITapGestureRecognizer) {
     DGCLogger.logInfo("tapOnLabel2 working")
     DebugManager.sharedInstance.debugLevel = .level2
     setLabelsColor()
-    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
-        level: DebugManager.sharedInstance.debugLevel)
   }
   
   @IBAction func tapOnLabel3(sender: UITapGestureRecognizer) {
     DGCLogger.logInfo("tapOnLabel3 working")
     DebugManager.sharedInstance.debugLevel = .level3
     setLabelsColor()
-    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
-        level: DebugManager.sharedInstance.debugLevel)
   }
   
   func setLabelsColor() {
