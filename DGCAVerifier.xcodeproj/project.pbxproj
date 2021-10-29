@@ -118,9 +118,9 @@
 		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
-		D2B70B05271DF251003B0AA6 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D2B70B06271DF252003B0AA6 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D2B70B07271DF253003B0AA6 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D2B87DA0272BDCA500B0BE19 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
+		D2B87DA1272BDCA500B0BE19 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
+		D2B87DA2272BDCA600B0BE19 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
 		DA793258265BBFB50043BA06 /* LicenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseVC.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
@@ -384,8 +384,8 @@
 		CE157F8B262E24EC00FE4821 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
 				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
+				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
 				5C2E51252681E50700712521 /* CountryDataStorage.swift */,
 				5C2E51272682152F00712521 /* RulesDataStorage.swift */,
 				5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */,
@@ -588,7 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */,
-				D2B70B05271DF251003B0AA6 /* context.jsonc in Resources */,
+				D2B87DA0272BDCA500B0BE19 /* context.jsonc in Resources */,
 				5CA450E226E78D990029324E /* InfoCell.xib in Resources */,
 				5CA450BD26E7419F0029324E /* DebugSectionTVC.xib in Resources */,
 				5CA450C526E741BB0029324E /* DebugRawTVC.xib in Resources */,
@@ -616,7 +616,7 @@
 				5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				5CA450C626E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CE26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
-				D2B70B06271DF252003B0AA6 /* context.jsonc in Resources */,
+				D2B87DA1272BDCA500B0BE19 /* context.jsonc in Resources */,
 				5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */,
 				5CA450DA26E783B20029324E /* DebugGeneralTVC.xib in Resources */,
 				5CA450EB26E78DB50029324E /* InfoCellDropDown.xib in Resources */,
@@ -632,7 +632,7 @@
 				5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				5CA450C726E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CF26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
-				D2B70B07271DF253003B0AA6 /* context.jsonc in Resources */,
+				D2B87DA2272BDCA600B0BE19 /* context.jsonc in Resources */,
 				5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */,
 				5CA450DB26E783B20029324E /* DebugGeneralTVC.xib in Resources */,
 				5CA450EC26E78DB50029324E /* InfoCellDropDown.xib in Resources */,
@@ -941,7 +941,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -966,7 +966,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

@@ -32,6 +32,7 @@ import SwiftyJSON
 class LocalData: Codable {
   static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   static var sharedInstance = LocalData()
+  static let storage = SecureStorage<LocalData>(fileName: "secure")
 
   var encodedPublicKeys = [String: [String]]()
   var resumeToken: String?
@@ -66,8 +67,6 @@ class LocalData: Codable {
     Self.storage.save(self)
   }
 
-  static let storage = SecureStorage<LocalData>(fileName: "secure")
-
   static func initialize(completion: @escaping () -> Void) {
       storage.loadOverride(fallback: LocalData.sharedInstance) { success in
       guard let result = success else { return }
@@ -94,9 +93,9 @@ class LocalData: Codable {
 }
 
 class LocalDataKeyEncoder: PublicKeyStorageDelegate {
+  static let instance = LocalDataKeyEncoder()
+  
   func getEncodedPublicKeys(for kidStr: String) -> [String] {
     LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? []
   }
-
-  static let instance = LocalDataKeyEncoder()
 }

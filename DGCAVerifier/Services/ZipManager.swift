@@ -25,11 +25,11 @@
 //  Created by Illia Vlasov on 03.09.2021.
 //  
 
-import SwiftDGC
 import UIKit
 import SwiftCBOR
-import Zip
+import SwiftDGC
 import SwiftyJSON
+import Zip
 
 class ZipManager {
   func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<URL, Error>) -> Void) {

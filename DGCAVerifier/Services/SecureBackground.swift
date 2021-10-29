@@ -27,7 +27,7 @@
 
 import UIKit
 
-struct SecureBackground {
+class SecureBackground {
   static var imageView: UIImageView?
   public static var image: UIImage?
 

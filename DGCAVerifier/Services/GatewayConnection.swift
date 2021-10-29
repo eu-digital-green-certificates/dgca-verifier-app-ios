@@ -31,7 +31,7 @@ import SwiftDGC
 import SwiftyJSON
 import CertLogic
 
-struct GatewayConnection: ContextConnection {
+class GatewayConnection: ContextConnection {
   public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
     var headers = [String: String]()
     if let token = resumeToken {
