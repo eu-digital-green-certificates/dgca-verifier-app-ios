@@ -55,7 +55,6 @@ class CertificateViewerController: UIViewController {
     
     infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
     infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
-    infoTable.register(UINib(nibName: "DebugRawTVC", bundle: nil), forCellReuseIdentifier: "DebugRawTVC")
     infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
     infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
@@ -209,8 +208,8 @@ extension CertificateViewerController: UITableViewDataSource {
       
       switch debugSection.sectionType {
       case .raw:
-        let cellID = String(describing: DebugRawTVC.self)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugRawTVC else {
+        let cellID = String(describing: DebugRawCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugRawCell else {
           return UITableViewCell()
         }
         

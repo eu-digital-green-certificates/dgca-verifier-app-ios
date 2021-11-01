@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugRawTVC.swift
+//  DebugRawCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 07.09.2021.
@@ -28,18 +28,13 @@
 
 import UIKit
 
-class DebugRawTVC: UITableViewCell {
+class DebugRawCell: UITableViewCell {
 
   @IBOutlet weak var rawLabel: UILabel!
   private var debugSection: DebugSectionModel? {
     didSet {
       setupView()
     }
-  }
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-    setupView()
   }
   
   private func setupView() {

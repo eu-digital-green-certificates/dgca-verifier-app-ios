@@ -31,12 +31,9 @@
 		5CA450BA26E7419F0029324E /* DebugSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionCell.swift */; };
 		5CA450BB26E7419F0029324E /* DebugSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionCell.swift */; };
 		5CA450BC26E7419F0029324E /* DebugSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionCell.swift */; };
-		5CA450C226E741BB0029324E /* DebugRawTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawTVC.swift */; };
-		5CA450C326E741BB0029324E /* DebugRawTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawTVC.swift */; };
-		5CA450C426E741BB0029324E /* DebugRawTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawTVC.swift */; };
-		5CA450C526E741BB0029324E /* DebugRawTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450C126E741BB0029324E /* DebugRawTVC.xib */; };
-		5CA450C626E741BB0029324E /* DebugRawTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450C126E741BB0029324E /* DebugRawTVC.xib */; };
-		5CA450C726E741BB0029324E /* DebugRawTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450C126E741BB0029324E /* DebugRawTVC.xib */; };
+		5CA450C226E741BB0029324E /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
+		5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
+		5CA450C426E741BB0029324E /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
 		5CA450CA26E7421C0029324E /* DebugValidationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugValidationTVC.swift */; };
 		5CA450CB26E7421C0029324E /* DebugValidationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugValidationTVC.swift */; };
 		5CA450CC26E7421C0029324E /* DebugValidationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugValidationTVC.swift */; };
@@ -152,8 +149,7 @@
 		5CA450AC26E0F4C20029324E /* DebugTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTVC.swift; sourceTree = "<group>"; };
 		5CA450B326E605710029324E /* DebugManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450B826E7419F0029324E /* DebugSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSectionCell.swift; sourceTree = "<group>"; };
-		5CA450C026E741BB0029324E /* DebugRawTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRawTVC.swift; sourceTree = "<group>"; };
-		5CA450C126E741BB0029324E /* DebugRawTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugRawTVC.xib; sourceTree = "<group>"; };
+		5CA450C026E741BB0029324E /* DebugRawCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRawCell.swift; sourceTree = "<group>"; };
 		5CA450C826E7421C0029324E /* DebugValidationTVC.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugValidationTVC.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450C926E7421C0029324E /* DebugValidationTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugValidationTVC.xib; sourceTree = "<group>"; };
 		5CA450D026E74B000029324E /* DebugSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSectionModel.swift; sourceTree = "<group>"; };
@@ -252,8 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA450B826E7419F0029324E /* DebugSectionCell.swift */,
-				5CA450C026E741BB0029324E /* DebugRawTVC.swift */,
-				5CA450C126E741BB0029324E /* DebugRawTVC.xib */,
+				5CA450C026E741BB0029324E /* DebugRawCell.swift */,
 				5CA450C826E7421C0029324E /* DebugValidationTVC.swift */,
 				5CA450C926E7421C0029324E /* DebugValidationTVC.xib */,
 				5CA450D426E783B20029324E /* DebugGeneralTVC.swift */,
@@ -586,7 +581,6 @@
 				CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */,
 				D2B87DA0272BDCA500B0BE19 /* context.jsonc in Resources */,
 				5CA450E226E78D990029324E /* InfoCell.xib in Resources */,
-				5CA450C526E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CD26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
 				5CA450D926E783B20029324E /* DebugGeneralTVC.xib in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
@@ -607,7 +601,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA450E326E78D990029324E /* InfoCell.xib in Resources */,
-				5CA450C626E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CE26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
 				D2B87DA1272BDCA500B0BE19 /* context.jsonc in Resources */,
 				5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */,
@@ -621,7 +614,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA450E426E78D990029324E /* InfoCell.xib in Resources */,
-				5CA450C726E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CF26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
 				D2B87DA2272BDCA600B0BE19 /* context.jsonc in Resources */,
 				5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */,
@@ -686,7 +678,7 @@
 				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,
 				D2B87DA4272C30FA00B0BE19 /* HCertValidity.swift in Sources */,
 				5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */,
-				5CA450C226E741BB0029324E /* DebugRawTVC.swift in Sources */,
+				5CA450C226E741BB0029324E /* DebugRawCell.swift in Sources */,
 				5CA450DF26E78D990029324E /* InfoCell.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 				5CA450D126E74B000029324E /* DebugSectionModel.swift in Sources */,
@@ -711,7 +703,7 @@
 				5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */,
 				D23EF7A8272067E00097D82B /* LocalData.swift in Sources */,
 				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
-				5CA450C326E741BB0029324E /* DebugRawTVC.swift in Sources */,
+				5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 				5CA450AE26E0F4C20029324E /* DebugTVC.swift in Sources */,
 				D23EF79E272026A90097D82B /* CountryDataStorage.swift in Sources */,
@@ -735,7 +727,7 @@
 				5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				5CA450B626E605710029324E /* DebugManager.swift in Sources */,
 				5CA450D826E783B20029324E /* DebugGeneralTVC.swift in Sources */,
-				5CA450C426E741BB0029324E /* DebugRawTVC.swift in Sources */,
+				5CA450C426E741BB0029324E /* DebugRawCell.swift in Sources */,
 				D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				5C2E512A2682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
