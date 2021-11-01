@@ -28,12 +28,9 @@
 		5CA450B426E605710029324E /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B326E605710029324E /* DebugManager.swift */; };
 		5CA450B526E605710029324E /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B326E605710029324E /* DebugManager.swift */; };
 		5CA450B626E605710029324E /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B326E605710029324E /* DebugManager.swift */; };
-		5CA450BA26E7419F0029324E /* DebugSectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionTVC.swift */; };
-		5CA450BB26E7419F0029324E /* DebugSectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionTVC.swift */; };
-		5CA450BC26E7419F0029324E /* DebugSectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionTVC.swift */; };
-		5CA450BD26E7419F0029324E /* DebugSectionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450B926E7419F0029324E /* DebugSectionTVC.xib */; };
-		5CA450BE26E7419F0029324E /* DebugSectionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450B926E7419F0029324E /* DebugSectionTVC.xib */; };
-		5CA450BF26E7419F0029324E /* DebugSectionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450B926E7419F0029324E /* DebugSectionTVC.xib */; };
+		5CA450BA26E7419F0029324E /* DebugSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionCell.swift */; };
+		5CA450BB26E7419F0029324E /* DebugSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionCell.swift */; };
+		5CA450BC26E7419F0029324E /* DebugSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugSectionCell.swift */; };
 		5CA450C226E741BB0029324E /* DebugRawTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawTVC.swift */; };
 		5CA450C326E741BB0029324E /* DebugRawTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawTVC.swift */; };
 		5CA450C426E741BB0029324E /* DebugRawTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawTVC.swift */; };
@@ -69,12 +66,9 @@
 		5CA450EC26E78DB50029324E /* InfoCellDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA450E626E78DB50029324E /* InfoCellDropDown.xib */; };
 		5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4434268A584400E09EAC /* SwiftDGC */; };
 		5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4437268A591600E09EAC /* FloatingPanel */; };
-		5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
-		5CE07C8A26938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
-		5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */; };
-		5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
-		5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
-		5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */; };
+		5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
+		5CE07C8A26938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
+		5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
 		5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
 		5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA55BD26E9EAF000269702 /* awesome.ttf */; };
@@ -118,6 +112,7 @@
 		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
+		D2B7BA0627301A8E004A27AD /* RuleErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B7BA0527301A8E004A27AD /* RuleErrorCell.xib */; };
 		D2B87DA0272BDCA500B0BE19 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
 		D2B87DA1272BDCA500B0BE19 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
 		D2B87DA2272BDCA600B0BE19 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0C269D72B600074F66 /* context.jsonc */; };
@@ -156,8 +151,7 @@
 		5CA450A526E0BA640029324E /* DebugVC.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugVC.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450AC26E0F4C20029324E /* DebugTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTVC.swift; sourceTree = "<group>"; };
 		5CA450B326E605710029324E /* DebugManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugManager.swift; sourceTree = "<group>"; tabWidth = 2; };
-		5CA450B826E7419F0029324E /* DebugSectionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSectionTVC.swift; sourceTree = "<group>"; };
-		5CA450B926E7419F0029324E /* DebugSectionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugSectionTVC.xib; sourceTree = "<group>"; };
+		5CA450B826E7419F0029324E /* DebugSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSectionCell.swift; sourceTree = "<group>"; };
 		5CA450C026E741BB0029324E /* DebugRawTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRawTVC.swift; sourceTree = "<group>"; };
 		5CA450C126E741BB0029324E /* DebugRawTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugRawTVC.xib; sourceTree = "<group>"; };
 		5CA450C826E7421C0029324E /* DebugValidationTVC.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugValidationTVC.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -169,8 +163,7 @@
 		5CA450DE26E78D990029324E /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
 		5CA450E526E78DB50029324E /* InfoCellDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellDropDown.swift; sourceTree = "<group>"; };
 		5CA450E626E78DB50029324E /* InfoCellDropDown.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCellDropDown.xib; sourceTree = "<group>"; };
-		5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleErrorTVC.swift; sourceTree = "<group>"; };
-		5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleErrorTVC.xib; sourceTree = "<group>"; };
+		5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleErrorCell.swift; sourceTree = "<group>"; };
 		5CEA55BD26E9EAF000269702 /* awesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = awesome.ttf; sourceTree = "<group>"; };
 		5CEA55C426EF59D600269702 /* ZipManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ZipManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
@@ -207,6 +200,7 @@
 		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
+		D2B7BA0527301A8E004A27AD /* RuleErrorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RuleErrorCell.xib; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HCertValidity.swift; sourceTree = "<group>"; tabWidth = 2; };
 		DA793257265BBFB50043BA06 /* LicenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseVC.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
@@ -257,8 +251,7 @@
 		5CA450B726E741820029324E /* DebugCells */ = {
 			isa = PBXGroup;
 			children = (
-				5CA450B826E7419F0029324E /* DebugSectionTVC.swift */,
-				5CA450B926E7419F0029324E /* DebugSectionTVC.xib */,
+				5CA450B826E7419F0029324E /* DebugSectionCell.swift */,
 				5CA450C026E741BB0029324E /* DebugRawTVC.swift */,
 				5CA450C126E741BB0029324E /* DebugRawTVC.xib */,
 				5CA450C826E7421C0029324E /* DebugValidationTVC.swift */,
@@ -360,8 +353,8 @@
 				CEA1556F262F79DE0024B7AC /* InfoCell.swift */,
 				5C17C8DE26942FCA002AA34D /* InfoCellDropDown.swift */,
 				DA793259265BC00F0043BA06 /* LicenseCell.swift */,
-				5CE07C8726938DE700A032F9 /* RuleErrorTVC.swift */,
-				5CE07C8826938DE700A032F9 /* RuleErrorTVC.xib */,
+				5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */,
+				D2B7BA0527301A8E004A27AD /* RuleErrorCell.xib */,
 				5CA450AC26E0F4C20029324E /* DebugTVC.swift */,
 			);
 			path = Components;
@@ -593,16 +586,15 @@
 				CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */,
 				D2B87DA0272BDCA500B0BE19 /* context.jsonc in Resources */,
 				5CA450E226E78D990029324E /* InfoCell.xib in Resources */,
-				5CA450BD26E7419F0029324E /* DebugSectionTVC.xib in Resources */,
 				5CA450C526E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CD26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
 				5CA450D926E783B20029324E /* DebugGeneralTVC.xib in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
-				5CE07C8C26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
+				D2B7BA0627301A8E004A27AD /* RuleErrorCell.xib in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 				5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */,
 				5CA450EA26E78DB50029324E /* InfoCellDropDown.xib in Resources */,
@@ -614,9 +606,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CA450BE26E7419F0029324E /* DebugSectionTVC.xib in Resources */,
 				5CA450E326E78D990029324E /* InfoCell.xib in Resources */,
-				5CE07C8D26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				5CA450C626E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CE26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
 				D2B87DA1272BDCA500B0BE19 /* context.jsonc in Resources */,
@@ -630,9 +620,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CA450BF26E7419F0029324E /* DebugSectionTVC.xib in Resources */,
 				5CA450E426E78D990029324E /* InfoCell.xib in Resources */,
-				5CE07C8E26938DE700A032F9 /* RuleErrorTVC.xib in Resources */,
 				5CA450C726E741BB0029324E /* DebugRawTVC.xib in Resources */,
 				5CA450CF26E7421C0029324E /* DebugValidationTVC.xib in Resources */,
 				D2B87DA2272BDCA600B0BE19 /* context.jsonc in Resources */,
@@ -679,7 +667,7 @@
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
 				5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */,
-				5CA450BA26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
+				5CA450BA26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				5CA450CA26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
 				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
 				5CA450D626E783B20029324E /* DebugGeneralTVC.swift in Sources */,
@@ -697,7 +685,7 @@
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
 				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,
 				D2B87DA4272C30FA00B0BE19 /* HCertValidity.swift in Sources */,
-				5CE07C8926938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
+				5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				5CA450C226E741BB0029324E /* DebugRawTVC.swift in Sources */,
 				5CA450DF26E78D990029324E /* InfoCell.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
@@ -710,11 +698,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */,
-				5CA450BB26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
+				5CA450BB26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				5CA450A726E0BA640029324E /* DebugVC.swift in Sources */,
 				5CA4509D26DCCA770029324E /* NFCHelper.swift in Sources */,
 				5CA450D226E74B000029324E /* DebugSectionModel.swift in Sources */,
-				5CE07C8A26938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
+				5CE07C8A26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
 				5CA450D726E783B20029324E /* DebugGeneralTVC.swift in Sources */,
 				5CA450CB26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
@@ -741,10 +729,10 @@
 				5CA450CC26E7421C0029324E /* DebugValidationTVC.swift in Sources */,
 				5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
-				5CA450BC26E7419F0029324E /* DebugSectionTVC.swift in Sources */,
+				5CA450BC26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				D23EF7AB272067F80097D82B /* ValueSetsDataStorage.swift in Sources */,
 				5CA4509E26DCCA770029324E /* NFCHelper.swift in Sources */,
-				5CE07C8B26938DE700A032F9 /* RuleErrorTVC.swift in Sources */,
+				5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				5CA450B626E605710029324E /* DebugManager.swift in Sources */,
 				5CA450D826E783B20029324E /* DebugGeneralTVC.swift in Sources */,
 				5CA450C426E741BB0029324E /* DebugRawTVC.swift in Sources */,

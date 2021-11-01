@@ -47,7 +47,7 @@ class DebugGeneralTVC: UITableViewCell {
     super.awakeFromNib()
     tableView.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
     tableView.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
-    tableView.register(UINib(nibName: "RuleErrorTVC", bundle: nil), forCellReuseIdentifier: "RuleErrorTVC")
+    tableView.register(UINib(nibName: "RuleErrorCell", bundle: nil), forCellReuseIdentifier: "RuleErrorCell")
     tableView.dataSource = self
     tableView.estimatedRowHeight = 800
     tableView.rowHeight = UITableView.automaticDimension
@@ -122,8 +122,8 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
         return cell
         
       } else {
-          guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath) as?
-              RuleErrorTVC else { return UITableViewCell() }
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorCell", for: indexPath) as?
+                  RuleErrorCell else { return UITableViewCell() }
         
         let item = sectionInfo.sectionItems[indexPath.row - 1]
         cell.setupCell(with: item)

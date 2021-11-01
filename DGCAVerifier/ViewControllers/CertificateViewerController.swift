@@ -47,17 +47,14 @@ class CertificateViewerController: UIViewController {
   private var sectionBuilder: SectionBuilder?
   private var validityState: ValidityState = .invalid
   private var debugSections = [DebugSectionModel]()
-  private var isDebugMode = false
+  private var isDebugMode = DebugManager.sharedInstance.isDebugMode
   
   // MARK: View Controller life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    infoTable.dataSource = self
     infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
     infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
-    infoTable.register(UINib(nibName: "RuleErrorTVC", bundle: nil), forCellReuseIdentifier: "RuleErrorTVC")
-    infoTable.register(UINib(nibName: "DebugSectionTVC", bundle: nil), forCellReuseIdentifier: "DebugSectionTVC")
     infoTable.register(UINib(nibName: "DebugRawTVC", bundle: nil), forCellReuseIdentifier: "DebugRawTVC")
     infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
     infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
@@ -81,7 +78,8 @@ class CertificateViewerController: UIViewController {
           let codes = CountryDataStorage.sharedInstance.countryCodes
           let country = hCert.ruleCountryCode ?? ""
           
-          if let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
+          if DebugManager.sharedInstance.isDebugMode,
+              let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
             self?.isDebugMode = true
           } else {
             self?.isDebugMode = false
@@ -128,7 +126,7 @@ class CertificateViewerController: UIViewController {
   
   // MARK: Actions
   @IBAction func settingsButtonAction() {
-      self.performSegue(withIdentifier: Constants.showSettingsController, sender: nil)
+    self.performSegue(withIdentifier: Constants.showSettingsController, sender: nil)
   }
   
   @IBAction func dissmissButtonAction() {
@@ -173,7 +171,6 @@ extension CertificateViewerController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
     if isDebugMode {
       let debugSection = debugSections[section]
       return debugSection.numberOfItems
@@ -192,13 +189,15 @@ extension CertificateViewerController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
     return isDebugMode ? debugSections.count : listItems.count
   }
-
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if isDebugMode {
       let debugSection = debugSections[indexPath.section]
       if indexPath.row == 0 {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugSectionTVC",
-            for: indexPath) as? DebugSectionTVC else { return UITableViewCell() }
+        let cellID = String(describing: DebugSectionCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugSectionCell else {
+          return UITableViewCell()
+        }
         
         cell.setDebugSection(debugSection: debugSection)
         cell.expandCallback = { debugSectionFromCB in
@@ -210,21 +209,27 @@ extension CertificateViewerController: UITableViewDataSource {
       
       switch debugSection.sectionType {
       case .raw:
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugRawTVC", for: indexPath) as?
-          DebugRawTVC else { return UITableViewCell() }
+        let cellID = String(describing: DebugRawTVC.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugRawTVC else {
+          return UITableViewCell()
+        }
         
-          cell.setDebugSection(debugSection: debugSection)
-          return cell
+        cell.setDebugSection(debugSection: debugSection)
+        return cell
         
       case .verification:
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugValidationTVC", for: indexPath) as?
-            DebugValidationTVC else { return UITableViewCell() }
+        let cellID = String(describing: DebugValidationTVC.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugValidationTVC else {
+          return UITableViewCell()
+        }
         cell.setupCell(with: validityState)
         return cell
         
       case .general:
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugGeneralTVC", for: indexPath) as?
-            DebugGeneralTVC else { return UITableViewCell() }
+        let cellID = String(describing: DebugGeneralTVC.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugGeneralTVC else {
+          return UITableViewCell()
+        }
         
         let reloadHandler = {
           tableView.reloadData()
@@ -236,15 +241,19 @@ extension CertificateViewerController: UITableViewDataSource {
     } else {
       let infoSection = listItems[indexPath.section]
       if infoSection.sectionItems.count == 0 {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell",
-          for: indexPath) as? InfoCell else { return UITableViewCell() }
+        let cellID = String(describing: InfoCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? InfoCell else {
+          return UITableViewCell()
+        }
         cell.setupCell(with: infoSection)
         return cell
         
       } else {
         if indexPath.row == 0 {
-          guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCellDropDown", for: indexPath) as?
-              InfoCellDropDown else { return UITableViewCell() }
+          let cellID = String(describing: InfoCellDropDown.self)
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? InfoCellDropDown else {
+            return UITableViewCell()
+          }
           cell.setupCell(with: infoSection) { [weak self] state in
             infoSection.isExpanded = state
             if let row = self?.sectionBuilder?.infoSection.firstIndex(where: {$0.header == infoSection.header}) {
@@ -255,8 +264,10 @@ extension CertificateViewerController: UITableViewDataSource {
           return cell
           
         } else {
-          guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorTVC", for: indexPath) as?
-              RuleErrorTVC else { return UITableViewCell() }
+          let cellID = String(describing: RuleErrorCell.self)
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? RuleErrorCell else {
+            return UITableViewCell()
+          }
           let item = infoSection.sectionItems[indexPath.row - 1]
           cell.setupCell(with: item)
           return cell

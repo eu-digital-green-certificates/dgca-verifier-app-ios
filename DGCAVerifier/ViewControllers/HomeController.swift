@@ -41,8 +41,8 @@ class HomeController: UIViewController {
     VerificationManager.sharedManager.config = HCertConfig()
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     
     loaded ? loadComplete() : load()
   }
@@ -82,11 +82,11 @@ class HomeController: UIViewController {
         SecureBackground.image = renderer.image { rendererContext in
           self.view.layer.render(in: rendererContext.cgContext)
         }
-        self.loaded = true
         loadingGroup.leave()
       }
     }
     loadingGroup.notify(queue: .main) { [unowned self] in
+      self.loaded = true
       self.activityIndicator.stopAnimating()
       self.loadComplete()
     }

@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugSectionTVC.swift
+//  DebugSectionCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 07.09.2021.
@@ -30,7 +30,7 @@ import UIKit
 
 typealias ExpandBlock = (_ debugSection: DebugSectionModel?) -> Void
 
-class DebugSectionTVC: UITableViewCell {
+class DebugSectionCell: UITableViewCell {
 
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var expandButton: UIButton!
