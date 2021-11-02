@@ -31,50 +31,52 @@ import UIKit
 typealias ExpandBlock = (_ debugSection: DebugSectionModel?) -> Void
 
 class DebugSectionCell: UITableViewCell {
-
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var expandButton: UIButton!
+  @IBOutlet fileprivate weak var nameLabel: UILabel!
+  @IBOutlet fileprivate weak var expandButton: UIButton!
   
+  var expandCallback: ExpandBlock?
   private var debugSection: DebugSectionModel? {
     didSet {
       setupView()
     }
   }
   
-  var expandCallback: ExpandBlock?
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-    setupView()
+  func setupCell(for debugSection: DebugSectionModel) {
+    self.debugSection = debugSection
   }
-      
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    debugSection = nil
+  }
+
   @IBAction func expandAction(_ sender: Any) {
-    debugSection?.isExpanded = !(debugSection?.isExpanded ?? false)
+    guard let debugSection = debugSection else { return }
+    debugSection.isExpanded = !debugSection.isExpanded
     expandCallback?(debugSection)
-    if debugSection?.isExpanded ?? false {
-      expandButton.setTitle("-", for: .normal)
+    if debugSection.isExpanded {
+      expandButton.setTitle("▼", for: .normal)
     } else {
-      expandButton.setTitle("+", for: .normal)
+      expandButton.setTitle("▶︎", for: .normal)
     }
   }
   
+  // MARK: Private methods
   private func setupView() {
     guard let debugSection = debugSection else {
-      nameLabel.text = ""
-      expandButton.setTitle("-", for: .normal)
+      clearView()
       return
     }
     if debugSection.isExpanded {
-      expandButton.setTitle("-", for: .normal)
+      expandButton.setTitle("▼", for: .normal)
     } else {
-      expandButton.setTitle("+", for: .normal)
+      expandButton.setTitle("▶︎", for: .normal)
     }
-    nameLabel.text = debugSection.sectionName
+    nameLabel.text = debugSection.sectionType.rawValue
   }
   
-  public func setDebugSection(debugSection: DebugSectionModel) {
-    self.debugSection = debugSection
+  private func clearView() {
+    nameLabel.text = ""
+    expandButton.setTitle("", for: .normal)
   }
-  
 }

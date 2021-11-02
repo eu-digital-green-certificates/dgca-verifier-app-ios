@@ -33,10 +33,15 @@ import SwiftDGC
 class DebugInfoCell: InfoCell { }
 
 class InfoCell: UITableViewCell {
-  @IBOutlet weak var headerLabel: UILabel!
-  @IBOutlet weak var contentLabel: UILabel!
+  @IBOutlet fileprivate weak var headerLabel: UILabel!
+  @IBOutlet fileprivate weak var contentLabel: UILabel!
 
-  func setupCell(with info: InfoSection) {
+  func setupCell(with info: InfoSection?) {
+    guard let info = info else {
+        headerLabel.text = ""
+        contentLabel.text = ""
+        return
+    }
     headerLabel?.text = info.header
     contentLabel?.text = info.content
     let fontSize = contentLabel.font.pointSize

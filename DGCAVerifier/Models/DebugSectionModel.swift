@@ -29,25 +29,15 @@
 import Foundation
 import SwiftDGC
 
-enum DebugSectionType {
-  case verification
-  case general
-  case raw
+enum DebugSectionType: String {
+  case verification = "Verification"
+  case raw = "Raw Data"
+  
 }
 
 final class DebugSectionModel {
-  var sectionType: DebugSectionType = .verification
-  var sectionName: String {
-    switch sectionType {
-    case .verification:
-      return "Verification"
-    case .general:
-      return "General"
-    case .raw:
-      return "Raw Data"
-    }
-  }
-  var hCert: HCert
+  let sectionType: DebugSectionType
+
   var isExpanded = false
   
   var numberOfItems: Int {
@@ -57,19 +47,12 @@ final class DebugSectionModel {
     switch sectionType {
     case .verification:
       return 2
-    case .general:
-      return 2
     case .raw:
       return 2
     }
   }
     
-  init(hCert: HCert, sectionType: DebugSectionType) {
-    self.hCert = hCert
+  init(sectionType: DebugSectionType) {
     self.sectionType = sectionType
-  }
-    
-  func update(hCert: HCert) {
-    self.hCert = hCert
   }
 }

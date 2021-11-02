@@ -24,7 +24,7 @@
 //  
 //  Created by Alexandr Chernyy on 02.09.2021.
 //  
-        
+
 
 import UIKit
 import SwiftDGC
@@ -37,13 +37,7 @@ class DebugTVC: UITableViewCell {
       setupView()
     }
   }
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-    setupView()
-  }
-    
+
   func setupView() {
     guard let nameLabel = nameLabel, let country = country else {
       nameLabel.text = ""

@@ -41,13 +41,12 @@ class DebugValidationCell: UITableViewCell {
   @IBOutlet weak var issuerLabel: UILabel!
   @IBOutlet weak var destinationLabel: UILabel!
   @IBOutlet weak var travellerLabel: UILabel!
-  
   @IBOutlet weak var technivalView: UILabel!
   @IBOutlet weak var issuerView: UILabel!
   @IBOutlet weak var destinationView: UILabel!
   @IBOutlet weak var travvelerView: UILabel!
   
-  private var validityState: ValidityState!
+  private var validityState: ValidityState = .invalid
       
   func setupCell(with validity: ValidityState) {
     self.validityState = validity
@@ -76,78 +75,16 @@ class DebugValidationCell: UITableViewCell {
   }
   
   private func setupIcons() {
-    switch validityState.technicalValidity {
-      case .valid:
-        technivalView.text = Icons.ok.rawValue
-      case .invalid:
-        technivalView.text = Icons.error.rawValue
-      case .ruleInvalid:
-        technivalView.text = Icons.limited.rawValue
-    }
-
-    switch validityState.issuerInvalidation {
-      case .passed:
-        issuerView.text = Icons.ok.rawValue
-      case .error:
-        issuerView.text = Icons.error.rawValue
-      case .open:
-        issuerView.text = Icons.limited.rawValue
-    }
-
-    switch validityState.destinationAcceptence {
-    case .passed:
-      destinationView.text = Icons.ok.rawValue
-    case .error:
-      destinationView.text = Icons.error.rawValue
-    case .open:
-      destinationView.text = Icons.limited.rawValue
-    }
-
-    switch validityState.travalerAcceptence {
-    case .passed:
-      travvelerView.text = Icons.ok.rawValue
-    case .error:
-      travvelerView.text = Icons.error.rawValue
-    case .open:
-      travvelerView.text = Icons.limited.rawValue
-    }
+    technivalView.text = validityState.technicalValidityString
+    issuerView.text = validityState.issuerInvalidationString
+    destinationView.text = validityState.destinationAcceptenceString
+    travvelerView.text = validityState.travalerAcceptenceString
   }
   
   private func setupColors() {
-    switch validityState.technicalValidity {
-      case .valid:
-      technivalView.backgroundColor = UIColor.valid
-      case .invalid:
-      technivalView.backgroundColor = UIColor.invalid
-      case .ruleInvalid:
-      technivalView.backgroundColor = UIColor.open
-    }
-
-    switch validityState.issuerInvalidation {
-      case .passed:
-      issuerView.backgroundColor = UIColor.valid
-      case .error:
-      issuerView.backgroundColor = UIColor.invalid
-      case .open:
-      issuerView.backgroundColor = UIColor.open
-    }
-
-    switch validityState.destinationAcceptence {
-    case .passed:
-      destinationView.backgroundColor = UIColor.valid
-    case .error:
-      destinationView.backgroundColor = UIColor.invalid
-    case .open:
-      destinationView.backgroundColor = UIColor.open
-    }
-
-    switch validityState.travalerAcceptence {
-    case .passed:
-      travvelerView.backgroundColor = UIColor.valid
-    case .error:
-      travvelerView.backgroundColor = UIColor.invalid
-    case .open:
-      travvelerView.backgroundColor = UIColor.open
-    }
+    technivalView.backgroundColor = validityState.technicalValidityColor
+    issuerView.backgroundColor = validityState.issuerInvalidationColor
+    destinationView.backgroundColor = validityState.destinationAcceptenceColor
+    travvelerView.backgroundColor = validityState.travalerAcceptenceColor
   }
 }

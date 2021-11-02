@@ -40,28 +40,38 @@ class InfoCellDropDown: UITableViewCell {
     static let iconExpanded = "icon_expanded"
   }
     
-  @IBOutlet private weak var headerLabel: UILabel!
-  @IBOutlet private weak var contentLabel: UILabel!
-  @IBOutlet private weak var dropDownButton: UIButton!
+  @IBOutlet fileprivate weak var headerLabel: UILabel!
+  @IBOutlet fileprivate weak var contentLabel: UILabel!
+  @IBOutlet fileprivate weak var dropDownButton: UIButton!
     
   private var dropDownBlock: DropDownBlock?
-  private var info: InfoSection  = InfoSection(header: "", content: "") {
+  private var info: InfoSection? {
     didSet {
       setupView()
     }
-  }
-
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    clearView()
   }
     
   func setupCell(with info: InfoSection, dropDownBlock: @escaping DropDownBlock) {
     self.info = info
     self.dropDownBlock = dropDownBlock
   }
-    
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    info = nil
+    dropDownBlock = nil
+  }
+  
+  @IBAction func dropDownUpAction(_ sender: Any) {
+    info?.isExpanded = !info!.isExpanded
+    setDropDownIcon()
+    dropDownBlock?(info!.isExpanded)
+  }
+  
+  // MARK: Private methods
   private func setupView() {
+    guard let info = info else { clearView(); return }
+    
     setDropDownIcon()
     headerLabel?.text = info.header
     contentLabel?.text = info.content
@@ -84,13 +94,9 @@ class InfoCellDropDown: UITableViewCell {
     contentLabel.text = ""
   }
     
-  @IBAction func dropDownUpAction(_ sender: Any) {
-    info.isExpanded = !info.isExpanded
-    setDropDownIcon()
-    dropDownBlock?(info.isExpanded)
-  }
-    
   private func setDropDownIcon() {
+    guard let info = info else { return }
+
     if !info.isExpanded {
       dropDownButton.setImage(UIImage(named: Constants.iconCollapsed), for: .normal)
     } else {

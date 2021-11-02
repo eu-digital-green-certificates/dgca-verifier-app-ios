@@ -31,13 +31,13 @@ import SwiftDGC
 class DebugRuleErrorCell: RuleErrorCell { }
 
 class RuleErrorCell: UITableViewCell {
-  @IBOutlet weak var ruleLabel: UILabel!
-  @IBOutlet weak var ruleValueLabel: UILabel!
-  @IBOutlet weak var currentLabel: UILabel!
-  @IBOutlet weak var currentValueLabel: UILabel!
-  @IBOutlet weak var resultLabel: UILabel!
-  @IBOutlet weak var resultValueLabel: UILabel!
-  @IBOutlet weak var failedLabel: UILabel!
+  @IBOutlet fileprivate weak var ruleLabel: UILabel!
+  @IBOutlet fileprivate weak var ruleValueLabel: UILabel!
+  @IBOutlet fileprivate weak var currentLabel: UILabel!
+  @IBOutlet fileprivate weak var currentValueLabel: UILabel!
+  @IBOutlet fileprivate weak var resultLabel: UILabel!
+  @IBOutlet fileprivate weak var resultValueLabel: UILabel!
+  @IBOutlet fileprivate weak var failedLabel: UILabel!
     
   private var infoItem: InfoSection? {
     didSet {
@@ -45,11 +45,17 @@ class RuleErrorCell: UITableViewCell {
     }
   }
 
-  override func prepareForReuse() {
-    setLabels()
+  func setupCell(with info: InfoSection) {
+    self.infoItem = info
   }
-    
-  private func setLabels() {
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    infoItem = nil
+  }
+
+  // MARK: Private methods
+  private func setupLabels() {
     ruleLabel.text = l10n("rule")
     ruleValueLabel.text = ""
     currentLabel.text = l10n("current")
@@ -59,7 +65,8 @@ class RuleErrorCell: UITableViewCell {
   }
 
   private func setupView() {
-    guard let infoItem = infoItem else { return }
+    guard let infoItem = infoItem else { setupLabels(); return }
+    
     ruleValueLabel.text = infoItem.header
     currentValueLabel.text = infoItem.content
     switch infoItem.ruleValidationResult {
@@ -93,9 +100,5 @@ class RuleErrorCell: UITableViewCell {
         resultValueLabel.text = l10n("open")
       }
     }
-  }
-
-  public func setupCell(with info: InfoSection) {
-    self.infoItem = info
   }
 }

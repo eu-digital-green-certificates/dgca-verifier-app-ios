@@ -27,26 +27,27 @@
         
 
 import UIKit
+import SwiftDGC
 
 class DebugRawCell: UITableViewCell {
+  @IBOutlet fileprivate weak var rawLabel: UILabel!
 
-  @IBOutlet weak var rawLabel: UILabel!
-  private var debugSection: DebugSectionModel? {
+  func setupCell(for _: DebugSectionModel, cert: HCert?) {
+      self.cert = cert
+  }
+
+  private var cert: HCert? {
     didSet {
       setupView()
     }
   }
   
   private func setupView() {
-    guard let debugSection = debugSection else {
+    guard let cert = cert else {
       rawLabel.text = ""
       return
     }
-    rawLabel.text = debugSection.hCert.body.description
+    rawLabel.text = cert.body.description
     rawLabel.sizeToFit()
-  }
-  
-  public func setDebugSection(debugSection: DebugSectionModel) {
-    self.debugSection = debugSection
   }
 }

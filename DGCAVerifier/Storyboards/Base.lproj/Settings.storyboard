@@ -343,7 +343,7 @@
         <!--DebugVC-->
         <scene sceneID="7BW-ip-cCb">
             <objects>
-                <viewController storyboardIdentifier="DebugVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bsF-c3-r8z" customClass="DebugVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="bsF-c3-r8z" customClass="DebugVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PLh-wf-WId">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
