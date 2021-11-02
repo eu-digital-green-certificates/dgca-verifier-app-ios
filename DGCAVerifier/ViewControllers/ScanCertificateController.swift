@@ -46,17 +46,17 @@ class ScanCertificateController: UIViewController {
     static let showCertificateViewer = "showCertificateViewer"
   }
 
-  @IBOutlet weak var aNFCButton: UIButton!
-  @IBOutlet weak var settingsButton: UIButton!
-  @IBOutlet weak var camView: UIView!
-  @IBOutlet weak var countryCodeView: UIPickerView!
-  @IBOutlet weak var countryCodeLabel: UILabel!
+  @IBOutlet fileprivate weak var aNFCButton: UIButton!
+  @IBOutlet fileprivate weak var settingsButton: UIButton!
+  @IBOutlet fileprivate weak var camView: UIView!
+  @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
+  @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
   
-  var captureSession: AVCaptureSession?
   weak var delegate: ScanCertificateDelegate?
+  private var captureSession: AVCaptureSession?
   private var countryItems: [CountryModel] = []
 
-  lazy var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
+  lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
     guard error == nil else {
       self.showAlert(withTitle: l10n("err.barcode"), message: error?.localizedDescription ?? l10n("err.misc"))
       return
@@ -64,7 +64,6 @@ class ScanCertificateController: UIViewController {
     self.processClassification(request)
   }
   
-  //Selected country code
   private var selectedCounty: CountryModel? {
     set {
       let userDefaults = UserDefaults.standard

@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugTVC.swift
+//  DebugCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 02.09.2021.
@@ -29,7 +29,7 @@
 import UIKit
 import SwiftDGC
 
-class DebugTVC: UITableViewCell {
+class DebugCell: UITableViewCell {
 
   @IBOutlet weak var nameLabel: UILabel!
   private var country: CountryModel? {

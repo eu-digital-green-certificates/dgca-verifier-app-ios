@@ -71,6 +71,10 @@ class CertificateViewerController: UIViewController {
     
     isDebugMode = DebugManager.sharedInstance.isDebugMode
     activityIndicator.startAnimating()
+    shareButton.isHidden = true
+    dismissButton.setTitle("Cancel", for: .normal)
+    dismissButton.backgroundColor = UIColor.walletYellow
+    
     let validator = CertificateValidator(with: hCert)
     DispatchQueue.global(qos: .userInitiated).async {
       validator.validate {[weak self] (validityState) in
@@ -161,7 +165,7 @@ class CertificateViewerController: UIViewController {
     switch segue.identifier {
     case Constants.showSettingsController:
       if let destinationController = segue.destination as? UINavigationController,
-         let rootController = destinationController.viewControllers.first as? SettingsTableVC {
+         let rootController = destinationController.viewControllers.first as? SettingsController {
         rootController.delegate = self
       }
     default:

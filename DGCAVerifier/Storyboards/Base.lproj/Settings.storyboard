@@ -13,7 +13,7 @@
         <!--Settings-->
         <scene sceneID="Hw4-MU-mk3">
             <objects>
-                <tableViewController id="3yC-8G-HqR" customClass="SettingsTableVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="3yC-8G-HqR" customClass="SettingsController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="2lW-EJ-Zq6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -244,7 +244,7 @@
         <!--Licenses-->
         <scene sceneID="haR-pA-pal">
             <objects>
-                <tableViewController title="Licenses" id="PQY-eb-uyP" customClass="LicenseTableVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Licenses" id="PQY-eb-uyP" customClass="LicenseTableController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rlG-W8-zIp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -290,10 +290,10 @@
             </objects>
             <point key="canvasLocation" x="1843" y="56"/>
         </scene>
-        <!--LicenseVC-->
+        <!--License Controller-->
         <scene sceneID="nvA-6m-BUC">
             <objects>
-                <viewController id="QyX-4N-v3K" customClass="LicenseVC" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QyX-4N-v3K" customClass="LicenseController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ELj-Q9-rbk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -436,7 +436,7 @@
                                 <rect key="frame" x="20" y="419" width="374" height="389"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="DebugTVC" rowHeight="54" id="p3Y-HN-fH0" customClass="DebugTVC" customModule="DGCAVerifier" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="DebugCell" rowHeight="54" id="p3Y-HN-fH0" customClass="DebugCell" customModule="DGCAVerifier" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="374" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p3Y-HN-fH0" id="uRk-9x-DNg">

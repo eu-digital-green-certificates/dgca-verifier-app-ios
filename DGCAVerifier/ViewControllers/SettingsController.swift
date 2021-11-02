@@ -18,7 +18,7 @@
  * ---license-end
  */
 //
-//  CertificateViewer.swift
+//  SettingsController.swift
 //  DGCAVerifier
 //
 //  Created by Yannick Spreen on 4/19/21.
@@ -27,14 +27,14 @@
 import UIKit
 import SwiftDGC
 
-class SettingsTableVC: UITableViewController, DebugControllerDelegate {
+class SettingsController: UITableViewController, DebugControllerDelegate {
   var loading = false
   weak var delegate: DebugControllerDelegate?
   
-  @IBOutlet weak var licensesLabelName: UILabel!
-  @IBOutlet weak var privacyLabelName: UILabel!
-  @IBOutlet weak var debugLabelName: UILabel!
-  @IBOutlet weak var debugLabel: UILabel!
+  @IBOutlet fileprivate weak var licensesLabelName: UILabel!
+  @IBOutlet fileprivate weak var privacyLabelName: UILabel!
+  @IBOutlet fileprivate weak var debugLabelName: UILabel!
+  @IBOutlet fileprivate weak var debugLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()

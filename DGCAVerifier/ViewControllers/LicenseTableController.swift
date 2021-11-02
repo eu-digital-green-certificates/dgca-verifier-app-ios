@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  LicenseTableVC.swift
+//  LicenseTableController.swift
 //  DGCAVerifier
 //  
 //  Created by Paul Ballmann on 24.05.21.
@@ -29,8 +29,8 @@ import SwiftyJSON
 import WebKit
 import SwiftDGC
 
-class LicenseTableVC: UITableViewController {
-  public var licenses: [JSON] = []
+class LicenseTableController: UITableViewController {
+  var licenses: [JSON] = []
   private var selectedLicense: JSON = []
 
   override func viewDidLoad() {
@@ -39,8 +39,8 @@ class LicenseTableVC: UITableViewController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.destination is LicenseVC {
-      if let destVC = segue.destination as? LicenseVC {
+    if segue.destination is LicenseController {
+      if let destVC = segue.destination as? LicenseController {
         destVC.licenseObject = self.selectedLicense
       }
     }
@@ -78,44 +78,7 @@ class LicenseTableVC: UITableViewController {
         DGCLogger.logError(error)
       return
     }
-
-      DGCLogger.logInfo(self.licenses.description)
+    DGCLogger.logInfo(self.licenses.description)
   }
 }
 
-class LicenseVC: UIViewController, WKNavigationDelegate {
-  @IBOutlet weak var packageNameLabel: UILabel!
-  @IBOutlet weak var licenseWebView: WKWebView!
-  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-  var licenseObject: JSON = []
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    self.packageNameLabel.text = licenseObject["name"].string
-    self.licenseWebView.isUserInteractionEnabled = false
-    self.licenseWebView.navigationDelegate = self
-    if let licenseUrl = licenseObject["licenseUrl"].string {
-      loadWebView(licenseUrl)
-    }
-  }
-
-  func loadWebView(_ packageLink: String) {
-    DispatchQueue.main.async {
-     let request = URLRequest(url: URL(string: packageLink)!)
-      self.licenseWebView?.load(request)
-    }
-
-    self.activityIndicator.startAnimating()
-    self.licenseWebView.navigationDelegate = self
-  }
-
-  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    self.activityIndicator.stopAnimating()
-  }
-
-  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-    self.activityIndicator.stopAnimating()
-  }
-}
