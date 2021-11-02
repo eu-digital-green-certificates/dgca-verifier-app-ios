@@ -28,8 +28,9 @@ import Foundation
 import SwiftDGC
 import SwiftyJSON
 
-struct CountryDataStorage: Codable {
+class CountryDataStorage: Codable {
   static var sharedInstance = CountryDataStorage()
+  static let storage = SecureStorage<CountryDataStorage>(fileName: "country_secure")
 
   var countryCodes = [CountryModel]()
   var lastFetchRaw: Date?
@@ -43,7 +44,7 @@ struct CountryDataStorage: Codable {
   }
   var config = Config.load()
 
-  mutating func add(country: CountryModel) {
+  func add(country: CountryModel) {
     let list = countryCodes
     if list.contains(where: { savedCountry in
       savedCountry.code == country.code
@@ -53,7 +54,7 @@ struct CountryDataStorage: Codable {
     countryCodes.append(country)
   }
   
-  mutating func update(country: CountryModel) {
+  func update(country: CountryModel) {
     let list = countryCodes
     guard let countryFromDB = list.filter({ savedCountry in
       savedCountry.code == country.code
@@ -62,11 +63,9 @@ struct CountryDataStorage: Codable {
     save()
   }
 
-  public func save() {
+  func save() {
     Self.storage.save(self)
   }
-
-  static let storage = SecureStorage<CountryDataStorage>(fileName: "country_secure")
 
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: CountryDataStorage.sharedInstance) { success in

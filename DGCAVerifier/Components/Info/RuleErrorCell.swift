@@ -28,8 +28,6 @@
 import UIKit
 import SwiftDGC
 
-class DebugRuleErrorCell: RuleErrorCell { }
-
 class RuleErrorCell: UITableViewCell {
   @IBOutlet fileprivate weak var ruleLabel: UILabel!
   @IBOutlet fileprivate weak var ruleValueLabel: UILabel!

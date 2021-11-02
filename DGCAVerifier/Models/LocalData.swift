@@ -41,8 +41,8 @@ class LocalData: Codable {
     get {
       lastFetchRaw ?? .init(timeIntervalSince1970: 0)
     }
-    set(value) {
-      lastFetchRaw = value
+    set {
+      lastFetchRaw = newValue
     }
   }
   var config = Config.load()
@@ -63,7 +63,7 @@ class LocalData: Codable {
     sharedInstance.resumeToken = resumeToken
   }
 
-  public func save() {
+  func save() {
     Self.storage.save(self)
   }
 
@@ -78,7 +78,6 @@ class LocalData: Codable {
       }
       LocalData.sharedInstance = result
       completion()
-      //GatewayConnection.fetchContext()
     }
     VerificationManager.sharedManager.publicKeyEncoder = LocalDataKeyEncoder.instance
   }

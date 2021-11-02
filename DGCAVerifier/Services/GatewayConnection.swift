@@ -37,44 +37,42 @@ class GatewayConnection: ContextConnection {
     if let token = resumeToken {
       headers["x-resume-token"] = token
     }
-    request(
-      ["endpoints", "update"],
+    request( ["endpoints", "update"],
       method: .get,
       encoding: URLEncoding(),
-      headers: .init(headers)
-    ).response {
-      if
-        let status = $0.response?.statusCode,
-        status == 204 {
+      headers: .init(headers)).response {
+      if let status = $0.response?.statusCode, status == 204 {
         completion?(nil, nil)
         return
       }
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8),
         let headers = $0.response?.headers,
         let responseKid = headers["x-kid"],
         let newResumeToken = headers["x-resume-token"]
       else {
+        completion?(nil, nil)
         return
       }
       let kid = KID.from(responseStr)
       let kidStr = KID.string(from: kid)
       if kidStr != responseKid {
+        completion?(nil, newResumeToken)
         return
       }
       completion?(responseStr, newResumeToken)
     }
   }
+
   public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
     request(["endpoints", "status"]).response {
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8),
         let json = JSON(parseJSON: responseStr).array
       else {
+        completion?([])
         return
       }
       let kids = json.compactMap { $0.string }
@@ -94,12 +92,8 @@ class GatewayConnection: ContextConnection {
   }
 
   static func trigger() {
-    guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else {
-      return
-    }
-      //fetchContext {
-      update()
-    //}
+    guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else { return }
+    update()
   }
 
   static func update(completion: (() -> Void)? = nil) {
@@ -127,13 +121,8 @@ class GatewayConnection: ContextConnection {
   }
 
   public static func fetchContext(completion: (() -> Void)? = nil) {
-    request(
-      ["context"]
-    ).response {
-      guard
-        let data = $0.data,
-        let string = String(data: data, encoding: .utf8)
-      else {
+    request( ["context"] ).response {
+      guard let data = $0.data, let string = String(data: data, encoding: .utf8) else {
         completion?()
         return
       }
@@ -143,7 +132,6 @@ class GatewayConnection: ContextConnection {
       if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
         (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
             .popToRootViewController(animated: false)
-        return
       }
       completion?()
     }
@@ -154,17 +142,18 @@ class GatewayConnection: ContextConnection {
 }
 
 // MARK: Country, Rules, Valuesets extension
-
 extension GatewayConnection {
   // Country list
   public static func getListOfCountry(completion: (([CountryModel]) -> Void)?) {
     request(["endpoints", "countryList"], method: .get).response {
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8),
         let json = JSON(parseJSON: responseStr).array
-      else { return }
+      else {
+        completion?([])
+        return
+      }
         
       let codes = json.compactMap { $0.string }
       var countryList: [CountryModel] = []
@@ -172,19 +161,19 @@ extension GatewayConnection {
       completion?(countryList)
     }
   }
+  
   static func countryList(completion: (([CountryModel]) -> Void)? = nil) {
     CountryDataStorage.initialize {
       if CountryDataStorage.sharedInstance.countryCodes.count > 0 {
-        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { return $0.name < $1.name }))
+        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { $0.name < $1.name }))
       }
       getListOfCountry { countryList in
-        
         // Remove old countryCodes
         CountryDataStorage.sharedInstance.countryCodes = CountryDataStorage.sharedInstance.countryCodes.filter { countryCode in
             return countryList.contains(where: { $0.code == countryCode.code })
         }
-//
-//        CountryDataStorage.sharedInstance.countryCodes.removeAll()
+
+//      CountryDataStorage.sharedInstance.countryCodes.removeAll()
         countryList.forEach { CountryDataStorage.sharedInstance.add(country: $0) }
         CountryDataStorage.sharedInstance.lastFetch = Date()
         CountryDataStorage.sharedInstance.save()
@@ -192,20 +181,22 @@ extension GatewayConnection {
       }
     }
   }
+  
   // Rules
   public static func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
     request(["endpoints", "rules"], method: .get).response {
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {
+        completion?([])
         return
       }
+      
       let ruleHashes: [RuleHash] = CertLogicEngine.getItems(from: responseStr)
       // Remove old hashes
       RulesDataStorage.sharedInstance.rules = RulesDataStorage.sharedInstance.rules.filter { rule in
-          return !ruleHashes.contains(where: { $0.hash == rule.hash })
+        return !ruleHashes.contains(where: { $0.hash == rule.hash })
       }
       // Downloading new hashes
       var rulesItems = [CertLogic.Rule]()
@@ -229,10 +220,10 @@ extension GatewayConnection {
       }
     }
   }
+  
   public static func getRules(ruleHash: CertLogic.RuleHash, completion: ((CertLogic.Rule?) -> Void)?) {
     request(["endpoints", "rules"], externalLink: "/\(ruleHash.country)/\(ruleHash.hash)", method: .get).response {
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {
@@ -255,9 +246,10 @@ extension GatewayConnection {
     
   static func rulesList(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     RulesDataStorage.initialize {
-        completion?(RulesDataStorage.sharedInstance.rules)
+      completion?(RulesDataStorage.sharedInstance.rules)
     }
   }
+  
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
       rulesList.forEach { RulesDataStorage.sharedInstance.add(rule: $0) }
@@ -266,6 +258,7 @@ extension GatewayConnection {
       completion?(RulesDataStorage.sharedInstance.rules)
     }
   }
+  
   // ValueSets
   public static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
     request(["endpoints", "valuesets"], method: .get).response {
@@ -274,12 +267,13 @@ extension GatewayConnection {
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {
+        completion?([])
         return
       }
       let valueSetsHashes: [ValueSetHash] = CertLogicEngine.getItems(from: responseStr)
       // Remove old hashes
       ValueSetsDataStorage.sharedInstance.valueSets = ValueSetsDataStorage.sharedInstance.valueSets.filter { valueSet in
-          return !valueSetsHashes.contains(where: { $0.hash == valueSet.hash })
+        return !valueSetsHashes.contains(where: { $0.hash == valueSet.hash })
       }
       // Downloading new hashes
       var valueSetsItems = [CertLogic.ValueSet]()

@@ -32,6 +32,7 @@ import SwiftDGC
 
 class NFCHelper: NSObject, NFCNDEFReaderSessionDelegate {
   var onNFCResult: ((Bool, String) -> ())?
+
   func restartSession() {
     let session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
     session.begin()

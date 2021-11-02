@@ -27,7 +27,6 @@
 
 import UIKit
 import SwiftDGC
-import SwiftCBOR
 import Vision
 import AVFoundation
 
@@ -66,17 +65,16 @@ class ScanCertificateController: UIViewController {
   
   private var selectedCounty: CountryModel? {
     set {
-      let userDefaults = UserDefaults.standard
       do {
-        try userDefaults.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
+        try UserDefaults.standard.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
       } catch {
         DGCLogger.logError(error)
       }
     }
     get {
-      let userDefaults = UserDefaults.standard
       do {
-        let selected = try userDefaults.getObject(forKey: Constants.userDefaultsCountryKey, castTo: CountryModel.self)
+        let selected = try UserDefaults.standard.getObject(forKey: Constants.userDefaultsCountryKey,
+            castTo: CountryModel.self)
         return selected
       } catch {
         DGCLogger.logError(error)
@@ -115,16 +113,16 @@ class ScanCertificateController: UIViewController {
     SquareViewFinder.create(from: self)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    captureSession?.startRunning()
+  }
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     captureSession?.stopRunning()
   }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    captureSession?.startRunning()
-  }
-  
   // MARK: Actions
   @IBAction func openSettingsController() {
     performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)

@@ -27,12 +27,9 @@
         
 
 import UIKit
-
 import SwiftDGC
 
 typealias DropDownBlock = (Bool) -> Void
-
-class DebugInfoCellDropDown: InfoCellDropDown {}
 
 class InfoCellDropDown: UITableViewCell {
   private enum Constants {

@@ -29,7 +29,7 @@ import SwiftDGC
 import SwiftyJSON
 import CertLogic
 
-struct RulesDataStorage: Codable {
+class RulesDataStorage: Codable {
   static var sharedInstance = RulesDataStorage()
   static let storage = SecureStorage<RulesDataStorage>(fileName: "rules_secure")
 
@@ -44,7 +44,7 @@ struct RulesDataStorage: Codable {
     }
   }
 
-  mutating func add(rule: CertLogic.Rule) {
+  func add(rule: CertLogic.Rule) {
     let list = rules
     if list.contains(where: { savedRule in
       savedRule.identifier == rule.identifier && savedRule.version == rule.version
@@ -54,21 +54,21 @@ struct RulesDataStorage: Codable {
     rules.append(rule)
   }
 
-  public func save() {
+  func save() {
     Self.storage.save(self)
   }
 
-  public mutating func deleteRuleWithHash(hash: String) {
+  func deleteRuleWithHash(hash: String) {
     self.rules = self.rules.filter { $0.hash != hash }
   }
     
-  public func isRuleExistWithHash(hash: String) -> Bool {
+  func isRuleExistWithHash(hash: String) -> Bool {
     let list = rules
     return list.contains(where: { rule in
       rule.hash == hash
     })
   }
-    
+  
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: RulesDataStorage.sharedInstance) { success in
       guard let result = success else { return }

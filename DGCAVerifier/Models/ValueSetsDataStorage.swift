@@ -29,8 +29,9 @@ import SwiftDGC
 import SwiftyJSON
 import CertLogic
 
-struct ValueSetsDataStorage: Codable {
+class ValueSetsDataStorage: Codable {
   static var sharedInstance = ValueSetsDataStorage()
+  static let storage = SecureStorage<ValueSetsDataStorage>(fileName: "valueSets_secure")
 
   var valueSets = [CertLogic.ValueSet]()
   var lastFetchRaw: Date?
@@ -44,7 +45,7 @@ struct ValueSetsDataStorage: Codable {
   }
   var config = Config.load()
 
-  mutating func add(valueSet: CertLogic.ValueSet) {
+  func add(valueSet: CertLogic.ValueSet) {
     let list = valueSets
     if list.contains(where: { savedValueSet in
       savedValueSet.valueSetId == valueSet.valueSetId
@@ -54,21 +55,19 @@ struct ValueSetsDataStorage: Codable {
     valueSets.append(valueSet)
   }
 
-  public func save() {
+  func save() {
     Self.storage.save(self)
   }
 
-  public mutating func deleteValueSetWithHash(hash: String) {
+  func deleteValueSetWithHash(hash: String) {
     self.valueSets = self.valueSets.filter { $0.hash != hash }
   }
     
-  public func isValueSetExistWithHash(hash: String) -> Bool {
+  func isValueSetExistWithHash(hash: String) -> Bool {
     let list = valueSets
     return list.contains(where: { $0.hash == hash })
   }
     
-  static let storage = SecureStorage<ValueSetsDataStorage>(fileName: "valueSets_secure")
-
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: ValueSetsDataStorage.sharedInstance) { success in
       guard let result = success else { return }

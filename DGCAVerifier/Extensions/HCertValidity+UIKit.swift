@@ -30,6 +30,7 @@ import UIKit
 import SwiftDGC
 
 extension HCertValidity {
+  
   var validityResult: String {
       switch self {
       case .valid:

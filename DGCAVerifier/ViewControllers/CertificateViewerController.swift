@@ -26,14 +26,12 @@
 
 import UIKit
 import SwiftDGC
-import CertLogic
 
 protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
 extension DebugSectionModel: CertificateSectionsProtocol {}
 
 class CertificateViewerController: UIViewController {
-  
   private struct Constants {
     static let showSettingsController = "showSettingsController"
   }
@@ -208,7 +206,7 @@ extension CertificateViewerController: UITableViewDataSource {
       switch certDebugSection.self {
       case is DebugSectionModel:
         let debugSection = certDebugSection as! DebugSectionModel
-
+        
         if indexPath.row == 0 {
           let cellID = String(describing: DebugSectionCell.self)
           guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugSectionCell else {

@@ -27,10 +27,7 @@
         
 
 import UIKit
-
 import SwiftDGC
-
-class DebugInfoCell: InfoCell { }
 
 class InfoCell: UITableViewCell {
   @IBOutlet fileprivate weak var headerLabel: UILabel!

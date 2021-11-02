@@ -61,5 +61,4 @@ class DebugManager: NSObject {
       return DebugLevel.init(rawValue: logLevel) ?? .level1
     }
   }
-  
 }

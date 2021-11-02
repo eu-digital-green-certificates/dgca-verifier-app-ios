@@ -26,7 +26,6 @@
 //
 import UIKit
 import SwiftyJSON
-import WebKit
 import SwiftDGC
 
 class LicenseTableController: UITableViewController {

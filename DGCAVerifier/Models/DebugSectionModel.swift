@@ -37,7 +37,6 @@ enum DebugSectionType: String {
 
 final class DebugSectionModel {
   let sectionType: DebugSectionType
-
   var isExpanded = false
   
   var numberOfItems: Int {
@@ -51,7 +50,7 @@ final class DebugSectionModel {
       return 2
     }
   }
-    
+  
   init(sectionType: DebugSectionType) {
     self.sectionType = sectionType
   }

@@ -38,18 +38,23 @@ class CertLogicEngineManager {
   func setRules(ruleList: [CertLogic.Rule]) {
     certLogicEngine.updateRules(rules: ruleList)
   }
+    
   func validate(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload)
   }
+    
   func validateIssuer(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload, validationType: .issuer)
   }
+    
   func validateDestination(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload, validationType: .destination)
   }
+    
   func validateTraveller(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload, validationType: .traveller)
   }
+    
   func getRuleDetailsError(rule: Rule, filter: FilterParameter) -> Dictionary<String, String> {
     return certLogicEngine.getDetailsOfError(rule: rule, filter: filter)
   }
