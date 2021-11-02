@@ -28,6 +28,8 @@
 import UIKit
 import SwiftDGC
 
+class DebugRuleErrorCell: RuleErrorCell { }
+
 class RuleErrorCell: UITableViewCell {
   @IBOutlet weak var ruleLabel: UILabel!
   @IBOutlet weak var ruleValueLabel: UILabel!
@@ -41,11 +43,6 @@ class RuleErrorCell: UITableViewCell {
     didSet {
       setupView()
     }
-  }
-    
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    setLabels()
   }
 
   override func prepareForReuse() {

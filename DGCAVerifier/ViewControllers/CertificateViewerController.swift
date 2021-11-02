@@ -34,13 +34,13 @@ class CertificateViewerController: UIViewController {
     static let showSettingsController = "showSettingsController"
   }
 
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var validityLabel: UILabel!
-  @IBOutlet weak var validityImage: UIImageView!
-  @IBOutlet weak var headerBackground: UIView!
-  @IBOutlet weak var infoTable: UITableView!
-  @IBOutlet weak var dismissButton: UIButton!
-  @IBOutlet weak var shareButton: RoundedButton!
+  @IBOutlet fileprivate weak var nameLabel: UILabel!
+  @IBOutlet fileprivate weak var validityLabel: UILabel!
+  @IBOutlet fileprivate weak var validityImage: UIImageView!
+  @IBOutlet fileprivate weak var headerBackground: UIView!
+  @IBOutlet fileprivate weak var infoTable: UITableView!
+  @IBOutlet fileprivate weak var dismissButton: UIButton!
+  @IBOutlet fileprivate weak var shareButton: RoundedButton!
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var hCert: HCert?
@@ -53,10 +53,6 @@ class CertificateViewerController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    infoTable.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
-    infoTable.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
-    infoTable.register(UINib(nibName: "DebugValidationTVC", bundle: nil), forCellReuseIdentifier: "DebugValidationTVC")
-    infoTable.register(UINib(nibName: "DebugGeneralTVC", bundle: nil), forCellReuseIdentifier: "DebugGeneralTVC")
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
     validateAndSetupInterface()
   }
@@ -217,16 +213,16 @@ extension CertificateViewerController: UITableViewDataSource {
         return cell
         
       case .verification:
-        let cellID = String(describing: DebugValidationTVC.self)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugValidationTVC else {
+        let cellID = String(describing: DebugValidationCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugValidationCell else {
           return UITableViewCell()
         }
         cell.setupCell(with: validityState)
         return cell
         
       case .general:
-        let cellID = String(describing: DebugGeneralTVC.self)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugGeneralTVC else {
+        let cellID = String(describing: DebugGeneralCell.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugGeneralCell else {
           return UITableViewCell()
         }
         

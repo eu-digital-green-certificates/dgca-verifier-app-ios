@@ -30,6 +30,8 @@ import UIKit
 
 import SwiftDGC
 
+class DebugInfoCell: InfoCell { }
+
 class InfoCell: UITableViewCell {
   @IBOutlet weak var headerLabel: UILabel!
   @IBOutlet weak var contentLabel: UILabel!

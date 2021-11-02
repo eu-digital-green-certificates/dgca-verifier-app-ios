@@ -32,14 +32,18 @@ import SwiftDGC
 
 typealias DropDownBlock = (Bool) -> Void
 
-final class InfoCellDropDown: UITableViewCell {
+class DebugInfoCellDropDown: InfoCellDropDown {}
+
+class InfoCellDropDown: UITableViewCell {
   private enum Constants {
     static let iconCollapsed = "icon_collapsed"
     static let iconExpanded = "icon_expanded"
   }
+    
   @IBOutlet private weak var headerLabel: UILabel!
   @IBOutlet private weak var contentLabel: UILabel!
   @IBOutlet private weak var dropDownButton: UIButton!
+    
   private var dropDownBlock: DropDownBlock?
   private var info: InfoSection  = InfoSection(header: "", content: "") {
     didSet {
@@ -47,15 +51,11 @@ final class InfoCellDropDown: UITableViewCell {
     }
   }
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    clearView()
-  }
   override func prepareForReuse() {
     super.prepareForReuse()
-
     clearView()
   }
+    
   func setupCell(with info: InfoSection, dropDownBlock: @escaping DropDownBlock) {
     self.info = info
     self.dropDownBlock = dropDownBlock
@@ -78,15 +78,18 @@ final class InfoCellDropDown: UITableViewCell {
       contentLabel.font = .systemFont(ofSize: fontSize, weight: fontWeight)
     }
   }
+    
   private func clearView() {
     headerLabel.text = ""
     contentLabel.text = ""
   }
+    
   @IBAction func dropDownUpAction(_ sender: Any) {
     info.isExpanded = !info.isExpanded
     setDropDownIcon()
     dropDownBlock?(info.isExpanded)
   }
+    
   private func setDropDownIcon() {
     if !info.isExpanded {
       dropDownButton.setImage(UIImage(named: Constants.iconCollapsed), for: .normal)

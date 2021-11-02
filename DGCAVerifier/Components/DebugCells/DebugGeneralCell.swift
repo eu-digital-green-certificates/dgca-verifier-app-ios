@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugGeneralTVC.swift
+//  DebugGeneralCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 07.09.2021.
@@ -30,7 +30,7 @@ import SwiftDGC
 
 typealias ReloadBlock = () -> Void
 
-class DebugGeneralTVC: UITableViewCell {
+class DebugGeneralCell: UITableViewCell {
 
   @IBOutlet weak var tableHeight: NSLayoutConstraint!
   @IBOutlet weak var tableView: UITableView!
@@ -45,10 +45,6 @@ class DebugGeneralTVC: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    tableView.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
-    tableView.register(UINib(nibName: "InfoCellDropDown", bundle: nil), forCellReuseIdentifier: "InfoCellDropDown")
-    tableView.register(UINib(nibName: "RuleErrorCell", bundle: nil), forCellReuseIdentifier: "RuleErrorCell")
-    tableView.dataSource = self
     tableView.estimatedRowHeight = 800
     tableView.rowHeight = UITableView.automaticDimension
   }
@@ -78,7 +74,7 @@ class DebugGeneralTVC: UITableViewCell {
   }
 }
 
-extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
+extension DebugGeneralCell: UITableViewDataSource, UITableViewDelegate {
   var listItems: [InfoSection] {
     sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
   }
@@ -101,16 +97,18 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let sectionInfo = listItems[indexPath.section]
     if sectionInfo.sectionItems.count == 0 {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as?
-          InfoCell else { return UITableViewCell() }
+      let cellID = String(describing: DebugInfoCell.self)
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as?
+              DebugInfoCell else { return UITableViewCell() }
         
       cell.setupCell(with: sectionInfo)
       return cell
       
     } else {
       if indexPath.row == .zero {
-          guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCellDropDown", for: indexPath) as?
-              InfoCellDropDown else { return UITableViewCell() }
+        let cellID = String(describing: DebugInfoCellDropDown.self)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as?
+                DebugInfoCellDropDown else { return UITableViewCell() }
           
         cell.setupCell(with: sectionInfo) { [weak self] state in
           sectionInfo.isExpanded = state
@@ -122,25 +120,14 @@ extension DebugGeneralTVC: UITableViewDataSource, UITableViewDelegate {
         return cell
         
       } else {
-          guard let cell = tableView.dequeueReusableCell(withIdentifier: "RuleErrorCell", for: indexPath) as?
-                  RuleErrorCell else { return UITableViewCell() }
+        let cellID = String(describing: DebugRuleErrorCell.self)
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as?
+                  DebugRuleErrorCell else { return UITableViewCell() }
         
         let item = sectionInfo.sectionItems[indexPath.row - 1]
         cell.setupCell(with: item)
         return cell
       }
     }
-  }
-  
-  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
-  }
-  
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
-  }
-  
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    cell.layoutIfNeeded()
   }
 }

@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugValidationTVC.swift
+//  DebugValidationCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 07.09.2021.
@@ -35,7 +35,7 @@ enum Icons: String {
   case error = "\u{f05e}"
 }
 
-class DebugValidationTVC: UITableViewCell {
+class DebugValidationCell: UITableViewCell {
 
   @IBOutlet weak var techninalLabel: UILabel!
   @IBOutlet weak var issuerLabel: UILabel!
