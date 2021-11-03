@@ -34,7 +34,7 @@ enum DebugSectionType: String {
   case raw = "Raw Data"
 }
 
-struct DebugSectionModel {
+class DebugSectionModel {
   let sectionType: DebugSectionType
   var isExpanded = false
   
