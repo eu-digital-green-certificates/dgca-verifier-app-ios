@@ -56,7 +56,7 @@ class CountryDataStorage: Codable {
   
   func update(country: CountryModel) {
     let list = countryCodes
-    guard let countryFromDB = list.filter({ savedCountry in
+    guard var countryFromDB = list.filter({ savedCountry in
       savedCountry.code == country.code
     }).first else { return }
     countryFromDB.debugModeEnabled = country.debugModeEnabled
@@ -68,12 +68,12 @@ class CountryDataStorage: Codable {
   }
 
   static func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: CountryDataStorage.sharedInstance) { success in
+    storage.loadOverride(fallback: sharedInstance) { success in
       guard let result = success else { return }
         
       let format = l10n("log.country")
       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.countryCodes.count))
-      CountryDataStorage.sharedInstance = result
+      sharedInstance = result
       completion()
     }
   }

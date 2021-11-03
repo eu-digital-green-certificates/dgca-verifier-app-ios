@@ -205,7 +205,7 @@ extension CertificateViewerController: UITableViewDataSource {
             
       switch certDebugSection.self {
       case is DebugSectionModel:
-        let debugSection = certDebugSection as! DebugSectionModel
+        var debugSection = certDebugSection as! DebugSectionModel
         
         if indexPath.row == 0 {
           let cellID = String(describing: DebugSectionCell.self)
@@ -240,7 +240,7 @@ extension CertificateViewerController: UITableViewDataSource {
       }
       
       case is InfoSection:
-        let infoSection: InfoSection = certificateSections[indexPath.section] as! InfoSection
+        var infoSection: InfoSection = certificateSections[indexPath.section] as! InfoSection
 
         if infoSection.sectionItems.count == 0 {
           let cellID = String(describing: InfoCell.self)

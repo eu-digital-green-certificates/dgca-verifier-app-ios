@@ -51,7 +51,7 @@ class DebugSectionCell: UITableViewCell {
   }
 
   @IBAction func expandAction(_ sender: Any) {
-    guard let debugSection = debugSection else { return }
+    guard var debugSection = debugSection else { return }
     debugSection.isExpanded = !debugSection.isExpanded
     expandCallback?(debugSection)
     if debugSection.isExpanded {

@@ -38,7 +38,7 @@ extension HCertValidity {
       case .invalid:
           return l10n("enum.HCertValidity.invalid")
       case .ruleInvalid:
-          return l10n("um.HCertValidity.ruleInvalid")
+          return l10n("enum.HCertValidity.ruleInvalid")
       }
     }
     

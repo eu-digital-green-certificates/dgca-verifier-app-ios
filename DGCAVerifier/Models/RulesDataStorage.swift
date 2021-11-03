@@ -71,12 +71,12 @@ class RulesDataStorage: Codable {
   
   static func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: RulesDataStorage.sharedInstance) { success in
-      guard let result = success else { return }
-        
-      let format = l10n("log.rules")
-    DGCLogger.logInfo(String.localizedStringWithFormat(format, result.rules.count))
-      RulesDataStorage.sharedInstance = result
-      completion()
+        guard let result = success else { return }
+            
+        let format = l10n("log.rules")
+        DGCLogger.logInfo(String.localizedStringWithFormat(format, result.rules.count))
+        RulesDataStorage.sharedInstance = result
+        completion()
     }
   }
 }

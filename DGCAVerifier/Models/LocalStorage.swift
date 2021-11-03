@@ -19,38 +19,18 @@
  * ---license-end
  */
 //  
-//  DebugSectionModel.swift
+//  LocalStorage.swift
 //  DGCAVerifier
 //  
-//  Created by Alexandr Chernyy on 07.09.2021.
+//  Created by Igor Khomiak on 03.11.2021.
 //  
         
 
-import Foundation
-import SwiftDGC
+import UIKit
 
-enum DebugSectionType: String {
-  case verification = "Verification"
-  case raw = "Raw Data"
-}
+class LocalStorage {
+    static let shared = LocalStorage()
+    
+    static let dataKeeper: LocalDataKeeper = LocalDataKeeper()
 
-struct DebugSectionModel {
-  let sectionType: DebugSectionType
-  var isExpanded = false
-  
-  var numberOfItems: Int {
-    if !isExpanded {
-      return 1
-    }
-    switch sectionType {
-    case .verification:
-      return 2
-    case .raw:
-      return 2
-    }
-  }
-  
-  init(sectionType: DebugSectionType) {
-    self.sectionType = sectionType
-  }
 }

@@ -92,30 +92,30 @@ class GatewayConnection: ContextConnection {
   }
 
   static func trigger() {
-    guard LocalData.sharedInstance.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else { return }
+    guard LocalStorage.dataKeeper.localData.lastFetch.timeIntervalSinceNow < -24 * 60 * 60 else { return }
     update()
   }
 
   static func update(completion: (() -> Void)? = nil) {
-    certUpdate(resume: LocalData.sharedInstance.resumeToken) { encodedCert, token in
+    certUpdate(resume: LocalStorage.dataKeeper.localData.resumeToken) { encodedCert, token in
       guard let encodedCert = encodedCert else {
         status(completion: completion)
         return
       }
-      LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
-      LocalData.sharedInstance.resumeToken = token
+      LocalStorage.dataKeeper.add(encodedPublicKey: encodedCert)
+      LocalStorage.dataKeeper.localData.resumeToken = token
       update(completion: completion)
     }
   }
 
   static func status(completion: (() -> Void)? = nil) {
     certStatus { validKids in
-      let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter { !validKids.contains($0) }
+      let invalid = LocalStorage.dataKeeper.localData.encodedPublicKeys.keys.filter { !validKids.contains($0) }
       for key in invalid {
-        LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
+        LocalStorage.dataKeeper.localData.encodedPublicKeys.removeValue(forKey: key)
       }
-      LocalData.sharedInstance.lastFetch = Date()
-      LocalData.sharedInstance.save()
+      LocalStorage.dataKeeper.localData.lastFetch = Date()
+      LocalStorage.dataKeeper.save()
       completion?()
     }
   }
@@ -127,9 +127,9 @@ class GatewayConnection: ContextConnection {
         return
       }
       let json = JSON(parseJSONC: string)
-      LocalData.sharedInstance.config.merge(other: json)
-      LocalData.sharedInstance.save()
-      if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
+      LocalStorage.dataKeeper.localData.config.merge(other: json)
+      LocalStorage.dataKeeper.save()
+      if LocalStorage.dataKeeper.versionedConfig["outdated"].bool == true {
         (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
             .popToRootViewController(animated: false)
       }
@@ -137,7 +137,7 @@ class GatewayConnection: ContextConnection {
     }
   }
   static var config: JSON {
-    LocalData.sharedInstance.versionedConfig
+    return LocalStorage.dataKeeper.versionedConfig
   }
 }
 

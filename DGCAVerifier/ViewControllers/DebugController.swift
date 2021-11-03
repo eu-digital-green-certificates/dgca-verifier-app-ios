@@ -155,7 +155,7 @@ extension DebugVC: UITableViewDataSource {
 extension DebugVC: UITableViewDelegate{
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let countryModel = countryList[indexPath.row]
+    var countryModel = countryList[indexPath.row]
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
     CountryDataStorage.sharedInstance.update(country: countryModel)
     if let cell = tableView.cellForRow(at: indexPath) {

@@ -35,12 +35,7 @@ class HomeController: UIViewController {
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var loaded = false
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    VerificationManager.sharedManager.config = HCertConfig()
-  }
-  
+    
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
@@ -76,7 +71,7 @@ class HomeController: UIViewController {
       }
     }
     loadingGroup.enter()
-    LocalData.initialize {
+    LocalStorage.dataKeeper.initialize {
       DispatchQueue.main.async { [unowned self] in
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
         SecureBackground.image = renderer.image { rendererContext in
@@ -93,7 +88,7 @@ class HomeController: UIViewController {
   }
 
   func loadComplete() {
-    if LocalData.sharedInstance.versionedConfig["outdated"].bool == true {
+    if LocalStorage.dataKeeper.versionedConfig["outdated"].bool == true {
       showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
       return
     }

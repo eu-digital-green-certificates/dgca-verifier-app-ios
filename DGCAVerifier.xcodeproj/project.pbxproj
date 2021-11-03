@@ -60,7 +60,7 @@
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF0A262DCDDA0070C80E /* CertificateViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* CertificateViewerController.swift */; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
-		CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
+		CE1D1EF6263597A2004C8919 /* LocalDataKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataKeeper.swift */; };
 		CE345FAC26446694003B457E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
 		CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* CertificateViewer.storyboard */; };
 		CE345FB426446817003B457E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB626446817003B457E /* Localizable.strings */; };
@@ -82,10 +82,11 @@
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
 		D21581412731719500C98986 /* ValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21581402731719500C98986 /* ValidityState.swift */; };
 		D2158143273184E200C98986 /* LicenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2158142273184E200C98986 /* LicenseController.swift */; };
+		D215814527329C9400C98986 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215814427329C9400C98986 /* LocalStorage.swift */; };
 		D23EF79E272026A90097D82B /* CountryDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataStorage.swift */; };
 		D23EF79F272026AA0097D82B /* CountryDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataStorage.swift */; };
-		D23EF7A8272067E00097D82B /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
-		D23EF7A9272067E00097D82B /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalData.swift */; };
+		D23EF7A8272067E00097D82B /* LocalDataKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataKeeper.swift */; };
+		D23EF7A9272067E00097D82B /* LocalDataKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataKeeper.swift */; };
 		D23EF7AA272067F80097D82B /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
 		D23EF7AB272067F80097D82B /* ValueSetsDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */; };
 		D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
@@ -146,7 +147,7 @@
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* CertificateViewerController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewerController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		CE1D1EF5263597A2004C8919 /* LocalData.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; tabWidth = 2; };
+		CE1D1EF5263597A2004C8919 /* LocalDataKeeper.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalDataKeeper.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CertificateViewer.storyboard; sourceTree = "<group>"; };
 		CE345FB526446817003B457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -174,6 +175,7 @@
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
 		D21581402731719500C98986 /* ValidityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidityState.swift; sourceTree = "<group>"; };
 		D2158142273184E200C98986 /* LicenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseController.swift; sourceTree = "<group>"; };
+		D215814427329C9400C98986 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
@@ -350,7 +352,8 @@
 			isa = PBXGroup;
 			children = (
 				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
-				CE1D1EF5263597A2004C8919 /* LocalData.swift */,
+				D215814427329C9400C98986 /* LocalStorage.swift */,
+				CE1D1EF5263597A2004C8919 /* LocalDataKeeper.swift */,
 				5C2E51252681E50700712521 /* CountryDataStorage.swift */,
 				5C2E51272682152F00712521 /* RulesDataStorage.swift */,
 				5C696F5B2686670D0005DE71 /* ValueSetsDataStorage.swift */,
@@ -608,7 +611,7 @@
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
 				5C2E51282682152F00712521 /* RulesDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
-				CE1D1EF6263597A2004C8919 /* LocalData.swift in Sources */,
+				CE1D1EF6263597A2004C8919 /* LocalDataKeeper.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
 				5C696F5C2686670D0005DE71 /* ValueSetsDataStorage.swift in Sources */,
@@ -628,6 +631,7 @@
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
 				5C2E51262681E50700712521 /* CountryDataStorage.swift in Sources */,
+				D215814527329C9400C98986 /* LocalStorage.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
 				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,
 				D2B87DA4272C30FA00B0BE19 /* HCertValidity+UIKit.swift in Sources */,
@@ -654,7 +658,7 @@
 				D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */,
 				5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */,
-				D23EF7A8272067E00097D82B /* LocalData.swift in Sources */,
+				D23EF7A8272067E00097D82B /* LocalDataKeeper.swift in Sources */,
 				5C2E51292682152F00712521 /* RulesDataStorage.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
@@ -685,7 +689,7 @@
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
 				D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
-				D23EF7A9272067E00097D82B /* LocalData.swift in Sources */,
+				D23EF7A9272067E00097D82B /* LocalDataKeeper.swift in Sources */,
 				D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */,
 				D23EF79F272026AA0097D82B /* CountryDataStorage.swift in Sources */,
 				5CA450A826E0BA640029324E /* DebugController.swift in Sources */,

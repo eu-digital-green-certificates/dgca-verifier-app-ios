@@ -71,7 +71,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
 
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     let format = l10n("settings.last-updated")
-    return [ "", String(format: format, LocalData.sharedInstance.lastFetch.dateTimeString), "", "" ][section]
+    return [ "", String(format: format, LocalStorage.dataKeeper.localData.lastFetch.dateTimeString), "", "" ][section]
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +110,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   func openPrivacyDoc() {
-    let link = LocalData.sharedInstance.versionedConfig["privacyUrl"].string ?? ""
+    let link = LocalStorage.dataKeeper.versionedConfig["privacyUrl"].string ?? ""
     openUrl(link)
   }
 

@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  LocalData.swift
+//  LocalDataKeeper.swift
 //  DGCAVerifier
 //  
 //  Created by Yannick Spreen on 4/25/21.
@@ -29,11 +29,7 @@ import Foundation
 import SwiftDGC
 import SwiftyJSON
 
-class LocalData: Codable {
-  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
-  static var sharedInstance = LocalData()
-  static let storage = SecureStorage<LocalData>(fileName: "secure")
-
+struct LocalData: Codable {
   var encodedPublicKeys = [String: [String]]()
   var resumeToken: String?
   var lastFetchRaw: Date?
@@ -46,55 +42,60 @@ class LocalData: Codable {
     }
   }
   var config = Config.load()
-  var lastLaunchedAppVersion = LocalData.appVersion
+  var lastLaunchedAppVersion = ""
+}
 
+class LocalDataKeeper {
+  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+  lazy var storage = SecureStorage<LocalData>(fileName: "secure")
+  
+  var localData: LocalData = LocalData()
+  
   func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
     let kidStr = KID.string(from: kid)
 
-    let list = encodedPublicKeys[kidStr] ?? []
+    let list = localData.encodedPublicKeys[kidStr] ?? []
     if list.contains(encodedPublicKey) {
       return
     }
-    encodedPublicKeys[kidStr] = list + [encodedPublicKey]
+    localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
   }
-
-  static func set(resumeToken: String) {
-    sharedInstance.resumeToken = resumeToken
+  
+  func keep(resumeToken: String) {
+    localData.resumeToken = resumeToken
   }
-
+  
   func save() {
-    Self.storage.save(self)
+    storage.save(localData)
   }
-
-  static func initialize(completion: @escaping () -> Void) {
-      storage.loadOverride(fallback: LocalData.sharedInstance) { success in
-      guard let result = success else { return }
+  
+  func initialize(completion: @escaping () -> Void) {
+    storage.loadOverride(fallback: localData) { [unowned self]  success in
+      guard var result = success else { return }
           
       let format = l10n("log.keys-loaded")
        DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
       if result.lastLaunchedAppVersion != Self.appVersion {
-        result.config = LocalData.sharedInstance.config
+        result.config = self.localData.config
       }
-      LocalData.sharedInstance = result
+      self.localData = result
       completion()
     }
-    VerificationManager.sharedManager.publicKeyEncoder = LocalDataKeyEncoder.instance
+    CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
   }
   
   var versionedConfig: JSON {
-    if config["versions"][Self.appVersion].exists() {
-      return config["versions"][Self.appVersion]
+    if localData.config["versions"][Self.appVersion].exists() {
+      return localData.config["versions"][Self.appVersion]
     } else {
-      return config["versions"]["default"]
+      return localData.config["versions"]["default"]
     }
   }
 }
 
 class LocalDataKeyEncoder: PublicKeyStorageDelegate {
-  static let instance = LocalDataKeyEncoder()
-  
   func getEncodedPublicKeys(for kidStr: String) -> [String] {
-    LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? []
+    LocalStorage.dataKeeper.localData.encodedPublicKeys[kidStr] ?? []
   }
 }
