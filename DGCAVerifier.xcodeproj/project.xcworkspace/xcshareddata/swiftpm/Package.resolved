@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "SwiftDGC",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git",
+        "state": {
+          "branch": "main",
+          "revision": "78f9a7fb0e63c0e0bb9d9b0dfed359babcc25960",
+          "version": null
+        }
+      },
+      {
         "package": "FloatingPanel",
         "repositoryURL": "https://github.com/SCENEE/FloatingPanel",
         "state": {
@@ -80,6 +89,15 @@
           "branch": "master",
           "revision": "0209a2d1a30b1b42334c4ad3f8bd221b977b2273",
           "version": null
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+          "version": "5.0.1"
         }
       },
       {
