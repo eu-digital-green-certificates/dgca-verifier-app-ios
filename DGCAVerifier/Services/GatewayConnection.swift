@@ -163,21 +163,21 @@ extension GatewayConnection {
   }
   
   static func countryList(completion: (([CountryModel]) -> Void)? = nil) {
-    CountryDataStorage.initialize {
-      if CountryDataStorage.sharedInstance.countryCodes.count > 0 {
-        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { $0.name < $1.name }))
+    LocalStorage.countryKeeper.initialize {
+      if LocalStorage.countryKeeper.countryData.countryCodes.count > 0 {
+        completion?(LocalStorage.countryKeeper.countryData.countryCodes.sorted(by: { $0.name < $1.name }))
       }
       getListOfCountry { countryList in
         // Remove old countryCodes
-        CountryDataStorage.sharedInstance.countryCodes = CountryDataStorage.sharedInstance.countryCodes.filter { countryCode in
+        LocalStorage.countryKeeper.countryData.countryCodes = LocalStorage.countryKeeper.countryData.countryCodes.filter { countryCode in
             return countryList.contains(where: { $0.code == countryCode.code })
         }
 
 //      CountryDataStorage.sharedInstance.countryCodes.removeAll()
-        countryList.forEach { CountryDataStorage.sharedInstance.add(country: $0) }
-        CountryDataStorage.sharedInstance.lastFetch = Date()
-        CountryDataStorage.sharedInstance.save()
-        completion?(CountryDataStorage.sharedInstance.countryCodes.sorted(by: { $0.name < $1.name }))
+        countryList.forEach { LocalStorage.countryKeeper.add(country: $0) }
+        LocalStorage.countryKeeper.countryData.lastFetch = Date()
+        LocalStorage.countryKeeper.save()
+        completion?(LocalStorage.countryKeeper.countryData.countryCodes.sorted(by: { $0.name < $1.name }))
       }
     }
   }
@@ -195,7 +195,7 @@ extension GatewayConnection {
       
       let ruleHashes: [RuleHash] = CertLogicEngine.getItems(from: responseStr)
       // Remove old hashes
-      RulesDataStorage.sharedInstance.rules = RulesDataStorage.sharedInstance.rules.filter { rule in
+      LocalStorage.rulesKeeper.rulesData.rules = LocalStorage.rulesKeeper.rulesData.rules.filter { rule in
         return !ruleHashes.contains(where: { $0.hash == rule.hash })
       }
       // Downloading new hashes
@@ -203,7 +203,7 @@ extension GatewayConnection {
       let downloadingGroup = DispatchGroup()
       ruleHashes.forEach { ruleHash in
         downloadingGroup.enter()
-        if !RulesDataStorage.sharedInstance.isRuleExistWithHash(hash: ruleHash.hash) {
+        if !LocalStorage.rulesKeeper.isRuleExistWithHash(hash: ruleHash.hash) {
           getRules(ruleHash: ruleHash) { rule in
             if let rule = rule {
               rulesItems.append(rule)
@@ -243,19 +243,19 @@ extension GatewayConnection {
       completion?(nil)
     }
   }
-    
+  
   static func rulesList(completion: (([CertLogic.Rule]) -> Void)? = nil) {
-    RulesDataStorage.initialize {
-      completion?(RulesDataStorage.sharedInstance.rules)
+    LocalStorage.rulesKeeper.initialize {
+      completion?(LocalStorage.rulesKeeper.rulesData.rules)
     }
   }
   
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
-      rulesList.forEach { RulesDataStorage.sharedInstance.add(rule: $0) }
-      RulesDataStorage.sharedInstance.lastFetch = Date()
-      RulesDataStorage.sharedInstance.save()
-      completion?(RulesDataStorage.sharedInstance.rules)
+      rulesList.forEach { LocalStorage.rulesKeeper.add(rule: $0) }
+      LocalStorage.rulesKeeper.rulesData.lastFetch = Date()
+      LocalStorage.rulesKeeper.save()
+      completion?(LocalStorage.rulesKeeper.rulesData.rules)
     }
   }
   
@@ -272,7 +272,7 @@ extension GatewayConnection {
       }
       let valueSetsHashes: [ValueSetHash] = CertLogicEngine.getItems(from: responseStr)
       // Remove old hashes
-      ValueSetsDataStorage.sharedInstance.valueSets = ValueSetsDataStorage.sharedInstance.valueSets.filter { valueSet in
+      LocalStorage.valueSetsKeeper.valueSetsData.valueSets = LocalStorage.valueSetsKeeper.valueSetsData.valueSets.filter { valueSet in
         return !valueSetsHashes.contains(where: { $0.hash == valueSet.hash })
       }
       // Downloading new hashes
@@ -280,7 +280,7 @@ extension GatewayConnection {
       let downloadingGroup = DispatchGroup()
       valueSetsHashes.forEach { valueSetHash in
         downloadingGroup.enter()
-        if !ValueSetsDataStorage.sharedInstance.isValueSetExistWithHash(hash: valueSetHash.hash) {
+        if !LocalStorage.valueSetsKeeper.isValueSetExistWithHash(hash: valueSetHash.hash) {
           getValueSets(valueSetHash: valueSetHash) { valueSet in
             if let valueSet = valueSet {
               valueSetsItems.append(valueSet)
@@ -322,17 +322,17 @@ extension GatewayConnection {
   }
     
   static func valueSetsList(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
-    ValueSetsDataStorage.initialize {
-        completion?(ValueSetsDataStorage.sharedInstance.valueSets)
+    LocalStorage.valueSetsKeeper.initialize {
+        completion?(LocalStorage.valueSetsKeeper.valueSetsData.valueSets)
     }
   }
 
   static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil){
     getListOfValueSets { valueSetsList in
-      valueSetsList.forEach { ValueSetsDataStorage.sharedInstance.add(valueSet: $0) }
-      ValueSetsDataStorage.sharedInstance.lastFetch = Date()
-      ValueSetsDataStorage.sharedInstance.save()
-      completion?(ValueSetsDataStorage.sharedInstance.valueSets)
+      valueSetsList.forEach { LocalStorage.valueSetsKeeper.add(valueSet: $0) }
+      LocalStorage.valueSetsKeeper.valueSetsData.lastFetch = Date()
+      LocalStorage.valueSetsKeeper.save()
+      completion?(LocalStorage.valueSetsKeeper.valueSetsData.valueSets)
     }
   }
 }

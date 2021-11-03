@@ -32,5 +32,34 @@ class LocalStorage {
     static let shared = LocalStorage()
     
     static let dataKeeper: LocalDataKeeper = LocalDataKeeper()
-
+    static let countryKeeper: CountryDataKeeper = CountryDataKeeper()
+    static let rulesKeeper: RulesDataKeeper = RulesDataKeeper()
+    static let valueSetsKeeper: ValueSetsDataKeeper = ValueSetsDataKeeper()
+    
+    static func initializeStorages(completion: @escaping () -> Void) {
+      let group = DispatchGroup()
+      group.enter()
+      rulesKeeper.initialize {
+        group.leave()
+      }
+      
+      group.enter()
+      valueSetsKeeper.initialize {
+        group.leave()
+      }
+      
+      group.enter()
+      dataKeeper.initialize {
+        group.leave()
+      }
+      
+      group.enter()
+      countryKeeper.initialize {
+        group.leave()
+      }
+      
+      group.notify(queue: .main) {
+        completion()
+      }
+    }
 }

@@ -49,29 +49,19 @@ class HomeController: UIViewController {
     GatewayConnection.timer?.invalidate()
 
     loadingGroup.enter()
-    RulesDataStorage.initialize {
-      GatewayConnection.rulesList { _ in
-        CertLogicEngineManager.sharedInstance.setRules(ruleList: RulesDataStorage.sharedInstance.rules)
-        loadingGroup.leave()
-      }
-      loadingGroup.enter()
-      GatewayConnection.loadRulesFromServer { _ in
-        CertLogicEngineManager.sharedInstance.setRules(ruleList: RulesDataStorage.sharedInstance.rules)
-        loadingGroup.leave()
-      }
-    }
-    loadingGroup.enter()
-    ValueSetsDataStorage.initialize {
-      GatewayConnection.valueSetsList { _ in
-        loadingGroup.leave()
-      }
+    LocalStorage.initializeStorages {
       loadingGroup.enter()
       GatewayConnection.loadValueSetsFromServer { _ in
         loadingGroup.leave()
       }
-    }
-    loadingGroup.enter()
-    LocalStorage.dataKeeper.initialize {
+
+      loadingGroup.enter()
+      GatewayConnection.loadRulesFromServer { _ in
+        CertLogicEngineManager.sharedInstance.setRules(ruleList: LocalStorage.rulesKeeper.rulesData.rules)
+        loadingGroup.leave()
+      }
+
+      loadingGroup.enter()
       DispatchQueue.main.async { [unowned self] in
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
         SecureBackground.image = renderer.image { rendererContext in
@@ -79,7 +69,9 @@ class HomeController: UIViewController {
         }
         loadingGroup.leave()
       }
+      loadingGroup.leave()
     }
+
     loadingGroup.notify(queue: .main) { [unowned self] in
       self.loaded = true
       self.activityIndicator.stopAnimating()

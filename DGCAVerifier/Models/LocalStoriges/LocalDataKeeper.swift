@@ -29,27 +29,10 @@ import Foundation
 import SwiftDGC
 import SwiftyJSON
 
-struct LocalData: Codable {
-  var encodedPublicKeys = [String: [String]]()
-  var resumeToken: String?
-  var lastFetchRaw: Date?
-  var lastFetch: Date {
-    get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
-    }
-    set {
-      lastFetchRaw = newValue
-    }
-  }
-  var config = Config.load()
-  var lastLaunchedAppVersion = ""
-}
-
 class LocalDataKeeper {
-  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+  let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   lazy var storage = SecureStorage<LocalData>(fileName: "secure")
-  
-  var localData: LocalData = LocalData()
+  lazy var localData: LocalData = LocalData()
   
   func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
@@ -72,22 +55,25 @@ class LocalDataKeeper {
   
   func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: localData) { [unowned self]  success in
-      guard var result = success else { return }
+      guard var result = success else {
+        completion()
+        return
+      }
           
       let format = l10n("log.keys-loaded")
        DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
-      if result.lastLaunchedAppVersion != Self.appVersion {
+      if result.lastLaunchedAppVersion != self.appVersion {
         result.config = self.localData.config
       }
       self.localData = result
+      CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
       completion()
     }
-    CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
   }
   
   var versionedConfig: JSON {
-    if localData.config["versions"][Self.appVersion].exists() {
-      return localData.config["versions"][Self.appVersion]
+    if localData.config["versions"][self.appVersion].exists() {
+      return localData.config["versions"][self.appVersion]
     } else {
       return localData.config["versions"]["default"]
     }

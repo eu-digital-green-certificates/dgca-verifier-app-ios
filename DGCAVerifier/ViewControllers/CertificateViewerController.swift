@@ -82,7 +82,7 @@ class CertificateViewerController: UIViewController {
             validityState.destinationAcceptence != .passed ||
             validityState.travalerAcceptence != .passed {
           
-          let codes = CountryDataStorage.sharedInstance.countryCodes
+          let codes = LocalStorage.countryKeeper.countryData.countryCodes
           let country = hCert.ruleCountryCode ?? ""
           
           if DebugManager.sharedInstance.isDebugMode,

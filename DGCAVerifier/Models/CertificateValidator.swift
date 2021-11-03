@@ -90,7 +90,7 @@ class CertificateValidator {
       var infoSection: InfoSection?
     
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+        let valueSets = LocalStorage.valueSetsKeeper.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
             countryCode: countryCode,
             certificationType: certType)
@@ -171,7 +171,7 @@ class CertificateValidator {
       
       let certType = certificationType(for: certificate.certificateType)
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+        let valueSets = LocalStorage.valueSetsKeeper.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
             countryCode: countryCode,
             certificationType: certType)
@@ -200,7 +200,7 @@ class CertificateValidator {
       
       let certType = certificationType(for: certificate.certificateType)
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+        let valueSets = LocalStorage.valueSetsKeeper.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
           countryCode: countryCode,
           certificationType: certType)
@@ -229,7 +229,7 @@ class CertificateValidator {
       
       let certType = certificationType(for: certificate.certificateType)
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = ValueSetsDataStorage.sharedInstance.getValueSetsForExternalParameters()
+        let valueSets = LocalStorage.valueSetsKeeper.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
             countryCode: countryCode,
             certificationType: certType)

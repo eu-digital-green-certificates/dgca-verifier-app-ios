@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  CountryDataStorage.swift
+//  CountryDataKeeper.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 22.06.2021.
@@ -28,52 +28,38 @@ import Foundation
 import SwiftDGC
 import SwiftyJSON
 
-class CountryDataStorage: Codable {
-  static var sharedInstance = CountryDataStorage()
-  static let storage = SecureStorage<CountryDataStorage>(fileName: "country_secure")
-
-  var countryCodes = [CountryModel]()
-  var lastFetchRaw: Date?
-  var lastFetch: Date {
-    get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
-    }
-    set(value) {
-      lastFetchRaw = value
-    }
-  }
-  var config = Config.load()
-
+class CountryDataKeeper {
+  let storage = SecureStorage<CountryDataStorage>(fileName: "country_secure")
+  var countryData: CountryDataStorage = CountryDataStorage()
+  
   func add(country: CountryModel) {
-    let list = countryCodes
-    if list.contains(where: { savedCountry in
-      savedCountry.code == country.code
-    }) {
-      return
+    if !countryData.countryCodes.contains(where: { $0.code == country.code }) {
+      countryData.countryCodes.append(country)
     }
-    countryCodes.append(country)
   }
   
   func update(country: CountryModel) {
-    let list = countryCodes
-    guard var countryFromDB = list.filter({ savedCountry in
-      savedCountry.code == country.code
-    }).first else { return }
+    guard var countryFromDB = countryData.countryCodes.filter({ $0.code == country.code }).first else {
+      return
+    }
     countryFromDB.debugModeEnabled = country.debugModeEnabled
     save()
   }
 
   func save() {
-    Self.storage.save(self)
+    storage.save(countryData)
   }
 
-  static func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: sharedInstance) { success in
-      guard let result = success else { return }
+  func initialize(completion: @escaping () -> Void) {
+    storage.loadOverride(fallback: countryData) { [unowned self] value in
+      guard let result = value else {
+        completion()
+        return
+      }
         
       let format = l10n("log.country")
       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.countryCodes.count))
-      sharedInstance = result
+      self.countryData = result
       completion()
     }
   }
