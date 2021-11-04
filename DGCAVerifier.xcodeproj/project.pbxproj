@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* DataStuctures.swift */; };
+		15BF68A02733D46A00552288 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
+		15BF68A12733D46D00552288 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
 		5C2E51262681E50700712521 /* CountryDataKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataKeeper.swift */; };
 		5C2E51282682152F00712521 /* RulesDataKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataKeeper.swift */; };
 		5C2E51292682152F00712521 /* RulesDataKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataKeeper.swift */; };
@@ -661,6 +663,7 @@
 			files = (
 				D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */,
 				5CA450BB26E7419F0029324E /* DebugSectionCell.swift in Sources */,
+				15BF68A02733D46A00552288 /* HomeController.swift in Sources */,
 				5CA450A726E0BA640029324E /* DebugController.swift in Sources */,
 				5CA4509D26DCCA770029324E /* NFCHelper.swift in Sources */,
 				5CA450D226E74B000029324E /* DebugSectionModel.swift in Sources */,
@@ -689,6 +692,7 @@
 			files = (
 				5CA450CC26E7421C0029324E /* DebugValidationCell.swift in Sources */,
 				5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */,
+				15BF68A12733D46D00552288 /* HomeController.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA450BC26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				D23EF7AB272067F80097D82B /* ValueSetsDataKeeper.swift in Sources */,

@@ -37,6 +37,7 @@ class LocalStorage {
     static let valueSetsKeeper: ValueSetsDataKeeper = ValueSetsDataKeeper()
     
     static func initializeStorages(completion: @escaping () -> Void) {
+      
       let group = DispatchGroup()
       group.enter()
       rulesKeeper.initialize {

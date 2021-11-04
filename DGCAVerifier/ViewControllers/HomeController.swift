@@ -39,10 +39,10 @@ class HomeController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    loaded ? loadComplete() : load()
+    loaded ? loadComplete() : loadAllData()
   }
 
-  func load() {
+  func loadAllData() {
     self.activityIndicator.startAnimating()
     
     let loadingGroup = DispatchGroup()
