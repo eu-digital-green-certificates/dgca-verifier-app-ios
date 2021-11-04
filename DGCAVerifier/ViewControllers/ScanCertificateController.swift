@@ -86,19 +86,16 @@ class ScanCertificateController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     if #available(iOS 13.0, *) {
-      aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white), for: .normal)
+      aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white),
+          for: .normal)
     } else {
       aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
     }
-
+    
     delegate = self
     countryCodeLabel.text = l10n("scanner.select.country")
-
-    GatewayConnection.loadCountryList { countryList in
-      DispatchQueue.main.async {
-        self.setListOfRuleCounties(list: countryList)
-      }
-    }
+    let countryList = LocalStorage.countryCodes.sorted(by: { $0.name < $1.name })
+    setListOfRuleCounties(list: countryList)
     GatewayConnection.initialize()
     
   #if targetEnvironment(simulator)
@@ -133,7 +130,7 @@ class ScanCertificateController: UIViewController {
     helper.onNFCResult = onNFCResult(success:message:)
     helper.restartSession()
   }
-
+  
   // MARK: Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier {
@@ -160,7 +157,7 @@ class ScanCertificateController: UIViewController {
       countryCodeView.selectRow(0, inComponent: 0, animated: false)
     }
   }
-
+  
   private func configurePreviewLayer() {
     guard let captureSession = captureSession else { return }
     

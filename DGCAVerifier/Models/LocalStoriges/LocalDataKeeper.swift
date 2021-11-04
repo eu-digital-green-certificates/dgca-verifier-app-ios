@@ -39,10 +39,9 @@ class LocalDataKeeper {
     let kidStr = KID.string(from: kid)
 
     let list = localData.encodedPublicKeys[kidStr] ?? []
-    if list.contains(encodedPublicKey) {
-      return
+    if !list.contains(encodedPublicKey) {
+      localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
     }
-    localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
   }
   
   func keep(resumeToken: String) {

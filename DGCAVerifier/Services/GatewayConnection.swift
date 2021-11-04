@@ -60,8 +60,9 @@ class GatewayConnection: ContextConnection {
       if kidStr != responseKid {
         completion?(nil, newResumeToken)
         return
+      } else {
+        completion?(responseStr, newResumeToken)
       }
-      completion?(responseStr, newResumeToken)
     }
   }
 
@@ -97,13 +98,13 @@ class GatewayConnection: ContextConnection {
   }
 
   static func update(completion: (() -> Void)? = nil) {
-    certUpdate(resume: LocalStorage.dataKeeper.localData.resumeToken) { encodedCert, token in
+    certUpdate(resume: LocalStorage.resumeToken) { encodedCert, token in
       guard let encodedCert = encodedCert else {
         status(completion: completion)
         return
       }
       LocalStorage.dataKeeper.add(encodedPublicKey: encodedCert)
-      LocalStorage.dataKeeper.localData.resumeToken = token
+      LocalStorage.resumeToken = token
       update(completion: completion)
     }
   }

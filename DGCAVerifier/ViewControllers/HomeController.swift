@@ -43,47 +43,29 @@ class HomeController: UIViewController {
   }
 
   func loadAllData() {
-    self.activityIndicator.startAnimating()
-    
-    let loadingGroup = DispatchGroup()
     GatewayConnection.timer?.invalidate()
-
-    loadingGroup.enter()
+    
+    self.activityIndicator.startAnimating()
     LocalStorage.initializeStorages {
-      loadingGroup.enter()
-      GatewayConnection.loadValueSetsFromServer { sets in
-        loadingGroup.leave()
-      }
-
-      loadingGroup.enter()
-      GatewayConnection.loadRulesFromServer { rules in
-        CertLogicEngineManager.sharedInstance.setRules(ruleList: LocalStorage.rulesKeeper.rulesData.rules)
-        loadingGroup.leave()
-      }
-
-      loadingGroup.enter()
       DispatchQueue.main.async { [unowned self] in
-        let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
-        SecureBackground.image = renderer.image { rendererContext in
-          self.view.layer.render(in: rendererContext.cgContext)
-        }
-        loadingGroup.leave()
+        self.loaded = true
+        self.activityIndicator.stopAnimating()
+        self.loadComplete()
       }
-      loadingGroup.leave()
-    }
-
-    loadingGroup.notify(queue: .main) { [unowned self] in
-      self.loaded = true
-      self.activityIndicator.stopAnimating()
-      self.loadComplete()
     }
   }
 
   func loadComplete() {
+    let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
+    SecureBackground.image = renderer.image { rendererContext in
+      self.view.layer.render(in: rendererContext.cgContext)
+    }
+
     if LocalStorage.dataKeeper.versionedConfig["outdated"].bool == true {
       showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
       return
+    } else {
+      performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
     }
-    performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
   }
 }

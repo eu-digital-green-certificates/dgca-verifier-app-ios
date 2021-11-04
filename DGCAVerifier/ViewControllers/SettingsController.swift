@@ -28,13 +28,14 @@ import UIKit
 import SwiftDGC
 
 class SettingsController: UITableViewController, DebugControllerDelegate {
-  var loading = false
   weak var delegate: DebugControllerDelegate?
   
   @IBOutlet fileprivate weak var licensesLabelName: UILabel!
   @IBOutlet fileprivate weak var privacyLabelName: UILabel!
   @IBOutlet fileprivate weak var debugLabelName: UILabel!
   @IBOutlet fileprivate weak var debugLabel: UILabel!
+  @IBOutlet fileprivate weak var publicKeyIndicator: UIActivityIndicatorView!
+  @IBOutlet fileprivate weak var storageIndicator: UIActivityIndicatorView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -70,16 +71,20 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-    let format = l10n("settings.last-updated")
-    return [ "", String(format: format, LocalStorage.dataKeeper.localData.lastFetch.dateTimeString), "", "" ][section]
+    switch section {
+    case 1:
+      let format = l10n("settings.last-updated")
+      return String(format: format, LocalStorage.dataKeeper.localData.lastFetch.dateTimeString)
+    case 2:
+      let format = l10n("settings.last-updated")
+      return String(format: format, LocalStorage.rulesKeeper.rulesData.lastFetch.dateTimeString)
+    default:
+      return nil
+    }
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
-    if indexPath.section == 2 {
-      cell.alpha = loading ? 1 : 0
-      cell.contentView.alpha = loading ? 1 : 0
-    }
     return cell
   }
 
@@ -96,17 +101,32 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
             openDebugSettings()
           }
       case 1:
-          loading = true
-          tableView.reloadData()
-          return GatewayConnection.update {
-            DispatchQueue.main.async { [weak self] in
-              self?.loading = false
-              self?.tableView.reloadData()
-            }
-          }
+        reloadKeyseData()
+      case 2:
+        reloadStorageData()
       default:
           break
       }
+  }
+  
+  func reloadKeyseData() {
+    publicKeyIndicator.startAnimating()
+    GatewayConnection.update {
+      DispatchQueue.main.async { [weak self] in
+        self?.publicKeyIndicator.stopAnimating()
+        self?.tableView.reloadData()
+      }
+    }
+  }
+
+  func reloadStorageData() {
+    storageIndicator.startAnimating()
+    LocalStorage.initializeStorages {
+      DispatchQueue.main.async { [weak self] in
+        self?.storageIndicator.stopAnimating()
+        self?.tableView.reloadData()
+      }
+    }
   }
 
   func openPrivacyDoc() {

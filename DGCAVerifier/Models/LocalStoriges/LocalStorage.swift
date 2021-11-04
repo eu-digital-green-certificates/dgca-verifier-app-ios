@@ -55,6 +55,15 @@ class LocalStorage {
       rulesKeeper.rulesData.rules = newValue
      }
   }
+  
+  static var resumeToken: String? {
+    get {
+      return dataKeeper.localData.resumeToken
+    }
+    set {
+      dataKeeper.localData.resumeToken = newValue
+     }
+  }
 
   static func saveCountries() {
     countryKeeper.countryData.lastFetch = Date()
@@ -94,6 +103,22 @@ class LocalStorage {
       group.leave()
     }
     
+    group.enter()
+    GatewayConnection.loadCountryList { countryList in
+      group.leave()
+    }
+
+    group.enter()
+    GatewayConnection.loadValueSetsFromServer { sets in
+      group.leave()
+    }
+
+    group.enter()
+    GatewayConnection.loadRulesFromServer { rules in
+      CertLogicEngineManager.sharedInstance.setRules(ruleList: LocalStorage.rulesKeeper.rulesData.rules)
+      group.leave()
+    }
+
     group.notify(queue: .main) {
       completion()
     }
