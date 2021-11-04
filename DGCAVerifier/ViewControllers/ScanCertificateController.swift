@@ -94,7 +94,7 @@ class ScanCertificateController: UIViewController {
     delegate = self
     countryCodeLabel.text = l10n("scanner.select.country")
 
-    GatewayConnection.countryList { countryList in
+    GatewayConnection.loadCountryList { countryList in
       DispatchQueue.main.async {
         self.setListOfRuleCounties(list: countryList)
       }

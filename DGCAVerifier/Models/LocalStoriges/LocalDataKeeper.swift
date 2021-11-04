@@ -55,7 +55,7 @@ class LocalDataKeeper {
   
   func initialize(completion: @escaping () -> Void) {
     storage.loadOverride(fallback: localData) { [unowned self]  success in
-      guard var result = success else {
+      guard let result = success else {
         completion()
         return
       }

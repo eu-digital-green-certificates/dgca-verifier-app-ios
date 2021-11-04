@@ -82,7 +82,7 @@ class CertificateViewerController: UIViewController {
             validityState.destinationAcceptence != .passed ||
             validityState.travalerAcceptence != .passed {
           
-          let codes = LocalStorage.countryKeeper.countryData.countryCodes
+          let codes = LocalStorage.countryCodes
           let country = hCert.ruleCountryCode ?? ""
           
           if DebugManager.sharedInstance.isDebugMode,
@@ -241,7 +241,7 @@ extension CertificateViewerController: UITableViewDataSource {
       }
       
       case is InfoSection:
-        var infoSection: InfoSection = certificateSections[indexPath.section] as! InfoSection
+        let infoSection: InfoSection = certificateSections[indexPath.section] as! InfoSection
 
         if infoSection.sectionItems.count == 0 {
           let cellID = String(describing: InfoCell.self)

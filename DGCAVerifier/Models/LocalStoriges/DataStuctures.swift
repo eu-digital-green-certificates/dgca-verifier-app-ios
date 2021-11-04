@@ -31,7 +31,7 @@ import SwiftDGC
 import SwiftyJSON
 import CertLogic
 
-struct LocalData: Codable {
+class LocalData: Codable {
   var encodedPublicKeys = [String: [String]]()
   var resumeToken: String?
   var lastFetchRaw: Date?
@@ -47,7 +47,7 @@ struct LocalData: Codable {
   var lastLaunchedAppVersion = ""
 }
 
-struct CountryDataStorage: Codable {
+class CountryDataStorage: Codable {
   var countryCodes = [CountryModel]()
   var lastFetchRaw: Date?
 
@@ -62,7 +62,7 @@ struct CountryDataStorage: Codable {
   var config = Config.load()
 }
 
-struct RulesDataStorage: Codable {
+class RulesDataStorage: Codable {
   var rules = [CertLogic.Rule]()
   var lastFetchRaw: Date?
   var lastFetch: Date {
@@ -75,7 +75,7 @@ struct RulesDataStorage: Codable {
   }
 }
 
-struct ValueSetsDataStorage: Codable {
+class ValueSetsDataStorage: Codable {
   var valueSets = [CertLogic.ValueSet]()
   var lastFetchRaw: Date?
   var lastFetch: Date {

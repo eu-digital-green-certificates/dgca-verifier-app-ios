@@ -51,12 +51,12 @@ class HomeController: UIViewController {
     loadingGroup.enter()
     LocalStorage.initializeStorages {
       loadingGroup.enter()
-      GatewayConnection.loadValueSetsFromServer { _ in
+      GatewayConnection.loadValueSetsFromServer { sets in
         loadingGroup.leave()
       }
 
       loadingGroup.enter()
-      GatewayConnection.loadRulesFromServer { _ in
+      GatewayConnection.loadRulesFromServer { rules in
         CertLogicEngineManager.sharedInstance.setRules(ruleList: LocalStorage.rulesKeeper.rulesData.rules)
         loadingGroup.leave()
       }

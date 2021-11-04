@@ -27,40 +27,75 @@
         
 
 import UIKit
+import SwiftDGC
+import CertLogic
 
 class LocalStorage {
-    static let shared = LocalStorage()
+  static let shared = LocalStorage()
+  
+  static let dataKeeper: LocalDataKeeper = LocalDataKeeper()
+  static let countryKeeper: CountryDataKeeper = CountryDataKeeper()
+  static let rulesKeeper: RulesDataKeeper = RulesDataKeeper()
+  static let valueSetsKeeper: ValueSetsDataKeeper = ValueSetsDataKeeper()
     
-    static let dataKeeper: LocalDataKeeper = LocalDataKeeper()
-    static let countryKeeper: CountryDataKeeper = CountryDataKeeper()
-    static let rulesKeeper: RulesDataKeeper = RulesDataKeeper()
-    static let valueSetsKeeper: ValueSetsDataKeeper = ValueSetsDataKeeper()
-    
-    static func initializeStorages(completion: @escaping () -> Void) {
-      
-      let group = DispatchGroup()
-      group.enter()
-      rulesKeeper.initialize {
-        group.leave()
-      }
-      
-      group.enter()
-      valueSetsKeeper.initialize {
-        group.leave()
-      }
-      
-      group.enter()
-      dataKeeper.initialize {
-        group.leave()
-      }
-      
-      group.enter()
-      countryKeeper.initialize {
-        group.leave()
-      }
-      
-      group.notify(queue: .main) {
-        completion()
-      }
+  static var countryCodes: [CountryModel] {
+    get {
+      return countryKeeper.countryData.countryCodes
     }
+    set {
+      countryKeeper.countryData.countryCodes = newValue
+     }
+  }
+  
+  static var rules: [CertLogic.Rule] {
+    get {
+      return rulesKeeper.rulesData.rules
+    }
+    set {
+      rulesKeeper.rulesData.rules = newValue
+     }
+  }
+
+  static func saveCountries() {
+    countryKeeper.countryData.lastFetch = Date()
+    countryKeeper.save()
+  }
+  
+  static func saveSets() {
+    valueSetsKeeper.valueSetsData.lastFetch = Date()
+    valueSetsKeeper.save()
+  }
+
+  static func saveRules() {
+    rulesKeeper.rulesData.lastFetch = Date()
+    rulesKeeper.save()
+  }
+  
+  static func initializeStorages(completion: @escaping () -> Void) {
+    
+    let group = DispatchGroup()
+    group.enter()
+    rulesKeeper.initialize {
+      group.leave()
+    }
+    
+    group.enter()
+    valueSetsKeeper.initialize {
+      group.leave()
+    }
+    
+    group.enter()
+    dataKeeper.initialize {
+      group.leave()
+    }
+    
+    group.enter()
+    countryKeeper.initialize {
+      group.leave()
+    }
+    
+    group.notify(queue: .main) {
+      completion()
+    }
+  }
 }

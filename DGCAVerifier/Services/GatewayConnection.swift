@@ -162,22 +162,20 @@ extension GatewayConnection {
     }
   }
   
-  static func countryList(completion: (([CountryModel]) -> Void)? = nil) {
-    LocalStorage.countryKeeper.initialize {
-      if LocalStorage.countryKeeper.countryData.countryCodes.count > 0 {
-        completion?(LocalStorage.countryKeeper.countryData.countryCodes.sorted(by: { $0.name < $1.name }))
-      }
+  static func loadCountryList(completion: (([CountryModel]) -> Void)? = nil) {
+     if !LocalStorage.countryCodes.isEmpty {
+      completion?(LocalStorage.countryCodes.sorted(by: { $0.name < $1.name }))
+    } else {
       getListOfCountry { countryList in
         // Remove old countryCodes
-        LocalStorage.countryKeeper.countryData.countryCodes = LocalStorage.countryKeeper.countryData.countryCodes.filter { countryCode in
+        let newCountryCodes = LocalStorage.countryCodes.filter { countryCode in
             return countryList.contains(where: { $0.code == countryCode.code })
         }
-
-//      CountryDataStorage.sharedInstance.countryCodes.removeAll()
+        LocalStorage.countryCodes = newCountryCodes
         countryList.forEach { LocalStorage.countryKeeper.add(country: $0) }
-        LocalStorage.countryKeeper.countryData.lastFetch = Date()
-        LocalStorage.countryKeeper.save()
-        completion?(LocalStorage.countryKeeper.countryData.countryCodes.sorted(by: { $0.name < $1.name }))
+        LocalStorage.saveCountries()
+
+        completion?(LocalStorage.countryCodes.sorted(by: { $0.name < $1.name }))
       }
     }
   }
@@ -252,9 +250,8 @@ extension GatewayConnection {
   
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
-      rulesList.forEach { LocalStorage.rulesKeeper.add(rule: $0) }
-      LocalStorage.rulesKeeper.rulesData.lastFetch = Date()
-      LocalStorage.rulesKeeper.save()
+        rulesList.forEach { LocalStorage.rulesKeeper.add(rule: $0) }
+      LocalStorage.saveRules()
       completion?(LocalStorage.rulesKeeper.rulesData.rules)
     }
   }
@@ -330,8 +327,7 @@ extension GatewayConnection {
   static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil){
     getListOfValueSets { valueSetsList in
       valueSetsList.forEach { LocalStorage.valueSetsKeeper.add(valueSet: $0) }
-      LocalStorage.valueSetsKeeper.valueSetsData.lastFetch = Date()
-      LocalStorage.valueSetsKeeper.save()
+      LocalStorage.saveSets()
       completion?(LocalStorage.valueSetsKeeper.valueSetsData.valueSets)
     }
   }

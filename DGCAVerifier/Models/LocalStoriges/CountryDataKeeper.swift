@@ -39,7 +39,7 @@ class CountryDataKeeper {
   }
   
   func update(country: CountryModel) {
-    guard var countryFromDB = countryData.countryCodes.filter({ $0.code == country.code }).first else {
+    guard let countryFromDB = countryData.countryCodes.filter({ $0.code == country.code }).first else {
       return
     }
     countryFromDB.debugModeEnabled = country.debugModeEnabled
