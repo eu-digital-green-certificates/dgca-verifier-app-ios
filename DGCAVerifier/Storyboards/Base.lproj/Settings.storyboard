@@ -444,7 +444,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEb-Xb-2PL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="54"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325.5" height="54"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="rG1-OX-Lmb"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -452,7 +455,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="sEb-Xb-2PL" secondAttribute="bottom" id="VoL-7h-R3d"/>
-                                                <constraint firstAttribute="trailing" secondItem="sEb-Xb-2PL" secondAttribute="trailing" constant="7.5" id="WyD-62-GIS"/>
+                                                <constraint firstAttribute="trailing" secondItem="sEb-Xb-2PL" secondAttribute="trailing" constant="8" id="WyD-62-GIS"/>
                                                 <constraint firstItem="sEb-Xb-2PL" firstAttribute="top" secondItem="uRk-9x-DNg" secondAttribute="top" id="bbD-Vy-SeS"/>
                                                 <constraint firstItem="sEb-Xb-2PL" firstAttribute="leading" secondItem="uRk-9x-DNg" secondAttribute="leading" id="cWP-UH-qrI"/>
                                             </constraints>

@@ -41,7 +41,7 @@ class CertificateViewerController: UIViewController {
   @IBOutlet fileprivate weak var validityImage: UIImageView!
   @IBOutlet fileprivate weak var headerBackground: UIView!
   @IBOutlet fileprivate weak var infoTable: UITableView!
-  @IBOutlet fileprivate weak var dismissButton: UIButton!
+  @IBOutlet fileprivate weak var dismissButton: RoundedButton!
   @IBOutlet fileprivate weak var shareButton: RoundedButton!
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
@@ -227,6 +227,7 @@ extension CertificateViewerController: UITableViewDataSource {
               return UITableViewCell()
             }
             cell.setupCell(for: debugSection, cert: hCert)
+            cell.delegate = self
             return cell
             
           case .verification:
@@ -282,6 +283,13 @@ extension CertificateViewerController: UITableViewDataSource {
     }
 }
 
+extension CertificateViewerController: DebugRawSharing {
+   func userDidShare(text: String) {
+    let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+    self.present(activityViewController, animated: true, completion: nil)
+  }
+}
+                                        
 extension CertificateViewerController: DebugControllerDelegate {
   func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
     validateAndSetupInterface()

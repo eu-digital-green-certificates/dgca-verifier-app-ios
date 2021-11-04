@@ -38,6 +38,7 @@ class DebugVC: UIViewController {
 
   private enum Constants {
     static let fontSize: CGFloat = 16
+    static let selectedFontSize: CGFloat = 18
   }
   
   @IBOutlet weak var debugSwitcher: UISwitch!
@@ -83,6 +84,8 @@ class DebugVC: UIViewController {
   @IBAction func debugSwitchAction(_ sender: Any) {
     let isValue = debugSwitcher.isOn
     DebugManager.sharedInstance.isDebugMode = isValue
+    setLabelsColor()
+    tableView.reloadData()
    }
   
   @IBAction func tapOnLabel1(sender: UITapGestureRecognizer) {
@@ -104,39 +107,53 @@ class DebugVC: UIViewController {
   }
   
   func setLabelsColor() {
-    switch DebugManager.sharedInstance.debugLevel {
-    case .level1:
-      level1.textColor = .congressBlue
-      level2.textColor = .charcoalGrey
-      level3.textColor = .charcoalGrey
-      level1.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
+    if DebugManager.sharedInstance.isDebugMode {
+      switch DebugManager.sharedInstance.debugLevel {
+      case .level1:
+        level1.textColor = .congressBlue
+        level2.textColor = .charcoalGrey
+        level3.textColor = .charcoalGrey
+        level1.font = UIFont.boldSystemFont(ofSize: Constants.selectedFontSize)
+        level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
+        level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      case .level2:
+        level1.textColor = .charcoalGrey
+        level2.textColor = .congressBlue
+        level3.textColor = .charcoalGrey
+        level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
+        level2.font = UIFont.boldSystemFont(ofSize: Constants.selectedFontSize)
+        level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
+      case .level3:
+        level1.textColor = .charcoalGrey
+        level2.textColor = .charcoalGrey
+        level3.textColor = .congressBlue
+        level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
+        level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
+        level3.font = UIFont.boldSystemFont(ofSize: Constants.selectedFontSize)
+      }
+    } else {
+      level1.textColor = .lightGray
+      level2.textColor = .lightGray
+      level3.textColor = .lightGray
+      level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
       level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
-    case .level2:
-      level1.textColor = .charcoalGrey
-      level2.textColor = .congressBlue
-      level3.textColor = .charcoalGrey
-      level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
-      level2.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
-      level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
-    case .level3:
-      level1.textColor = .charcoalGrey
-      level2.textColor = .charcoalGrey
-      level3.textColor = .congressBlue
-      level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
-      level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
-      level3.font = UIFont.boldSystemFont(ofSize: Constants.fontSize)
     }
   }
   
   @IBAction func doneButtonAction(_ sender: Any) {
     dismiss(animated: true)
   }
+
 }
 
 extension DebugVC: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    countryList.count
+    if DebugManager.sharedInstance.isDebugMode {
+      return countryList.count
+    } else {
+      return 0
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -155,15 +172,12 @@ extension DebugVC: UITableViewDataSource {
 extension DebugVC: UITableViewDelegate{
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    var countryModel = countryList[indexPath.row]
+    let countryModel = countryList[indexPath.row]
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
     LocalStorage.countryKeeper.update(country: countryModel)
     if let cell = tableView.cellForRow(at: indexPath) {
       cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
     }
-  }
-  
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 60
+    tableView.reloadData()
   }
 }

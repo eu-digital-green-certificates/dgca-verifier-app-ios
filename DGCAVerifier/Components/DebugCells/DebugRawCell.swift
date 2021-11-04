@@ -29,8 +29,25 @@
 import UIKit
 import SwiftDGC
 
-class DebugRawCell: UITableViewCell {
+protocol DebugRawSharing: AnyObject {
+  func userDidShare(text: String)
+}
+
+class DebugRawCell: UITableViewCell, UIContextMenuInteractionDelegate {
   @IBOutlet fileprivate weak var rawLabel: UILabel!
+  weak var delegate: DebugRawSharing?
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    if #available(iOS 13.0, *) {
+      let interaction = UIContextMenuInteraction(delegate: self)
+      
+      rawLabel.isUserInteractionEnabled = true
+      rawLabel.addInteraction(interaction)
+    } else {
+      // Fallback on earlier versions
+    }
+  }
 
   func setupCell(for _: DebugSectionModel, cert: HCert?) {
       self.cert = cert
@@ -50,4 +67,29 @@ class DebugRawCell: UITableViewCell {
     rawLabel.text = cert.body.description
     rawLabel.sizeToFit()
   }
+  
+  @objc @available(iOS 13.0, *)
+  func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+    configurationForMenuAtLocation location: CGPoint)
+    -> UIContextMenuConfiguration? {
+
+    let copy = UIAction(title: "Copy Raw Data",
+      image: UIImage(systemName: "doc.on.doc.fill")) { [unowned self] _ in
+
+      UIPasteboard.general.string = self.rawLabel.text
+     }
+
+    let share = UIAction(title: "Share Raw Data",
+      image: UIImage(systemName: "square.and.arrow.up.fill")) { [unowned self] _ in
+      self.delegate?.userDidShare(text: self.rawLabel.text ?? "")
+    }
+    if let txt = self.rawLabel.text, !txt.isEmpty {
+      return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+        UIMenu(title: "Actions", children: [ copy, share ])
+      }
+    } else {
+      return nil
+    }
+  }
+  
 }
