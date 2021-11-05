@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  ValueSetsDataKeeper.swift
+//  ValueSetsDataManager.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 25.06.2021.
@@ -29,7 +29,7 @@ import SwiftDGC
 import SwiftyJSON
 import CertLogic
 
-class ValueSetsDataKeeper {
+class ValueSetsDataManager {
   let storage = SecureStorage<ValueSetsDataStorage>(fileName: "valueSets_secure")
   var valueSetsData: ValueSetsDataStorage = ValueSetsDataStorage()
 
@@ -72,7 +72,7 @@ class ValueSetsDataKeeper {
 }
 
 // MARK: ValueSets for External Parameters
-extension ValueSetsDataKeeper {
+extension ValueSetsDataManager {
   public func getValueSetsForExternalParameters() -> Dictionary<String, [String]> {
     var returnValue = Dictionary<String, [String]>()
     valueSetsData.valueSets.forEach { valueSet in

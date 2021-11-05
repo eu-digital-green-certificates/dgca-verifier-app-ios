@@ -27,6 +27,10 @@
 import UIKit
 import SwiftDGC
 
+protocol DismissControllerDelegate: AnyObject {
+  func userDidDissmiss(_ controller: UIViewController) //DismissControllerDelegate
+}
+
 protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
 extension DebugSectionModel: CertificateSectionsProtocol {}
@@ -46,6 +50,8 @@ class CertificateViewerController: UIViewController {
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var hCert: HCert?
+  weak var dismissDelegate: DismissControllerDelegate?
+  
   private var sectionBuilder: SectionBuilder?
   private var validityState: ValidityState = .invalid
   private var isDebugMode = DebugManager.sharedInstance.isDebugMode
@@ -56,6 +62,7 @@ class CertificateViewerController: UIViewController {
   private var debugSections = [DebugSectionModel]()
   private var certificateSections: [CertificateSectionsProtocol] = []
 
+
   // MARK: View Controller life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -64,6 +71,12 @@ class CertificateViewerController: UIViewController {
     validateAndSetupInterface()
   }
   
+  override func viewDidDisappear(_ animated: Bool) {
+      super.viewDidDisappear(animated)
+      if (isBeingDismissed || isMovingFromParent) {
+        dismissDelegate?.userDidDissmiss(self)
+      }
+  }
   private func validateAndSetupInterface() {
     guard let hCert = hCert else { return }
     
@@ -82,7 +95,7 @@ class CertificateViewerController: UIViewController {
             validityState.destinationAcceptence != .passed ||
             validityState.travalerAcceptence != .passed {
           
-          let codes = LocalStorage.countryCodes
+          let codes = DataCenter.countryCodes
           let country = hCert.ruleCountryCode ?? ""
           
           if DebugManager.sharedInstance.isDebugMode,

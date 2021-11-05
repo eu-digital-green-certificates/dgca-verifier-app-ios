@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  LocalDataKeeper.swift
+//  LocalDataManager.swift
 //  DGCAVerifier
 //  
 //  Created by Yannick Spreen on 4/25/21.
@@ -29,7 +29,7 @@ import Foundation
 import SwiftDGC
 import SwiftyJSON
 
-class LocalDataKeeper {
+class LocalDataManager {
   let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   lazy var storage = SecureStorage<LocalData>(fileName: "secure")
   lazy var localData: LocalData = LocalData()
@@ -81,6 +81,6 @@ class LocalDataKeeper {
 
 class LocalDataKeyEncoder: PublicKeyStorageDelegate {
   func getEncodedPublicKeys(for kidStr: String) -> [String] {
-    LocalStorage.dataKeeper.localData.encodedPublicKeys[kidStr] ?? []
+    DataCenter.localDataManager.localData.encodedPublicKeys[kidStr] ?? []
   }
 }

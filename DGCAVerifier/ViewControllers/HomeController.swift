@@ -34,34 +34,46 @@ class HomeController: UIViewController {
   }
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
-  var loaded = false
-    
+  var downloadedDataHasExpired: Bool {
+    return DataCenter.lastFetch.timeIntervalSinceNow < -expiredDataInterval
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    loaded ? loadComplete() : loadAllData()
+    downloadedDataHasExpired ?  reloadStorageData() : initializeStorageData()
   }
 
-  func loadAllData() {
-    GatewayConnection.timer?.invalidate()
-    
+  func initializeStorageData() {
     self.activityIndicator.startAnimating()
-    LocalStorage.initializeStorages {
-      DispatchQueue.main.async { [unowned self] in
-        self.loaded = true
+    
+    DataCenter.initializeStorageData { [unowned self] in
+      DispatchQueue.main.async {
+        self.activityIndicator.stopAnimating()
+        self.loadComplete()
+      }
+    }
+  }
+  
+  func reloadStorageData() {
+    self.activityIndicator.startAnimating()
+    
+    DataCenter.reloadStorageData { [unowned self] in
+      DispatchQueue.main.async {
         self.activityIndicator.stopAnimating()
         self.loadComplete()
       }
     }
   }
 
-  func loadComplete() {
+
+  private func loadComplete() {
     let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
     SecureBackground.image = renderer.image { rendererContext in
       self.view.layer.render(in: rendererContext.cgContext)
     }
 
-    if LocalStorage.dataKeeper.versionedConfig["outdated"].bool == true {
+    if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
       showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
       return
     } else {

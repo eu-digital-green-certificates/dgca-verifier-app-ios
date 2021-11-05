@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gbn-9x-STG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gbn-9x-STG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -66,9 +66,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <segue destination="PQY-eb-uyP" kind="show" id="Geh-RO-M6X"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="disclosureIndicator" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="4Lf-U9-juy">
                                         <rect key="frame" x="0.0" y="132" width="414" height="50"/>
@@ -147,54 +144,24 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Country data, Contry rules" footerTitle="Last updated: 2021-05-01" id="ZWb-W8-ctm">
+                            <tableViewSection id="ZWb-W8-ctm">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="WNk-DL-0mK" customClass="BorderLessSectionCell" customModule="SwiftDGC">
-                                        <rect key="frame" x="0.0" y="355.5" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="334" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WNk-DL-0mK" id="6VX-Mr-f32">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reload" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ama-52-MKs">
-                                                    <rect key="frame" x="20" y="11" width="332" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ey1-na-qjP">
-                                                    <rect key="frame" x="197" y="15" width="20" height="20"/>
-                                                    <color key="color" systemColor="secondaryLabelColor"/>
-                                                </activityIndicatorView>
-                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luV-Kf-jW5">
-                                                    <rect key="frame" x="356" y="0.0" width="50" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="luV-Kf-jW5" secondAttribute="height" multiplier="1:1" id="5AH-9U-Scd"/>
-                                                    </constraints>
-                                                    <color key="tintColor" name="congressBlue"/>
-                                                    <state key="normal" image="spinner"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="luV-Kf-jW5" secondAttribute="trailing" constant="8" id="0oG-bY-a1i"/>
-                                                <constraint firstItem="Ama-52-MKs" firstAttribute="leading" secondItem="6VX-Mr-f32" secondAttribute="leadingMargin" id="1Z0-xK-SSX"/>
-                                                <constraint firstItem="ey1-na-qjP" firstAttribute="centerY" secondItem="6VX-Mr-f32" secondAttribute="centerY" id="CQT-P8-qKb"/>
-                                                <constraint firstItem="Ama-52-MKs" firstAttribute="top" secondItem="6VX-Mr-f32" secondAttribute="topMargin" id="KzC-IF-Tnv"/>
-                                                <constraint firstItem="Ama-52-MKs" firstAttribute="bottom" secondItem="6VX-Mr-f32" secondAttribute="bottomMargin" id="XXY-0z-H8N"/>
-                                                <constraint firstItem="luV-Kf-jW5" firstAttribute="top" secondItem="6VX-Mr-f32" secondAttribute="top" id="n21-79-p1a"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Ama-52-MKs" secondAttribute="trailing" constant="42" id="pL6-qU-ycw"/>
-                                                <constraint firstAttribute="bottom" secondItem="luV-Kf-jW5" secondAttribute="bottom" id="plI-ei-gsK"/>
-                                                <constraint firstItem="ey1-na-qjP" firstAttribute="centerX" secondItem="6VX-Mr-f32" secondAttribute="centerX" id="zHM-No-lLR"/>
-                                            </constraints>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="KQQ-gB-Jez">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="trH-0v-yYO" customClass="AppVersionCell" customModule="SwiftDGC">
-                                        <rect key="frame" x="0.0" y="450" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="420" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="trH-0v-yYO" id="JsN-kr-KFe">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -237,13 +204,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="t5k-CF-0Rs" id="gO5-9E-Sh3"/>
                         <outlet property="debugLabel" destination="c7T-kU-ft5" id="kFx-Jk-QIV"/>
                         <outlet property="debugLabelName" destination="5ZM-hL-tLy" id="LIb-7Z-JmQ"/>
                         <outlet property="licensesLabelName" destination="3C9-S9-3Vo" id="xn8-RM-8d1"/>
                         <outlet property="privacyLabelName" destination="gMd-yI-bmR" id="45e-Ci-2wB"/>
-                        <outlet property="publicKeyIndicator" destination="t5k-CF-0Rs" id="HTK-EZ-1LP"/>
-                        <outlet property="storageIndicator" destination="ey1-na-qjP" id="4Bj-o0-KKf"/>
                         <segue destination="bsF-c3-r8z" kind="presentation" identifier="DebugVC" id="2Sm-pc-s7g"/>
+                        <segue destination="PQY-eb-uyP" kind="show" identifier="LicensesVC" id="thL-nP-Qqt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHS-ud-n2D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  RulesDataKeeper.swift
+//  CountryDataManager.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 22.06.2021.
@@ -27,40 +27,39 @@
 import Foundation
 import SwiftDGC
 import SwiftyJSON
-import CertLogic
 
-class RulesDataKeeper {
-  let storage = SecureStorage<RulesDataStorage>(fileName: "rules_secure")
-  var rulesData: RulesDataStorage = RulesDataStorage()
+class CountryDataManager {
+  let storage = SecureStorage<CountryDataStorage>(fileName: "country_secure")
+  var countryData: CountryDataStorage = CountryDataStorage()
   
-  func add(rule: CertLogic.Rule) {
-    if !rulesData.rules.contains(where: { $0.identifier == rule.identifier && $0.version == rule.version }) {
-      rulesData.rules.append(rule)
+  func add(country: CountryModel) {
+    if !countryData.countryCodes.contains(where: { $0.code == country.code }) {
+      countryData.countryCodes.append(country)
     }
+  }
+  
+  func update(country: CountryModel) {
+    guard let countryFromDB = countryData.countryCodes.filter({ $0.code == country.code }).first else {
+      return
+    }
+    countryFromDB.debugModeEnabled = country.debugModeEnabled
+    save()
   }
 
   func save() {
-    storage.save(rulesData)
+    storage.save(countryData)
   }
 
-  func deleteRuleWithHash(hash: String) {
-    rulesData.rules = rulesData.rules.filter { $0.hash != hash }
-  }
-    
-  func isRuleExistWithHash(hash: String) -> Bool {
-    return rulesData.rules.contains(where: { $0.hash == hash })
-  }
-  
   func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: rulesData) { [unowned self] value in
+    storage.loadOverride(fallback: countryData) { [unowned self] value in
       guard let result = value else {
         completion()
         return
       }
-          
-      let format = l10n("log.rules")
-      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.rules.count))
-      self.rulesData = result
+        
+      let format = l10n("log.country")
+      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.countryCodes.count))
+      self.countryData = result
       completion()
     }
   }

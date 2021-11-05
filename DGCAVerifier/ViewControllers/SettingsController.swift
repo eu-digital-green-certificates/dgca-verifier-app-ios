@@ -29,13 +29,15 @@ import SwiftDGC
 
 class SettingsController: UITableViewController, DebugControllerDelegate {
   weak var delegate: DebugControllerDelegate?
+  weak var dismissDelegate: DismissControllerDelegate?
+
+  var isNavigating = false
   
   @IBOutlet fileprivate weak var licensesLabelName: UILabel!
   @IBOutlet fileprivate weak var privacyLabelName: UILabel!
   @IBOutlet fileprivate weak var debugLabelName: UILabel!
   @IBOutlet fileprivate weak var debugLabel: UILabel!
-  @IBOutlet fileprivate weak var publicKeyIndicator: UIActivityIndicatorView!
-  @IBOutlet fileprivate weak var storageIndicator: UIActivityIndicatorView!
+  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,10 +47,18 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     updateInterface()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    isNavigating = false
+  }
+  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
-        level: DebugManager.sharedInstance.debugLevel)
+    if !isNavigating  {
+      delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+          level: DebugManager.sharedInstance.debugLevel)
+      dismissDelegate?.userDidDissmiss(self)
+    }
   }
 
   private func updateInterface() {
@@ -74,10 +84,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     switch section {
     case 1:
       let format = l10n("settings.last-updated")
-      return String(format: format, LocalStorage.dataKeeper.localData.lastFetch.dateTimeString)
-    case 2:
-      let format = l10n("settings.last-updated")
-      return String(format: format, LocalStorage.rulesKeeper.rulesData.lastFetch.dateTimeString)
+      return String(format: format, DataCenter.lastFetch.dateTimeString)
     default:
       return nil
     }
@@ -96,41 +103,29 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
           if indexPath.row == 0 {
             openPrivacyDoc()
           } else if indexPath.row == 1 {
-              break
+            openLicenses()
           } else if indexPath.row == 2 {
             openDebugSettings()
           }
       case 1:
-        reloadKeyseData()
-      case 2:
-        reloadStorageData()
+        reloadAllData()
       default:
           break
       }
   }
   
-  func reloadKeyseData() {
-    publicKeyIndicator.startAnimating()
-    GatewayConnection.update {
+  func reloadAllData() {
+    activityIndicator.startAnimating()
+    DataCenter.reloadStorageData { // + GatewayConnection.update {
       DispatchQueue.main.async { [weak self] in
-        self?.publicKeyIndicator.stopAnimating()
-        self?.tableView.reloadData()
-      }
-    }
-  }
-
-  func reloadStorageData() {
-    storageIndicator.startAnimating()
-    LocalStorage.initializeStorages {
-      DispatchQueue.main.async { [weak self] in
-        self?.storageIndicator.stopAnimating()
+        self?.activityIndicator.stopAnimating()
         self?.tableView.reloadData()
       }
     }
   }
 
   func openPrivacyDoc() {
-    let link = LocalStorage.dataKeeper.versionedConfig["privacyUrl"].string ?? ""
+    let link = DataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
     openUrl(link)
   }
 
@@ -145,7 +140,12 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   func openDebugSettings() {
+    isNavigating = true
     performSegue(withIdentifier: "DebugVC", sender: self)
+  }
+
+  func openLicenses() {
+    performSegue(withIdentifier: "LicensesVC", sender: self)
   }
 
   func openUrl(_ string: String!) {

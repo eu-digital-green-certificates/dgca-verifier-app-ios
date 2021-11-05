@@ -37,8 +37,7 @@ protocol ScanCertificateDelegate: AnyObject {
   func enableBackgroundDetection()
 }
 
-class ScanCertificateController: UIViewController {
-    
+class ScanCertificateController: UIViewController, DismissControllerDelegate {
   private enum Constants {
     static let userDefaultsCountryKey = "UDCountryKey"
     static let showSettingsSegueID = "showSettingsSegueID"
@@ -50,10 +49,14 @@ class ScanCertificateController: UIViewController {
   @IBOutlet fileprivate weak var camView: UIView!
   @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
   @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
-  
+ 
   weak var delegate: ScanCertificateDelegate?
   private var captureSession: AVCaptureSession?
   private var countryItems: [CountryModel] = []
+  
+  var downloadedDataHasExpired: Bool {
+    return DataCenter.lastFetch.timeIntervalSinceNow < -expiredDataInterval
+  }
 
   lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
     guard error == nil else {
@@ -94,9 +97,8 @@ class ScanCertificateController: UIViewController {
     
     delegate = self
     countryCodeLabel.text = l10n("scanner.select.country")
-    let countryList = LocalStorage.countryCodes.sorted(by: { $0.name < $1.name })
+    let countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
     setListOfRuleCounties(list: countryList)
-    GatewayConnection.initialize()
     
   #if targetEnvironment(simulator)
       DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
@@ -110,14 +112,20 @@ class ScanCertificateController: UIViewController {
     SquareViewFinder.create(from: self)
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     captureSession?.startRunning()
   }
-
+    
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     captureSession?.stopRunning()
+  }
+  
+  func userDidDissmiss(_ controller: UIViewController) {
+    if downloadedDataHasExpired {
+      self.navigationController?.popViewController(animated: false)
+    }
   }
 
   // MARK: Actions
@@ -138,12 +146,19 @@ class ScanCertificateController: UIViewController {
       if let destinationController = segue.destination as? CertificateViewerController,
         let certificate = sender as? HCert {
         destinationController.hCert = certificate
+        destinationController.dismissDelegate = self
+      }
+    case Constants.showSettingsSegueID:
+      if let destinationController = (segue.destination as? UINavigationController)?.viewControllers.first as? SettingsController {
+        destinationController.dismissDelegate = self
+
       }
     default:
       break
     }
   }
   
+  // MARK: Private
   private func setListOfRuleCounties(list: [CountryModel]) {
     self.countryItems = list
     self.countryCodeView.reloadAllComponents()

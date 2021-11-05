@@ -56,7 +56,7 @@ class DebugVC: UIViewController {
     tableView.dataSource = self
     tableView.delegate = self
     
-    self.countryList = LocalStorage.countryCodes.sorted(by: { $0.name < $1.name })
+    self.countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
     self.tableView.reloadData()
     debugSwitcher.isOn = DebugManager.sharedInstance.isDebugMode
     
@@ -174,7 +174,7 @@ extension DebugVC: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let countryModel = countryList[indexPath.row]
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
-    LocalStorage.countryKeeper.update(country: countryModel)
+    DataCenter.countryDataManager.update(country: countryModel)
     if let cell = tableView.cellForRow(at: indexPath) {
       cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
     }
