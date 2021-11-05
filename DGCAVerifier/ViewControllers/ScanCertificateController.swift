@@ -125,11 +125,14 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   func userDidDissmiss(_ controller: UIViewController) {
     if downloadedDataHasExpired {
       self.navigationController?.popViewController(animated: false)
+    } else {
+      captureSession?.startRunning()
     }
   }
 
   // MARK: Actions
   @IBAction func openSettingsController() {
+    captureSession?.stopRunning()
     performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
   }
   
@@ -205,6 +208,7 @@ extension ScanCertificateController: ScanCertificateDelegate {
   
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
     DispatchQueue.main.async {
+      self.captureSession?.stopRunning()
       self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
     }
   }

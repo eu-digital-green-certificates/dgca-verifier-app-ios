@@ -140,11 +140,11 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   func openDebugSettings() {
-    isNavigating = true
     performSegue(withIdentifier: "DebugVC", sender: self)
   }
 
   func openLicenses() {
+    isNavigating = true
     performSegue(withIdentifier: "LicensesVC", sender: self)
   }
 
