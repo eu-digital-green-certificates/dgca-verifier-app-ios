@@ -82,7 +82,6 @@ class CertificateViewerController: UIViewController {
     
     isDebugMode = DebugManager.sharedInstance.isDebugMode
     activityIndicator.startAnimating()
-    shareButton.isHidden = true
     dismissButton.setTitle("Cancel", for: .normal)
     dismissButton.backgroundColor = UIColor.walletYellow
     
@@ -122,9 +121,7 @@ class CertificateViewerController: UIViewController {
 
   private func setupInterface() {
     guard let hCert = hCert else { return }
-    
-    shareButton.isHidden = !isDebugMode
-    
+        
     nameLabel.text = hCert.fullName
     let validity = validityState.allRulesValidity
     
@@ -139,8 +136,11 @@ class CertificateViewerController: UIViewController {
       debugSections.append(DebugSectionModel(sectionType: .verification))
       debugSections.append(DebugSectionModel(sectionType: .raw))
       certificateSections = debugSections + listItems
+      shareButton.isHidden = validity == .ruleInvalid
+
     } else {
       certificateSections = listItems
+      shareButton.isHidden = true
     }
     infoTable.reloadData()
   }

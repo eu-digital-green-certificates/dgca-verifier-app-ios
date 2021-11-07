@@ -36,7 +36,7 @@ class RuleErrorCell: UITableViewCell {
   @IBOutlet fileprivate weak var resultLabel: UILabel!
   @IBOutlet fileprivate weak var resultValueLabel: UILabel!
   @IBOutlet fileprivate weak var failedLabel: UILabel!
-    
+  
   private var infoItem: InfoSection? {
     didSet {
       setupView()

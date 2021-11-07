@@ -55,7 +55,7 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   private var countryItems: [CountryModel] = []
   
   var downloadedDataHasExpired: Bool {
-    return DataCenter.lastFetch.timeIntervalSinceNow < -expiredDataInterval
+    return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
   }
 
   lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in

@@ -35,7 +35,7 @@ class HomeController: UIViewController {
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var downloadedDataHasExpired: Bool {
-    return DataCenter.lastFetch.timeIntervalSinceNow < -expiredDataInterval
+    return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
   }
   
   override func viewWillAppear(_ animated: Bool) {

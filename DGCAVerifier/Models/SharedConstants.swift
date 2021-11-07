@@ -28,4 +28,10 @@
 
 import Foundation
 
-let expiredDataInterval: TimeInterval = 1 * 60 * 60 // 24 * 60 * 60
+enum SharedConstants {
+    static let expiredDataInterval: TimeInterval = 1 * 60 * 60 // 24 * 60 * 60
+    static let dataStorageName = "secure"
+    static let countryStorageName = "country_secure"
+    static let rulesStorageName = "rules_secure"
+    static let valueSetsStorageName = "valueSets_secure"
+}

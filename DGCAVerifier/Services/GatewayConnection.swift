@@ -32,15 +32,12 @@ import SwiftyJSON
 import CertLogic
 
 class GatewayConnection: ContextConnection {
-  public static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
+  static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
     var headers = [String: String]()
     if let token = resumeToken {
       headers["x-resume-token"] = token
     }
-    request( ["endpoints", "update"],
-      method: .get,
-      encoding: URLEncoding(),
-      headers: .init(headers)).response {
+    request( ["endpoints", "update"], method: .get, encoding: URLEncoding(), headers: .init(headers)).response {
       if let status = $0.response?.statusCode, status == 204 {
         completion?(nil, nil)
         return
@@ -66,7 +63,7 @@ class GatewayConnection: ContextConnection {
     }
   }
 
-  public static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
+  static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
     request(["endpoints", "status"]).response {
       guard case let .success(result) = $0.result,
         let response = result,
@@ -104,7 +101,7 @@ class GatewayConnection: ContextConnection {
     }
   }
 
-  public static func fetchContext(completion: (() -> Void)? = nil) {
+  static func fetchContext(completion: (() -> Void)? = nil) {
     request( ["context"] ).response {
       guard let data = $0.data, let string = String(data: data, encoding: .utf8) else {
         completion?()
@@ -129,12 +126,10 @@ class GatewayConnection: ContextConnection {
 // MARK: Country, Rules, Valuesets extension
 extension GatewayConnection {
   // Country list
-  public static func getListOfCountry(completion: (([CountryModel]) -> Void)?) {
+  static func getListOfCountry(completion: (([CountryModel]) -> Void)?) {
     request(["endpoints", "countryList"], method: .get).response {
-      guard case let .success(result) = $0.result,
-        let response = result,
-        let responseStr = String(data: response, encoding: .utf8),
-        let json = JSON(parseJSON: responseStr).array
+      guard case let .success(result) = $0.result, let response = result,
+        let responseStr = String(data: response, encoding: .utf8), let json = JSON(parseJSON: responseStr).array
       else {
         completion?([])
         return
@@ -166,11 +161,9 @@ extension GatewayConnection {
   }
   
   // Rules
-  public static func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
+  static func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
     request(["endpoints", "rules"], method: .get).response {
-      guard case let .success(result) = $0.result,
-        let response = result,
-        let responseStr = String(data: response, encoding: .utf8)
+      guard case let .success(result) = $0.result, let response = result, let responseStr = String(data: response, encoding: .utf8)
       else {
         completion?([])
         return
@@ -204,11 +197,10 @@ extension GatewayConnection {
     }
   }
   
-  public static func getRules(ruleHash: CertLogic.RuleHash, completion: ((CertLogic.Rule?) -> Void)?) {
+  static func getRules(ruleHash: CertLogic.RuleHash, completion: ((CertLogic.Rule?) -> Void)?) {
     request(["endpoints", "rules"], externalLink: "/\(ruleHash.country)/\(ruleHash.hash)", method: .get).response {
       guard case let .success(result) = $0.result,
-        let response = result,
-        let responseStr = String(data: response, encoding: .utf8)
+        let response = result, let responseStr = String(data: response, encoding: .utf8)
       else {
         completion?(nil)
         return
@@ -226,13 +218,7 @@ extension GatewayConnection {
       completion?(nil)
     }
   }
-  
-  static func rulesList(completion: (([CertLogic.Rule]) -> Void)? = nil) {
-    DataCenter.rulesDataManager.initialize {
-      completion?(DataCenter.rules)
-    }
-  }
-  
+    
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
         rulesList.forEach { DataCenter.rulesDataManager.add(rule: $0) }
@@ -242,10 +228,9 @@ extension GatewayConnection {
   }
   
   // ValueSets
-  public static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
+  static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
     request(["endpoints", "valuesets"], method: .get).response {
-      guard
-        case let .success(result) = $0.result,
+      guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {
@@ -280,7 +265,7 @@ extension GatewayConnection {
     }
   }
     
-  public static func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
+  static func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
     request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
       guard case let .success(result) = $0.result,
         let response = result,

@@ -30,14 +30,12 @@ import SwiftyJSON
 import CertLogic
 
 class ValueSetsDataManager {
-  let storage = SecureStorage<ValueSetsDataStorage>(fileName: "valueSets_secure")
-  var valueSetsData: ValueSetsDataStorage = ValueSetsDataStorage()
+  lazy var storage = SecureStorage<ValueSetsDataStorage>(fileName: SharedConstants.valueSetsStorageName)
+  lazy var valueSetsData: ValueSetsDataStorage = ValueSetsDataStorage()
 
   func add(valueSet: CertLogic.ValueSet) {
     let list = valueSetsData.valueSets
-    if list.contains(where: { savedValueSet in
-      savedValueSet.valueSetId == valueSet.valueSetId
-    }) {
+    if list.contains(where: { $0.valueSetId == valueSet.valueSetId }) {
       return
     }
     valueSetsData.valueSets.append(valueSet)

@@ -31,7 +31,7 @@ import SwiftyJSON
 
 class LocalDataManager {
   let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
-  lazy var storage = SecureStorage<LocalData>(fileName: "secure")
+  lazy var storage = SecureStorage<LocalData>(fileName: SharedConstants.dataStorageName)
   lazy var localData: LocalData = LocalData()
   
   func add(encodedPublicKey: String) {

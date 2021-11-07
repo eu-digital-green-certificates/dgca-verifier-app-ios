@@ -34,11 +34,11 @@ class CertLogicEngineManager {
     return instance
   }()
 
-  var certLogicEngine: CertLogicEngine = CertLogicEngine(schema: SwiftDGC.euDgcSchemaV1, rules: [])
+  var certLogicEngine = CertLogicEngine(schema: SwiftDGC.euDgcSchemaV1, rules: [])
   func setRules(ruleList: [CertLogic.Rule]) {
     certLogicEngine.updateRules(rules: ruleList)
   }
-    
+  
   func validate(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload)
   }
@@ -46,15 +46,15 @@ class CertLogicEngineManager {
   func validateIssuer(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload, validationType: .issuer)
   }
-    
+  
   func validateDestination(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload, validationType: .destination)
   }
-    
+  
   func validateTraveller(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
     return certLogicEngine.validate(filter: filter, external: external, payload: payload, validationType: .traveller)
   }
-    
+  
   func getRuleDetailsError(rule: Rule, filter: FilterParameter) -> Dictionary<String, String> {
     return certLogicEngine.getDetailsOfError(rule: rule, filter: filter)
   }

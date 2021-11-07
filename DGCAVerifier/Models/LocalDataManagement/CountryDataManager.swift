@@ -29,8 +29,8 @@ import SwiftDGC
 import SwiftyJSON
 
 class CountryDataManager {
-  let storage = SecureStorage<CountryDataStorage>(fileName: "country_secure")
-  var countryData: CountryDataStorage = CountryDataStorage()
+  lazy var storage = SecureStorage<CountryDataStorage>(fileName: SharedConstants.countryStorageName)
+  lazy var countryData: CountryDataStorage = CountryDataStorage()
   
   func add(country: CountryModel) {
     if !countryData.countryCodes.contains(where: { $0.code == country.code }) {

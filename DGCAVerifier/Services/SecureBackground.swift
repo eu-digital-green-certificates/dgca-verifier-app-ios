@@ -37,7 +37,7 @@ class SecureBackground {
     guard !paused, let image = image else { return }
       
     let imageView = UIImageView(image: image)
-    UIApplication.shared.windows[0].addSubview(imageView)
+      UIApplication.shared.windows.first?.addSubview(imageView)
     Self.imageView = imageView
   }
 

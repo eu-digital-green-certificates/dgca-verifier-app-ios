@@ -30,6 +30,16 @@ import UIKit
 import SwiftDGC
 import CertLogic
 
+protocol DataStorageProtocol {
+  associatedtype StorageData: Codable
+  associatedtype DataModel: Codable
+  var storageData: StorageData {get set}
+  var storage: SecureStorage<StorageData> {get set}
+  func save()
+  func initialize(completion: @escaping () -> Void)
+  func add(dataModel:DataModel)
+}
+
 class DataCenter {
   static let shared = DataCenter()
   
@@ -40,10 +50,11 @@ class DataCenter {
   
   static var lastFetch: Date {
     get {
-      return UserDefaults.standard.object(forKey: "LatFetchDate") as? Date ?? Date.distantPast
+      let fetchDate = localDataManager.localData.lastFetch
+      return fetchDate
     }
     set {
-      UserDefaults.standard.set(newValue, forKey: "LatFetchDate")
+      localDataManager.localData.lastFetch = newValue
      }
   }
 
@@ -135,38 +146,7 @@ class DataCenter {
       
       group.leave()
     }
-    
     group.notify(queue: .main) {
-      completion()
-    }
-  }
-
-  static func downloadStorageData(completion: @escaping () -> Void) {
-    let group = DispatchGroup()
-    
-    group.enter()
-    GatewayConnection.updateLocalDataStorage {
-      group.leave()
-    }
-    
-    group.enter()
-    GatewayConnection.loadCountryList { countryList in
-      group.leave()
-    }
-    
-    group.enter()
-    GatewayConnection.loadValueSetsFromServer { sets in
-      group.leave()
-    }
-    
-    group.enter()
-    GatewayConnection.loadRulesFromServer { rules in
-      CertLogicEngineManager.sharedInstance.setRules(ruleList: rulesDataManager.rulesData.rules)
-      group.leave()
-    }
-    
-    group.notify(queue: .main) {
-      lastFetch = Date()
       completion()
     }
   }
@@ -198,24 +178,23 @@ class DataCenter {
       }
 
       group.enter()
-      GatewayConnection.loadCountryList { countryList in
+      GatewayConnection.loadCountryList { _ in
         group.leave()
       }
       
       group.enter()
-      GatewayConnection.loadValueSetsFromServer { sets in
+      GatewayConnection.loadValueSetsFromServer { _ in
         group.leave()
       }
       
       group.enter()
-      GatewayConnection.loadRulesFromServer { rules in
+      GatewayConnection.loadRulesFromServer { _ in
         CertLogicEngineManager.sharedInstance.setRules(ruleList: rulesDataManager.rulesData.rules)
         group.leave()
       }
 
       group.leave()
     }
-    
     group.notify(queue: .main) {
       lastFetch = Date()
       completion()

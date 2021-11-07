@@ -144,7 +144,6 @@ class DebugVC: UIViewController {
   @IBAction func doneButtonAction(_ sender: Any) {
     dismiss(animated: true)
   }
-
 }
 
 extension DebugVC: UITableViewDataSource {
