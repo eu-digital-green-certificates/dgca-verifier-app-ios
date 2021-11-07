@@ -50,7 +50,6 @@
 		5CA450E826E78DB50029324E /* InfoCellDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450E526E78DB50029324E /* InfoCellDropDown.swift */; };
 		5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450E526E78DB50029324E /* InfoCellDropDown.swift */; };
 		5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4434268A584400E09EAC /* SwiftDGC */; };
-		5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAC4437268A591600E09EAC /* FloatingPanel */; };
 		5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
 		5CE07C8A26938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
 		5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
@@ -201,7 +200,6 @@
 				5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */,
 				5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */,
 				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
-				5CAC4438268A591600E09EAC /* FloatingPanel in Frameworks */,
 				FEAAF97926EF2B3500757634 /* Zip in Frameworks */,
 				CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */,
 			);
@@ -465,7 +463,6 @@
 				5C3151E82681BDCF00309E45 /* CertLogic */,
 				5C696F5726836F280005DE71 /* SwiftyJSON */,
 				5CAC4434268A584400E09EAC /* SwiftDGC */,
-				5CAC4437268A591600E09EAC /* FloatingPanel */,
 				FEAAF97826EF2B3500757634 /* Zip */,
 			);
 			productName = DGCAVerifier;
@@ -544,7 +541,6 @@
 				5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */,
 				5C696F5626836F280005DE71 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
-				5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				FEAAF97726EF2B3500757634 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
@@ -1093,14 +1089,6 @@
 				kind = branch;
 			};
 		};
-		5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.0;
-			};
-		};
 		CE713CD02651A65F003DD1DE /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios";
@@ -1142,11 +1130,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
 			productName = SwiftDGC;
-		};
-		5CAC4437268A591600E09EAC /* FloatingPanel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5CAC4436268A591600E09EAC /* XCRemoteSwiftPackageReference "FloatingPanel" */;
-			productName = FloatingPanel;
 		};
 		CE713CD12651A65F003DD1DE /* SwiftDGC */ = {
 			isa = XCSwiftPackageProductDependency;
