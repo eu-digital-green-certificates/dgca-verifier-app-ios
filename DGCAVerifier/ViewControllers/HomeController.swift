@@ -29,25 +29,35 @@ import UIKit
 import SwiftDGC
 
 class HomeController: UIViewController {
+  
   private enum Constants {
     static let scannerSegueID = "scannerSegueID"
   }
+  
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var downloadedDataHasExpired: Bool {
     return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
   }
-  
+ 
+  var appWasRunWithOlderVersion: Bool {
+    return DataCenter.lastLaunchedAppVersion != DataCenter.appVersion
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    downloadedDataHasExpired ?  reloadStorageData() : initializeStorageData()
+    DataCenter.initializeLocalData {[unowned self] in
+      DispatchQueue.main.async {
+        self.downloadedDataHasExpired || self.appWasRunWithOlderVersion ?  self.reloadStorageData() : self.initializeAllStorageData()
+      }
+    }
   }
 
-  func initializeStorageData() {
+  func initializeAllStorageData() {
     self.activityIndicator.startAnimating()
     
-    DataCenter.initializeStorageData { [unowned self] in
+    DataCenter.initializeAllStorageData { [unowned self] in
       DispatchQueue.main.async {
         self.activityIndicator.stopAnimating()
         self.loadComplete()
@@ -72,7 +82,6 @@ class HomeController: UIViewController {
     SecureBackground.image = renderer.image { rendererContext in
       self.view.layer.render(in: rendererContext.cgContext)
     }
-
     if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
       showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
       return

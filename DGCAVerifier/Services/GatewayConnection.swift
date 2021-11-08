@@ -86,6 +86,9 @@ class GatewayConnection: ContextConnection {
       }
       DataCenter.localDataManager.add(encodedPublicKey: encodedCert)
       DataCenter.resumeToken = token
+      DataCenter.lastFetch = Date()
+      DataCenter.saveLocalData()
+
       updateLocalDataStorage(completion: completion)
     }
   }
@@ -96,7 +99,9 @@ class GatewayConnection: ContextConnection {
       for key in invalid {
         DataCenter.publicKeys.removeValue(forKey: key)
       }
+      DataCenter.lastFetch = Date()
       DataCenter.saveLocalData()
+
       completion?()
     }
   }
@@ -108,8 +113,10 @@ class GatewayConnection: ContextConnection {
         return
       }
       let json = JSON(parseJSONC: string)
-      DataCenter.localDataManager.localData.config.merge(other: json)
-      DataCenter.localDataManager.save()
+      DataCenter.localDataManager.merge(other: json)
+      DataCenter.lastFetch = Date()
+      DataCenter.saveLocalData()
+
       if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
         (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
             .popToRootViewController(animated: false)

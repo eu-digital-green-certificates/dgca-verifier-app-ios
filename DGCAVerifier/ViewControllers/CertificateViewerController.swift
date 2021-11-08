@@ -136,7 +136,7 @@ class CertificateViewerController: UIViewController {
       debugSections.append(DebugSectionModel(sectionType: .verification))
       debugSections.append(DebugSectionModel(sectionType: .raw))
       certificateSections = debugSections + listItems
-      shareButton.isHidden = validity == .ruleInvalid
+      shareButton.isHidden = (validity == .valid)
 
     } else {
       certificateSections = listItems

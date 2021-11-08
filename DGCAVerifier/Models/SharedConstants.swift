@@ -34,4 +34,7 @@ enum SharedConstants {
     static let countryStorageName = "country_secure"
     static let rulesStorageName = "rules_secure"
     static let valueSetsStorageName = "valueSets_secure"
+    
+    static let linkToOpenGitHubSource = "https://github.com/eu-digital-green-certificates"
+    static let linkToOopenEuCertDoc = "https://ec.europa.eu/health/ehealth/covid-19_en"
 }

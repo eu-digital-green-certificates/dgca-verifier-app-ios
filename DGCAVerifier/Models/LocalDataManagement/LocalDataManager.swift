@@ -30,7 +30,6 @@ import SwiftDGC
 import SwiftyJSON
 
 class LocalDataManager {
-  let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
   lazy var storage = SecureStorage<LocalData>(fileName: SharedConstants.dataStorageName)
   lazy var localData: LocalData = LocalData()
   
@@ -44,8 +43,8 @@ class LocalDataManager {
     }
   }
   
-  func keep(resumeToken: String) {
-    localData.resumeToken = resumeToken
+  func merge(other: JSON) {
+    localData.config.merge(other: other)
   }
   
   func save() {
@@ -60,19 +59,21 @@ class LocalDataManager {
       }
           
       let format = l10n("log.keys-loaded")
-       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
-      if result.lastLaunchedAppVersion != self.appVersion {
+      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
+      if result.lastLaunchedAppVersion != DataCenter.appVersion {
         result.config = self.localData.config
+        result.lastLaunchedAppVersion = DataCenter.appVersion
       }
       self.localData = result
+      self.save()
       CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
       completion()
     }
   }
   
   var versionedConfig: JSON {
-    if localData.config["versions"][self.appVersion].exists() {
-      return localData.config["versions"][self.appVersion]
+    if localData.config["versions"][DataCenter.appVersion].exists() {
+      return localData.config["versions"][DataCenter.appVersion]
     } else {
       return localData.config["versions"]["default"]
     }

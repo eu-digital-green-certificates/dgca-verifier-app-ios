@@ -42,7 +42,8 @@ protocol DataStorageProtocol {
 
 class DataCenter {
   static let shared = DataCenter()
-  
+  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+
   static let localDataManager: LocalDataManager = LocalDataManager()
   static let countryDataManager: CountryDataManager = CountryDataManager()
   static let rulesDataManager: RulesDataManager = RulesDataManager()
@@ -55,6 +56,15 @@ class DataCenter {
     }
     set {
       localDataManager.localData.lastFetch = newValue
+     }
+  }
+  
+  static var lastLaunchedAppVersion: String {
+    get {
+      return DataCenter.localDataManager.localData.lastLaunchedAppVersion
+    }
+    set {
+      DataCenter.localDataManager.localData.lastLaunchedAppVersion = newValue
      }
   }
 
@@ -82,7 +92,7 @@ class DataCenter {
     }
     set {
       countryDataManager.countryData.countryCodes = newValue
-     }
+    }
   }
   
   static var rules: [CertLogic.Rule] {
@@ -91,7 +101,7 @@ class DataCenter {
     }
     set {
       rulesDataManager.rulesData.rules = newValue
-     }
+    }
   }
   
   static var valueSets: [CertLogic.ValueSet] {
@@ -100,30 +110,30 @@ class DataCenter {
     }
     set {
       valueSetsDataManager.valueSetsData.valueSets = newValue
-     }
+    }
   }
 
   static func saveLocalData() {
-    localDataManager.localData.lastFetch = Date()
     localDataManager.save()
   }
   
   static func saveCountries() {
-    countryDataManager.countryData.lastFetch = Date()
     countryDataManager.save()
   }
   
   static func saveSets() {
-    valueSetsDataManager.valueSetsData.lastFetch = Date()
     valueSetsDataManager.save()
   }
 
   static func saveRules() {
-    rulesDataManager.rulesData.lastFetch = Date()
     rulesDataManager.save()
   }
   
-  static func initializeStorageData(completion: @escaping () -> Void) {
+  static func initializeLocalData(completion: @escaping () -> Void) {
+    localDataManager.initialize(completion: completion)
+  }
+  
+  static func initializeAllStorageData(completion: @escaping () -> Void) {
     let group = DispatchGroup()
     
     group.enter()

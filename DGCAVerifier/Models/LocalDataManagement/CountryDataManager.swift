@@ -39,9 +39,7 @@ class CountryDataManager {
   }
   
   func update(country: CountryModel) {
-    guard let countryFromDB = countryData.countryCodes.filter({ $0.code == country.code }).first else {
-      return
-    }
+    guard let countryFromDB = countryData.countryCodes.filter({ $0.code == country.code }).first else { return }
     countryFromDB.debugModeEnabled = country.debugModeEnabled
     save()
   }
@@ -60,6 +58,7 @@ class CountryDataManager {
       let format = l10n("log.country")
       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.countryCodes.count))
       self.countryData = result
+      self.save()
       completion()
     }
   }

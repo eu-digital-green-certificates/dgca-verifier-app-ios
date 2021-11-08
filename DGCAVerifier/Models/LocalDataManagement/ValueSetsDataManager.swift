@@ -37,8 +37,9 @@ class ValueSetsDataManager {
     let list = valueSetsData.valueSets
     if list.contains(where: { $0.valueSetId == valueSet.valueSetId }) {
       return
+    } else {
+      valueSetsData.valueSets.append(valueSet)
     }
-    valueSetsData.valueSets.append(valueSet)
   }
 
   func save() {
@@ -55,7 +56,7 @@ class ValueSetsDataManager {
   }
     
   func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: valueSetsData) { success in
+    storage.loadOverride(fallback: valueSetsData) { [unowned self]  success in
       guard let result = success else {
         completion()
         return
@@ -64,6 +65,7 @@ class ValueSetsDataManager {
       let format = l10n("log.valueSets")
       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.valueSets.count))
       self.valueSetsData = result
+      self.save()
       completion()
     }
   }

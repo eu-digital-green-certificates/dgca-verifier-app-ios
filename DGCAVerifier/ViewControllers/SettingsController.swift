@@ -28,6 +28,11 @@ import UIKit
 import SwiftDGC
 
 class SettingsController: UITableViewController, DebugControllerDelegate {
+  private enum Constants {
+    static let licenseSegueID = "LicensesVC"
+    static let debugSegueID = "DebugVC"
+  }
+
   weak var delegate: DebugControllerDelegate?
   weak var dismissDelegate: DismissControllerDelegate?
 
@@ -130,22 +135,22 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   func openEuCertDoc() {
-    let link = "https://ec.europa.eu/health/ehealth/covid-19_en"
+    let link = SharedConstants.linkToOopenEuCertDoc
     openUrl(link)
   }
 
   func openGitHubSource() {
-    let link = "https://github.com/eu-digital-green-certificates"
+    let link = SharedConstants.linkToOpenGitHubSource
     openUrl(link)
   }
 
   func openDebugSettings() {
-    performSegue(withIdentifier: "DebugVC", sender: self)
+    performSegue(withIdentifier: Constants.debugSegueID, sender: self)
   }
 
   func openLicenses() {
     isNavigating = true
-    performSegue(withIdentifier: "LicensesVC", sender: self)
+    performSegue(withIdentifier: Constants.licenseSegueID, sender: self)
   }
 
   func openUrl(_ string: String!) {
@@ -160,7 +165,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier {
-    case "DebugVC":
+    case Constants.debugSegueID:
       if let destinationController = segue.destination as? DebugVC {
         destinationController.delegate = self
       }

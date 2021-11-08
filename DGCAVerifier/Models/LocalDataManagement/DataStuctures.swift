@@ -37,54 +37,24 @@ class LocalData: Codable {
   var lastFetchRaw: Date?
   var lastFetch: Date {
     get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
+      lastFetchRaw ?? Date.distantPast
     }
     set {
       lastFetchRaw = newValue
     }
   }
   var config = Config.load()
-  var lastLaunchedAppVersion = ""
+  var lastLaunchedAppVersion = "0.0"
 }
 
 class CountryDataStorage: Codable {
   var countryCodes = [CountryModel]()
-  var lastFetchRaw: Date?
-
-  var lastFetch: Date {
-    get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
-    }
-    set {
-      lastFetchRaw = newValue
-    }
-  }
-  var config = Config.load()
 }
 
 class RulesDataStorage: Codable {
   var rules = [CertLogic.Rule]()
-  var lastFetchRaw: Date?
-  var lastFetch: Date {
-    get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
-    }
-    set(value) {
-      lastFetchRaw = value
-    }
-  }
 }
 
 class ValueSetsDataStorage: Codable {
   var valueSets = [CertLogic.ValueSet]()
-  var lastFetchRaw: Date?
-  var lastFetch: Date {
-    get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
-    }
-    set(value) {
-      lastFetchRaw = value
-    }
-  }
-  var config = Config.load()
 }
