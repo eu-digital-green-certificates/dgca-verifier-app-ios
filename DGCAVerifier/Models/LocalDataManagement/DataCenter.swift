@@ -141,6 +141,7 @@ class DataCenter {
       
       group.enter()
       rulesDataManager.initialize {
+        CertLogicManager.shared.setRules(ruleList: rules)
         group.leave()
       }
       
@@ -169,6 +170,7 @@ class DataCenter {
       
       group.enter()
       rulesDataManager.initialize {
+        CertLogicManager.shared.setRules(ruleList: rules)
         group.leave()
       }
       
@@ -199,7 +201,7 @@ class DataCenter {
       
       group.enter()
       GatewayConnection.loadRulesFromServer { _ in
-        CertLogicEngineManager.sharedInstance.setRules(ruleList: rulesDataManager.rulesData.rules)
+        CertLogicManager.shared.setRules(ruleList: rules)
         group.leave()
       }
 

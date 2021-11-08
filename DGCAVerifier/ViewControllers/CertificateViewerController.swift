@@ -131,12 +131,12 @@ class CertificateViewerController: UIViewController {
     headerBackground.backgroundColor = validity.validityBackground
     validityImage.image = validity.validityImage
     
-    if isDebugMode {
+    if isDebugMode && (validity != .valid) {
       debugSections.removeAll()
       debugSections.append(DebugSectionModel(sectionType: .verification))
       debugSections.append(DebugSectionModel(sectionType: .raw))
       certificateSections = debugSections + listItems
-      shareButton.isHidden = (validity == .valid)
+      shareButton.isHidden = false
 
     } else {
       certificateSections = listItems

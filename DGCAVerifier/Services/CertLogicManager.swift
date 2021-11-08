@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  CertLogicEngineManager.swift
+//  CertLogicManager.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 23.06.2021.
@@ -28,11 +28,8 @@ import Foundation
 import CertLogic
 import SwiftDGC
 
-class CertLogicEngineManager {
-  static var sharedInstance: CertLogicEngineManager = {
-    let instance = CertLogicEngineManager()
-    return instance
-  }()
+class CertLogicManager {
+  static let shared = CertLogicManager()
 
   var certLogicEngine = CertLogicEngine(schema: SwiftDGC.euDgcSchemaV1, rules: [])
   func setRules(ruleList: [CertLogic.Rule]) {

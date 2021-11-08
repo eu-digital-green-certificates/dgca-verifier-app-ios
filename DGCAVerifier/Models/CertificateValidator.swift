@@ -100,7 +100,7 @@ class CertificateValidator {
              iat: certificate.iat,
              issuerCountryCode: certificate.issCode,
              kid: certificate.kidStr)
-        let result = CertLogicEngineManager.sharedInstance.validate(filter: filterParameter,
+        let result = CertLogicManager.shared.validate(filter: filterParameter,
             external: externalParameters, payload: certificate.body.description)
         let failsAndOpen = result.filter { $0.result != .passed }
         
@@ -138,7 +138,7 @@ class CertificateValidator {
               }
               var detailsError = ""
               if let rule = validationResult.rule {
-                let dict = CertLogicEngineManager.sharedInstance.getRuleDetailsError(rule: rule, filter: filterParameter)
+                let dict = CertLogicManager.shared.getRuleDetailsError(rule: rule, filter: filterParameter)
                 dict.keys.forEach({ detailsError += $0 + ": " + (dict[$0] ?? "") + " " })
               }
               switch validationResult.result {
@@ -181,7 +181,7 @@ class CertificateValidator {
            iat: certificate.iat,
            issuerCountryCode: certificate.issCode,
            kid: certificate.kidStr)
-        let result = CertLogicEngineManager.sharedInstance.validateIssuer(filter: filterParameter,
+        let result = CertLogicManager.shared.validateIssuer(filter: filterParameter,
             external: externalParameters, payload: certificate.body.description)
         let fails = result.filter { $0.result == .fail }
         if !fails.isEmpty {
@@ -210,7 +210,7 @@ class CertificateValidator {
           iat: certificate.iat,
           issuerCountryCode: certificate.issCode,
           kid: certificate.kidStr)
-        let result = CertLogicEngineManager.sharedInstance.validateDestination(filter: filterParameter,
+        let result = CertLogicManager.shared.validateDestination(filter: filterParameter,
             external: externalParameters, payload: certificate.body.description)
         let fails = result.filter { $0.result == .fail }
         if !fails.isEmpty {
@@ -239,7 +239,7 @@ class CertificateValidator {
            iat: certificate.iat,
            issuerCountryCode: certificate.issCode,
            kid: certificate.kidStr)
-        let result = CertLogicEngineManager.sharedInstance.validateTraveller(filter: filterParameter,
+        let result = CertLogicManager.shared.validateTraveller(filter: filterParameter,
             external: externalParameters, payload: certificate.body.description)
         
         let fails = result.filter { $0.result == .fail }

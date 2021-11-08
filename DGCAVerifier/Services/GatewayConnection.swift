@@ -132,7 +132,7 @@ class GatewayConnection: ContextConnection {
 
 // MARK: Country, Rules, Valuesets extension
 extension GatewayConnection {
-  // Country list
+  // MARK: Country List
   static func getListOfCountry(completion: (([CountryModel]) -> Void)?) {
     request(["endpoints", "countryList"], method: .get).response {
       guard case let .success(result) = $0.result, let response = result,
@@ -141,7 +141,7 @@ extension GatewayConnection {
         completion?([])
         return
       }
-        
+      
       let codes = json.compactMap { $0.string }
       var countryList: [CountryModel] = []
       codes.forEach { countryList.append(CountryModel(code: $0)) }
@@ -167,8 +167,8 @@ extension GatewayConnection {
     }
   }
   
-  // Rules
-  static func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
+  // MARK: Rules
+  static private func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
     request(["endpoints", "rules"], method: .get).response {
       guard case let .success(result) = $0.result, let response = result, let responseStr = String(data: response, encoding: .utf8)
       else {
@@ -225,7 +225,7 @@ extension GatewayConnection {
       completion?(nil)
     }
   }
-    
+  
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
         rulesList.forEach { DataCenter.rulesDataManager.add(rule: $0) }
@@ -234,8 +234,8 @@ extension GatewayConnection {
     }
   }
   
-  // ValueSets
-  static func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
+  // MARK: Valuesets
+  static private func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
     request(["endpoints", "valuesets"], method: .get).response {
       guard case let .success(result) = $0.result,
         let response = result,
@@ -272,7 +272,7 @@ extension GatewayConnection {
     }
   }
     
-  static func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
+  static private func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
     request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
       guard case let .success(result) = $0.result,
         let response = result,
@@ -294,18 +294,10 @@ extension GatewayConnection {
       completion?(nil)
     }
   }
-    
-  static func valueSetsList(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
-    DataCenter.valueSetsDataManager.initialize {
-        completion?(DataCenter.valueSets)
-    }
-  }
-
+  
   static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
-    getListOfValueSets { valueSetsList in
-      valueSetsList.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
-      DataCenter.saveSets()
-      completion?(DataCenter.valueSets)
-    }
+    DataCenter.valueSets.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
+    DataCenter.saveSets()
+    completion?(DataCenter.valueSets)
   }
 }

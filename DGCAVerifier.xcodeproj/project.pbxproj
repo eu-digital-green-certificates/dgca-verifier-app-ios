@@ -16,7 +16,7 @@
 		5C2E512A2682152F00712521 /* RulesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataManager.swift */; };
 		5C3151E92681BDCF00309E45 /* CertLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 5C3151E82681BDCF00309E45 /* CertLogic */; };
 		5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 5C696F5726836F280005DE71 /* SwiftyJSON */; };
-		5C696F5A268372280005DE71 /* CertLogicEngineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F59268372280005DE71 /* CertLogicEngineManager.swift */; };
+		5C696F5A268372280005DE71 /* CertLogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F59268372280005DE71 /* CertLogicManager.swift */; };
 		5C696F5C2686670D0005DE71 /* ValueSetsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */; };
 		5C9C65A426A8507A00F14FC2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE81533B263FF8FE0030D777 /* README.md */; };
 		5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA4509B26DCCA770029324E /* NFCHelper.swift */; };
@@ -131,7 +131,7 @@
 		15BF689D2732FAC100552288 /* DataStuctures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStuctures.swift; sourceTree = "<group>"; };
 		5C2E51252681E50700712521 /* CountryDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CountryDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5C2E51272682152F00712521 /* RulesDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RulesDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
-		5C696F59268372280005DE71 /* CertLogicEngineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertLogicEngineManager.swift; sourceTree = "<group>"; };
+		5C696F59268372280005DE71 /* CertLogicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertLogicManager.swift; sourceTree = "<group>"; };
 		5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ValueSetsDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA4509926DCCA010029324E /* DGCAVerifier.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DGCAVerifier.entitlements; sourceTree = "<group>"; };
 		5CA4509B26DCCA770029324E /* NFCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCHelper.swift; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 				5CEA55C426EF59D600269702 /* ZipManager.swift */,
 				CE8912F42634C60E00CB92AF /* GatewayConnection.swift */,
 				CE37B642263867D700DEE13D /* SecureBackground.swift */,
-				5C696F59268372280005DE71 /* CertLogicEngineManager.swift */,
+				5C696F59268372280005DE71 /* CertLogicManager.swift */,
 				5CA450B326E605710029324E /* DebugManager.swift */,
 			);
 			path = Services;
@@ -639,7 +639,7 @@
 				DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */,
 				5CA450AD26E0F4C20029324E /* DebugCell.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
-				5C696F5A268372280005DE71 /* CertLogicEngineManager.swift in Sources */,
+				5C696F5A268372280005DE71 /* CertLogicManager.swift in Sources */,
 				D2158143273184E200C98986 /* LicenseController.swift in Sources */,
 				CE891305263581D900CB92AF /* HomeController.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
