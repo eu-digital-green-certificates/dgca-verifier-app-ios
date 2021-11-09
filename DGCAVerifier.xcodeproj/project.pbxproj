@@ -98,6 +98,12 @@
 		D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
 		D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
 		D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
+		D26F1F9D273A8D64002A780F /* DGCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1F9C273A8D63002A780F /* DGCLogger.swift */; };
+		D26F1F9E273A8D64002A780F /* DGCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1F9C273A8D63002A780F /* DGCLogger.swift */; };
+		D26F1F9F273A8D64002A780F /* DGCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1F9C273A8D63002A780F /* DGCLogger.swift */; };
+		D26F1FA1273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
+		D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
+		D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D2768F7927356C8C006C7E17 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
@@ -182,6 +188,8 @@
 		D215814427329C9400C98986 /* DataCenter.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
+		D26F1F9C273A8D63002A780F /* DGCLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCLogger.swift; sourceTree = "<group>"; };
+		D26F1FA0273A8DC9002A780F /* String+Pad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Pad.swift"; sourceTree = "<group>"; };
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 2; };
@@ -320,6 +328,7 @@
 				CE8096D8263B07BB00A65AD6 /* UIColor.swift */,
 				D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */,
 				D21581402731719500C98986 /* ValidityState.swift */,
+				D26F1FA0273A8DC9002A780F /* String+Pad.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -370,6 +379,7 @@
 			children = (
 				D2768F7827356C8C006C7E17 /* SharedConstants.swift */,
 				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
+				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
 				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
 			);
@@ -627,6 +637,7 @@
 				CE1D1EF6263597A2004C8919 /* LocalDataManager.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
+				D26F1F9D273A8D64002A780F /* DGCLogger.swift in Sources */,
 				5C696F5C2686670D0005DE71 /* ValueSetsDataManager.swift in Sources */,
 				5CA450BA26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				5CA450CA26E7421C0029324E /* DebugValidationCell.swift in Sources */,
@@ -643,6 +654,7 @@
 				D2158143273184E200C98986 /* LicenseController.swift in Sources */,
 				CE891305263581D900CB92AF /* HomeController.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
+				D26F1FA1273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
 				5C2E51262681E50700712521 /* CountryDataManager.swift in Sources */,
 				D215814527329C9400C98986 /* DataCenter.swift in Sources */,
@@ -679,7 +691,9 @@
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 				5CA450AE26E0F4C20029324E /* DebugCell.swift in Sources */,
 				D23EF79E272026A90097D82B /* CountryDataManager.swift in Sources */,
+				D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */,
 				D23EF7AA272067F80097D82B /* ValueSetsDataManager.swift in Sources */,
+				D26F1F9E273A8D64002A780F /* DGCLogger.swift in Sources */,
 				5CA450E826E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				5CA450B526E605710029324E /* DebugManager.swift in Sources */,
 				5CA450E026E78D990029324E /* InfoCell.swift in Sources */,
@@ -692,6 +706,7 @@
 			files = (
 				5CA450CC26E7421C0029324E /* DebugValidationCell.swift in Sources */,
 				5CEA55C726EF5D3B00269702 /* ZipManager.swift in Sources */,
+				D26F1F9F273A8D64002A780F /* DGCLogger.swift in Sources */,
 				15BF68A12733D46D00552288 /* HomeController.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA450BC26E7419F0029324E /* DebugSectionCell.swift in Sources */,
@@ -701,6 +716,7 @@
 				5CA450B626E605710029324E /* DebugManager.swift in Sources */,
 				5CA450C426E741BB0029324E /* DebugRawCell.swift in Sources */,
 				D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */,
+				D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5C2E512A2682152F00712521 /* RulesDataManager.swift in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
 				D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */,
