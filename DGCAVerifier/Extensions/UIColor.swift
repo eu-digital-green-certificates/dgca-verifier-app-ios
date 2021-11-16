@@ -28,13 +28,12 @@
 import UIKit
 
 extension UIColor {
-  static var roseRed: UIColor { UIColor(named: "roseRed")! }
-  static var forestGreen: UIColor { UIColor(named: "forestGreen")! }
-  static var congressBlue: UIColor { UIColor(named: "congressBlue")! }
+  static var certificateRed: UIColor { UIColor(named: "certificateRed")! }
+  static var certificateGreen: UIColor { UIColor(named: "certificateGreen")! }
+  static var verifierBlue: UIColor { UIColor(named: "verifierBlue")! }
   static var charcoalGrey: UIColor { UIColor(named: "charcoalGrey")! }
-  static var disabledText: UIColor { UIColor(named: "disabledText")! }
-  static var walletYellow: UIColor { UIColor(named: "walletYellow")! }
-  static var valid: UIColor { UIColor(named: "valid")! }
-  static var invalid: UIColor! { UIColor(named: "invalid")! }
-  static var open: UIColor { UIColor(named: "open")! }
+  static var certificateLimited: UIColor { UIColor(named: "certificateLimited")! }
+  static var certificateValid: UIColor { UIColor(named: "certificateValid")! }
+  static var certificateInvalid: UIColor! { UIColor(named: "certificateInvalid")! }
+  static var certificateRuleOpen: UIColor { UIColor(named: "certificateRuleOpen")! }
 }

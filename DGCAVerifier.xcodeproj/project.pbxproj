@@ -339,10 +339,8 @@
 				CE13CF09262DCDDA0070C80E /* CertificateViewerController.swift */,
 				D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */,
 				CE891304263581D900CB92AF /* HomeController.swift */,
-				CE59D1B526428D78004EBDD6 /* SettingsController.swift */,
-				DA793257265BBFB50043BA06 /* LicenseTableController.swift */,
-				D2158142273184E200C98986 /* LicenseController.swift */,
 				5CA450A526E0BA640029324E /* DebugController.swift */,
+				D2B605C02743D448000D914A /* SettingsControllers */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -448,6 +446,16 @@
 				CEA6D70F261F8D2900715333 /* Info.plist */,
 			);
 			path = DGCAVerifierUITests;
+			sourceTree = "<group>";
+		};
+		D2B605C02743D448000D914A /* SettingsControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE59D1B526428D78004EBDD6 /* SettingsController.swift */,
+				DA793257265BBFB50043BA06 /* LicenseTableController.swift */,
+				D2158142273184E200C98986 /* LicenseController.swift */,
+			);
+			path = SettingsControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

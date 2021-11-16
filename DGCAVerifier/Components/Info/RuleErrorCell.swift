@@ -69,13 +69,13 @@ class RuleErrorCell: UITableViewCell {
     currentValueLabel.text = infoItem.content
     switch infoItem.ruleValidationResult {
     case .error:
-      failedLabel.textColor = .roseRed
+      failedLabel.textColor = .certificateRed
       failedLabel.text = l10n("failed")
     case .passed:
-      failedLabel.textColor = .forestGreen
+      failedLabel.textColor = .certificateGreen
       failedLabel.text = l10n("passed")
     case .open:
-      failedLabel.textColor = .forestGreen
+      failedLabel.textColor = .certificateGreen
       failedLabel.text = l10n("open")
     }
 

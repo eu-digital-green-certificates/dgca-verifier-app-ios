@@ -31,7 +31,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMd-yI-bmR">
                                                     <rect key="frame" x="20" y="11" width="356.5" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" name="congressBlue"/>
+                                                    <color key="textColor" name="verifierBlue"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -44,7 +44,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="disclosureIndicator" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="Fa8-xq-hL6">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="Fa8-xq-hL6">
                                         <rect key="frame" x="0.0" y="82" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fa8-xq-hL6" id="yrv-PR-oRN">
@@ -54,7 +54,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Licenses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3C9-S9-3Vo">
                                                     <rect key="frame" x="20" y="11" width="356.5" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" name="congressBlue"/>
+                                                    <color key="textColor" name="verifierBlue"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -77,7 +77,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZM-hL-tLy">
                                                     <rect key="frame" x="20" y="11" width="104" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" name="congressBlue"/>
+                                                    <color key="textColor" name="verifierBlue"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7T-kU-ft5">
@@ -121,7 +121,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="LEB-UD-iNN" secondAttribute="height" multiplier="1:1" id="QaP-dH-dzW"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="congressBlue"/>
+                                                    <color key="tintColor" name="verifierBlue"/>
                                                     <state key="normal" image="spinner"/>
                                                 </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="t5k-CF-0Rs">
@@ -197,7 +197,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="6ZX-Be-rar">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="GAN-DV-Te7">
-                            <color key="tintColor" name="congressBlue"/>
+                            <color key="tintColor" name="verifierBlue"/>
                             <connections>
                                 <action selector="cancelButton" destination="3yC-8G-HqR" id="sf2-iC-tyY"/>
                             </connections>
@@ -225,6 +225,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="elE-Kd-aAp">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="verifierBlue"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -242,7 +243,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rlG-W8-zIp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LicenseCell" rowHeight="50" id="W5p-sJ-U0C" customClass="LicenseCell" customModule="DGCAVerifier" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="32" width="414" height="50"/>
@@ -254,7 +255,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alamofire" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaT-ye-ZEn">
                                             <rect key="frame" x="20" y="11" width="356.5" height="28"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" name="congressBlue"/>
+                                            <color key="textColor" name="verifierBlue"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -265,6 +266,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="FaT-ye-ZEn" secondAttribute="bottom" id="XCz-Gy-Y4K"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="cellLabel" destination="FaT-ye-ZEn" id="b3e-5O-ddg"/>
                                 </connections>
@@ -294,6 +296,7 @@
                         <subviews>
                             <wkWebView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nTk-ty-a9v">
                                 <rect key="frame" x="25" y="199" width="364" height="638"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -307,6 +310,7 @@
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8lQ-1B-URM">
                                 <rect key="frame" x="197" y="508" width="20" height="20"/>
+                                <color key="color" systemColor="secondaryLabelColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="W1b-kD-dC5"/>
@@ -350,7 +354,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" name="verifierBlue"/>
                                 </state>
                                 <connections>
                                     <action selector="doneButtonAction:" destination="bsF-c3-r8z" eventType="touchUpInside" id="55w-MR-0zx"/>
@@ -376,7 +380,7 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ujI-6j-G6k">
                                 <rect key="frame" x="345" y="127" width="51" height="31"/>
-                                <color key="onTintColor" name="congressBlue"/>
+                                <color key="onTintColor" name="verifierBlue"/>
                                 <connections>
                                     <action selector="debugSwitchAction:" destination="bsF-c3-r8z" eventType="valueChanged" id="vSd-fF-9lJ"/>
                                 </connections>
@@ -512,12 +516,9 @@
     </scenes>
     <resources>
         <image name="spinner" width="22" height="22"/>
-        <namedColor name="congressBlue">
+        <namedColor name="verifierBlue">
             <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -78,44 +78,44 @@ extension ValidityState {
     var technicalValidityColor: UIColor {
         switch self.technicalValidity {
           case .valid:
-            return UIColor.valid
+            return UIColor.certificateValid
           case .invalid:
-            return UIColor.invalid
+            return UIColor.certificateInvalid
           case .ruleInvalid:
-            return UIColor.open
+            return UIColor.certificateRuleOpen
         }
     }
 
     var issuerInvalidationColor: UIColor {
         switch self.issuerInvalidation {
           case .passed:
-            return UIColor.valid
+            return UIColor.certificateValid
           case .error:
-            return UIColor.invalid
+            return UIColor.certificateInvalid
           case .open:
-            return UIColor.open
+            return UIColor.certificateRuleOpen
         }
     }
 
     var destinationAcceptenceColor: UIColor {
         switch self.destinationAcceptence {
         case .passed:
-          return UIColor.valid
+          return UIColor.certificateValid
         case .error:
-          return UIColor.invalid
+          return UIColor.certificateInvalid
         case .open:
-          return UIColor.open
+          return UIColor.certificateRuleOpen
         }
     }
     
     var travalerAcceptenceColor: UIColor {
     switch self.travalerAcceptence {
     case .passed:
-      return UIColor.valid
+      return UIColor.certificateValid
     case .error:
-        return UIColor.invalid
+        return UIColor.certificateInvalid
     case .open:
-        return UIColor.open
+        return UIColor.certificateRuleOpen
     }
   }
 }

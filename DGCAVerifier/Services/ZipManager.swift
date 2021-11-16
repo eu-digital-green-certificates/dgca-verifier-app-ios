@@ -32,8 +32,6 @@ import Zip
 
 class ZipManager {
   func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<URL, Error>) -> Void) {
-    var data : URL!
-    
     do {
       try createCertificateFolder()
       
@@ -58,25 +56,32 @@ class ZipManager {
         try generatePayloadJson(cert)
       }
       
-      data = try archive()
+      let certificateDirectoryURL = getCertificateDirectoryURL()
+      archiveFileDirectory(url: certificateDirectoryURL, to: "archive") { (path, error) in
+        guard error == nil, let archivePath = path else {
+          completionHandler(.failure(error!))
+          return
+        }
+        completionHandler(.success(archivePath))
+      }
       
     } catch {
       completionHandler(.failure(error))
       return
     }
-    completionHandler(.success(data))
   }
+
+//  private func archive() throws -> URL {
+//    do {
+//      let filesURLs = getCertificateFolderContentsURLs()
+//      let zipFilePath = try Zip.quickZipFiles(filesURLs, fileName: "archive")
+//      return zipFilePath
+//    }
+//    catch {
+//      throw error
+//    }
+//  }
   
-  private func archive() throws -> URL {
-    do {
-      let filesURLs = getCertificateFolderContentsURLs()
-      let zipFilePath = try Zip.quickZipFiles(filesURLs, fileName: "archive")
-      return zipFilePath
-    }
-    catch {
-      throw error
-    }
-  }
   
   private func generateVersion() throws {
     do {
@@ -330,4 +335,29 @@ extension ZipManager {
       throw error
     }
   }
+  
+  
+  private func archiveFileDirectory(url: URL, to archiveName: String, completion: @escaping (URL?, Error?) -> Void) {
+      let fileManager = FileManager.default
+      // this will hold the URL of the zip file
+      
+      let coordinator = NSFileCoordinator()
+
+      var error: NSError?
+      coordinator.coordinate(readingItemAt: url, options: [.forUploading], error: &error) { (zipUrl) in
+          // zipUrl points to the zip file created by the coordinator
+        do {
+          let tmpUrl = try fileManager.url(for: .itemReplacementDirectory, in: .userDomainMask,
+            appropriateFor: zipUrl, create: true).appendingPathComponent("\(archiveName).zip")
+
+          try fileManager.moveItem(at: zipUrl, to: tmpUrl)
+
+          completion(tmpUrl, nil)
+        } catch {
+          print(error.localizedDescription)
+          completion(nil, error)
+        }
+      }
+    }
 }
+

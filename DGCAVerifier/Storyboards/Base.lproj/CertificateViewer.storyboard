@@ -31,7 +31,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-Ia-KEX" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
                                         <rect key="frame" x="294" y="676" width="104" height="44"/>
-                                        <color key="backgroundColor" name="congressBlue"/>
+                                        <color key="backgroundColor" name="verifierBlue"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="fL8-yY-fXm"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="104" id="nvR-zt-kQA"/>
@@ -43,6 +43,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="padding">
                                                 <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                                <real key="value" value="6"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -56,9 +59,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="166.66666666666666" width="414" height="493.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="166.66666666666666" width="414" height="493.33333333333337"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RuleErrorCell" rowHeight="131" id="ncw-IB-rzy" customClass="RuleErrorCell" customModule="DGCAVerifier" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="131"/>
@@ -145,7 +147,7 @@
                                                                         <constraint firstAttribute="height" constant="20" id="KXD-Zl-sgJ"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" name="roseRed"/>
+                                                                    <color key="textColor" name="certificateRed"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -262,7 +264,7 @@
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfM-wo-2mp">
                                                             <rect key="frame" x="50" y="55" width="314" height="2"/>
-                                                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                            <color key="backgroundColor" name="verifierBlue"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="2" id="Iwh-ks-ARL"/>
                                                             </constraints>
@@ -272,7 +274,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecA-zw-gs0">
                                                                     <rect key="frame" x="31.666666666666664" y="39" width="30" height="30"/>
-                                                                    <color key="backgroundColor" name="forestGreen"/>
+                                                                    <color key="backgroundColor" name="certificateGreen"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="Gc6-xW-GTJ"/>
                                                                         <constraint firstAttribute="height" constant="30" id="rNK-fM-95U"/>
@@ -288,7 +290,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="X4B-Ns-gWn" firstAttribute="top" secondItem="lJo-xp-XTv" secondAttribute="top" id="4AX-nh-aKn"/>
                                                                 <constraint firstItem="ecA-zw-gs0" firstAttribute="centerX" secondItem="lJo-xp-XTv" secondAttribute="centerX" id="GJJ-rY-dqZ"/>
@@ -304,7 +305,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BE6-nq-stD">
                                                                     <rect key="frame" x="31.666666666666671" y="39" width="30" height="30"/>
-                                                                    <color key="backgroundColor" name="forestGreen"/>
+                                                                    <color key="backgroundColor" name="certificateGreen"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="NNf-y7-f2V"/>
                                                                         <constraint firstAttribute="height" constant="30" id="eUp-L2-Lh6"/>
@@ -320,7 +321,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="BE6-nq-stD" firstAttribute="top" secondItem="HYt-b9-xp6" secondAttribute="bottom" constant="1" id="O2A-7f-RHi"/>
                                                                 <constraint firstItem="BE6-nq-stD" firstAttribute="centerX" secondItem="NLz-1B-RiQ" secondAttribute="centerX" id="Qrz-nO-wUV"/>
@@ -335,7 +335,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogu-cf-Dbz">
                                                                     <rect key="frame" x="31.666666666666657" y="39" width="30" height="30"/>
-                                                                    <color key="backgroundColor" name="forestGreen"/>
+                                                                    <color key="backgroundColor" name="certificateGreen"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="30" id="Spi-mA-VmO"/>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="Wld-Ad-Rf0"/>
@@ -351,7 +351,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="KVH-yQ-GMH" firstAttribute="top" secondItem="Bco-go-qaC" secondAttribute="top" id="49B-nw-3Dr"/>
                                                                 <constraint firstItem="KVH-yQ-GMH" firstAttribute="centerX" secondItem="Bco-go-qaC" secondAttribute="centerX" id="ZkK-S6-zPQ"/>
@@ -366,7 +365,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbR-UN-DTA">
                                                                     <rect key="frame" x="31.666666666666629" y="39" width="30" height="30"/>
-                                                                    <color key="backgroundColor" name="forestGreen"/>
+                                                                    <color key="backgroundColor" name="certificateGreen"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="KGV-dO-pkE"/>
                                                                         <constraint firstAttribute="height" constant="30" id="Pns-C7-bpJ"/>
@@ -382,7 +381,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="wE5-2e-CKv" secondAttribute="trailing" constant="8" id="85h-sX-mmO"/>
                                                                 <constraint firstAttribute="bottom" secondItem="TbR-UN-DTA" secondAttribute="bottom" constant="8" id="BZy-g6-Miw"/>
@@ -463,21 +461,21 @@
                                                     <outlet property="headerLabel" destination="Nti-sd-yGx" id="y34-Nx-ygo"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoCellDropDown" rowHeight="147" id="0GV-1b-47m" customClass="InfoCellDropDown" customModule="DGCAVerifier" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="524.66666603088379" width="414" height="147"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoCellDropDown" rowHeight="150" id="0GV-1b-47m" customClass="InfoCellDropDown" customModule="DGCAVerifier" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="524.66666603088379" width="414" height="150"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0GV-1b-47m" id="njZ-p7-edw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="147"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identification Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hx-Tl-Ozq">
-                                                            <rect key="frame" x="20" y="5" width="300" height="95.666666666666671"/>
+                                                            <rect key="frame" x="20" y="5" width="300" height="98.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="DE4382974329" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZvM-vM-xmk">
-                                                            <rect key="frame" x="20" y="103.66666666666667" width="374" height="32.333333333333329"/>
+                                                            <rect key="frame" x="20" y="106.66666666666667" width="374" height="32.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                                             <color key="textColor" name="charcoalGrey"/>
                                                             <nil key="highlightedColor"/>
@@ -520,7 +518,7 @@
                                     </tableView>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aIi-Io-dJc">
                                         <rect key="frame" x="197" y="358" width="20" height="20"/>
-                                        <color key="color" name="congressBlue"/>
+                                        <color key="color" name="verifierBlue"/>
                                     </activityIndicatorView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="8o5-7A-9qC">
                                         <rect key="frame" x="16" y="90.666666666666671" width="42" height="42.000000000000014"/>
@@ -550,7 +548,7 @@
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGm-tp-pgj" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
                                         <rect key="frame" x="170" y="676" width="104" height="44"/>
-                                        <color key="backgroundColor" name="congressBlue"/>
+                                        <color key="backgroundColor" name="verifierBlue"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="104" id="PKD-kR-ymB"/>
                                             <constraint firstAttribute="height" constant="44" id="jyJ-Vy-syc"/>
@@ -562,6 +560,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="padding">
                                                 <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                                <real key="value" value="6"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -658,10 +659,10 @@
     </scenes>
     <designables>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="56" height="39"/>
+            <size key="intrinsicContentSize" width="80" height="51"/>
         </designable>
         <designable name="bGm-tp-pgj">
-            <size key="intrinsicContentSize" width="60" height="39"/>
+            <size key="intrinsicContentSize" width="84" height="51"/>
         </designable>
     </designables>
     <resources>
@@ -670,17 +671,17 @@
         <image name="gear_white" width="22" height="22"/>
         <image name="gradient" width="1" height="100"/>
         <image name="icon_collapsed" width="24" height="24"/>
+        <namedColor name="certificateGreen">
+            <color red="0.27450980392156865" green="0.47450980392156861" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="certificateRed">
+            <color red="0.85490196078431369" green="0.12549019607843137" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="charcoalGrey">
             <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="congressBlue">
+        <namedColor name="verifierBlue">
             <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="forestGreen">
-            <color red="0.27450980392156865" green="0.47450980392156861" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="roseRed">
-            <color red="0.85490196078431369" green="0.12549019607843137" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -690,9 +691,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

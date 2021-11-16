@@ -67,11 +67,11 @@ extension HCertValidity {
     var validityBackground: UIColor {
       switch self {
       case .valid:
-          return UIColor.forestGreen
+          return UIColor.certificateGreen
       case .invalid:
-          return UIColor.roseRed
+          return UIColor.certificateRed
       case .ruleInvalid:
-          return UIColor.walletYellow
+          return UIColor.certificateLimited
       }
     }
 }

@@ -83,7 +83,7 @@ class CertificateViewerController: UIViewController {
     isDebugMode = DebugManager.sharedInstance.isDebugMode
     activityIndicator.startAnimating()
     dismissButton.setTitle("Cancel", for: .normal)
-    dismissButton.backgroundColor = UIColor.walletYellow
+    dismissButton.backgroundColor = UIColor.certificateLimited
     
     let validator = CertificateValidator(with: hCert)
     DispatchQueue.global(qos: .userInitiated).async {

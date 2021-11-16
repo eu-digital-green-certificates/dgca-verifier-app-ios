@@ -110,7 +110,7 @@ class DebugVC: UIViewController {
     if DebugManager.sharedInstance.isDebugMode {
       switch DebugManager.sharedInstance.debugLevel {
       case .level1:
-        level1.textColor = .congressBlue
+        level1.textColor = .verifierBlue
         level2.textColor = .charcoalGrey
         level3.textColor = .charcoalGrey
         level1.font = UIFont.boldSystemFont(ofSize: Constants.selectedFontSize)
@@ -118,7 +118,7 @@ class DebugVC: UIViewController {
         level3.font = UIFont.systemFont(ofSize: Constants.fontSize)
       case .level2:
         level1.textColor = .charcoalGrey
-        level2.textColor = .congressBlue
+        level2.textColor = .verifierBlue
         level3.textColor = .charcoalGrey
         level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
         level2.font = UIFont.boldSystemFont(ofSize: Constants.selectedFontSize)
@@ -126,7 +126,7 @@ class DebugVC: UIViewController {
       case .level3:
         level1.textColor = .charcoalGrey
         level2.textColor = .charcoalGrey
-        level3.textColor = .congressBlue
+        level3.textColor = .verifierBlue
         level1.font = UIFont.systemFont(ofSize: Constants.fontSize)
         level2.font = UIFont.systemFont(ofSize: Constants.fontSize)
         level3.font = UIFont.boldSystemFont(ofSize: Constants.selectedFontSize)
