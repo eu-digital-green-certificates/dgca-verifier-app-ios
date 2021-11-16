@@ -26,7 +26,6 @@
 //  
 import Foundation
 import SwiftDGC
-import SwiftyJSON
 
 class CountryDataManager {
   lazy var storage = SecureStorage<CountryDataStorage>(fileName: SharedConstants.countryStorageName)

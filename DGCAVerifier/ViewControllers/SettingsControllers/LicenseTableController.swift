@@ -26,7 +26,7 @@
 //
 import UIKit
 import SwiftyJSON
-import SwiftDGC
+
 
 class LicenseTableController: UITableViewController {
   var licenses: [JSON] = []

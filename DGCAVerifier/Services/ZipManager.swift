@@ -28,7 +28,6 @@
 import UIKit
 import SwiftDGC
 import SwiftyJSON
-import Zip
 
 class ZipManager {
   func prepareZipData(_ cert: HCert, completionHandler: @escaping (Result<URL, Error>) -> Void) {
@@ -70,18 +69,6 @@ class ZipManager {
       return
     }
   }
-
-//  private func archive() throws -> URL {
-//    do {
-//      let filesURLs = getCertificateFolderContentsURLs()
-//      let zipFilePath = try Zip.quickZipFiles(filesURLs, fileName: "archive")
-//      return zipFilePath
-//    }
-//    catch {
-//      throw error
-//    }
-//  }
-  
   
   private func generateVersion() throws {
     do {
@@ -294,14 +281,23 @@ extension ZipManager {
   }
   
   fileprivate func createCertificateFolder() throws {
-    var isDirectory:ObjCBool = true
+   var isDirectory:ObjCBool = true
     
-    if !FileManager.default.fileExists(atPath: getCertificateDirectoryURL().path, isDirectory: &isDirectory) {
+    let certURL = getCertificateDirectoryURL()
+    if FileManager.default.fileExists(atPath: certURL.path, isDirectory: &isDirectory) {
       do {
-        try FileManager.default.createDirectory(at: getCertificateDirectoryURL(), withIntermediateDirectories: false, attributes: nil)
+          try FileManager.default.removeItem(atPath: certURL.path)
       } catch {
+        print(error.localizedDescription)
         throw error
       }
+    }
+    
+    do {
+      try FileManager.default.createDirectory(at: certURL, withIntermediateDirectories: false, attributes: nil)
+    } catch {
+      print(error.localizedDescription)
+      throw error
     }
   }
   
@@ -360,4 +356,3 @@ extension ZipManager {
       }
     }
 }
-

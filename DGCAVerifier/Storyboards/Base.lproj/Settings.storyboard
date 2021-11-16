@@ -183,9 +183,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <outlet property="versionLabel" destination="YKH-hO-t7T" id="8Ae-aJ-DPf"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -209,6 +206,7 @@
                         <outlet property="debugLabelName" destination="5ZM-hL-tLy" id="LIb-7Z-JmQ"/>
                         <outlet property="licensesLabelName" destination="3C9-S9-3Vo" id="xn8-RM-8d1"/>
                         <outlet property="privacyLabelName" destination="gMd-yI-bmR" id="45e-Ci-2wB"/>
+                        <outlet property="versionLabel" destination="YKH-hO-t7T" id="Oge-Gp-oE8"/>
                         <segue destination="bsF-c3-r8z" kind="presentation" identifier="DebugVC" id="2Sm-pc-s7g"/>
                         <segue destination="PQY-eb-uyP" kind="show" identifier="LicensesVC" id="thL-nP-Qqt"/>
                     </connections>

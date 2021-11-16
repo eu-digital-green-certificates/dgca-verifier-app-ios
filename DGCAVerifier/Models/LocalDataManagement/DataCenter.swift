@@ -42,7 +42,11 @@ protocol DataStorageProtocol {
 
 class DataCenter {
   static let shared = DataCenter()
-  static let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+  static var appVersion: String {
+    let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+    let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
+    return "\(versionValue)(\(buildNumValue))"
+  }
 
   static let localDataManager: LocalDataManager = LocalDataManager()
   static let countryDataManager: CountryDataManager = CountryDataManager()

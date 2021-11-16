@@ -29,7 +29,6 @@
 import UIKit
 import SwiftyJSON
 import WebKit
-import SwiftDGC
 
 class LicenseController: UIViewController, WKNavigationDelegate {
   @IBOutlet fileprivate weak var packageNameLabel: UILabel!

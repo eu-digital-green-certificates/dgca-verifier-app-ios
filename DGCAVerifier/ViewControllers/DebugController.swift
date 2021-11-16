@@ -28,7 +28,6 @@
 
 import UIKit
 import SwiftDGC
-import SwiftyJSON
 
 protocol DebugControllerDelegate: AnyObject {
   func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel)

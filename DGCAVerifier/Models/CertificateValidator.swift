@@ -27,7 +27,6 @@
 
 import Foundation
 import SwiftDGC
-import SwiftyJSON
 import CertLogic
 
 class CertificateValidator {

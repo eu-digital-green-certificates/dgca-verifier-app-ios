@@ -29,7 +29,6 @@ let debugKey = "UDDebugSwitchConstants"
 let logLevelKey = "UDLogLevelConstants"
 
 import UIKit
-import SwiftDGC
 
 enum DebugLevel: Int {
   case level1 = 0

@@ -28,7 +28,6 @@
 
 import Foundation
 import CoreNFC
-import SwiftDGC
 
 class NFCHelper: NSObject, NFCNDEFReaderSessionDelegate {
   var onNFCResult: ((Bool, String) -> ())?

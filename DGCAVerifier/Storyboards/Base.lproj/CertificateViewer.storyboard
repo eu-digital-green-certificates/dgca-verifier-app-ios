@@ -659,10 +659,10 @@
     </scenes>
     <designables>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="80" height="51"/>
+            <size key="intrinsicContentSize" width="56" height="39"/>
         </designable>
         <designable name="bGm-tp-pgj">
-            <size key="intrinsicContentSize" width="84" height="51"/>
+            <size key="intrinsicContentSize" width="60" height="39"/>
         </designable>
     </designables>
     <resources>
