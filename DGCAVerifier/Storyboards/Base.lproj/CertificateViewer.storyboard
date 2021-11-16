@@ -468,19 +468,19 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identification Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hx-Tl-Ozq">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Identification Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hx-Tl-Ozq">
                                                             <rect key="frame" x="20" y="5" width="300" height="98.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="DE4382974329" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZvM-vM-xmk">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="DE4382974329" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZvM-vM-xmk">
                                                             <rect key="frame" x="20" y="106.66666666666667" width="374" height="32.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                                             <color key="textColor" name="charcoalGrey"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKP-HQ-qq6">
+                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKP-HQ-qq6">
                                                             <rect key="frame" x="326" y="11" width="56" height="56"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="56" id="Pi9-Ao-RVR"/>
@@ -659,10 +659,10 @@
     </scenes>
     <designables>
         <designable name="a9u-Ia-KEX">
-            <size key="intrinsicContentSize" width="56" height="39"/>
+            <size key="intrinsicContentSize" width="80" height="51"/>
         </designable>
         <designable name="bGm-tp-pgj">
-            <size key="intrinsicContentSize" width="60" height="39"/>
+            <size key="intrinsicContentSize" width="84" height="51"/>
         </designable>
     </designables>
     <resources>
