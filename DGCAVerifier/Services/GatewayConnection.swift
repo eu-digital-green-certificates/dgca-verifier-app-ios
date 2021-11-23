@@ -90,8 +90,6 @@ class GatewayConnection: ContextConnection {
       DataCenter.saveLocalData { result in
         updateLocalDataStorage(completion: completion)
       }
-
-      
     }
   }
 
@@ -120,13 +118,12 @@ class GatewayConnection: ContextConnection {
       DataCenter.saveLocalData { result in
         if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
           DispatchQueue.main.async {
-            (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
+            (UIApplication.shared.windows.first?.rootViewController as? UINavigationController)?
                 .popToRootViewController(animated: false)
           }
         }
         completion?()
       }
-
     }
   }
   

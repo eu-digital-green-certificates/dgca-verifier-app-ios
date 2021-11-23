@@ -58,7 +58,7 @@ class RulesDataManager {
       }
 
       let format = "%d rules loaded."
-      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.rules.count))
+      DGCLogger.logInfo(String(format: format, result.rules.count))
       self.localData = result
       self.save(completion: completion)
     }

@@ -58,7 +58,7 @@ class LocalDataManager {
         return
       }
       let format = "%d pub keys loaded."
-      DGCLogger.logInfo(String.localizedStringWithFormat(format, loadedData.encodedPublicKeys.count))
+      DGCLogger.logInfo(String(format: format, loadedData.encodedPublicKeys.count))
       if loadedData.lastLaunchedAppVersion != DataCenter.appVersion {
         loadedData.config = self.localData.config
         loadedData.lastLaunchedAppVersion = DataCenter.appVersion

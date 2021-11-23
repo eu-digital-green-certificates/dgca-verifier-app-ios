@@ -62,7 +62,7 @@ class ValueSetsDataManager {
       }
 
       let format = "%d ValueSets loaded."
-      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.valueSets.count))
+      DGCLogger.logInfo(String(format: format , result.valueSets.count))
       self.localData = result
       self.save(completion: completion)
     }
