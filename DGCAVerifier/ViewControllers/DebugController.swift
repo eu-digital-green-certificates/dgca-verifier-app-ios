@@ -45,7 +45,9 @@ class DebugVC: UIViewController {
   @IBOutlet weak var level2: UILabel!
   @IBOutlet weak var level3: UILabel!
   @IBOutlet weak var tableView: UITableView!
-  
+  @IBOutlet fileprivate weak var selectCountriesLabel: UILabel!
+  @IBOutlet fileprivate weak var debugModeLabel: UILabel!
+
   private var countryList = [CountryModel]()
   weak var delegate: DebugControllerDelegate?
   
@@ -72,6 +74,11 @@ class DebugVC: UIViewController {
     level3.addGestureRecognizer(tap)
     
     setLabelsColor()
+    level1.text = "Level 1".localized
+    level2.text = "Level 2".localized
+    level3.text = "Level 3".localized
+    selectCountriesLabel.text = "Select Countries".localized
+    debugModeLabel.text = "Debug mode".localized
   }
   
   override func viewWillDisappear(_ animated: Bool) {

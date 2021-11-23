@@ -82,7 +82,7 @@ class CertificateViewerController: UIViewController {
     
     isDebugMode = DebugManager.sharedInstance.isDebugMode
     activityIndicator.startAnimating()
-    dismissButton.setTitle("Cancel".localized, for: .normal)
+    dismissButton.setTitle("Retry".localized, for: .normal)
     dismissButton.backgroundColor = UIColor.certificateLimited
     
     let validator = CertificateValidator(with: hCert)

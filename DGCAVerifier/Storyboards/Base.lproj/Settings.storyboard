@@ -500,10 +500,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="gxW-2c-Vt1"/>
                     <connections>
+                        <outlet property="debugModeLabel" destination="lVm-Zy-hyg" id="tnj-TZ-19c"/>
                         <outlet property="debugSwitcher" destination="ujI-6j-G6k" id="xpU-gG-ZdL"/>
                         <outlet property="level1" destination="7Vf-7q-rFX" id="qVu-i3-4aG"/>
                         <outlet property="level2" destination="qoc-Ag-8pF" id="6Zu-Uz-OcB"/>
                         <outlet property="level3" destination="fbR-rP-xH8" id="q0o-3u-Art"/>
+                        <outlet property="selectCountriesLabel" destination="1X2-La-371" id="7pp-fo-KOc"/>
                         <outlet property="tableView" destination="niZ-Hh-gZm" id="4oa-gq-vKs"/>
                     </connections>
                 </viewController>

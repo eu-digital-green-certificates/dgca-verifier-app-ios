@@ -44,7 +44,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   @IBOutlet fileprivate weak var debugLabel: UILabel!
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet fileprivate weak var versionLabel: UILabel!
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     debugLabelName.text = "Debug mode".localized
