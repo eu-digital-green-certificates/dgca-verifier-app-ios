@@ -189,7 +189,7 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   private func showAlert(withTitle title: String, message: String) {
     DispatchQueue.main.async {
       let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alertController.addAction(UIAlertAction(title: "OK", style: .default))
+      alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
       self.present(alertController, animated: true)
     }
   }

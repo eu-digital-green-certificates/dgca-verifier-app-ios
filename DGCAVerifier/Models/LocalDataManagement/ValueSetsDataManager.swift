@@ -30,42 +30,41 @@ import CertLogic
 
 class ValueSetsDataManager {
   lazy var storage = SecureStorage<ValueSetsDataStorage>(fileName: SharedConstants.valueSetsStorageName)
-  lazy var valueSetsData: ValueSetsDataStorage = ValueSetsDataStorage()
+  var localData: ValueSetsDataStorage = ValueSetsDataStorage()
 
   func add(valueSet: CertLogic.ValueSet) {
-    let list = valueSetsData.valueSets
+    let list = localData.valueSets
     if list.contains(where: { $0.valueSetId == valueSet.valueSetId }) {
       return
     } else {
-      valueSetsData.valueSets.append(valueSet)
+      localData.valueSets.append(valueSet)
     }
   }
 
-  func save() {
-    storage.save(valueSetsData)
+  func save(completion: @escaping DataCompletionHandler) {
+    storage.save(localData, completion: completion)
   }
 
   func deleteValueSetWithHash(hash: String) {
-    valueSetsData.valueSets = valueSetsData.valueSets.filter { $0.hash != hash }
+    localData.valueSets = localData.valueSets.filter { $0.hash != hash }
   }
     
   func isValueSetExistWithHash(hash: String) -> Bool {
-    let list = valueSetsData.valueSets
+    let list = localData.valueSets
     return list.contains(where: { $0.hash == hash })
   }
     
-  func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: valueSetsData) { [unowned self]  success in
-      guard let result = success else {
-        completion()
+  func loadLocallyStoredData(completion: @escaping DataCompletionHandler) {
+    storage.loadStoredData(fallback: localData) { [unowned self] data in
+      guard let result = data else {
+        completion(.failure(DataOperationError.noInputData))
         return
       }
-        
-      let format = l10n("log.valueSets")
+
+      let format = "%d ValueSets loaded."
       DGCLogger.logInfo(String.localizedStringWithFormat(format, result.valueSets.count))
-      self.valueSetsData = result
-      self.save()
-      completion()
+      self.localData = result
+      self.save(completion: completion)
     }
   }
 }
@@ -74,7 +73,7 @@ class ValueSetsDataManager {
 extension ValueSetsDataManager {
   public func getValueSetsForExternalParameters() -> Dictionary<String, [String]> {
     var returnValue = Dictionary<String, [String]>()
-    valueSetsData.valueSets.forEach { valueSet in
+    localData.valueSets.forEach { valueSet in
         let keys = Array(valueSet.valueSetValues.keys)
         returnValue[valueSet.valueSetId] = keys
     }

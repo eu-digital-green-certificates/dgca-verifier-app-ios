@@ -31,7 +31,7 @@ import SwiftyJSON
 
 class LocalDataManager {
   lazy var storage = SecureStorage<LocalData>(fileName: SharedConstants.dataStorageName)
-  lazy var localData: LocalData = LocalData()
+  var localData: LocalData = LocalData()
   
   func add(encodedPublicKey: String) {
     let kid = KID.from(encodedPublicKey)
@@ -47,28 +47,26 @@ class LocalDataManager {
     localData.config.merge(other: other)
   }
   
-  func save() {
-    storage.save(localData)
+  func save(completion: @escaping DataCompletionHandler) {
+    storage.save(localData, completion: completion)
   }
-  
-  func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: localData) { [unowned self]  success in
-      guard let result = success else {
-        completion()
+
+  func loadLocallyStoredData(completion: @escaping DataCompletionHandler) {
+    storage.loadStoredData(fallback: localData) { [unowned self] data in
+      guard let loadedData = data else {
+        completion(.failure(DataOperationError.noInputData))
         return
       }
-          
-      let format = l10n("log.keys-loaded")
-      DGCLogger.logInfo(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
-      if result.lastLaunchedAppVersion != DataCenter.appVersion {
-        result.config = self.localData.config
-        result.lastLaunchedAppVersion = DataCenter.appVersion
+      let format = "%d pub keys loaded."
+      DGCLogger.logInfo(String.localizedStringWithFormat(format, loadedData.encodedPublicKeys.count))
+      if loadedData.lastLaunchedAppVersion != DataCenter.appVersion {
+        loadedData.config = self.localData.config
+        loadedData.lastLaunchedAppVersion = DataCenter.appVersion
       }
-      self.localData = result
-      self.save()
+      self.localData = loadedData
+      self.save(completion: completion)
       CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
-      completion()
-    }
+     }
   }
   
   var versionedConfig: JSON {

@@ -87,9 +87,11 @@ class GatewayConnection: ContextConnection {
       DataCenter.localDataManager.add(encodedPublicKey: encodedCert)
       DataCenter.resumeToken = token
       DataCenter.lastFetch = Date()
-      DataCenter.saveLocalData()
+      DataCenter.saveLocalData { result in
+        updateLocalDataStorage(completion: completion)
+      }
 
-      updateLocalDataStorage(completion: completion)
+      
     }
   }
 
@@ -100,9 +102,9 @@ class GatewayConnection: ContextConnection {
         DataCenter.publicKeys.removeValue(forKey: key)
       }
       DataCenter.lastFetch = Date()
-      DataCenter.saveLocalData()
-
-      completion?()
+      DataCenter.saveLocalData { result in
+        completion?()
+      }
     }
   }
 
@@ -115,13 +117,16 @@ class GatewayConnection: ContextConnection {
       let json = JSON(parseJSONC: string)
       DataCenter.localDataManager.merge(other: json)
       DataCenter.lastFetch = Date()
-      DataCenter.saveLocalData()
-
-      if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
-        (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
-            .popToRootViewController(animated: false)
+      DataCenter.saveLocalData { result in
+        if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
+          DispatchQueue.main.async {
+            (UIApplication.shared.windows[0].rootViewController as? UINavigationController)?
+                .popToRootViewController(animated: false)
+          }
+        }
+        completion?()
       }
-      completion?()
+
     }
   }
   
@@ -160,9 +165,9 @@ extension GatewayConnection {
         }
         DataCenter.countryCodes = newCountryCodes
         countryList.forEach { DataCenter.countryDataManager.add(country: $0) }
-        DataCenter.saveCountries()
-
-        completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
+        DataCenter.saveCountries { result in
+          completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
+        }
       }
     }
   }
@@ -229,8 +234,9 @@ extension GatewayConnection {
   static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
     getListOfRules { rulesList in
         rulesList.forEach { DataCenter.rulesDataManager.add(rule: $0) }
-      DataCenter.saveRules()
-      completion?(DataCenter.rules)
+      DataCenter.saveRules { result in
+        completion?(DataCenter.rules)
+      }
     }
   }
   
@@ -297,7 +303,8 @@ extension GatewayConnection {
   
   static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
     DataCenter.valueSets.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
-    DataCenter.saveSets()
-    completion?(DataCenter.valueSets)
+    DataCenter.saveSets { result in
+      completion?(DataCenter.valueSets)
+    }
   }
 }

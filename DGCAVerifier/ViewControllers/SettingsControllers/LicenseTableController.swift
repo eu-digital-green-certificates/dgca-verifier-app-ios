@@ -35,6 +35,7 @@ class LicenseTableController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.loadLicenses()
+      self.title = "Licenses".localized
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

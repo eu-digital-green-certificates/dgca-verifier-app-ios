@@ -47,9 +47,9 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    debugLabelName.text = l10n("Debug mode")
-    licensesLabelName.text = l10n("Licenses")
-    privacyLabelName.text = l10n("Privacy Information")
+    debugLabelName.text = "Debug mode".localized
+    licensesLabelName.text = "Licenses".localized
+    privacyLabelName.text = "Privacy Information".localized
     versionLabel.text = DataCenter.appVersion
     updateInterface()
   }
@@ -70,7 +70,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
 
   private func updateInterface() {
     if !DebugManager.sharedInstance.isDebugMode {
-      debugLabel.text = l10n("Disabled")
+      debugLabel.text = "Disabled".localized
     } else {
       switch DebugManager.sharedInstance.debugLevel {
       case .level1:
@@ -123,7 +123,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   
   func reloadAllData() {
     activityIndicator.startAnimating()
-    DataCenter.reloadStorageData { // + GatewayConnection.update {
+    DataCenter.reloadStorageData { result in
       DispatchQueue.main.async { [weak self] in
         self?.activityIndicator.stopAnimating()
         self?.tableView.reloadData()

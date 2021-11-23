@@ -82,7 +82,7 @@ class CertificateViewerController: UIViewController {
     
     isDebugMode = DebugManager.sharedInstance.isDebugMode
     activityIndicator.startAnimating()
-    dismissButton.setTitle("Cancel", for: .normal)
+    dismissButton.setTitle("Cancel".localized, for: .normal)
     dismissButton.backgroundColor = UIColor.certificateLimited
     
     let validator = CertificateValidator(with: hCert)
@@ -121,7 +121,8 @@ class CertificateViewerController: UIViewController {
 
   private func setupInterface() {
     guard let hCert = hCert else { return }
-        
+      
+    shareButton.setTitle("Share".localized, for: .normal)
     nameLabel.text = hCert.fullName
     let validity = validityState.allRulesValidity
     

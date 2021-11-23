@@ -85,9 +85,9 @@
 		D21581412731719500C98986 /* ValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21581402731719500C98986 /* ValidityState.swift */; };
 		D2158143273184E200C98986 /* LicenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2158142273184E200C98986 /* LicenseController.swift */; };
 		D215814527329C9400C98986 /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215814427329C9400C98986 /* DataCenter.swift */; };
-		D223A7F527396C4A00A05D31 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D223A7F627396C4A00A05D31 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D223A7F727396C4B00A05D31 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D2387C5927450F9100C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D23EF79E272026A90097D82B /* CountryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataManager.swift */; };
 		D23EF79F272026AA0097D82B /* CountryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataManager.swift */; };
 		D23EF7A8272067E00097D82B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */; };
@@ -189,6 +189,8 @@
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		D26F1F9C273A8D63002A780F /* DGCLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCLogger.swift; sourceTree = "<group>"; };
 		D26F1FA0273A8DC9002A780F /* String+Pad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Pad.swift"; sourceTree = "<group>"; };
+		D26F952A274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 2; };
@@ -549,6 +551,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
@@ -577,8 +580,8 @@
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
+				D2387C5927450F9100C55DF7 /* context.jsonc in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
-				D223A7F527396C4A00A05D31 /* context.jsonc in Resources */,
 				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
 				5CEA55BE26E9EAF000269702 /* awesome.ttf in Resources */,
@@ -591,7 +594,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CEA55BF26E9EAF000269702 /* awesome.ttf in Resources */,
-				D223A7F627396C4A00A05D31 /* context.jsonc in Resources */,
+				D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,7 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */,
-				D223A7F727396C4B00A05D31 /* context.jsonc in Resources */,
+				D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,6 +773,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CE345FB526446817003B457E /* en */,
+				D26F952B274D02BA006379BC /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -786,6 +790,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CEA6D6F7261F8D2900715333 /* Base */,
+				D26F952A274D02BA006379BC /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -797,6 +802,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -858,6 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -917,7 +924,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -942,7 +949,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
