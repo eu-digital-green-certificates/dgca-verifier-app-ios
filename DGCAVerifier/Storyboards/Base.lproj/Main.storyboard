@@ -195,6 +195,7 @@
                     <navigationItem key="navigationItem" id="gBj-fB-LXt"/>
                     <connections>
                         <outlet property="activityIndicator" destination="yXf-VE-y9w" id="clo-fF-NoU"/>
+                        <outlet property="appNameLabel" destination="NXa-E7-6vV" id="p1N-ji-ryS"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="scannerSegueID" id="rRW-gu-ad2"/>
                     </connections>
                 </viewController>

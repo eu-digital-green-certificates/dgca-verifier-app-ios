@@ -60,7 +60,7 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
 
   lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
     guard error == nil else {
-      self.showAlert(withTitle: l10n("err.barcode"), message: error?.localizedDescription ?? l10n("err.misc"))
+      self.showAlert(withTitle: "Barcode Error".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
       return
     }
     self.processClassification(request)
@@ -89,14 +89,13 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     if #available(iOS 13.0, *) {
-      aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white),
-          for: .normal)
+      aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white), for: .normal)
     } else {
       aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
     }
     
     delegate = self
-    countryCodeLabel.text = l10n("scanner.select.country")
+    countryCodeLabel.text = "Select Country of CertLogic Rule".localized
     let countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
     setListOfRuleCounties(list: countryList)
     
@@ -154,7 +153,6 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
     case Constants.showSettingsSegueID:
       if let destinationController = (segue.destination as? UINavigationController)?.viewControllers.first as? SettingsController {
         destinationController.dismissDelegate = self
-
       }
     default:
       break
@@ -195,14 +193,15 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   }
 
   private func showPermissionsAlert() {
-    showAlert(withTitle: l10n("err.cam.perm"), message: l10n("err.cam.perm.desc"))
+    showAlert(withTitle: "Camera Permissions".localized,
+        message: "Please open Settings and grant permission for this app to use your camera.".localized)
   }
 }
 
 extension ScanCertificateController: ScanCertificateDelegate {
   func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError) {
     DispatchQueue.main.async {
-      self.showInfoAlert(withTitle: l10n("err.barcode"), message: l10n("err.misc"))
+      self.showInfoAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
     }
   }
   
@@ -250,7 +249,8 @@ extension ScanCertificateController {
       let videoDeviceInput = try? AVCaptureDeviceInput(device: device),
       captureSession?.canAddInput(videoDeviceInput) == true
     else {
-      showAlert(withTitle: l10n("err.cam"), message: l10n("err.cam.desc"))
+      showAlert(withTitle: "Cannot Find Camera".localized,
+          message: "There seems to be a problem with the camera on your device.".localized)
       return
     }
 
@@ -337,8 +337,11 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
   }
   
   public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    if countryItems.count == 0 { return l10n("scaner.no.countrys") }
-    return countryItems[row].name
+    if countryItems.count == 0 {
+      return "Country codes list empty".localized
+    } else {
+      return countryItems[row].name
+    }
   }
   
   public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -348,22 +351,18 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
 
 extension ScanCertificateController {
   func onNFCResult(success: Bool, message: String) {
-    guard success else {
-      DGCLogger.logInfo("NFC: No success with message: \(message)")
-      return
-    }
     DGCLogger.logInfo("NFC: \(message)")
+    guard success else { return }
     do {
       let countryCode = self.selectedCounty?.code
       let hCert = try HCert(from: message, ruleCountryCode: countryCode)
       delegate?.scanController(self, didScanCertificate: hCert)
 
     } catch let error as CertificateParsingError {
-      //throw error
       DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
       delegate?.scanController(self, didFailWithError: error)
     } catch {
-      ()
+      DGCLogger.logError(error)
     }
   }
 }

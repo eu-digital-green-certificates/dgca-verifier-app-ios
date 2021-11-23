@@ -35,6 +35,7 @@ class HomeController: UIViewController {
   }
   
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet fileprivate weak var appNameLabel: UILabel!
 
   var downloadedDataHasExpired: Bool {
     return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
@@ -44,6 +45,11 @@ class HomeController: UIViewController {
     return DataCenter.lastLaunchedAppVersion != DataCenter.appVersion
   }
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    appNameLabel.text = "Verifier App"
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
@@ -83,7 +89,7 @@ class HomeController: UIViewController {
       self.view.layer.render(in: rendererContext.cgContext)
     }
     if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
-      showAlert(title: l10n("info.outdated"), subtitle: l10n("info.outdated.body"))
+      showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
       return
     } else {
       performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)

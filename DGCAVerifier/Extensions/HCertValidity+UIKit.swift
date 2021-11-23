@@ -34,11 +34,11 @@ extension HCertValidity {
   var validityResult: String {
       switch self {
       case .valid:
-          return l10n("enum.HCertValidity.valid")
+        return "Valid".localized
       case .invalid:
-          return l10n("enum.HCertValidity.invalid")
+        return "Invalid".localized
       case .ruleInvalid:
-          return l10n("enum.HCertValidity.ruleInvalid")
+        return "Limited validity".localized
       }
     }
     

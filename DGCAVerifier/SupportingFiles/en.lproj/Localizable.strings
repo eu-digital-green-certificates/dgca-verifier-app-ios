@@ -16,14 +16,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ---license-end
- */
-/* 
+
+ 
   Localizable.strings
   DGCAVerifier
 
   Created by Yannick Spreen on 5/6/21.
   
 */
+
+"Verifier App" = "Verifier App";
 "Done" = "Done";
 "Retry" = "Retry";
 "Last updated: %@" = "Last updated: %@";
@@ -49,3 +51,21 @@
 "Licenses" = "Licenses";
 "Privacy Information" = "Privacy Information";
 "Select countrys" = "Select countrys";
+"Country codes list empty" = "Country codes list empty";
+"Barcode Error" = "Barcode Error";
+"Cannot Find Camera" = "Cannot Find Camera";
+"There seems to be a problem with the camera on your device." = "There seems to be a problem with the camera on your device.";
+"Camera Permissions" = "Camera Permissions";
+"Please open Settings and grant permission for this app to use your camera." = "Please open Settings and grant permission for this app to use your camera.";
+"Something went wrong." = "Something went wrong.";
+"Select Country of CertLogic Rule" = "Select Country of CertLogic Rule";
+
+"No entries in the certificate." = "No entries in the certificate.";
+"Certificate past expiration date." = "Certificate past expiration date.";
+"Certificate issuance date is in the future." = "Certificate issuance date is in the future.";
+"Test date is in the future." = "Test date is in the future.";
+
+"Technical Verification" = "Technical Verification";
+"Issuer Invalidation" = "Issuer Invalidation";
+"Destination Acceptance" = "Destination Acceptance";
+"Traveller Acceptance" = "Traveller Acceptance";

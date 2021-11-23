@@ -30,16 +30,6 @@ import UIKit
 import SwiftDGC
 import CertLogic
 
-protocol DataStorageProtocol {
-  associatedtype StorageData: Codable
-  associatedtype DataModel: Codable
-  var storageData: StorageData {get set}
-  var storage: SecureStorage<StorageData> {get set}
-  func save()
-  func initialize(completion: @escaping () -> Void)
-  func add(dataModel:DataModel)
-}
-
 class DataCenter {
   static let shared = DataCenter()
   static var appVersion: String {
@@ -63,12 +53,7 @@ class DataCenter {
   }
   
   static var lastLaunchedAppVersion: String {
-    get {
-      return DataCenter.localDataManager.localData.lastLaunchedAppVersion
-    }
-//    set {
-//      DataCenter.localDataManager.localData.lastLaunchedAppVersion = newValue
-//     }
+    return DataCenter.localDataManager.localData.lastLaunchedAppVersion
   }
 
   static var resumeToken: String? {

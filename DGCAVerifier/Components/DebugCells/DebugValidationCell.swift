@@ -53,6 +53,10 @@ class DebugValidationCell: UITableViewCell {
     setupView()
     setupIcons()
     setupColors()
+    techninalLabel.text = "Technical Verification".localized
+    issuerLabel.text = "Issuer Invalidation".localized
+    destinationLabel.text = "Destination Acceptance".localized
+    travellerLabel.text = "Traveller Acceptance".localized
   }
   
   private func setupView() {
