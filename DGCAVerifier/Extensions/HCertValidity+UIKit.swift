@@ -56,11 +56,11 @@ extension HCertValidity {
     var validityButtonTitle: String {
       switch self {
       case .valid:
-          return l10n("btn.done")
+          return "Done".localized
       case .invalid:
-          return l10n("btn.retry")
+          return "Retry".localized
       case .ruleInvalid:
-          return l10n("btn.retry")
+        return "Retry".localized
       }
     }
 

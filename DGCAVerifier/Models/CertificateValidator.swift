@@ -117,7 +117,7 @@ class CertificateValidator {
                     ruleValidationResult: SwiftDGC.RuleValidationResult.error))
               case .open:
                 listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
-                    content: l10n(error.localizedDescription),
+                    content: error.localizedDescription,
                     countryName: certificate.ruleCountryCode,
                     ruleValidationResult: SwiftDGC.RuleValidationResult.open))
               case .passed:

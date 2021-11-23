@@ -54,11 +54,11 @@ class RuleErrorCell: UITableViewCell {
 
   // MARK: Private methods
   private func setupLabels() {
-    ruleLabel.text = l10n("rule")
+    ruleLabel.text = "Rule".localized
     ruleValueLabel.text = ""
-    currentLabel.text = l10n("current")
+    currentLabel.text = "Current".localized
     currentValueLabel.text = ""
-    resultLabel.text = l10n("result")
+    resultLabel.text = "Result".localized
     resultValueLabel.text = ""
   }
 
@@ -70,32 +70,32 @@ class RuleErrorCell: UITableViewCell {
     switch infoItem.ruleValidationResult {
     case .error:
       failedLabel.textColor = .certificateRed
-      failedLabel.text = l10n("failed")
+      failedLabel.text = "Failed".localized
     case .passed:
       failedLabel.textColor = .certificateGreen
-      failedLabel.text = l10n("passed")
+      failedLabel.text = "Passed".localized
     case .open:
       failedLabel.textColor = .certificateGreen
-      failedLabel.text = l10n("open")
+      failedLabel.text = "Open".localized
     }
 
     if let countryName = infoItem.countryName {
       switch infoItem.ruleValidationResult {
       case .error:
-        resultValueLabel.text = String(format: l10n("failed_for_country"), countryName)
+        resultValueLabel.text = String(format: "Failed for %@ (see settings)".localized, countryName)
       case .passed:
-        resultValueLabel.text = String(format: l10n("passed_for_country"), countryName)
+        resultValueLabel.text = String(format: "Passed for %@ (see settings)".localized, countryName)
       case .open:
-        resultValueLabel.text = String(format: l10n("open_for_country"), countryName)
+        resultValueLabel.text = String(format: "Open for %@ (see settings)".localized, countryName)
       }
     } else {
       switch infoItem.ruleValidationResult {
       case .error:
-        resultValueLabel.text = l10n("failed")
+        resultValueLabel.text = "Failed".localized
       case .passed:
-        resultValueLabel.text = l10n("passed")
+        resultValueLabel.text = "Passed".localized
       case .open:
-        resultValueLabel.text = l10n("open")
+        resultValueLabel.text = "Open".localized
       }
     }
   }

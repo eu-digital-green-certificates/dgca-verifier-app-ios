@@ -24,20 +24,27 @@
   Created by Yannick Spreen on 5/6/21.
   
 */
-"btn.done" = "Done";
-"btn.retry" = "Retry";
-"settings.last-updated" = "Last updated: %@";
-"rule" = "Rule";
-"current" = "Current";
-"result" = "Result";
-"failed_for_country" = "Failed for %@ (see settings)";
-"passed_for_country" = "Passed for %@ (see settings)";
-"open_for_country" = "Open for %@ (see settings)";
-"failed" = "Failed";
-"passed" = "Passed";
-"open" = "Open";
+"Done" = "Done";
+"Retry" = "Retry";
+"Last updated: %@" = "Last updated: %@";
+"Rule" = "Rule";
+"Current" = "Current";
+"Result" = "Result";
+"Failed for %@ (see settings)" = "Failed for %@ (see settings)";
+"Passed for %@ (see settings)" = "Passed for %@ (see settings)";
+"Open for %@ (see settings)" = "Open for %@ (see settings)";
+"Failed" = "Failed";
+"Passed" = "Passed";
+"Open" = "Open";
 "recheck_rule" = "Check Re-open EU for further details and travel-related rules";
-"issuer.country" = "Issuer Country";
+"Issuer Country" = "Issuer Country";
 
 "Share" = "Share";
 "Cancel" = "Cancel";
+"Level 1" = "Level 1";
+"Level 2" = "Level 2";
+"Level 3" = "Level 3";
+"Disabled" = "Disabled";
+"Debug mode" = "Debug mode";
+"Licenses" = "Licenses";
+"Privacy Information" = "Privacy Information";

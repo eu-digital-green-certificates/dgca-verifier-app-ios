@@ -74,11 +74,11 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     } else {
       switch DebugManager.sharedInstance.debugLevel {
       case .level1:
-        debugLabel.text = l10n("Level 1")
+        debugLabel.text = "Level 1".localized
       case .level2:
-        debugLabel.text = l10n("Level 2")
+        debugLabel.text = "Level 2".localized
       case .level3:
-        debugLabel.text = l10n("Level 3")
+        debugLabel.text = "Level 3".localized
        }
     }
   }
@@ -90,7 +90,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     switch section {
     case 1:
-      let format = l10n("settings.last-updated")
+      let format = "Last updated: %@".localized
       return String(format: format, DataCenter.lastFetch.dateTimeString)
     default:
       return nil
