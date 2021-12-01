@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire",
         "state": {
           "branch": null,
-          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
-          "version": "5.4.3"
+          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
+          "version": "5.4.4"
         }
       },
       {
@@ -24,26 +24,8 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
         "state": {
           "branch": "main",
-          "revision": "8b7f86a2aed4f2c60dd2c7c4f28eb129d9fe379d",
+          "revision": "5da95101196898090ef36e6189cb32f32b60ddc7",
           "version": null
-        }
-      },
-      {
-        "package": "SwiftDGC",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git",
-        "state": {
-          "branch": "main",
-          "revision": "5463a6c6f7daed9b7cb3da7e0e61d6f0ee24a37e",
-          "version": null
-        }
-      },
-      {
-        "package": "FloatingPanel",
-        "repositoryURL": "https://github.com/SCENEE/FloatingPanel",
-        "state": {
-          "branch": null,
-          "revision": "b8fcb50874f50bb511173700f87b09344c568c6a",
-          "version": "2.4.0"
         }
       },
       {
@@ -51,8 +33,8 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
           "branch": null,
-          "revision": "6c04fa0ccfcd8424986aaf2fc61ea458b3979cf1",
-          "version": "1.1.6"
+          "revision": "e59a317e03491abe1f04c87b965a52abae243ddd",
+          "version": "1.1.8"
         }
       },
       {
@@ -60,7 +42,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
         "state": {
           "branch": "master",
-          "revision": "4809e8a105b3fd2818a08caf9e3cbcdd7d319af2",
+          "revision": "addef0a5c7ed181d877f1fdfde1e3fc1c6c28cfe",
           "version": null
         }
       },
@@ -69,8 +51,8 @@
         "repositoryURL": "https://github.com/kylef/PathKit.git",
         "state": {
           "branch": null,
-          "revision": "73f8e9dca9b7a3078cb79128217dc8f2e585a511",
-          "version": "1.0.0"
+          "revision": "3bfd2737b700b9a36565a8c94f4ad2b050a5e574",
+          "version": "1.0.1"
         }
       },
       {
@@ -87,7 +69,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/SwiftCBOR",
         "state": {
           "branch": "master",
-          "revision": "b76024995f6909e4615f943c7a03268fd29778fc",
+          "revision": "0209a2d1a30b1b42334c4ad3f8bd221b977b2273",
           "version": null
         }
       },

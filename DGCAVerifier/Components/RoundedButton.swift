@@ -24,7 +24,6 @@
 //  Created by Yannick Spreen on 4/19/21.
 //
 
-import Foundation
 import UIKit
 
 @IBDesignable

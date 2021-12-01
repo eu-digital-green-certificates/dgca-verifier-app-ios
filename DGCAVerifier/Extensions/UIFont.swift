@@ -38,8 +38,6 @@ extension UIFont {
   }
 
   private var traits: [UIFontDescriptor.TraitKey: Any] {
-    return fontDescriptor.object(
-      forKey: .traits
-    ) as? [UIFontDescriptor.TraitKey: Any] ?? [:]
+    return fontDescriptor.object(forKey: .traits) as? [UIFontDescriptor.TraitKey: Any] ?? [:]
   }
 }

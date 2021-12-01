@@ -25,32 +25,24 @@
 //  Created by Yannick Spreen on 4/27/21.
 //  
 
-import Foundation
 import UIKit
 
-struct SecureBackground {
+class SecureBackground {
   static var imageView: UIImageView?
-  public static var image: UIImage?
+  static var image: UIImage?
+  static var paused = false
 
-  public static var paused = false
-
-  public static func enable() {
+  static func enable() {
     disable()
-    guard !paused else {
-      return
-    }
-    guard let image = image else {
-      return
-    }
+    guard !paused, let image = image else { return }
+      
     let imageView = UIImageView(image: image)
-    UIApplication.shared.windows[0].addSubview(imageView)
+      UIApplication.shared.windows.first?.addSubview(imageView)
     Self.imageView = imageView
   }
 
-  public static func disable() {
-    if imageView != nil {
-      imageView?.removeFromSuperview()
-      imageView = nil
-    }
+  static func disable() {
+    imageView?.removeFromSuperview()
+    imageView = nil
   }
 }
