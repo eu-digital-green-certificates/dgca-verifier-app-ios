@@ -24,4 +24,11 @@
   
 */
 
+//Bundle name
 "CFBundleDisplayName" = "Verifier App";
+//Privacy - NFC Scan Usage Description
+"NFCReaderUsageDescription" = "You will be abble to import certificate by NFC.";
+//Privacy - Camera Usage Description
+"NSCameraUsageDescription" = "You will be abble to scan barcodes and images with your camera.";
+//Privacy - Face ID Usage Description
+"NSFaceIDUsageDescription" = "You will use FaceID to unlock sensitive data.";
