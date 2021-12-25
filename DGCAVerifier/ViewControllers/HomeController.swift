@@ -63,7 +63,7 @@ class HomeController: UIViewController {
   func initializeAllStorageData() {
     self.activityIndicator.startAnimating()
     
-    DataCenter.initializeLocalData { result in
+    DataCenter.initializeAllStorageData { result in
       DispatchQueue.main.async {
         self.activityIndicator.stopAnimating()
         self.loadComplete()
