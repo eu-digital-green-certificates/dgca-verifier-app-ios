@@ -23,8 +23,7 @@
 //  DGCAVerifier
 //  
 //  Created by Igor Khomiak on 03.11.2021.
-//  
-        
+//
 
 import UIKit
 import SwiftDGC
@@ -37,7 +36,6 @@ class DataCenter {
     let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
     return "\(versionValue)(\(buildNumValue))"
   }
-
   static let localDataManager: LocalDataManager = LocalDataManager()
   static let countryDataManager: CountryDataManager = CountryDataManager()
   static let rulesDataManager: RulesDataManager = RulesDataManager()
@@ -141,7 +139,6 @@ class DataCenter {
       countryDataManager.loadLocallyStoredData { result in
         group.leave()
       }
-      
       group.leave()
     }
     group.notify(queue: .main) {
@@ -181,19 +178,18 @@ class DataCenter {
       }
       
       group.enter()
-      GatewayConnection.loadValueSetsFromServer { _ in
+      GatewayConnection.loadValueSetsFromServer { list, err in
         group.leave()
       }
       
       group.enter()
-      GatewayConnection.loadRulesFromServer { _ in
+      GatewayConnection.loadRulesFromServer { _, err  in
         CertLogicManager.shared.setRules(ruleList: rules)
         group.leave()
       }
-
       group.leave()
-
     }
+    
     group.notify(queue: .main) {
       localDataManager.localData.lastFetch = Date()
       completion(.success(true))
