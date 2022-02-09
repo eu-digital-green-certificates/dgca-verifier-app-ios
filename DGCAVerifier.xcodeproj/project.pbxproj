@@ -7,15 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* DataStuctures.swift */; };
-		5C2E51262681E50700712521 /* CountryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataManager.swift */; };
-		5C2E51282682152F00712521 /* RulesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataManager.swift */; };
-		5C2E51292682152F00712521 /* RulesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataManager.swift */; };
-		5C2E512A2682152F00712521 /* RulesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51272682152F00712521 /* RulesDataManager.swift */; };
+		15BF689E2732FAC200552288 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* LocalData.swift */; };
 		5C3151E92681BDCF00309E45 /* CertLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 5C3151E82681BDCF00309E45 /* CertLogic */; };
 		5C696F5826836F280005DE71 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 5C696F5726836F280005DE71 /* SwiftyJSON */; };
 		5C696F5A268372280005DE71 /* CertLogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F59268372280005DE71 /* CertLogicManager.swift */; };
-		5C696F5C2686670D0005DE71 /* ValueSetsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */; };
 		5C9C65A426A8507A00F14FC2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE81533B263FF8FE0030D777 /* README.md */; };
 		5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA4509B26DCCA770029324E /* NFCHelper.swift */; };
 		5CA4509D26DCCA770029324E /* NFCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA4509B26DCCA770029324E /* NFCHelper.swift */; };
@@ -91,8 +86,8 @@
 		D209C07927ADDBD00029C3AA /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
 		D209C07A27ADDBDC0029C3AA /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215814427329C9400C98986 /* DataCenter.swift */; };
 		D209C07B27ADDBDC0029C3AA /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215814427329C9400C98986 /* DataCenter.swift */; };
-		D209C07C27ADDBE00029C3AA /* DataStuctures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* DataStuctures.swift */; };
-		D209C07D27ADDBE00029C3AA /* DataStuctures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* DataStuctures.swift */; };
+		D209C07C27ADDBE00029C3AA /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* LocalData.swift */; };
+		D209C07D27ADDBE00029C3AA /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* LocalData.swift */; };
 		D209C07E27ADDC1F0029C3AA /* HCertValidity+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */; };
 		D209C07F27ADDC1F0029C3AA /* HCertValidity+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */; };
 		D209C08027ADDC220029C3AA /* ValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21581402731719500C98986 /* ValidityState.swift */; };
@@ -106,12 +101,8 @@
 		D2387C5927450F9100C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D23EF79E272026A90097D82B /* CountryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataManager.swift */; };
-		D23EF79F272026AA0097D82B /* CountryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2E51252681E50700712521 /* CountryDataManager.swift */; };
 		D23EF7A8272067E00097D82B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */; };
 		D23EF7A9272067E00097D82B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */; };
-		D23EF7AA272067F80097D82B /* ValueSetsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */; };
-		D23EF7AB272067F80097D82B /* ValueSetsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */; };
 		D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
 		D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
 		D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
@@ -151,11 +142,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		15BF689D2732FAC100552288 /* DataStuctures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStuctures.swift; sourceTree = "<group>"; };
-		5C2E51252681E50700712521 /* CountryDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CountryDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
-		5C2E51272682152F00712521 /* RulesDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RulesDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
+		15BF689D2732FAC100552288 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		5C696F59268372280005DE71 /* CertLogicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertLogicManager.swift; sourceTree = "<group>"; };
-		5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ValueSetsDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA4509926DCCA010029324E /* DGCAVerifier.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DGCAVerifier.entitlements; sourceTree = "<group>"; };
 		5CA4509B26DCCA770029324E /* NFCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCHelper.swift; sourceTree = "<group>"; };
 		5CA450A526E0BA640029324E /* DebugController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugController.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -174,7 +162,7 @@
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* CertificateViewerController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewerController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
+		CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CertificateViewer.storyboard; sourceTree = "<group>"; };
 		CE345FB526446817003B457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -182,7 +170,7 @@
 		CE59D1B526428D78004EBDD6 /* SettingsController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CE8096D8263B07BB00A65AD6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; tabWidth = 2; };
+		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE891304263581D900CB92AF /* HomeController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DGCAVerifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6EB261F8D2700715333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -257,12 +245,9 @@
 		15BF689F273304CD00552288 /* LocalDataManagement */ = {
 			isa = PBXGroup;
 			children = (
-				15BF689D2732FAC100552288 /* DataStuctures.swift */,
+				15BF689D2732FAC100552288 /* LocalData.swift */,
 				D215814427329C9400C98986 /* DataCenter.swift */,
 				CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */,
-				5C2E51252681E50700712521 /* CountryDataManager.swift */,
-				5C2E51272682152F00712521 /* RulesDataManager.swift */,
-				5C696F5B2686670D0005DE71 /* ValueSetsDataManager.swift */,
 			);
 			path = LocalDataManagement;
 			sourceTree = "<group>";
@@ -685,7 +670,6 @@
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
-				5C2E51282682152F00712521 /* RulesDataManager.swift in Sources */,
 				D209C06D27ADD8FF0029C3AA /* DataManager.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
 				D209C06B27ADD6C30029C3AA /* RevocationManager.swift in Sources */,
@@ -693,12 +677,11 @@
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
 				D26F1F9D273A8D64002A780F /* DGCLogger.swift in Sources */,
-				5C696F5C2686670D0005DE71 /* ValueSetsDataManager.swift in Sources */,
 				5CA450BA26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				5CA450CA26E7421C0029324E /* DebugValidationCell.swift in Sources */,
 				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
-				15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */,
+				15BF689E2732FAC200552288 /* LocalData.swift in Sources */,
 				D21581412731719500C98986 /* ValidityState.swift in Sources */,
 				D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */,
 				5CA450E726E78DB50029324E /* InfoCellDropDown.swift in Sources */,
@@ -711,7 +694,6 @@
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
 				D26F1FA1273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
-				5C2E51262681E50700712521 /* CountryDataManager.swift in Sources */,
 				D215814527329C9400C98986 /* DataCenter.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
 				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,
@@ -734,7 +716,7 @@
 				5CA4509D26DCCA770029324E /* NFCHelper.swift in Sources */,
 				5CA450D226E74B000029324E /* DebugSectionModel.swift in Sources */,
 				5CE07C8A26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
-				D209C07C27ADDBE00029C3AA /* DataStuctures.swift in Sources */,
+				D209C07C27ADDBE00029C3AA /* LocalData.swift in Sources */,
 				D209C07427ADDBC30029C3AA /* RevocationManager.swift in Sources */,
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
 				D209C07227ADDB550029C3AA /* DCCRevocation.xcdatamodeld in Sources */,
@@ -744,14 +726,11 @@
 				D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */,
 				5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */,
 				D23EF7A8272067E00097D82B /* LocalDataManager.swift in Sources */,
-				5C2E51292682152F00712521 /* RulesDataManager.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 				5CA450AE26E0F4C20029324E /* DebugCell.swift in Sources */,
 				D209C07A27ADDBDC0029C3AA /* DataCenter.swift in Sources */,
-				D23EF79E272026A90097D82B /* CountryDataManager.swift in Sources */,
 				D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */,
-				D23EF7AA272067F80097D82B /* ValueSetsDataManager.swift in Sources */,
 				D209C07E27ADDC1F0029C3AA /* HCertValidity+UIKit.swift in Sources */,
 				D26F1F9E273A8D64002A780F /* DGCLogger.swift in Sources */,
 				D209C08227ADDC440029C3AA /* CertLogicManager.swift in Sources */,
@@ -772,7 +751,6 @@
 				D26F1F9F273A8D64002A780F /* DGCLogger.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
 				5CA450BC26E7419F0029324E /* DebugSectionCell.swift in Sources */,
-				D23EF7AB272067F80097D82B /* ValueSetsDataManager.swift in Sources */,
 				5CA4509E26DCCA770029324E /* NFCHelper.swift in Sources */,
 				D209C08127ADDC220029C3AA /* ValidityState.swift in Sources */,
 				5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
@@ -783,15 +761,13 @@
 				D209C07727ADDBC60029C3AA /* DataManager.swift in Sources */,
 				D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */,
-				5C2E512A2682152F00712521 /* RulesDataManager.swift in Sources */,
 				D209C07327ADDB5C0029C3AA /* DCCRevocation.xcdatamodeld in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
 				D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
-				D209C07D27ADDBE00029C3AA /* DataStuctures.swift in Sources */,
+				D209C07D27ADDBE00029C3AA /* LocalData.swift in Sources */,
 				D23EF7A9272067E00097D82B /* LocalDataManager.swift in Sources */,
 				D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */,
-				D23EF79F272026AA0097D82B /* CountryDataManager.swift in Sources */,
 				D209C07527ADDBC30029C3AA /* RevocationManager.swift in Sources */,
 				D209C07F27ADDC1F0029C3AA /* HCertValidity+UIKit.swift in Sources */,
 				5CA450AF26E0F4C20029324E /* DebugCell.swift in Sources */,

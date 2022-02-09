@@ -180,8 +180,8 @@ extension GatewayConnection {
             return countryList.contains(where: { $0.code == countryCode.code })
         }
         DataCenter.countryCodes = newCountryCodes
-        countryList.forEach { DataCenter.countryDataManager.add(country: $0) }
-        DataCenter.saveCountries { result in
+        countryList.forEach { DataCenter.localDataManager.add(country: $0) }
+        DataCenter.saveLocalData { result in
           completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
         }
       }
@@ -207,7 +207,7 @@ extension GatewayConnection {
       let downloadingGroup = DispatchGroup()
       ruleHashes.forEach { ruleHash in
         downloadingGroup.enter()
-        if !DataCenter.rulesDataManager.isRuleExistWithHash(hash: ruleHash.hash) {
+        if !DataCenter.localDataManager.isRuleExistWithHash(hash: ruleHash.hash) {
           getRules(ruleHash: ruleHash) { rule, error in
             if let rule = rule {
               rulesItems.append(rule)
@@ -247,23 +247,23 @@ extension GatewayConnection {
     }
   }
   
-  static func loadRulesFromServer(completion: @escaping RulesCompletion) {
-    getListOfRules { rulesList, error in
-      guard error == nil else {
-        completion(nil, GatewayError.connection(error: error!))
-        return
-      }
-      guard let rules = rulesList else {
-        completion(nil, GatewayError.parsingError)
-        return
-      }
+    static func loadRulesFromServer(completion: @escaping RulesCompletion) {
+        getListOfRules { rulesList, error in
+            guard error == nil else {
+                completion(nil, GatewayError.connection(error: error!))
+                return
+            }
+            guard let rules = rulesList else {
+                completion(nil, GatewayError.parsingError)
+                return
+            }
 
-      rules.forEach { DataCenter.rulesDataManager.add(rule: $0) }
-      DataCenter.saveRules { result in
-        completion(DataCenter.rules, nil)
-      }
+            rules.forEach { DataCenter.localDataManager.add(rule: $0) }
+            DataCenter.saveLocalData { result in
+                completion(DataCenter.rules, nil)
+            }
+        }
     }
-  }
 
   // MARK: Valuesets
   static private func getListOfValueSets(completion: @escaping ValueSetsCompletion) {
@@ -285,7 +285,7 @@ extension GatewayConnection {
       let downloadingGroup = DispatchGroup()
       valueSetsHashes.forEach { valueSetHash in
         downloadingGroup.enter()
-        if !DataCenter.valueSetsDataManager.isValueSetExistWithHash(hash: valueSetHash.hash) {
+        if !DataCenter.localDataManager.isValueSetExistWithHash(hash: valueSetHash.hash) {
           getValueSets(valueSetHash: valueSetHash) { valueSet, error in
             if let valueSet = valueSet {
               valueSetsItems.append(valueSet)
@@ -327,8 +327,8 @@ extension GatewayConnection {
   }
   
   static func loadValueSetsFromServer(completion: @escaping ValueSetsCompletion) {
-    DataCenter.valueSets.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
-    DataCenter.saveSets { result in
+    DataCenter.valueSets.forEach { DataCenter.localDataManager.add(valueSet: $0) }
+    DataCenter.saveLocalData { result in
       completion(DataCenter.valueSets, nil)
     }
   }
