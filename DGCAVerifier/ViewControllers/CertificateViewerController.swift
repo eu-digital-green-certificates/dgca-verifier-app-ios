@@ -27,9 +27,6 @@
 import UIKit
 import SwiftDGC
 
-protocol DismissControllerDelegate: AnyObject {
-  func userDidDissmiss(_ controller: UIViewController) //DismissControllerDelegate
-}
 
 protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
@@ -50,8 +47,7 @@ class CertificateViewerController: UIViewController {
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var hCert: HCert?
-  weak var dismissDelegate: DismissControllerDelegate?
-  
+   
   private var sectionBuilder: SectionBuilder?
   private var validityState: ValidityState = .invalid
   private var isDebugMode = DebugManager.sharedInstance.isDebugMode
@@ -70,13 +66,7 @@ class CertificateViewerController: UIViewController {
     infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
     validateAndSetupInterface()
   }
-  
-  override func viewDidDisappear(_ animated: Bool) {
-      super.viewDidDisappear(animated)
-      if (isBeingDismissed || isMovingFromParent) {
-        dismissDelegate?.userDidDissmiss(self)
-      }
-  }
+    
   private func validateAndSetupInterface() {
     guard let hCert = hCert else { return }
     

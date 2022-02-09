@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q2g-Cz-5x2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q2g-Cz-5x2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -20,7 +20,17 @@
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiu-UP-1vm">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pOQ-eT-zTV">
+                                        <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pOQ-eT-zTV" firstAttribute="centerY" secondItem="eiu-UP-1vm" secondAttribute="centerY" id="fFG-vO-HjF"/>
+                                    <constraint firstItem="pOQ-eT-zTV" firstAttribute="centerX" secondItem="eiu-UP-1vm" secondAttribute="centerX" id="hvE-5Z-sLj"/>
+                                </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA7-Xa-kp8">
                                 <rect key="frame" x="0.0" y="734" width="414" height="162"/>
@@ -87,6 +97,7 @@
                     <navigationItem key="navigationItem" id="DC8-2u-JQC"/>
                     <connections>
                         <outlet property="aNFCButton" destination="Y3Q-ch-qEs" id="7tE-cD-R1f"/>
+                        <outlet property="activityIndicator" destination="pOQ-eT-zTV" id="Tjd-GA-yzm"/>
                         <outlet property="camView" destination="eiu-UP-1vm" id="Clp-eq-8HD"/>
                         <outlet property="countryCodeLabel" destination="Kmt-XU-cwz" id="ffH-xr-Wwt"/>
                         <outlet property="countryCodeView" destination="HA7-Xa-kp8" id="28q-RN-U55"/>

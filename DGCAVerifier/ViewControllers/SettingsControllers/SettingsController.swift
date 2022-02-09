@@ -34,8 +34,6 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   weak var delegate: DebugControllerDelegate?
-  weak var dismissDelegate: DismissControllerDelegate?
-
   var isNavigating = false
   
   @IBOutlet fileprivate weak var licensesLabelName: UILabel!
@@ -64,7 +62,6 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     if !isNavigating  {
       delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
           level: DebugManager.sharedInstance.debugLevel)
-      dismissDelegate?.userDidDissmiss(self)
     }
   }
 

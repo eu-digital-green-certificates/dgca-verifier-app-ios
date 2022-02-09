@@ -36,163 +36,168 @@ class DataCenter {
     let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
     return "\(versionValue)(\(buildNumValue))"
   }
-  static let localDataManager: LocalDataManager = LocalDataManager()
-  static let countryDataManager: CountryDataManager = CountryDataManager()
-  static let rulesDataManager: RulesDataManager = RulesDataManager()
-  static let valueSetsDataManager: ValueSetsDataManager = ValueSetsDataManager()
-  
-  static var lastFetch: Date {
-    get {
-      return localDataManager.localData.lastFetch
-    }
-    set {
-      localDataManager.localData.lastFetch = newValue
-    }
-  }
-  
-  static var lastLaunchedAppVersion: String {
-    return DataCenter.localDataManager.localData.lastLaunchedAppVersion
-  }
+    static let localDataManager: LocalDataManager = LocalDataManager()
+    static let countryDataManager: CountryDataManager = CountryDataManager()
+    static let rulesDataManager: RulesDataManager = RulesDataManager()
+    static let valueSetsDataManager: ValueSetsDataManager = ValueSetsDataManager()
 
-  static var resumeToken: String? {
-    get {
-      return localDataManager.localData.resumeToken
+    static var downloadedDataHasExpired: Bool {
+      return lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
     }
-    set {
-      localDataManager.localData.resumeToken = newValue
-     }
-  }
-  
-  static var publicKeys: [String: [String]] {
-    get {
-      return localDataManager.localData.encodedPublicKeys
+   
+    static var appWasRunWithOlderVersion: Bool {
+      return localDataManager.localData.lastLaunchedAppVersion != appVersion
     }
-    set {
-      localDataManager.localData.encodedPublicKeys = newValue
-     }
-  }
 
-  static var countryCodes: [CountryModel] {
-    get {
-      return countryDataManager.localData.countryCodes
-    }
-    set {
-      countryDataManager.localData.countryCodes = newValue
-    }
-  }
-  
-  static var rules: [CertLogic.Rule] {
-    get {
-      return rulesDataManager.localData.rules
-    }
-    set {
-      rulesDataManager.localData.rules = newValue
-    }
-  }
-  
-  static var valueSets: [CertLogic.ValueSet] {
-    get {
-      return valueSetsDataManager.localData.valueSets
-    }
-    set {
-      valueSetsDataManager.localData.valueSets = newValue
-    }
-  }
-
-  static func saveLocalData(completion: @escaping DataCompletionHandler) {
-    localDataManager.save(completion: completion)
-  }
-  
-  static func saveCountries(completion: @escaping DataCompletionHandler) {
-    countryDataManager.save(completion: completion)
-  }
-  
-  static func saveSets(completion: @escaping DataCompletionHandler) {
-    valueSetsDataManager.save(completion: completion)
-  }
-
-  static func saveRules(completion: @escaping DataCompletionHandler) {
-    rulesDataManager.save(completion: completion)
-  }
-  
-  static func initializeLocalData(completion: @escaping DataCompletionHandler) {
-    localDataManager.loadLocallyStoredData(completion: completion)
-  }
-  
-  static func initializeAllStorageData(completion: @escaping DataCompletionHandler) {
-    let group = DispatchGroup()
-    
-    group.enter()
-    localDataManager.loadLocallyStoredData { rezult in
-      group.enter()
-      rulesDataManager.loadLocallyStoredData { result in
-        CertLogicManager.shared.setRules(ruleList: rules)
-        group.leave()
+    static var lastFetch: Date {
+      get {
+        return localDataManager.localData.lastFetch
       }
-      
-      group.enter()
-      valueSetsDataManager.loadLocallyStoredData { result in
-        group.leave()
+      set {
+        localDataManager.localData.lastFetch = newValue
       }
-      
-      group.enter()
-      countryDataManager.loadLocallyStoredData { result in
-        group.leave()
-      }
-      group.leave()
-    }
-    group.notify(queue: .main) {
-      completion(.success(true))
-    }
-  }
-
-  static func reloadStorageData(completion: @escaping DataCompletionHandler) {
-    let group = DispatchGroup()
-    
-    group.enter()
-    localDataManager.loadLocallyStoredData { result in
-      group.enter()
-      rulesDataManager.loadLocallyStoredData { result in
-        CertLogicManager.shared.setRules(ruleList: rules)
-        group.leave()
-      }
-
-      group.enter()
-      valueSetsDataManager.loadLocallyStoredData { result in
-        group.leave()
-      }
-
-      group.enter()
-      countryDataManager.loadLocallyStoredData { result in
-        group.leave()
-      }
-
-      group.enter()
-      GatewayConnection.updateLocalDataStorage {
-        group.leave()
-      }
-
-      group.enter()
-      GatewayConnection.loadCountryList { _ in
-        group.leave()
-      }
-      
-      group.enter()
-      GatewayConnection.loadValueSetsFromServer { list, err in
-        group.leave()
-      }
-      
-      group.enter()
-      GatewayConnection.loadRulesFromServer { _, err  in
-        CertLogicManager.shared.setRules(ruleList: rules)
-        group.leave()
-      }
-      group.leave()
     }
     
-    group.notify(queue: .main) {
-      localDataManager.localData.lastFetch = Date()
-      completion(.success(true))
+    static var resumeToken: String? {
+      get {
+        return localDataManager.localData.resumeToken
+      }
+      set {
+        localDataManager.localData.resumeToken = newValue
+       }
     }
-  }
+    
+    static var publicKeys: [String: [String]] {
+      get {
+        return localDataManager.localData.encodedPublicKeys
+      }
+      set {
+        localDataManager.localData.encodedPublicKeys = newValue
+       }
+    }
+
+    static var countryCodes: [CountryModel] {
+      get {
+        return countryDataManager.localData.countryCodes
+      }
+      set {
+        countryDataManager.localData.countryCodes = newValue
+      }
+    }
+
+    static var rules: [Rule] {
+      get {
+        return rulesDataManager.localData.rules
+      }
+      set {
+        rulesDataManager.localData.rules = newValue
+      }
+    }
+    
+    static var valueSets: [ValueSet] {
+      get {
+        return valueSetsDataManager.localData.valueSets
+      }
+      set {
+        valueSetsDataManager.localData.valueSets = newValue
+      }
+    }
+
+    static func saveLocalData(completion: @escaping DataCompletionHandler) {
+      localDataManager.save(completion: completion)
+    }
+    
+    static func saveCountries(completion: @escaping DataCompletionHandler) {
+      countryDataManager.save(completion: completion)
+    }
+    
+    static func saveSets(completion: @escaping DataCompletionHandler) {
+      valueSetsDataManager.save(completion: completion)
+    }
+
+    static func saveRules(completion: @escaping DataCompletionHandler) {
+      rulesDataManager.save(completion: completion)
+    }
+    
+    
+    static func prepareLocalData(completion: @escaping DataCompletionHandler) {
+        initializeAllStorageData { localResult in
+            let shouldDownload = self.downloadedDataHasExpired || self.appWasRunWithOlderVersion
+            if !shouldDownload {
+                completion(localResult)
+            } else {
+                reloadStorageData { result in
+                    completion(result)
+                }
+            }
+        }
+    }
+
+    static func initializeAllStorageData(completion: @escaping DataCompletionHandler) {
+        let group = DispatchGroup()
+        
+        group.enter()
+        localDataManager.loadLocallyStoredData { rezult in
+            
+          group.enter()
+          rulesDataManager.loadLocallyStoredData { result in
+            CertLogicManager.shared.setRules(ruleList: rules)
+            group.leave()
+          }
+          
+          group.enter()
+          valueSetsDataManager.loadLocallyStoredData { _ in group.leave() }
+          
+          group.enter()
+          countryDataManager.loadLocallyStoredData { _ in group.leave() }
+            
+          group.leave()
+        }
+      
+        group.notify(queue: .main) {
+          completion(.success(true))
+        }
+    }
+
+    static func reloadStorageData(completion: @escaping DataCompletionHandler) {
+        let group = DispatchGroup()
+        
+        group.enter()
+        localDataManager.loadLocallyStoredData { result in
+            
+          group.enter()
+          rulesDataManager.loadLocallyStoredData { result in
+            CertLogicManager.shared.setRules(ruleList: rules)
+            group.leave()
+          }
+
+          group.enter()
+          valueSetsDataManager.loadLocallyStoredData { _ in group.leave() }
+
+          group.enter()
+          countryDataManager.loadLocallyStoredData { _ in group.leave() }
+
+          group.enter()
+          GatewayConnection.updateLocalDataStorage { group.leave() }
+          
+          group.enter()
+          GatewayConnection.loadCountryList { _ in group.leave()  }
+          
+          group.enter()
+          GatewayConnection.loadValueSetsFromServer { _, err in group.leave() }
+          
+          group.enter()
+          GatewayConnection.loadRulesFromServer { _, err  in
+            CertLogicManager.shared.setRules(ruleList: rules)
+            group.leave()
+          }
+          
+          group.leave()
+      }
+      
+      group.notify(queue: .main) {
+          localDataManager.localData.lastFetch = Date()
+          completion(.success(true))
+      }
+    }
 }
