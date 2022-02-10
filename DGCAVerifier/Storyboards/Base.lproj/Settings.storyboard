@@ -196,7 +196,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="GAN-DV-Te7">
                             <color key="tintColor" name="verifierBlue"/>
                             <connections>
-                                <action selector="cancelButton" destination="3yC-8G-HqR" id="sf2-iC-tyY"/>
+                                <action selector="dismissAction" destination="3yC-8G-HqR" id="Ygr-dr-HM3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

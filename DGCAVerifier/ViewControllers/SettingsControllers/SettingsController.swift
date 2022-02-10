@@ -34,6 +34,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
 
   weak var delegate: DebugControllerDelegate?
+  weak var dismissDelegate: DismissControllerDelegate?
   var isNavigating = false
   
   @IBOutlet fileprivate weak var licensesLabelName: UILabel!
@@ -65,6 +66,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
   }
 
+  
   private func updateInterface() {
     if !DebugManager.sharedInstance.isDebugMode {
       debugLabel.text = "Disabled".localized
@@ -158,8 +160,9 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
   }
 
-  @IBAction func cancelButton() {
+  @IBAction func dismissAction() {
     dismiss(animated: true, completion: nil)
+    dismissDelegate?.userDidDissmis(self)
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -173,3 +176,4 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
   }
 }
+

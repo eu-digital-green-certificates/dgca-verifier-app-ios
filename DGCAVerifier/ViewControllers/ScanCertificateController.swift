@@ -30,6 +30,10 @@ import SwiftDGC
 import Vision
 import AVFoundation
 
+protocol DismissControllerDelegate: AnyObject {
+  func userDidDissmis(_ controller: UIViewController)
+}
+
 protocol ScanCertificateDelegate: AnyObject {
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert)
   func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError)
@@ -49,7 +53,7 @@ class ScanCertificateController: UIViewController {
   @IBOutlet fileprivate weak var camView: UIView!
   @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
   @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
-  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+  //@IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   weak var delegate: ScanCertificateDelegate?
   private var captureSession: AVCaptureSession?
@@ -126,10 +130,10 @@ class ScanCertificateController: UIViewController {
   @objc func reloadExpiredData() {
       if downloadedDataHasExpired {
           captureSession?.stopRunning()
-          activityIndicator.startAnimating()
+          //activityIndicator.startAnimating()
           DataCenter.reloadStorageData(completion: { [unowned self] result in
               DispatchQueue.main.async {
-                  self.activityIndicator.stopAnimating()
+                  //self.activityIndicator.stopAnimating()
                   self.captureSession?.startRunning()
               }
           })
@@ -141,26 +145,33 @@ class ScanCertificateController: UIViewController {
     performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
   }
   
-  @IBAction func scanNFCAction() {
-    let helper = NFCHelper()
-    helper.onNFCResult = onNFCResult(success:message:)
-    helper.restartSession()
-  }
-  
-  // MARK: Navigation
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    switch segue.identifier {
-    case Constants.showCertificateViewer:
-      if let destinationController = segue.destination as? CertificateViewerController,
-        let certificate = sender as? HCert {
-        destinationController.hCert = certificate
-      }
-
-    default:
-      break
+    @IBAction func scanNFCAction() {
+      let helper = NFCHelper()
+      helper.onNFCResult = onNFCResult(success:message:)
+      helper.restartSession()
     }
-  }
-  
+
+  // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case Constants.showCertificateViewer:
+            if let destinationController = segue.destination as? CertificateViewerController,
+               let certificate = sender as? HCert {
+                destinationController.hCert = certificate
+                destinationController.presentationController?.delegate = self
+                destinationController.dismissDelegate = self
+            }
+        case Constants.showSettingsSegueID:
+            if let navController = segue.destination as? UINavigationController,
+                let destinationController = navController.viewControllers.last as? SettingsController {
+                navController.presentationController?.delegate = self
+                destinationController.dismissDelegate = self
+            }
+        default:
+          break
+        }
+    }
+
   // MARK: Private
   private func setListOfRuleCounties(list: [CountryModel]) {
     self.countryItems = list
@@ -367,4 +378,16 @@ extension ScanCertificateController {
       DGCLogger.logError(error)
     }
   }
+}
+
+extension ScanCertificateController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerDidDismiss( _ presentationController: UIPresentationController) {
+      captureSession?.startRunning()
+    }
+}
+
+extension ScanCertificateController:  DismissControllerDelegate {
+    public func userDidDissmis(_ controller: UIViewController) {
+      captureSession?.startRunning()
+    }
 }

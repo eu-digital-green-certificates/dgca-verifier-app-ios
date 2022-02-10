@@ -47,6 +47,7 @@ class CertificateViewerController: UIViewController {
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
   var hCert: HCert?
+  weak var dismissDelegate: DismissControllerDelegate?
   
   private var sectionBuilder: SectionBuilder?
   private var validityState: ValidityState = .invalid
@@ -143,6 +144,7 @@ class CertificateViewerController: UIViewController {
   
   @IBAction func dissmissButtonAction() {
     dismiss(animated: true, completion: nil)
+    dismissDelegate?.userDidDissmis(self)
   }
 
   @IBAction func shareButtonAction(_ sender: Any) {

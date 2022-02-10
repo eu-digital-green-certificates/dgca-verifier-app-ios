@@ -20,16 +20,7 @@
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiu-UP-1vm">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OVw-U4-KJu">
-                                        <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="OVw-U4-KJu" firstAttribute="centerX" secondItem="eiu-UP-1vm" secondAttribute="centerX" id="FDq-BF-0il"/>
-                                    <constraint firstItem="OVw-U4-KJu" firstAttribute="centerY" secondItem="eiu-UP-1vm" secondAttribute="centerY" id="jJj-7M-3Rn"/>
-                                </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA7-Xa-kp8">
                                 <rect key="frame" x="0.0" y="734" width="414" height="162"/>
@@ -96,7 +87,6 @@
                     <navigationItem key="navigationItem" id="DC8-2u-JQC"/>
                     <connections>
                         <outlet property="aNFCButton" destination="Y3Q-ch-qEs" id="7tE-cD-R1f"/>
-                        <outlet property="activityIndicator" destination="OVw-U4-KJu" id="803-W6-tdQ"/>
                         <outlet property="camView" destination="eiu-UP-1vm" id="Clp-eq-8HD"/>
                         <outlet property="countryCodeLabel" destination="Kmt-XU-cwz" id="ffH-xr-Wwt"/>
                         <outlet property="countryCodeView" destination="HA7-Xa-kp8" id="28q-RN-U55"/>
