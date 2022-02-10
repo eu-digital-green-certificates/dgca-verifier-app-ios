@@ -31,29 +31,21 @@ import SwiftDGC
 import CertLogic
 
 class LocalData: Codable {
-  var encodedPublicKeys = [String: [String]]()
-  var resumeToken: String?
-  var lastFetchRaw: Date?
-  var lastFetch: Date {
-    get {
-      lastFetchRaw ?? Date.distantPast
+    var encodedPublicKeys = [String: [String]]()
+    var countryCodes = [CountryModel]()
+    var valueSets = [ValueSet]()
+    var rules = [Rule]()
+    
+    var resumeToken: String?
+    var lastFetchRaw: Date?
+    var lastFetch: Date {
+      get {
+        lastFetchRaw ?? Date.distantPast
+      }
+      set {
+        lastFetchRaw = newValue
+      }
     }
-    set {
-      lastFetchRaw = newValue
-    }
-  }
-  var config = Config.load()
-  var lastLaunchedAppVersion = "0.0"
-}
-
-class CountryDataStorage: Codable {
-  var countryCodes = [CountryModel]()
-}
-
-class RulesDataStorage: Codable {
-  var rules = [CertLogic.Rule]()
-}
-
-class ValueSetsDataStorage: Codable {
-  var valueSets = [CertLogic.ValueSet]()
+    var config = Config.load()
+    var lastLaunchedAppVersion = "0.0"
 }

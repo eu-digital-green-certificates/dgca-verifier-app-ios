@@ -179,7 +179,7 @@ extension DebugVC: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let countryModel = countryList[indexPath.row]
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
-    DataCenter.countryDataManager.update(country: countryModel)
+    DataCenter.localDataManager.update(country: countryModel)
     if let cell = tableView.cellForRow(at: indexPath) {
       cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
     }

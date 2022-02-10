@@ -30,69 +30,35 @@ import SwiftDGC
 
 class HomeController: UIViewController {
   
-  private enum Constants {
-    static let scannerSegueID = "scannerSegueID"
-  }
-  
-  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
-  @IBOutlet fileprivate weak var appNameLabel: UILabel!
-
-  var downloadedDataHasExpired: Bool {
-    return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
-  }
- 
-  var appWasRunWithOlderVersion: Bool {
-    return DataCenter.lastLaunchedAppVersion != DataCenter.appVersion
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    appNameLabel.text = "Verifier App"
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+    private enum Constants {
+      static let scannerSegueID = "scannerSegueID"
+    }
     
-    DataCenter.initializeLocalData {[unowned self] result in
-      DispatchQueue.main.async {
-        self.downloadedDataHasExpired || self.appWasRunWithOlderVersion ?  self.reloadStorageData() : self.initializeAllStorageData()
-      }
-    }
-  }
+    @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var appNameLabel: UILabel!
 
-  func initializeAllStorageData() {
-    self.activityIndicator.startAnimating()
-    
-    DataCenter.initializeLocalData { result in
-      DispatchQueue.main.async {
-        self.activityIndicator.stopAnimating()
-        self.loadComplete()
-      }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        appNameLabel.text = "Verifier App"
+        
+        self.activityIndicator.startAnimating()
+        DataCenter.prepareLocalData {[unowned self] result in
+            DispatchQueue.main.async {
+              self.activityIndicator.stopAnimating()
+              self.loadComplete()
+            }
+        }
     }
-  }
-  
-  func reloadStorageData() {
-    self.activityIndicator.startAnimating()
-    
-    DataCenter.reloadStorageData { result in
-      DispatchQueue.main.async {
-        self.activityIndicator.stopAnimating()
-        self.loadComplete()
-      }
-    }
-  }
 
-
-  private func loadComplete() {
-    let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
-    SecureBackground.image = renderer.image { rendererContext in
-      self.view.layer.render(in: rendererContext.cgContext)
+    private func loadComplete() {
+        let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
+        SecureBackground.image = renderer.image { rendererContext in
+          self.view.layer.render(in: rendererContext.cgContext)
+        }
+        if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
+          showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
+        } else {
+          performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
+        }
     }
-    if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
-      showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
-      return
-    } else {
-      performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
-    }
-  }
 }

@@ -31,6 +31,24 @@ import SwiftDGC
 import SwiftyJSON
 import CertLogic
 
+enum GatewayError: Error {
+  case insufficientData
+  case encodingError
+  case signingError
+  case updatingError
+  case incorrectDataResponse
+  case connection(error: Error)
+  case local(description: String)
+  case parsingError
+  case privateKeyError
+  case tokenError
+}
+
+typealias ValueSetsCompletion = ([ValueSet]?, GatewayError?) -> Void
+typealias ValueSetCompletionHandler = (ValueSet?, GatewayError?) -> Void
+typealias RulesCompletion = ([Rule]?, GatewayError?) -> Void
+typealias RuleCompletionHandler = (Rule?, GatewayError?) -> Void
+
 class GatewayConnection: ContextConnection {
   static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
     var headers = [String: String]()
@@ -161,8 +179,8 @@ extension GatewayConnection {
             return countryList.contains(where: { $0.code == countryCode.code })
         }
         DataCenter.countryCodes = newCountryCodes
-        countryList.forEach { DataCenter.countryDataManager.add(country: $0) }
-        DataCenter.saveCountries { result in
+        countryList.forEach { DataCenter.localDataManager.add(country: $0) }
+        DataCenter.saveLocalData { result in
           completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
         }
       }
@@ -170,11 +188,11 @@ extension GatewayConnection {
   }
   
   // MARK: Rules
-  static private func getListOfRules(completion: (([CertLogic.Rule]) -> Void)?) {
+  static private func getListOfRules(completion: @escaping RulesCompletion) {
     request(["endpoints", "rules"], method: .get).response {
       guard case let .success(result) = $0.result, let response = result, let responseStr = String(data: response, encoding: .utf8)
       else {
-        completion?([])
+        completion(nil, GatewayError.parsingError)
         return
       }
       
@@ -184,12 +202,12 @@ extension GatewayConnection {
         return !ruleHashes.contains(where: { $0.hash == rule.hash })
       }
       // Downloading new hashes
-      var rulesItems = [CertLogic.Rule]()
+      let rulesItems = SyncArray<Rule>()
       let downloadingGroup = DispatchGroup()
       ruleHashes.forEach { ruleHash in
         downloadingGroup.enter()
-        if !DataCenter.rulesDataManager.isRuleExistWithHash(hash: ruleHash.hash) {
-          getRules(ruleHash: ruleHash) { rule in
+        if !DataCenter.localDataManager.isRuleExistWithHash(hash: ruleHash.hash) {
+          getRules(ruleHash: ruleHash) { rule, error in
             if let rule = rule {
               rulesItems.append(rule)
             }
@@ -200,51 +218,60 @@ extension GatewayConnection {
         }
       }
       downloadingGroup.notify(queue: .main) {
-        completion?(rulesItems)
+        completion(rulesItems.resultArray, nil)
         DGCLogger.logInfo("Finished all requests.")
       }
     }
   }
   
-  static func getRules(ruleHash: CertLogic.RuleHash, completion: ((CertLogic.Rule?) -> Void)?) {
+  static func getRules(ruleHash: RuleHash, completion: @escaping RuleCompletionHandler) {
     request(["endpoints", "rules"], externalLink: "/\(ruleHash.country)/\(ruleHash.hash)", method: .get).response {
       guard case let .success(result) = $0.result,
         let response = result, let responseStr = String(data: response, encoding: .utf8)
       else {
-        completion?(nil)
+        completion(nil, GatewayError.parsingError)
         return
       }
       if let rule: Rule = CertLogicEngine.getItem(from: responseStr) {
         let downloadedRuleHash = SHA256.digest(input: response as NSData)
         if downloadedRuleHash.hexString == ruleHash.hash {
           rule.setHash(hash: ruleHash.hash)
-          completion?(rule)
+          completion(rule, nil)
         } else {
-          completion?(nil)
+          completion(nil, GatewayError.encodingError)
         }
         return
       }
-      completion?(nil)
+      completion(nil, GatewayError.encodingError)
     }
   }
   
-  static func loadRulesFromServer(completion: (([CertLogic.Rule]) -> Void)? = nil) {
-    getListOfRules { rulesList in
-        rulesList.forEach { DataCenter.rulesDataManager.add(rule: $0) }
-      DataCenter.saveRules { result in
-        completion?(DataCenter.rules)
-      }
+    static func loadRulesFromServer(completion: @escaping RulesCompletion) {
+        getListOfRules { rulesList, error in
+            guard error == nil else {
+                completion(nil, GatewayError.connection(error: error!))
+                return
+            }
+            guard let rules = rulesList else {
+                completion(nil, GatewayError.parsingError)
+                return
+            }
+
+            rules.forEach { DataCenter.localDataManager.add(rule: $0) }
+            DataCenter.saveLocalData { result in
+                completion(DataCenter.rules, nil)
+            }
+        }
     }
-  }
-  
+
   // MARK: Valuesets
-  static private func getListOfValueSets(completion: (([CertLogic.ValueSet]) -> Void)?) {
+  static private func getListOfValueSets(completion: @escaping ValueSetsCompletion) {
     request(["endpoints", "valuesets"], method: .get).response {
       guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {
-        completion?([])
+        completion(nil, GatewayError.parsingError)
         return
       }
       let valueSetsHashes: [ValueSetHash] = CertLogicEngine.getItems(from: responseStr)
@@ -253,12 +280,12 @@ extension GatewayConnection {
         return !valueSetsHashes.contains(where: { $0.hash == valueSet.hash })
       }
       // Downloading new hashes
-      var valueSetsItems = [CertLogic.ValueSet]()
+      let valueSetsItems = SyncArray<ValueSet>()
       let downloadingGroup = DispatchGroup()
       valueSetsHashes.forEach { valueSetHash in
         downloadingGroup.enter()
-        if !DataCenter.valueSetsDataManager.isValueSetExistWithHash(hash: valueSetHash.hash) {
-          getValueSets(valueSetHash: valueSetHash) { valueSet in
+        if !DataCenter.localDataManager.isValueSetExistWithHash(hash: valueSetHash.hash) {
+          getValueSets(valueSetHash: valueSetHash) { valueSet, error in
             if let valueSet = valueSet {
               valueSetsItems.append(valueSet)
             }
@@ -269,39 +296,39 @@ extension GatewayConnection {
         }
       }
       downloadingGroup.notify(queue: .main) {
-        completion?(valueSetsItems)
+        completion(valueSetsItems.resultArray, nil)
         DGCLogger.logInfo("Finished all requests.")
       }
     }
   }
-    
-  static private func getValueSets(valueSetHash: CertLogic.ValueSetHash, completion: ((CertLogic.ValueSet?) -> Void)?) {
+  
+  static private func getValueSets(valueSetHash: ValueSetHash, completion: @escaping ValueSetCompletionHandler) {
     request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
       guard case let .success(result) = $0.result,
         let response = result,
         let responseStr = String(data: response, encoding: .utf8)
       else {
-        completion?(nil)
+        completion(nil, GatewayError.parsingError)
         return
       }
       if let valueSet: ValueSet = CertLogicEngine.getItem(from: responseStr) {
         let downloadedValueSetHash = SHA256.digest(input: response as NSData)
         if downloadedValueSetHash.hexString == valueSetHash.hash {
           valueSet.setHash(hash: valueSetHash.hash)
-          completion?(valueSet)
+          completion(valueSet, nil)
         } else {
-          completion?(nil)
+          completion(nil, GatewayError.encodingError)
         }
         return
       }
-      completion?(nil)
+      completion(nil, GatewayError.encodingError)
     }
   }
   
-  static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
-    DataCenter.valueSets.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
-    DataCenter.saveSets { result in
-      completion?(DataCenter.valueSets)
+  static func loadValueSetsFromServer(completion: @escaping ValueSetsCompletion) {
+    DataCenter.valueSets.forEach { DataCenter.localDataManager.add(valueSet: $0) }
+    DataCenter.saveLocalData { result in
+      completion(DataCenter.valueSets, nil)
     }
   }
 }

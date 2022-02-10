@@ -89,7 +89,7 @@ class CertificateValidator {
       var infoSection: InfoSection?
     
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = DataCenter.valueSetsDataManager.getValueSetsForExternalParameters()
+        let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
             countryCode: countryCode,
             certificationType: certType)
@@ -170,7 +170,7 @@ class CertificateValidator {
       
       let certType = certificationType(for: certificate.certificateType)
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = DataCenter.valueSetsDataManager.getValueSetsForExternalParameters()
+        let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
             countryCode: countryCode,
             certificationType: certType)
@@ -199,7 +199,7 @@ class CertificateValidator {
       
       let certType = certificationType(for: certificate.certificateType)
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = DataCenter.valueSetsDataManager.getValueSetsForExternalParameters()
+        let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
           countryCode: countryCode,
           certificationType: certType)
@@ -228,7 +228,7 @@ class CertificateValidator {
       
       let certType = certificationType(for: certificate.certificateType)
       if let countryCode = certificate.ruleCountryCode {
-        let valueSets = DataCenter.valueSetsDataManager.getValueSetsForExternalParameters()
+        let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
         let filterParameter = FilterParameter(validationClock: Date(),
             countryCode: countryCode,
             certificationType: certType)

@@ -37,7 +37,7 @@ protocol ScanCertificateDelegate: AnyObject {
   func enableBackgroundDetection()
 }
 
-class ScanCertificateController: UIViewController, DismissControllerDelegate {
+class ScanCertificateController: UIViewController {
   private enum Constants {
     static let userDefaultsCountryKey = "UDCountryKey"
     static let showSettingsSegueID = "showSettingsSegueID"
@@ -49,11 +49,13 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   @IBOutlet fileprivate weak var camView: UIView!
   @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
   @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
- 
+  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+
   weak var delegate: ScanCertificateDelegate?
   private var captureSession: AVCaptureSession?
   private var countryItems: [CountryModel] = []
   
+  private var expireDataTimer: Timer?
   var downloadedDataHasExpired: Bool {
     return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
   }
@@ -85,7 +87,7 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
       }
     }
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     if #available(iOS 13.0, *) {
@@ -100,15 +102,14 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
     setListOfRuleCounties(list: countryList)
     
   #if targetEnvironment(simulator)
-      DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-      self.observationHandler(payloadString: "HC1:6BFA70$90T9WTWGSLKC 4X7923S%CA.48Y+6/AB3XK5F3 026003F3RD6Z*B1JC X8Y50.FK8ZKO/EZKEZ967L6C56..DX%DZJC2/D:+9 QE5$CLPCG/D0.CHY8ITAUIAI3DG8DXFF 8DXEDU3EI3DAWE1Z9CN9IB85T9JPCT3E5JDOA73467463W5-A67:EDOL9WEQDD+Q6TW6FA7C466KCK9E2H9G:6V6BEM6Q$D.UDRYA 96NF6L/5QW6307B$D% D3IA4W5646946%96X47XJC$+D3KC.SCXJCCWENF6OF63W5CA7746WJCT3E0ZA%JCIQEAZAWJC0FD6A5AIA%G7X+AQB9F+ALG7$X85+8+*81IA3H87+8/R8/A8+M986APH9$59/Y9WA627B873 3K9UD5M3JFG.BOO3L-GE828UE0T46/*JSTLE4MEJRX797NEXF5I$2+.LGOJXF24D2WR9 W8WQT:HHJ$7:TKP2RT+J:G4V5GT7E")
-    }
   #else
     captureSession = AVCaptureSession()
     checkPermissions()
     setupCameraLiveView()
   #endif
     SquareViewFinder.create(from: self)
+    expireDataTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(reloadExpiredData),
+        userInfo: nil, repeats: true)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -121,15 +122,20 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
     captureSession?.stopRunning()
   }
   
-  func userDidDissmiss(_ controller: UIViewController) {
-    if downloadedDataHasExpired {
-      self.navigationController?.popViewController(animated: false)
-    } else {
-      captureSession?.startRunning()
-    }
-  }
-
   // MARK: Actions
+  @objc func reloadExpiredData() {
+      if downloadedDataHasExpired {
+          captureSession?.stopRunning()
+          activityIndicator.startAnimating()
+          DataCenter.reloadStorageData(completion: { [unowned self] result in
+              DispatchQueue.main.async {
+                  self.activityIndicator.stopAnimating()
+                  self.captureSession?.startRunning()
+              }
+          })
+      }
+  }
+  
   @IBAction func openSettingsController() {
     captureSession?.stopRunning()
     performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
@@ -148,12 +154,8 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
       if let destinationController = segue.destination as? CertificateViewerController,
         let certificate = sender as? HCert {
         destinationController.hCert = certificate
-        destinationController.dismissDelegate = self
       }
-    case Constants.showSettingsSegueID:
-      if let destinationController = (segue.destination as? UINavigationController)?.viewControllers.first as? SettingsController {
-        destinationController.dismissDelegate = self
-      }
+
     default:
       break
     }
