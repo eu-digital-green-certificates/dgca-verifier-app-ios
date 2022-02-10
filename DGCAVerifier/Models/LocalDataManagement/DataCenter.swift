@@ -112,10 +112,9 @@ class DataCenter {
                 completion(rezult)
             } else {
                 reloadStorageData { result in
-                    completion(result)
+                    localDataManager.loadLocallyStoredData(completion: completion)
                 }
             }
-            completion(.success(true))
         }
     }
     
