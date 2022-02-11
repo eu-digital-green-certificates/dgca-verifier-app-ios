@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DataManager.swift
+//  RevocationDataStorage.swift
 //  DGCAVerifier
 //  
 //  Created by Igor Khomiak on 04.02.2022.
@@ -29,9 +29,9 @@
 import UIKit
 import CoreData
 
-class DataManager {
+class RevocationDataStorage {
 
-    static var sharedManager: DataManager = DataManager()
+    static var shared = RevocationDataStorage()
     
     // MARK: - Core Data stack
 

@@ -102,9 +102,10 @@
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B87DA4272C30FA00B0BE19 /* HCertValidity+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */; };
-		D2D5655427B53F9400E821C6 /* RevocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655327B53F9400E821C6 /* RevocationManager.swift */; };
-		D2D5655727B53FCF00E821C6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655627B53FCF00E821C6 /* DataManager.swift */; };
+		D2D5655427B53F9400E821C6 /* RevocationDayaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655327B53F9400E821C6 /* RevocationDayaManager.swift */; };
+		D2D5655727B53FCF00E821C6 /* RevocationDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */; };
 		D2D5655A27B5441D00E821C6 /* DCCRevocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655827B5441D00E821C6 /* DCCRevocation.xcdatamodeld */; };
+		D2D5655F27B5774600E821C6 /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
 		DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseTableController.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
@@ -126,6 +127,19 @@
 			remoteInfo = DGCAVerifier;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D2D5656527B58E5600E821C6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		15BF689D2732FAC100552288 /* DataStuctures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStuctures.swift; sourceTree = "<group>"; };
@@ -176,7 +190,7 @@
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
 		D21581402731719500C98986 /* ValidityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidityState.swift; sourceTree = "<group>"; };
 		D2158142273184E200C98986 /* LicenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseController.swift; sourceTree = "<group>"; };
-		D215814427329C9400C98986 /* DataCenter.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D215814427329C9400C98986 /* DataCenter.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; tabWidth = 4; };
 		D21B5815274D278A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D21B5819274D4E5A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D21B581B274D4E5C0040D4E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -189,9 +203,10 @@
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 2; };
-		D2D5655327B53F9400E821C6 /* RevocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationManager.swift; sourceTree = "<group>"; };
-		D2D5655627B53FCF00E821C6 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		D2D5655327B53F9400E821C6 /* RevocationDayaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationDayaManager.swift; sourceTree = "<group>"; };
+		D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationDataStorage.swift; sourceTree = "<group>"; };
 		D2D5655927B5441D00E821C6 /* DCCRevocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCCRevocation.xcdatamodel; sourceTree = "<group>"; };
+		D2D5655E27B5774600E821C6 /* RevocationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationWorker.swift; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseTableController.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
@@ -374,9 +389,9 @@
 				D2768F7827356C8C006C7E17 /* SharedConstants.swift */,
 				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
 				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
+				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
 				D2D5655527B53F9F00E821C6 /* Revocation */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
-				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -459,8 +474,9 @@
 		D2D5655527B53F9F00E821C6 /* Revocation */ = {
 			isa = PBXGroup;
 			children = (
-				D2D5655627B53FCF00E821C6 /* DataManager.swift */,
-				D2D5655327B53F9400E821C6 /* RevocationManager.swift */,
+				D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */,
+				D2D5655327B53F9400E821C6 /* RevocationDayaManager.swift */,
+				D2D5655E27B5774600E821C6 /* RevocationWorker.swift */,
 			);
 			path = Revocation;
 			sourceTree = "<group>";
@@ -484,6 +500,7 @@
 				CEA6D6E4261F8D2700715333 /* Sources */,
 				CEA6D6E5261F8D2700715333 /* Frameworks */,
 				CEA6D6E6261F8D2700715333 /* Resources */,
+				D2D5656527B58E5600E821C6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -655,9 +672,9 @@
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
-				D2D5655727B53FCF00E821C6 /* DataManager.swift in Sources */,
+				D2D5655727B53FCF00E821C6 /* RevocationDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
-				D2D5655427B53F9400E821C6 /* RevocationManager.swift in Sources */,
+				D2D5655427B53F9400E821C6 /* RevocationDayaManager.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalDataManager.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,
 				5CEA55C526EF59D600269702 /* ZipManager.swift in Sources */,
@@ -687,6 +704,7 @@
 				5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				5CA450C226E741BB0029324E /* DebugRawCell.swift in Sources */,
 				5CA450DF26E78D990029324E /* InfoCell.swift in Sources */,
+				D2D5655F27B5774600E821C6 /* RevocationWorker.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 				5CA450D126E74B000029324E /* DebugSectionModel.swift in Sources */,
 			);

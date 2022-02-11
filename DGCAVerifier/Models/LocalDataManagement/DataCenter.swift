@@ -31,14 +31,15 @@ import SwiftDGC
 import CertLogic
 
 class DataCenter {
-  static let shared = DataCenter()
-  static var appVersion: String {
-    let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
-    let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
-    return "\(versionValue)(\(buildNumValue))"
-  }
+    static let shared = DataCenter()
+    static var appVersion: String {
+      let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+      let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
+      return "\(versionValue)(\(buildNumValue))"
+    }
     static let localDataManager: LocalDataManager = LocalDataManager()
-
+    static let revocationWorker: RevocationWorker = RevocationWorker()
+    
     static var downloadedDataHasExpired: Bool {
       return lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
     }
@@ -119,29 +120,36 @@ class DataCenter {
         }
     }
     
+    
     static func reloadStorageData(completion: @escaping DataCompletionHandler) {
         let group = DispatchGroup()
         
         group.enter()
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
+            
+            group.enter()
+            revocationWorker.processReloadRevocations { err in
+                group.leave()
+            }
 
-          group.enter()
-          GatewayConnection.updateLocalDataStorage { group.leave() }
-          
-          group.enter()
-          GatewayConnection.loadCountryList { _ in group.leave()  }
-          
-          group.enter()
-          GatewayConnection.loadValueSetsFromServer { _, err in group.leave() }
-          
-          group.enter()
-          GatewayConnection.loadRulesFromServer { _, err  in
-            CertLogicManager.shared.setRules(ruleList: rules)
-            group.leave()
-          }
-          
-          group.leave()
+            
+            group.enter()
+            GatewayConnection.updateLocalDataStorage { group.leave() }
+            
+            group.enter()
+            GatewayConnection.loadCountryList { _ in group.leave()  }
+            
+            group.enter()
+            GatewayConnection.loadValueSetsFromServer { _, err in group.leave() }
+
+            group.enter()
+            GatewayConnection.loadRulesFromServer { _, err  in
+              CertLogicManager.shared.setRules(ruleList: rules)
+              group.leave()
+            }
+            
+        group.leave()
       }
       
       group.notify(queue: .main) {

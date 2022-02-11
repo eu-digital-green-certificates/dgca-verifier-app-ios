@@ -20,21 +20,22 @@ typealias LoadingCompletion = ([NSManagedObject]?, DataBaseError?) -> Void
 class RevocationManager: NSObject {
         
     var managedContext: NSManagedObjectContext! = {
-        return DataManager.sharedManager.persistentContainer.viewContext
+        return RevocationDataStorage.shared.persistentContainer.viewContext
     }()
 
     func clearAllData() {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
-
+        
         do {
-            let partitions = try managedContext.fetch(fetchRequest)
-            print("Extracted \(partitions.count) Revocations for deleting")
-            for partitionObject in partitions {
-                let kidStr = partitionObject.value(forKey: "kid")
-                managedContext.delete(partitionObject)
-                print("Deleted \(kidStr ?? "-") ")
-
+            let revocations = try managedContext.fetch(fetchRequest)
+            print("Extracted \(revocations.count) Revocations for deleting")
+            for revocationObject in revocations {
+                let kidStr = revocationObject.value(forKey: "kid")
+                managedContext.delete(revocationObject)
+                print("Deleted Revocation \(kidStr ?? "")")
             }
+            RevocationDataStorage.shared.saveContext()
+            
         } catch let error as NSError {
             print("Could not fetch Revocations for deleting: \(error.localizedDescription)")
             return
@@ -44,21 +45,79 @@ class RevocationManager: NSObject {
         }
     }
     
-    func deletePartition(pid: String) {
-        guard let object = loadPartitions(pid: pid)?.first else { return }
+    func removeRevocations(kid: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+        let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
+        fetchRequest.predicate = predicate
 
-        // Save the deletions to the persistent store
-        managedContext.delete(object)
         do {
-            try managedContext.save()
-            print("  Deleted partition with id: \(pid)")
+            let revocations = try managedContext.fetch(fetchRequest)
+            print("Extracted \(revocations.count) Revocations for deleting")
+            for revocationObject in revocations {
+                let kidStr = revocationObject.value(forKey: "kid")
+                managedContext.delete(revocationObject)
+                print("Deleted Revocation \(kidStr ?? "")")
+            }
+            RevocationDataStorage.shared.saveContext()
+            
         } catch let error as NSError {
-            print("Could not save after deleting: \(error.localizedDescription) partition pid: \(pid)")
+            print("Could not fetch Revocations for deleting: \(error.localizedDescription)")
+            return
         } catch {
-            print("Could not save after deleting partition pid: \(pid).")
+            print("Could not fetch Revocations for deleting.")
+            return
+        }
+    }
+
+
+    func currentRevocationKIDs() -> [String]? {
+        var revocStrings = [String]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+        do {
+            let revocations = try managedContext.fetch(fetchRequest)
+            print("Extracted \(revocations.count) Revocations for deleting")
+            for revocationObject in revocations {
+                if let kidStr = revocationObject.value(forKey: "kid") as? String {
+                    revocStrings.append(kidStr)
+                }
+            }
+            return revocStrings
+            
+        } catch let error as NSError {
+            print("Could not fetch Revocations: \(error.localizedDescription)")
+            return nil
+        } catch {
+            print("Could not fetch Revocations.")
+            return nil
         }
     }
     
+    func saveRevocations(models: [RevocationModel]) {
+        print("Start saving Revocations")
+        
+        for model in models {
+            let kidConverted = Helper.convertToBase64url(base64: model.kid)
+             
+            let entity = NSEntityDescription.entity(forEntityName: "Revocation", in: managedContext)!
+            let revocation = NSManagedObject(entity: entity, insertInto: managedContext)
+            
+            revocation.setValue(kidConverted, forKeyPath: "kid")
+            let hashTypes = model.hashType.joined(separator: ",")
+            revocation.setValue(hashTypes, forKeyPath: "hashType")
+            revocation.setValue(model.mode, forKeyPath: "mode")
+            
+            if let expDate = Date(rfc3339DateTimeString: model.expires) {
+                revocation.setValue(expDate, forKeyPath: "expires")
+            }
+            if let lastUpdated = Date(rfc3339DateTimeString: model.lastUpdated) {
+                revocation.setValue(lastUpdated, forKeyPath: "lastUpdated")
+            }
+            print("-- Added Revocation with KID: \(kidConverted)")
+        }
+        
+        RevocationDataStorage.shared.saveContext()
+    }
+
     func deleteExpiredRevocations(for date: Date) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
         let predicate:  NSPredicate = NSPredicate(format: "expires < %@", argumentArray: [date])
@@ -77,6 +136,22 @@ class RevocationManager: NSObject {
             return
         }
     }
+
+    func deletePartition(pid: String) {
+        guard let object = loadPartitions(pid: pid)?.first else { return }
+
+        // Save the deletions to the persistent store
+        managedContext.delete(object)
+        do {
+            try managedContext.save()
+            print("  Deleted partition with id: \(pid)")
+        } catch let error as NSError {
+            print("Could not save after deleting: \(error.localizedDescription) partition pid: \(pid)")
+        } catch {
+            print("Could not save after deleting partition pid: \(pid).")
+        }
+    }
+    
     
     func deleteExpiredPartitions(for date: Date) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
@@ -300,34 +375,6 @@ class RevocationManager: NSObject {
         do {
             try managedContext.save()
             print("  Saved Partitions for KID: \(kidConverted)")
-        } catch let error as NSError {
-          print("Could not save new partition: \(error), \(error.userInfo)")
-        } catch {
-            print("Could not save new partition.")
-        }
-    }
-    
-    func saveRevocation(model: RevocationModel) {
-        print("Start saving Revocation \( model.kid)")
-        let kidConverted = Helper.convertToBase64url(base64: model.kid)
-         
-        let entity = NSEntityDescription.entity(forEntityName: "Revocation", in: managedContext)!
-        let revocation = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        revocation.setValue(kidConverted, forKeyPath: "kid")
-        let hashTypes = model.hashType.joined(separator: ",")
-        revocation.setValue(hashTypes, forKeyPath: "hashType")
-        revocation.setValue(model.mode, forKeyPath: "mode")
-        
-        if let expDate = Date(rfc3339DateTimeString: model.expires) {
-            revocation.setValue(expDate, forKeyPath: "expires")
-        }
-        if let lastUpdated = Date(rfc3339DateTimeString: model.lastUpdated) {
-            revocation.setValue(lastUpdated, forKeyPath: "lastUpdated")
-        }
-        
-        do {
-          try managedContext.save()
         } catch let error as NSError {
           print("Could not save new partition: \(error), \(error.userInfo)")
         } catch {
