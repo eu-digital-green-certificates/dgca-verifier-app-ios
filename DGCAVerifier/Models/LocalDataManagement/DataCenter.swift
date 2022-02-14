@@ -107,11 +107,11 @@ class DataCenter {
     }
     
     static func prepareLocalData(completion: @escaping DataCompletionHandler) {
-        localDataManager.loadLocallyStoredData { rezult in
+        localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
             let shouldDownload = self.downloadedDataHasExpired || self.appWasRunWithOlderVersion
             if !shouldDownload {
-                completion(rezult)
+                completion(result)
             } else {
                 reloadStorageData { result in
                     localDataManager.loadLocallyStoredData(completion: completion)
@@ -129,10 +129,9 @@ class DataCenter {
             CertLogicManager.shared.setRules(ruleList: rules)
             
             group.enter()
-            revocationWorker.processReloadRevocations { err in
+            revocationWorker.processReloadRevocations { list, err in
                 group.leave()
             }
-
             
             group.enter()
             GatewayConnection.updateLocalDataStorage { group.leave() }
@@ -142,7 +141,7 @@ class DataCenter {
             
             group.enter()
             GatewayConnection.loadValueSetsFromServer { _, err in group.leave() }
-
+            
             group.enter()
             GatewayConnection.loadRulesFromServer { _, err  in
               CertLogicManager.shared.setRules(ruleList: rules)

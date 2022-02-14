@@ -38,7 +38,7 @@ class LocalDataManager {
     func add(encodedPublicKey: String) {
       let kid = KID.from(encodedPublicKey)
       let kidStr = KID.string(from: kid)
-
+      
       let list = localData.encodedPublicKeys[kidStr] ?? []
       if !list.contains(encodedPublicKey) {
         localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
