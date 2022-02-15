@@ -36,7 +36,7 @@ public enum ProcessingError: Error {
     case dataBaseError(error: NSError)
 }
 
-typealias ProcessingCompletion = ([String]?, ProcessingError?) -> Void
+typealias ProcessingCompletion = ([PartitionModel]?, ProcessingError?) -> Void
 
 class RevocationWorker {
     
@@ -44,11 +44,6 @@ class RevocationWorker {
     let revocationService = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)
     
     var loadedRevocations: [RevocationModel]?
-    var eTag: String? {
-        didSet {
-            ()
-        }
-    }
     
     func processReloadRevocations(completion: @escaping ProcessingCompletion) {
         self.revocationService.getRevocationLists {[unowned self] revocations, etag, err in
@@ -60,35 +55,41 @@ class RevocationWorker {
                 completion(nil, .nodata)
                 return
             }
+            
             SecureKeyChain.save(key: "verifierETag", data: Data(etag.utf8))
             self.loadedRevocations = revocations
             let loadingRevocationsSet = self.saveRevocationsIfNeeds(with: revocations)
             
             let group = DispatchGroup()
-            var partitionIDList = [String]()
+            var partitionsList = [PartitionModel]()
             for model in loadingRevocationsSet {
                 let kidForLoad = Helper.convertToBase64url(base64: model.kid)
                 group.enter()
-                self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
+                self.revocationService.getRevocationPartitions(forKID: kidForLoad) { partitions, _, err in
                     if err == nil, let partitions = partitions, !partitions.isEmpty {
-                        let idList = self.revocationDataManager.savePartitions(kid: model.kid, models: partitions)
-                        partitionIDList.append(contentsOf: idList)
+                        self.revocationDataManager.savePartitions(kid: model.kid, models: partitions)
+                        partitionsList.append(contentsOf: partitions)
                     }
                     group.leave()
                 }
             }
             
             group.notify(queue: .main) {
-                completion(partitionIDList, .nodata)
+                completion(partitionsList, .nodata)
             }
         }
     }
     
-    func processLoadMetaData(partitions: [String], completion: @escaping ProcessingCompletion) {
+    func processLoadMetaData(partitions: [PartitionModel], completion: @escaping ProcessingCompletion) {
         let group = DispatchGroup()
 
-        for partID in partitions {
-            
+        for part in partitions {
+            if let id = part.id {
+                group.enter()
+                self.revocationService.getRevocationPartitionChunks(forKID: part.kid, id: id, cids: nil) { zipdata, _, err in
+                    group.leave()
+                }
+            }
         }
     }
     
@@ -99,70 +100,53 @@ class RevocationWorker {
 
         if !currentRevocationEntries.isEmpty {
             for entry in currentRevocationEntries {
-                let entryKid = entry.kid
-                let entryMode = entry.mode
-                let modifiedDate = entry.lastUpdated
-                let expiredDate = entry.expires
+                let localKid = entry.kid
+                let localMode = entry.mode
+                let localModifiedDate = entry.lastUpdated
+                let localExpiredDate = entry.expires
                 let todayDate = Date()
-                if let revocationModel = models.filter({ Helper.convertToBase64url(base64: $0.kid) == entryKid }).first {
+
+                if let loadedModel = models.filter({ Helper.convertToBase64url(base64: $0.kid) == localKid }).first {
                     // 9) Check if “Mode” was changed. If yes, delete all associated entries with the KID.
-                    let internalModelKID = Helper.convertToBase64url(base64: revocationModel.kid)
-                    if revocationModel.mode != entryMode {
-                        self.revocationDataManager.removeRevocations(kid: internalModelKID)
-                        self.revocationDataManager.saveRevocations(models: [revocationModel])
-                        newlyAddedRevocations.insert(revocationModel)
-                    } else if modifiedDate < todayDate {
-                        self.revocationDataManager.removeRevocations(kid: internalModelKID)
-                        self.revocationDataManager.saveRevocations(models: [revocationModel])
-                        newlyAddedRevocations.insert(revocationModel)
+                    let loadedModifiedDate = Date(rfc3339DateTimeString: loadedModel.lastUpdated) ?? Date.distantPast
+                    
+                    if loadedModel.mode != localMode {
+                        self.revocationDataManager.removeRevocation(localKid)
+                        self.revocationDataManager.saveRevocations([loadedModel])
+                        newlyAddedRevocations.insert(loadedModel)
                         
-                    } else if expiredDate < todayDate {
-                        self.revocationDataManager.removeRevocations(kid: revocationModel.kid)
+                    } else if localModifiedDate < loadedModifiedDate {
+                        self.processUpdateExistedRevocation(kid: localKid)
+                        
+                    } else if localExpiredDate < todayDate {
+                        self.revocationDataManager.removeRevocation(localKid)
                     }
                 } else {
-                    self.revocationDataManager.removeRevocations(kid: entryKid)
+                    self.revocationDataManager.removeRevocation(localKid)
                 }
             }
         }
         
         for model in models {
             if currentRevocationEntries.filter({ $0.0 == Helper.convertToBase64url(base64:model.kid) }).isEmpty {
-                self.revocationDataManager.saveRevocations(models: [model])
+                self.revocationDataManager.saveRevocations([model])
                 newlyAddedRevocations.insert(model)
             }
         }
         return newlyAddedRevocations
     }
     
-    private func processAddRevocation(models: [RevocationModel]) {
-//        guard let models = models, let eTag = eTag else {
-//            completion(ProcessingError.nodata)
-//            return
-//        }
-        //-------------------
-        let str = """
-            [{
-                       "kid":"9cWXDDA52FQ=",
-                       "mode":"POINT",
-                       "hashTypes":["SIGNATURE","UCI","COUNTRYCODEUCI"],
-                       "expires":"2010-01-01T12:00:00+01:00",
-                       "lastUpdated":"2009-01-01T12:00:00+01:00"
-            },
-            {
-                       "kid":"8cWXDDA52FQ=",
-                       "mode":"POINT",
-                       "hashTypes":["SIGNATURE","UCI","COUNTRYCODEUCI"],
-                       "expires":"2010-01-01T12:00:00+01:00",
-                       "lastUpdated":"2009-01-01T12:00:00+01:00"
-            }]
-        """
-        let data = Data(str.utf8)
-        let decodedModels: [RevocationModel] = try! JSONDecoder().decode([RevocationModel].self, from: data)
-        //-------------------
-        
-    }
-    
     // MARK: - Partitions
 
-    
+    private func processUpdateExistedRevocation(kid: String, loadedDate: Date) {
+        let localPartitions = revocationDataManager.loadAllPartitions(forKID: kid)
+        for partition in localPartitions ?? [] {
+            guard let localDate = partition.value(forKey: "lastUpdatedDate") as? Date,
+                let chunks: NSOrderedSet = partition.value(forKey: "chunks") as? NSOrderedSet else { continue }
+            if localDate < loadedDate {
+                // TODO update chunks
+            }
+        }
+
+    }
 }

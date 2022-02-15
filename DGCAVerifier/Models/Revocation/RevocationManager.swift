@@ -25,7 +25,6 @@ class RevocationManager: NSObject {
 
     
     // MARK: - Revocations
-
     func clearAllData() {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
         
@@ -68,7 +67,7 @@ class RevocationManager: NSObject {
         }
     }
 
-    func removeRevocations(kid: String) {
+    func removeRevocation(_ kid: String) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
         let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate
@@ -119,7 +118,7 @@ class RevocationManager: NSObject {
         }
     }
     
-    func saveRevocations(models: [RevocationModel]) {
+    func saveRevocations(_ models: [RevocationModel]) {
         print("Start saving Revocations")
         
         for model in models {
@@ -153,6 +152,7 @@ class RevocationManager: NSObject {
             let revocations = try managedContext.fetch(fetchRequest)
             revocations.forEach { managedContext.delete($0) }
             print("  Deleted \(revocations.count) revocations for expiredDate: \(date)")
+            
             RevocationDataStorage.shared.saveContext()
  
         } catch let error as NSError {
@@ -165,27 +165,25 @@ class RevocationManager: NSObject {
     }
 
     // MARK: - Partitions
-    func deletePartition(id: String) {
-        guard let object = loadPartitions(id: id)?.first else { return }
-        
-        // Save the deletions to the persistent store
-        managedContext.delete(object)
-        RevocationDataStorage.shared.saveContext()
+
+    func updateExistedRevocation(kid: String) {
+        let localPartitions = loadAllPartitions(forKID: kid)
+        for partition in localPartitions {
+            
+        }
     }
-    
-    func savePartitions(kid: String, models: [PartitionModel]) -> [String] {
+
+    func savePartitions(kid: String, models: [PartitionModel]) {
         let kidConverted = Helper.convertToBase64url(base64: kid)
         
         print("Start saving Partitions for KID: \(kidConverted)")
         let revocation = loadRevocations(kid: kidConverted)?.first
-        var partionIDList = [String]()
         for model in models {
             let entity = NSEntityDescription.entity(forEntityName: "Partition", in: managedContext)!
             let partition = NSManagedObject(entity: entity, insertInto: managedContext)
             partition.setValue(kidConverted, forKeyPath: "kid")
             if let pid = model.id {
                 partition.setValue(pid, forKeyPath: "id")
-                partionIDList.append(pid)
             }
             
             if let expDate = Date(rfc3339DateTimeString: model.expired) {
@@ -210,7 +208,6 @@ class RevocationManager: NSObject {
         }
         
         RevocationDataStorage.shared.saveContext()
-        return partionIDList
     }
     
     func deleteExpiredPartitions(for date: Date) {
@@ -267,6 +264,25 @@ class RevocationManager: NSObject {
             completion(nil, DataBaseError.loading)
         }
     }
+    
+    func loadAllPartitions(forKID kid: String) -> [NSManagedObject]? {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
+        let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
+        fetchRequest.predicate = predicate
+        
+        do {
+            let partitions = try managedContext.fetch(fetchRequest)
+            print("  Extracted \(partitions.count) partitions for id: \(kid)")
+            return partitions
+        } catch let error as NSError {
+            print("Could not fetch: \(error), \(error.userInfo) for id: \(kid)")
+            return nil
+        } catch {
+            print("Could not fetch for id: \(kid)")
+            return nil
+        }
+    }
+
     
     func loadPartitions(id: String) -> [NSManagedObject]? {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
