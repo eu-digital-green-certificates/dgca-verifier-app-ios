@@ -116,7 +116,7 @@ class RevocationWorker {
                         newlyAddedRevocations.insert(loadedModel)
                         
                     } else if localModifiedDate < loadedModifiedDate {
-                        self.processUpdateExistedRevocation(kid: localKid)
+                        self.processUpdateExistedRevocation(kid: localKid, loadedDate: loadedModifiedDate)
                         
                     } else if localExpiredDate < todayDate {
                         self.revocationDataManager.removeRevocation(localKid)

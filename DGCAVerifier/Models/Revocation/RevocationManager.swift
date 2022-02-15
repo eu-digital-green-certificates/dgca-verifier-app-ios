@@ -166,13 +166,6 @@ class RevocationManager: NSObject {
 
     // MARK: - Partitions
 
-    func updateExistedRevocation(kid: String) {
-        let localPartitions = loadAllPartitions(forKID: kid)
-        for partition in localPartitions {
-            
-        }
-    }
-
     func savePartitions(kid: String, models: [PartitionModel]) {
         let kidConverted = Helper.convertToBase64url(base64: kid)
         
