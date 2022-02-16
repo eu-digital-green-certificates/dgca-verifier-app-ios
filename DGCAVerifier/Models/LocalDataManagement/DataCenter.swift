@@ -129,8 +129,8 @@ class DataCenter {
             CertLogicManager.shared.setRules(ruleList: rules)
             
             group.enter()
-            revocationWorker.processReloadRevocations { list, err in
-                group.leave()
+            revocationWorker.processReloadRevocations { err in
+                 group.leave()
             }
             
             group.enter()
