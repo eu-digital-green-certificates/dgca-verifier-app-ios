@@ -28,6 +28,7 @@
 
 import UIKit
 import SwiftDGC
+import SWCompression
 
 
 public enum ProcessingError: Error {
@@ -86,6 +87,25 @@ class RevocationWorker {
             if let id = part.id {
                 group.enter()
                 self.revocationService.getRevocationPartitionChunks(forKID: part.kid, id: id, cids: nil) { zipdata, _, err in
+                    guard let zipdata = zipdata else {
+                        group.leave()
+                        return
+                    }
+                    
+                    do {
+                        let tarData = try GzipArchive.unarchive(archive: zipdata)
+                        let chunksInfos = try TarContainer.info(container: tarData)
+                        
+                        for chunkInfo in chunksInfos {
+                            let fileUrl = URL(fileURLWithPath: chunkInfo.name)
+                            let hash = fileUrl.lastPathComponent
+                            
+                            // TODO: create slice model
+                        }
+                    } catch {
+                        
+                    }
+                    
                     group.leave()
                 }
             }
