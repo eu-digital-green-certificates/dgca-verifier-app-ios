@@ -57,7 +57,6 @@ class RevocationWorker {
             }
             
             SecureKeyChain.save(key: "verifierETag", data: Data(etag.utf8))
-            self.loadedRevocations = revocations
             let loadingRevocationsSet = self.saveRevocationsIfNeeds(with: revocations)
             
             let group = DispatchGroup()
@@ -97,7 +96,7 @@ class RevocationWorker {
         // 8) Delete all KID entries in all tables which are not on this list.
         let currentRevocationEntries = revocationDataManager.currentRevocationEntries()
         var newlyAddedRevocations = Set<RevocationModel>()
-
+        
         if !currentRevocationEntries.isEmpty {
             for entry in currentRevocationEntries {
                 let localKid = entry.kid
@@ -140,11 +139,27 @@ class RevocationWorker {
 
     private func processUpdateExistedRevocation(kid: String, loadedDate: Date) {
         let localPartitions = revocationDataManager.loadAllPartitions(forKID: kid)
+        let todayDate = Date()
         for partition in localPartitions ?? [] {
             guard let localDate = partition.value(forKey: "lastUpdatedDate") as? Date,
-                let chunks: NSOrderedSet = partition.value(forKey: "chunks") as? NSOrderedSet else { continue }
+                  let expiredDate = partition.value(forKey: "expired") as? Date,
+                  let kid = partition.value(forKey: "kid") as? String,
+                  let pid = partition.value(forKey: "id") as? String,
+                let localChunks: NSOrderedSet = partition.value(forKey: "chunks") as? NSOrderedSet else { continue }
+            
+            if expiredDate < todayDate {
+                revocationDataManager.deletePartition(id: pid)
+            }
+            
             if localDate < loadedDate {
-                // TODO update chunks
+                self.revocationService.getRevocationPartitionChunks(forKID: kid, id: pid, cids: nil) { zipdata, _, err in
+                    ()
+                }
+
+            } else {
+                for chunk in localChunks {
+                    
+                }
             }
         }
 

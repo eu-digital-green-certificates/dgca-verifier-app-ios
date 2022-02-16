@@ -221,6 +221,26 @@ class RevocationManager: NSObject {
             return
         }
     }
+    
+    func deletePartition(id: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
+        let predicate:  NSPredicate = NSPredicate(format: "id == %@", argumentArray: [id])
+        fetchRequest.predicate = predicate
+        do {
+            let partitions = try managedContext.fetch(fetchRequest)
+            partitions.forEach { managedContext.delete($0) }
+            print("  Deleted \(partitions.count) partitions for id: \(id)")
+            
+            RevocationDataStorage.shared.saveContext()
+            
+        } catch let error as NSError {
+            print("Could not fetch revocations. Error: \(error.localizedDescription) for expiredDate: \(id)")
+            return
+        } catch {
+            print("Could not fetch revocations for expiredDate: \(id)")
+            return
+        }
+    }
 
     func deletePartitions(kid: String, x: UInt16?, y: UInt16?, completion: LoadingCompletion) {
         let kidConverted = Helper.convertToBase64url(base64: kid)
