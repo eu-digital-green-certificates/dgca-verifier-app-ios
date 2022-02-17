@@ -43,13 +43,42 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   @IBOutlet fileprivate weak var debugLabel: UILabel!
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet fileprivate weak var versionLabel: UILabel!
-  
+
+  lazy var progressView: UIProgressView = UIProgressView(progressViewStyle: .`default`)
+
+  lazy var activityAlert: UIAlertController = {
+      let controller = UIAlertController(title: "Loading data", message: "\n\n\n", preferredStyle: .alert)
+      controller.view.addSubview(progressView)
+      progressView.setProgress(0.0, animated: false)
+      return controller
+  }()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     debugLabelName.text = "Debug mode".localized
     licensesLabelName.text = "Licenses".localized
     privacyLabelName.text = "Privacy Information".localized
     versionLabel.text = DataCenter.appVersion
+
+    let center = NotificationCenter.default
+    center.addObserver(forName: Notification.Name("StartLoadingNotificationName"), object: nil, queue: .main) { notification in
+        self.activityAlert.dismiss(animated: true, completion: nil)
+        self.present(self.activityAlert, animated: true) {
+            self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 80)
+        }
+        
+    }
+    center.addObserver(forName: Notification.Name("StopLoadingNotificationName"), object: nil, queue: .main) { notification in
+        self.activityAlert.dismiss(animated: true, completion: nil)
+        self.progressView.setProgress(0.0, animated: false)
+    }
+    center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
+        let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
+        self.activityAlert.title = strMessage
+        let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
+        self.progressView.setProgress(percentage, animated: true)
+    }
+
     updateInterface()
   }
   
@@ -121,10 +150,8 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   }
   
   func reloadAllData() {
-    activityIndicator.startAnimating()
     DataCenter.reloadStorageData { result in
       DispatchQueue.main.async { [weak self] in
-        self?.activityIndicator.stopAnimating()
         self?.tableView.reloadData()
       }
     }

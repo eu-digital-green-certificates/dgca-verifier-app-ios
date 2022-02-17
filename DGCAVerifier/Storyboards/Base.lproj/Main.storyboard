@@ -170,6 +170,15 @@
                                 <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading internal data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSz-Vc-V0a">
+                                <rect key="frame" x="20" y="693.5" width="374" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W1a-Nq-HsO">
+                                <rect key="frame" x="60" y="625" width="294" height="4"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eo3-Vz-9CR"/>
                         <color key="backgroundColor" name="verifierBlue"/>
@@ -180,28 +189,36 @@
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="EnG-PV-xVf"/>
                             <constraint firstAttribute="bottom" secondItem="SnU-NM-uwu" secondAttribute="bottom" id="Gb3-2j-P5W"/>
                             <constraint firstItem="Eo3-Vz-9CR" firstAttribute="bottom" secondItem="69c-5J-Njm" secondAttribute="bottom" constant="32" id="Gl5-Xp-V82"/>
+                            <constraint firstItem="Eo3-Vz-9CR" firstAttribute="trailing" secondItem="W1a-Nq-HsO" secondAttribute="trailing" constant="60" id="Imy-35-ruf"/>
                             <constraint firstItem="SJI-m9-dcF" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="J8i-HJ-Mz8"/>
                             <constraint firstAttribute="trailing" secondItem="U1k-Fz-tlt" secondAttribute="trailing" id="OGa-o0-tJV"/>
                             <constraint firstItem="69c-5J-Njm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="PeV-gt-gBw"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="top" secondItem="TSz-Wk-1F3" secondAttribute="top" id="cdZ-XD-qKo"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="top" secondItem="SJI-m9-dcF" secondAttribute="bottom" constant="8" id="eK4-uU-snd"/>
                             <constraint firstItem="yXf-VE-y9w" firstAttribute="centerY" secondItem="TSz-Wk-1F3" secondAttribute="centerY" id="exJ-Jk-0iP"/>
+                            <constraint firstItem="wSz-Vc-V0a" firstAttribute="leading" secondItem="Eo3-Vz-9CR" secondAttribute="leading" constant="20" id="i15-RF-cmX"/>
                             <constraint firstItem="69c-5J-Njm" firstAttribute="top" secondItem="SnU-NM-uwu" secondAttribute="top" constant="24" id="jZM-r0-jp4"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="mL1-PH-CIz"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="pWb-aN-K7H"/>
+                            <constraint firstItem="SnU-NM-uwu" firstAttribute="top" secondItem="wSz-Vc-V0a" secondAttribute="bottom" constant="32" id="rNk-At-HuJ"/>
+                            <constraint firstItem="wSz-Vc-V0a" firstAttribute="top" secondItem="W1a-Nq-HsO" secondAttribute="bottom" constant="64.5" id="sAy-6M-ekK"/>
+                            <constraint firstItem="W1a-Nq-HsO" firstAttribute="leading" secondItem="Eo3-Vz-9CR" secondAttribute="leading" constant="60" id="tUB-HB-g9F"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="height" secondItem="TSz-Wk-1F3" secondAttribute="height" multiplier="0.15" id="w13-2b-J2X"/>
+                            <constraint firstItem="Eo3-Vz-9CR" firstAttribute="trailing" secondItem="wSz-Vc-V0a" secondAttribute="trailing" constant="20" id="y7r-5u-zCR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gBj-fB-LXt"/>
                     <connections>
                         <outlet property="activityIndicator" destination="yXf-VE-y9w" id="clo-fF-NoU"/>
                         <outlet property="appNameLabel" destination="NXa-E7-6vV" id="p1N-ji-ryS"/>
+                        <outlet property="messageLabel" destination="wSz-Vc-V0a" id="itP-zq-azf"/>
+                        <outlet property="progresBar" destination="W1a-Nq-HsO" id="agO-yR-fTA"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="scannerSegueID" id="rRW-gu-ad2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e7E-wh-c4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="106"/>
+            <point key="canvasLocation" x="-675.36231884057975" y="105.80357142857143"/>
         </scene>
     </scenes>
     <resources>

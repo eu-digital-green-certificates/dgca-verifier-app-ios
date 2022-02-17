@@ -124,6 +124,9 @@ class DataCenter {
     static func reloadStorageData(completion: @escaping DataCompletionHandler) {
         let group = DispatchGroup()
         
+        let center = NotificationCenter.default
+        center.post(name: Notification.Name("StartLoadingNotificationName"), object: nil, userInfo: nil )
+
         group.enter()
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
@@ -150,9 +153,11 @@ class DataCenter {
             
         group.leave()
       }
-      
+
+    
       group.notify(queue: .main) {
           localDataManager.localData.lastFetch = Date()
+          center.post(name: Notification.Name("StopLoadingNotificationName"), object: nil, userInfo: nil )
           completion(.success(true))
       }
     }

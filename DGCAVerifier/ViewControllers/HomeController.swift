@@ -36,11 +36,20 @@ class HomeController: UIViewController {
     
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
+    @IBOutlet fileprivate weak var messageLabel: UILabel!
+    @IBOutlet fileprivate weak var progresBar: UIProgressView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         appNameLabel.text = "Verifier App"
         
+      let center = NotificationCenter.default
+      center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
+        let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
+          self.messageLabel?.text = strMessage
+          let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
+          self.progresBar?.setProgress(percentage, animated: true)
+      }
         self.activityIndicator.startAnimating()
         DataCenter.prepareLocalData {[unowned self] result in
             DispatchQueue.main.async {
@@ -49,7 +58,12 @@ class HomeController: UIViewController {
             }
         }
     }
-
+    
+    deinit {
+        let center = NotificationCenter.default
+        center.removeObserver(self)
+    }
+    
     private func loadComplete() {
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
         SecureBackground.image = renderer.image { rendererContext in

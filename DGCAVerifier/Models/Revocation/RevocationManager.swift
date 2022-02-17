@@ -27,7 +27,7 @@ class RevocationManager: NSObject {
     
     // MARK: - Revocations
     func clearAllData() {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+        let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
         
         do {
             let revocations = try managedContext.fetch(fetchRequest)
@@ -48,10 +48,10 @@ class RevocationManager: NSObject {
         }
     }
     
-    func loadRevocations(kid: String) -> [NSManagedObject]? {
+    func loadRevocations(kid: String) -> [Revocation]? {
         let kidConverted = Helper.convertToBase64url(base64: kid)
 
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+        let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
         let predicate: NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kidConverted])
         fetchRequest.predicate = predicate
         
@@ -69,7 +69,7 @@ class RevocationManager: NSObject {
     }
 
     func removeRevocation(_ kid: String) {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+        let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
         let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate
         
@@ -91,23 +91,12 @@ class RevocationManager: NSObject {
         }
     }
     
-    func currentRevocationEntries() -> [(kid: String, mode: String,hashTypes: String, expires: Date, lastUpdated: Date)] {
-        var revocationEntries = [(kid: String, mode: String,hashTypes: String, expires: Date, lastUpdated: Date)]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+    func currentRevocations() -> [Revocation] {
+        let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
         do {
             let revocations = try managedContext.fetch(fetchRequest)
-            print("Extracted \(revocations.count) Revocations")
-            for revocationObject in revocations {
-                if let kidStr = revocationObject.value(forKey: "kid") as? String,
-                   let mode = revocationObject.value(forKey: "mode") as? String,
-                   let hashTypesStr = revocationObject.value(forKey: "hashTypes") as? String,
-                   let expiresDate = revocationObject.value(forKey: "expires") as? Date,
-                   let lastUpdated = revocationObject.value(forKey: "lastUpdated") as? Date {
-                    revocationEntries.append((kid: kidStr, mode: mode, hashTypes: hashTypesStr,
-                        expires: expiresDate, lastUpdated: lastUpdated))
-                }
-            }
-            return revocationEntries
+            print("== Extracted \(revocations.count) Revocations")
+            return revocations
             
         } catch let error as NSError {
             print("Could not fetch Revocations: \(error.localizedDescription)")
@@ -124,7 +113,7 @@ class RevocationManager: NSObject {
             let kidConverted = Helper.convertToBase64url(base64: model.kid)
              
             let entity = NSEntityDescription.entity(forEntityName: "Revocation", in: managedContext)!
-            let revocation = NSManagedObject(entity: entity, insertInto: managedContext)
+            let revocation = Revocation(entity: entity, insertInto: managedContext)
             
             revocation.setValue(kidConverted, forKeyPath: "kid")
             let hashTypes = model.hashTypes.joined(separator: ",")
@@ -157,7 +146,7 @@ class RevocationManager: NSObject {
     }
 
     func deleteExpiredRevocations(for date: Date) {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Revocation")
+        let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
         let predicate:  NSPredicate = NSPredicate(format: "expires < %@", argumentArray: [date])
         fetchRequest.predicate = predicate
         do {
@@ -185,7 +174,7 @@ class RevocationManager: NSObject {
         let revocation = loadRevocations(kid: kidConverted)?.first
         for model in models {
             let entity = NSEntityDescription.entity(forEntityName: "Partition", in: managedContext)!
-            let partition = NSManagedObject(entity: entity, insertInto: managedContext)
+            let partition = Partition(entity: entity, insertInto: managedContext)
             partition.setValue(kidConverted, forKeyPath: "kid")
             if let pid = model.id {
                 partition.setValue(pid, forKeyPath: "id")
@@ -217,8 +206,24 @@ class RevocationManager: NSObject {
         RevocationDataStorage.shared.saveContext()
     }
     
+    func createAndSaveChunk(kid: String, id: String, cid: String, sliceModel: [String : SliceModel]) {
+        let partition = loadPartition(kid: kid, id: id)
+        let chunkEntity = NSEntityDescription.entity(forEntityName: "Chunk", in: managedContext)!
+        let chunk = Chunk(entity: chunkEntity, insertInto: managedContext)
+ 
+        let slices: NSMutableOrderedSet = []
+        for sliceKey in sliceModel.keys {
+            let slice: Slice = createSlice(expDate: sliceKey, sliceModel: sliceModel[sliceKey]!)
+            slice.setValue(chunk, forKeyPath: "chunk")
+            slices.add(slice)
+        }
+        chunk.setValue(cid, forKeyPath: "cid")
+        chunk.setValue(slices, forKeyPath: "slices")
+        chunk.setValue(partition, forKeyPath: "partition")
+    }
+    
     func deleteExpiredPartitions(for date: Date) {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
+        let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
         let predicate:  NSPredicate = NSPredicate(format: "expires < %@", argumentArray: [date])
         fetchRequest.predicate = predicate
         do {
@@ -237,8 +242,8 @@ class RevocationManager: NSObject {
     }
     
     func deletePartition(kid: String, id: String) {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
-        let predicate:  NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kid, id])
+        let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
+        let predicate: NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kid, id])
         fetchRequest.predicate = predicate
         do {
             let partitions = try managedContext.fetch(fetchRequest)
@@ -255,10 +260,40 @@ class RevocationManager: NSObject {
             return
         }
     }
+  
+    func deleteChunk(_ chunk: Chunk) {
+        managedContext.delete(chunk)
+        RevocationDataStorage.shared.saveContext()
+    }
+
+    func deleteSlice(_ slice: Slice) {
+        managedContext.delete(slice)
+        RevocationDataStorage.shared.saveContext()
+    }
+
+    func deleteSlice(kid: String, id: String, cid: String, hashID: String) {
+        let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
+        let predicate: NSPredicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.id == %@ AND chunk.id == %@ AND hashID == %@", argumentArray: [kid, id, cid, hashID])
+        fetchRequest.predicate = predicate
+        do {
+            let slices = try managedContext.fetch(fetchRequest)
+            slices.forEach { managedContext.delete($0) }
+            print("  Deleted \(slices.count) partitions for id: \(hashID)")
+            
+            RevocationDataStorage.shared.saveContext()
+            
+        } catch let error as NSError {
+            print("Could not fetch revocations. Error: \(error.localizedDescription) for expiredDate: \(id)")
+            return
+        } catch {
+            print("Could not fetch revocations for expiredDate: \(id)")
+            return
+        }
+    }
 
     
-    func loadAllPartitions(for kid: String) -> [NSManagedObject]? {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
+    func loadAllPartitions(for kid: String) -> [Partition]? {
+        let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
         let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate
         
@@ -276,15 +311,16 @@ class RevocationManager: NSObject {
     }
 
     
-    func loadPartitions(kid: String, id: String) -> [NSManagedObject]? {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
+    func loadPartition(kid: String, id: String) -> Partition? {
+        let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
         let predicate:  NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kid, id])
         fetchRequest.predicate = predicate
         
         do {
             let partitions = try managedContext.fetch(fetchRequest)
             print("  Extracted \(partitions.count) partitions for kid: \(kid), id: \(id)")
-            return partitions
+            return partitions.first
+            
         } catch let error as NSError {
             print("Could not fetch: \(error), \(error.userInfo) for kid: \(kid), id: \(id)")
             return nil
@@ -294,8 +330,8 @@ class RevocationManager: NSObject {
         }
     }
 
-    func loadSlice(kid: String, id: String, cid: String, hashID: String) -> NSManagedObject? {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Slice")
+    func loadSlice(kid: String, id: String, cid: String, hashID: String) -> Slice? {
+        let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
         let predicate:  NSPredicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.id == %@ AND chunk.cid == %@ AND hashID == %@", argumentArray: [kid, id, cid, hashID])
         fetchRequest.predicate = predicate
         
@@ -314,7 +350,7 @@ class RevocationManager: NSObject {
 
     func loadPartitions(kid: String, x: UInt16?, y: UInt16?, completion: LoadingCompletion) {
         let kidConverted = Helper.convertToBase64url(base64: kid)
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Partition")
+        let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
         let predicate: NSPredicate
         if x != nil && y != nil {
             predicate = NSPredicate(format: "kid == %@ && x == %d && y == %d", argumentArray: [kidConverted, x!, y!])
@@ -357,9 +393,9 @@ class RevocationManager: NSObject {
     
     // MARK: - Chunks & Slices
 
-    func createSlice(expDate: String, sliceModel: SliceModel) -> NSManagedObject {
+    func createSlice(expDate: String, sliceModel: SliceModel) -> Slice {
         let sliceEntity = NSEntityDescription.entity(forEntityName: "Slice", in: managedContext)!
-        let slice = NSManagedObject(entity: sliceEntity, insertInto: managedContext)
+        let slice = Slice(entity: sliceEntity, insertInto: managedContext)
         if let expDate = Date(rfc3339DateTimeString: expDate) {
             slice.setValue(expDate, forKeyPath: "expiredDate")
         }
@@ -370,15 +406,15 @@ class RevocationManager: NSObject {
         return slice
     }
 
-    func createChunks(chunkModels: [String : SliceDict], partition: NSManagedObject) -> NSOrderedSet {
+    func createChunks(chunkModels: [String : SliceDict], partition: Partition) -> NSOrderedSet {
         let chunkSet: NSMutableOrderedSet = []
         for key in chunkModels.keys  {
             let chunkEntity = NSEntityDescription.entity(forEntityName: "Chunk", in: managedContext)!
-            let chunk = NSManagedObject(entity: chunkEntity, insertInto: managedContext)
+            let chunk = Chunk(entity: chunkEntity, insertInto: managedContext)
             guard let sliceDict = chunkModels[key] else { return chunkSet }
             let slices: NSMutableOrderedSet = []
             for sliceKey in sliceDict.keys {
-                let slice: NSManagedObject = createSlice(expDate: sliceKey, sliceModel: sliceDict[sliceKey]!)
+                let slice: Slice = createSlice(expDate: sliceKey, sliceModel: sliceDict[sliceKey]!)
                 slice.setValue(chunk, forKeyPath: "chunk")
                 slices.add(slice)
             }
