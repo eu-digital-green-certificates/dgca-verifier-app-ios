@@ -279,7 +279,9 @@ class RevocationWorker {
                         for chunkObj in localChunks {
                             let chunk = chunkObj as? Chunk
                             if let _ = loadedChunks.filter({ $0.key == (chunk?.value(forKey: "cid") as! String) }).first {
-                                self.revocationDataManager.deleteChunk(chunk!)
+                                DispatchQueue.main.async {
+                                    self.revocationDataManager.deleteChunk(chunk!)
+                                }
                             }
                         }
                         for chunk in loadedChunks {
@@ -291,9 +293,10 @@ class RevocationWorker {
                                 let localSlices = localChunk.value(forKey: "slices") as? NSOrderedSet
                                 
                                 for sliceObj in localSlices ?? [] {
-                                    let slice = sliceObj as? Slice
-                                    if let _ = loadedSlices.filter({ $0.key == (slice?.value(forKey: "hashID") as! String) }).first {
-                                        self.revocationDataManager.deleteSlice(slice!)
+                                    if let slice = sliceObj as? Slice, let _ = loadedSlices.filter({ $0.key == (slice.value(forKey: "hashID") as! String) }).first {
+                                        DispatchQueue.main.async {
+                                            self.revocationDataManager.deleteSlice(slice)
+                                        }
                                     }
                                 }
 
