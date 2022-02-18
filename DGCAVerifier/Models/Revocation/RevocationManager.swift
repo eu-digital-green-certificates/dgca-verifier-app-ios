@@ -68,7 +68,7 @@ class RevocationManager: NSObject {
         }
     }
 
-    func removeRevocation(_ kid: String) {
+    func removeRevocation(kid: String) {
         let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
         let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate

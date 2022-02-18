@@ -147,7 +147,7 @@ class ScanCertificateController: UIViewController {
           setupCameraLiveView()
         #endif
           SquareViewFinder.create(from: self)
-          expireDataTimer = Timer.scheduledTimer(timeInterval: 900, target: self, selector: #selector(reloadExpiredData),
+          expireDataTimer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(reloadExpiredData),
               userInfo: nil, repeats: true)
   }
   
@@ -163,13 +163,9 @@ class ScanCertificateController: UIViewController {
   
   // MARK: Actions
   @objc func reloadExpiredData() {
-      if downloadedDataHasExpired {
+     if downloadedDataHasExpired {
           captureSession?.stopRunning()
-          DataCenter.reloadStorageData(completion: { [unowned self] result in
-              DispatchQueue.main.async {
-                  self.captureSession?.startRunning()
-              }
-         })
+          showAlertReloadDatabase()
      }
   }
   
@@ -205,21 +201,40 @@ class ScanCertificateController: UIViewController {
         }
     }
 
-  // MARK: Private
-  private func setListOfRuleCounties(list: [CountryModel]) {
-    self.countryItems = list
-    self.countryCodeView.reloadAllComponents()
-    guard self.countryItems.count > 0 else { return }
+    // MARK: Private
     
-    if let selected = self.selectedCounty,
-      let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
-        countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
-    } else {
-      self.selectedCounty = self.countryItems.first
-      countryCodeView.selectRow(0, inComponent: 0, animated: false)
+    func showAlertReloadDatabase() {
+        let alert = UIAlertController(title: "Reload databases?".localized, message: "The update may take some time.".localized, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Later".localized, style: .default, handler: { _ in
+            self.captureSession?.startRunning()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Reload".localized, style: .default, handler: { [unowned self] (_: UIAlertAction!) in
+            self.captureSession?.stopRunning()
+            DataCenter.reloadStorageData(completion: { result in
+                DispatchQueue.main.async {
+                    self.captureSession?.startRunning()
+                }
+           })
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
-  }
-  
+    
+    private func setListOfRuleCounties(list: [CountryModel]) {
+      self.countryItems = list
+      self.countryCodeView.reloadAllComponents()
+      guard self.countryItems.count > 0 else { return }
+      
+      if let selected = self.selectedCounty,
+        let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
+          countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
+      } else {
+        self.selectedCounty = self.countryItems.first
+        countryCodeView.selectRow(0, inComponent: 0, animated: false)
+      }
+    }
+
   private func configurePreviewLayer() {
     guard let captureSession = captureSession else { return }
     

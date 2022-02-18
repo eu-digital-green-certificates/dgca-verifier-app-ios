@@ -106,7 +106,7 @@ class DataCenter {
         localDataManager.save(completion: completion)
     }
     
-    static func prepareLocalData(completion: @escaping DataCompletionHandler) {
+    class func prepareLocalData(completion: @escaping DataCompletionHandler) {
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
             let shouldDownload = self.downloadedDataHasExpired || self.appWasRunWithOlderVersion
@@ -120,21 +120,15 @@ class DataCenter {
         }
     }
     
-    
     static func reloadStorageData(completion: @escaping DataCompletionHandler) {
         let group = DispatchGroup()
         
         let center = NotificationCenter.default
         center.post(name: Notification.Name("StartLoadingNotificationName"), object: nil, userInfo: nil )
-
+        
         group.enter()
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
-            
-            group.enter()
-            revocationWorker.processReloadRevocations { err in
-                 group.leave()
-            }
             
             group.enter()
             GatewayConnection.updateLocalDataStorage { group.leave() }
@@ -151,14 +145,18 @@ class DataCenter {
               group.leave()
             }
             
-        group.leave()
-      }
+            group.leave()
+        }
+        
+        group.enter()
+        revocationWorker.processReloadRevocations { err in
+             group.leave()
+        }
 
-    
-      group.notify(queue: .main) {
-          localDataManager.localData.lastFetch = Date()
-          center.post(name: Notification.Name("StopLoadingNotificationName"), object: nil, userInfo: nil )
-          completion(.success(true))
-      }
+        group.notify(queue: .main) {
+            localDataManager.localData.lastFetch = Date()
+            center.post(name: Notification.Name("StopLoadingNotificationName"), object: nil, userInfo: nil )
+            completion(.success(true))
+        }
     }
 }

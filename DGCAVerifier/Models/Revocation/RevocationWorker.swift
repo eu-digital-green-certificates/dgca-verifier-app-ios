@@ -32,17 +32,11 @@ import SWCompression
 import CoreData
 
 
-public enum ProcessingError: Error {
-    case nodata
-    case dataError(description: String)
-    case dataBaseError(error: NSError)
-}
+typealias ProcessingCompletion = (RevocationError?) -> Void
 
-typealias ProcessingCompletion = (ProcessingError?) -> Void
-
-typealias RevocationProcessingCompletion = (Set<RevocationModel>?, Set<RevocationModel>?, ProcessingError?) -> Void
-typealias PartitionProcessingCompletion = ([PartitionModel]?, ProcessingError?) -> Void
-typealias MetadataProcessingCompletion = ([SliceMetaData]?, ProcessingError?) -> Void
+typealias RevocationProcessingCompletion = (Set<RevocationModel>?, Set<RevocationModel>?, RevocationError?) -> Void
+typealias PartitionProcessingCompletion = ([PartitionModel]?, RevocationError?) -> Void
+typealias MetadataProcessingCompletion = ([SliceMetaData]?, RevocationError?) -> Void
 
 class RevocationWorker {
     
@@ -50,11 +44,11 @@ class RevocationWorker {
     let revocationService = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)
     var loadedRevocations: [RevocationModel]?
     
-    func processReloadRevocations(completion: @escaping ProcessingCompletion) {
+    func processReloadRevocations(completion: @escaping ProcessingCompletion) throws {
         let center = NotificationCenter.default
         self.revocationService.getRevocationLists {[unowned self] revocations, etag, err in
             guard err == nil else {
-                completion(.dataError(description: err!.localizedDescription))
+                completion(.network(reason: err!.localizedDescription))
                 return
             }
             guard let revocations = revocations, /*!revocations.isEmpty,*/ let etag = etag else {
@@ -126,7 +120,7 @@ class RevocationWorker {
                         let loadedModifiedDate = Date(rfc3339DateTimeString: loadedModel.lastUpdated) ?? Date.distantPast
                         
                         if loadedModel.mode != localMode {
-                            self.revocationDataManager.removeRevocation(localKid)
+                            self.revocationDataManager.removeRevocation(kid: localKid)
                             self.revocationDataManager.saveRevocations([loadedModel])
                             newlyAddedRevocations.insert(loadedModel)
                             
@@ -135,12 +129,12 @@ class RevocationWorker {
                             
                         } else if localExpiredDate < todayDate {
                             DispatchQueue.main.async {
-                                self.revocationDataManager.removeRevocation(localKid)
+                                self.revocationDataManager.removeRevocation(kid: localKid)
                             }
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.revocationDataManager.removeRevocation(localKid)
+                            self.revocationDataManager.removeRevocation(kid: localKid)
                         }
                     }
                 }
@@ -162,6 +156,7 @@ class RevocationWorker {
         let group = DispatchGroup()
         var partitionsForLoad = [PartitionModel]()
         var index: Float = 1.0
+        //for i in 0..<200 {
         for model in revocations {
             
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
@@ -179,7 +174,7 @@ class RevocationWorker {
                 group.leave()
             }
         }
-        
+        //}
         group.notify(queue: .main) {
             completion(partitionsForLoad, nil)
         }
@@ -190,6 +185,7 @@ class RevocationWorker {
         let group = DispatchGroup()
         var partitionsForUpdate = [PartitionModel]()
         var index: Float = 1.0
+        
         for model in revocations {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
