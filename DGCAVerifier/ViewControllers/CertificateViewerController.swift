@@ -82,7 +82,7 @@ class CertificateViewerController: UIViewController {
             }
             if validityState.isValid {
                 self?.checkCertificateRevocation { validityState in
-                    
+                    print(validityState)
                 }
             }
         }
