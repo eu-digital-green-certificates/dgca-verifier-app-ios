@@ -115,26 +115,26 @@ class LocalDataManager {
     }
 
     func loadLocallyStoredData(completion: @escaping DataCompletionHandler) {
-      storage.loadStoredData(fallback: localData) { [unowned self] data in
-        guard let loadedData = data else {
-          completion(.failure(DataOperationError.noInputData))
-          return
+        storage.loadStoredData(fallback: localData) { [unowned self] data in
+            guard let loadedData = data else {
+              completion(.failure(DataOperationError.noInputData))
+              return
+            }
+            let format = "%d pub keys loaded."
+            DGCLogger.logInfo(String(format: format, loadedData.encodedPublicKeys.count))
+            if loadedData.lastLaunchedAppVersion != DataCenter.appVersion {
+              loadedData.config = self.localData.config
+              loadedData.lastLaunchedAppVersion = DataCenter.appVersion
+            }
+            self.localData = loadedData
+            self.save(completion: completion)
+            CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
         }
-        let format = "%d pub keys loaded."
-        DGCLogger.logInfo(String(format: format, loadedData.encodedPublicKeys.count))
-        if loadedData.lastLaunchedAppVersion != DataCenter.appVersion {
-          loadedData.config = self.localData.config
-          loadedData.lastLaunchedAppVersion = DataCenter.appVersion
-        }
-        self.localData = loadedData
-        self.save(completion: completion)
-        CoreManager.publicKeyEncoder = LocalDataKeyEncoder()
-       }
     }
 }
 
 class LocalDataKeyEncoder: PublicKeyStorageDelegate {
-  func getEncodedPublicKeys(for kidStr: String) -> [String] {
-    DataCenter.localDataManager.localData.encodedPublicKeys[kidStr] ?? []
-  }
+    func getEncodedPublicKeys(for kidStr: String) -> [String] {
+        DataCenter.localDataManager.localData.encodedPublicKeys[kidStr] ?? []
+    }
 }

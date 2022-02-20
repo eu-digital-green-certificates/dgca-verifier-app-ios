@@ -26,53 +26,53 @@
 //  
         
 
-import UIKit
+import Foundation
 import SwiftDGC
 import CertLogic
 
 class DataCenter {
     static let shared = DataCenter()
     static var appVersion: String {
-      let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
-      let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
-      return "\(versionValue)(\(buildNumValue))"
+        let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+        let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
+        return "\(versionValue)(\(buildNumValue))"
     }
     static let localDataManager: LocalDataManager = LocalDataManager()
     static let revocationWorker: RevocationWorker = RevocationWorker()
     
     static var downloadedDataHasExpired: Bool {
-      return lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
+        return lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
     }
    
     static var appWasRunWithOlderVersion: Bool {
-      return localDataManager.localData.lastLaunchedAppVersion != appVersion
+        return localDataManager.localData.lastLaunchedAppVersion != appVersion
     }
 
     static var lastFetch: Date {
         get {
-          return localDataManager.localData.lastFetch
+            return localDataManager.localData.lastFetch
         }
         set {
-          localDataManager.localData.lastFetch = newValue
+            localDataManager.localData.lastFetch = newValue
         }
     }
     
     static var resumeToken: String? {
         get {
-          return localDataManager.localData.resumeToken
+            return localDataManager.localData.resumeToken
         }
         set {
-          localDataManager.localData.resumeToken = newValue
-         }
+            localDataManager.localData.resumeToken = newValue
+        }
     }
     
     static var publicKeys: [String: [String]] {
         get {
-          return localDataManager.localData.encodedPublicKeys
+            return localDataManager.localData.encodedPublicKeys
         }
         set {
-          localDataManager.localData.encodedPublicKeys = newValue
-         }
+            localDataManager.localData.encodedPublicKeys = newValue
+        }
     }
 
     static var countryCodes: [CountryModel] {
@@ -149,7 +149,7 @@ class DataCenter {
         }
         
         group.enter()
-        revocationWorker.processReloadRevocations { err in
+        try? revocationWorker.processReloadRevocations { err in
              group.leave()
         }
 

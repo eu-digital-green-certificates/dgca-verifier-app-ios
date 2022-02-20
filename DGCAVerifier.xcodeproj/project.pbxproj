@@ -64,7 +64,7 @@
 		CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37B642263867D700DEE13D /* SecureBackground.swift */; };
 		CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59D1B526428D78004EBDD6 /* SettingsController.swift */; };
 		CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = CE713CD12651A65F003DD1DE /* SwiftDGC */; };
-		CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
+		CE8096D9263B07BB00A65AD6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8912F42634C60E00CB92AF /* GatewayConnection.swift */; };
 		CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE8912FA2634C6B900CB92AF /* Alamofire */; };
 		CE891305263581D900CB92AF /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
@@ -77,7 +77,7 @@
 		CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6D70D261F8D2900715333 /* DGCAVerifierUITests.swift */; };
 		CED2726026398683003D47A9 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
-		D21581412731719500C98986 /* ValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21581402731719500C98986 /* ValidityState.swift */; };
+		D21581412731719500C98986 /* ValidityState+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21581402731719500C98986 /* ValidityState+UIKit.swift */; };
 		D2158143273184E200C98986 /* LicenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2158142273184E200C98986 /* LicenseController.swift */; };
 		D215814527329C9400C98986 /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215814427329C9400C98986 /* DataCenter.swift */; };
 		D21B5818274D4E5A0040D4E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D21B581A274D4E5A0040D4E8 /* InfoPlist.strings */; };
@@ -97,8 +97,8 @@
 		D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D2768F7927356C8C006C7E17 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
-		D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
-		D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor.swift */; };
+		D2B70B01271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
+		D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B87DA4272C30FA00B0BE19 /* HCertValidity+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */; };
@@ -108,6 +108,8 @@
 		D2D5655F27B5774600E821C6 /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
 		D2D5656727BA5D7300E821C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D5656627BA5D7300E821C6 /* Security.framework */; };
 		D2D5656927BA5E0400E821C6 /* SquareViewFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */; };
+		D2DFDB1627C25FC400BA15B9 /* CertificateValidator+Revocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */; };
+		D2DFDB1827C26CFE00BA15B9 /* RevocationValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DFDB1727C26CFE00BA15B9 /* RevocationValidityState.swift */; };
 		D313A7B727BC70830089D89B /* SWCompression in Frameworks */ = {isa = PBXBuildFile; productRef = D313A7B627BC70830089D89B /* SWCompression */; };
 		DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseTableController.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
@@ -163,15 +165,15 @@
 		5CEA55C426EF59D600269702 /* ZipManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ZipManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
-		CE13CF09262DCDDA0070C80E /* CertificateViewerController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewerController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		CE13CF09262DCDDA0070C80E /* CertificateViewerController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = CertificateViewerController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; tabWidth = 2; };
+		CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CertificateViewer.storyboard; sourceTree = "<group>"; };
 		CE345FB526446817003B457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE37B642263867D700DEE13D /* SecureBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBackground.swift; sourceTree = "<group>"; };
 		CE59D1B526428D78004EBDD6 /* SettingsController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; tabWidth = 2; };
-		CE8096D8263B07BB00A65AD6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Verifier.swift"; sourceTree = "<group>"; };
 		CE81533B263FF8FE0030D777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		CE8912F42634C60E00CB92AF /* GatewayConnection.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = GatewayConnection.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CE891304263581D900CB92AF /* HomeController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -191,13 +193,13 @@
 		CED2725F26398683003D47A9 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		CEDCA79B2639E77800FCB83E /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = DGCAVerifier.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved; sourceTree = SOURCE_ROOT; };
 		CEFAD87E262714C4009AFEF9 /* EHNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
-		D21581402731719500C98986 /* ValidityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidityState.swift; sourceTree = "<group>"; };
+		D21581402731719500C98986 /* ValidityState+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidityState+UIKit.swift"; sourceTree = "<group>"; };
 		D2158142273184E200C98986 /* LicenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseController.swift; sourceTree = "<group>"; };
 		D215814427329C9400C98986 /* DataCenter.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; tabWidth = 4; };
 		D21B5815274D278A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D21B5819274D4E5A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D21B581B274D4E5C0040D4E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; tabWidth = 4; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		D26F1F9C273A8D63002A780F /* DGCLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCLogger.swift; sourceTree = "<group>"; };
 		D26F1FA0273A8DC9002A780F /* String+Pad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Pad.swift"; sourceTree = "<group>"; };
@@ -205,13 +207,15 @@
 		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
-		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 2; };
+		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		D2D5655327B53F9400E821C6 /* RevocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationManager.swift; sourceTree = "<group>"; };
 		D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationDataStorage.swift; sourceTree = "<group>"; };
 		D2D5655927B5441D00E821C6 /* DCCRevocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCCRevocation.xcdatamodel; sourceTree = "<group>"; };
 		D2D5655E27B5774600E821C6 /* RevocationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationWorker.swift; sourceTree = "<group>"; };
 		D2D5656627BA5D7300E821C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewFinder.swift; sourceTree = "<group>"; };
+		D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertificateValidator+Revocation.swift"; sourceTree = "<group>"; };
+		D2DFDB1727C26CFE00BA15B9 /* RevocationValidityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityState.swift; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseTableController.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
@@ -342,9 +346,9 @@
 			isa = PBXGroup;
 			children = (
 				CED2725F26398683003D47A9 /* UIFont.swift */,
-				CE8096D8263B07BB00A65AD6 /* UIColor.swift */,
+				CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */,
 				D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */,
-				D21581402731719500C98986 /* ValidityState.swift */,
+				D21581402731719500C98986 /* ValidityState+UIKit.swift */,
 				D26F1FA0273A8DC9002A780F /* String+Pad.swift */,
 			);
 			path = Extensions;
@@ -398,6 +402,8 @@
 				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
 				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
 				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
+				D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */,
+				D2DFDB1727C26CFE00BA15B9 /* RevocationValidityState.swift */,
 				D2D5655527B53F9F00E821C6 /* Revocation */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
 			);
@@ -684,7 +690,7 @@
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
 				D2D5655727B53FCF00E821C6 /* RevocationDataStorage.swift in Sources */,
-				CE8096D9263B07BB00A65AD6 /* UIColor.swift in Sources */,
+				CE8096D9263B07BB00A65AD6 /* UIColor+Verifier.swift in Sources */,
 				D2D5655427B53F9400E821C6 /* RevocationManager.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalDataManager.swift in Sources */,
 				D2D5656927BA5E0400E821C6 /* SquareViewFinder.swift in Sources */,
@@ -696,9 +702,10 @@
 				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */,
-				D21581412731719500C98986 /* ValidityState.swift in Sources */,
+				D21581412731719500C98986 /* ValidityState+UIKit.swift in Sources */,
 				D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */,
 				5CA450E726E78DB50029324E /* InfoCellDropDown.swift in Sources */,
+				D2DFDB1827C26CFE00BA15B9 /* RevocationValidityState.swift in Sources */,
 				DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */,
 				5CA450AD26E0F4C20029324E /* DebugCell.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,
@@ -708,6 +715,7 @@
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
 				D26F1FA1273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
+				D2DFDB1627C25FC400BA15B9 /* CertificateValidator+Revocation.swift in Sources */,
 				D2D5655A27B5441D00E821C6 /* DCCRevocation.xcdatamodeld in Sources */,
 				D215814527329C9400C98986 /* DataCenter.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
@@ -736,7 +744,7 @@
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
 				5CA450CB26E7421C0029324E /* DebugValidationCell.swift in Sources */,
 				D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */,
-				D2B70B01271DAC17003B0AA6 /* UIColor.swift in Sources */,
+				D2B70B01271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */,
 				5CEA55C626EF5D3B00269702 /* ZipManager.swift in Sources */,
 				D23EF7A8272067E00097D82B /* LocalDataManager.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */,
@@ -770,7 +778,7 @@
 				D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				D23EF7A9272067E00097D82B /* LocalDataManager.swift in Sources */,
-				D2B70B02271DAC17003B0AA6 /* UIColor.swift in Sources */,
+				D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */,
 				5CA450A826E0BA640029324E /* DebugController.swift in Sources */,
 				5CA450AF26E0F4C20029324E /* DebugCell.swift in Sources */,
 				5CA450D326E74B000029324E /* DebugSectionModel.swift in Sources */,

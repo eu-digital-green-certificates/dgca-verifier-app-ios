@@ -45,7 +45,7 @@ class EHNTests: XCTestCase {
       return
     }
 
-    let data = decompress(compressed)
+      let data = ZLib.decompress(compressed)
 
     guard
       let payload = CBOR.payload(from: data),
@@ -99,7 +99,7 @@ class EHNTests: XCTestCase {
       return
     }
 
-    let data = decompress(compressed)
+      let data = ZLib.decompress(compressed)
 
     guard
       let kidBytes = CBOR.kid(from: data)

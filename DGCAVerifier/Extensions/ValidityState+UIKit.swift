@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  ValidityState.swift
+//  ValidityState+UIKit.swift
 //  DGCAVerifier
 //  
 //  Created by Igor Khomiak on 02.11.2021.
@@ -33,20 +33,22 @@ extension ValidityState {
     
     var technicalValidityString: String {
         switch self.technicalValidity {
-          case .valid:
+        case .valid:
             return Icons.ok.rawValue
-          case .invalid:
+        case .invalid:
             return Icons.error.rawValue
-          case .ruleInvalid:
+        case .ruleInvalid:
             return Icons.limited.rawValue
-        }
+        case .revocated:
+            return Icons.error.rawValue
+       }
     }
 
     var issuerInvalidationString: String {
         switch self.issuerInvalidation {
           case .passed:
             return Icons.ok.rawValue
-          case .error:
+          case .failed:
             return Icons.error.rawValue
           case .open:
             return Icons.limited.rawValue
@@ -57,7 +59,7 @@ extension ValidityState {
         switch self.destinationAcceptence {
         case .passed:
           return Icons.ok.rawValue
-        case .error:
+        case .failed:
           return Icons.error.rawValue
         case .open:
           return Icons.limited.rawValue
@@ -68,7 +70,7 @@ extension ValidityState {
         switch self.travalerAcceptence {
         case .passed:
           return Icons.ok.rawValue
-        case .error:
+        case .failed:
           return Icons.error.rawValue
         case .open:
           return Icons.limited.rawValue
@@ -77,12 +79,14 @@ extension ValidityState {
     
     var technicalValidityColor: UIColor {
         switch self.technicalValidity {
-          case .valid:
-            return UIColor.certificateValid
-          case .invalid:
-            return UIColor.certificateInvalid
-          case .ruleInvalid:
-            return UIColor.certificateRuleOpen
+        case .valid:
+          return UIColor.certificateValid
+        case .invalid:
+          return UIColor.certificateInvalid
+        case .ruleInvalid:
+          return UIColor.certificateRuleOpen
+        case .revocated:
+          return UIColor.certificateInvalid
         }
     }
 
@@ -90,10 +94,11 @@ extension ValidityState {
         switch self.issuerInvalidation {
           case .passed:
             return UIColor.certificateValid
-          case .error:
+          case .failed:
             return UIColor.certificateInvalid
           case .open:
             return UIColor.certificateRuleOpen
+            
         }
     }
 
@@ -101,7 +106,7 @@ extension ValidityState {
         switch self.destinationAcceptence {
         case .passed:
           return UIColor.certificateValid
-        case .error:
+        case .failed:
           return UIColor.certificateInvalid
         case .open:
           return UIColor.certificateRuleOpen
@@ -112,7 +117,7 @@ extension ValidityState {
     switch self.travalerAcceptence {
     case .passed:
       return UIColor.certificateValid
-    case .error:
+    case .failed:
         return UIColor.certificateInvalid
     case .open:
         return UIColor.certificateRuleOpen

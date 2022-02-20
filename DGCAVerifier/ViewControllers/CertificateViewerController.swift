@@ -50,93 +50,119 @@ class CertificateViewerController: UIViewController {
   weak var dismissDelegate: DismissControllerDelegate?
   
   private var sectionBuilder: SectionBuilder?
+  
   private var validityState: ValidityState = .invalid
-  private var isDebugMode = DebugManager.sharedInstance.isDebugMode
+  private var revocationState: RevocationValidityState = .revocated
+  
+ private var isDebugMode = DebugManager.sharedInstance.isDebugMode
   
   private var listItems: [InfoSection] {
-    sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
+      sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
   }
   private var debugSections = [DebugSectionModel]()
   private var certificateSections: [CertificateSectionsProtocol] = []
 
 
-  // MARK: View Controller life cycle
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
-    validateAndSetupInterface()
-  }
-  
-  private func validateAndSetupInterface() {
-    guard let hCert = hCert else { return }
-    
-    isDebugMode = DebugManager.sharedInstance.isDebugMode
-    activityIndicator.startAnimating()
-    dismissButton.setTitle("Retry".localized, for: .normal)
-    dismissButton.backgroundColor = UIColor.certificateLimited
-    
-    let validator = CertificateValidator(with: hCert)
-    DispatchQueue.global(qos: .userInitiated).async {
-      validator.validate {[weak self] (validityState) in
-        self?.validityState = validityState
-        if validityState.technicalValidity != .valid ||
-            validityState.issuerInvalidation != .passed ||
-            validityState.destinationAcceptence != .passed ||
-            validityState.travalerAcceptence != .passed {
-          
-          let codes = DataCenter.countryCodes
-          let country = hCert.ruleCountryCode ?? ""
-          
-          if DebugManager.sharedInstance.isDebugMode,
-            let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
-            self?.isDebugMode = true
-          } else {
-            self?.isDebugMode = false
-          }
-        }
-        
-        let builder = SectionBuilder(with: hCert, validity: validityState)
-        builder.makeSections(for: .verifier)
-        if let section = validityState.infoRulesSection {
-          builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
-        }
-        self?.sectionBuilder = builder
-        DispatchQueue.main.async {
-          self?.activityIndicator.stopAnimating()
-          self?.setupInterface()
-        }
-      }
-    }
-  }
-
-  private func setupInterface() {
-    guard let hCert = hCert else { return }
+    // MARK: View Controller life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
       
-    shareButton.setTitle("Share".localized, for: .normal)
-    nameLabel.text = hCert.fullName
-    let validity = validityState.allRulesValidity
-    
-    dismissButton.setTitle(validity.validityButtonTitle, for: .normal)
-    dismissButton.backgroundColor = validity.validityBackground
-    validityLabel.text = validity.validityResult
-    headerBackground.backgroundColor = validity.validityBackground
-    validityImage.image = validity.validityImage
-    
-    if isDebugMode && (validity != .valid) {
-      debugSections.removeAll()
-      debugSections.append(DebugSectionModel(sectionType: .verification))
-      debugSections.append(DebugSectionModel(sectionType: .raw))
-      certificateSections = debugSections + listItems
-      shareButton.isHidden = false
-
-    } else {
-      certificateSections = listItems
-      shareButton.isHidden = true
+        infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
+        validateCertificate()
     }
-    infoTable.reloadData()
-  }
-  
+
+    private func validateCertificate() {
+        activityIndicator.startAnimating()
+        checkCertificateValidity { [weak self] validityState in
+            defer {
+                DispatchQueue.main.async {
+                  self?.activityIndicator.stopAnimating()
+                  self?.setupInterface()
+                }
+            }
+            if validityState.isValid {
+                self?.checkCertificateRevocation { validityState in
+                    
+                }
+            }
+        }
+    }
+    
+    private func checkCertificateRevocation(completion: RevocationValidityCompletion) {
+        guard let hCert = hCert else { completion(.revocated); return }
+        
+        let validator = CertificateValidator(with: hCert)
+        validator.validateRevocation {[weak self] revocationValidityState in
+            self?.revocationState = revocationValidityState
+            if revocationValidityState == .revocated {
+                let builder = SectionBuilder(with: hCert, validity: ValidityState.revocated)
+                builder.makeSections(for: .verifier)
+//                if let section = validityState.infoRulesSection {
+//                    builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
+//                }
+                self?.sectionBuilder = builder
+            }
+        }
+    }
+
+  private func checkCertificateValidity(completion: ValidityCompletion) {
+      guard let hCert = hCert else { completion(.invalid); return }
+        isDebugMode = DebugManager.sharedInstance.isDebugMode
+        
+        let validator = CertificateValidator(with: hCert)
+        DispatchQueue.global(qos: .userInitiated).async {
+            validator.validate {[weak self] (validityState) in
+                self?.validityState = validityState
+                if validityState.isNotPassed {
+                  
+                  let codes = DataCenter.countryCodes
+                  let country = hCert.ruleCountryCode ?? ""
+                  
+                  if DebugManager.sharedInstance.isDebugMode,
+                    let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
+                    self?.isDebugMode = true
+                  } else {
+                    self?.isDebugMode = false
+                  }
+                }
+                
+                let builder = SectionBuilder(with: hCert, validity: validityState)
+                builder.makeSections(for: .verifier)
+                if let section = validityState.infoRulesSection {
+                  builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
+                }
+                self?.sectionBuilder = builder
+            }
+        }
+    }
+
+    private func setupInterface() {
+      guard let hCert = hCert else { return }
+        
+      shareButton.setTitle("Share".localized, for: .normal)
+      nameLabel.text = hCert.fullName
+      let validity = validityState.allRulesValidity
+      
+      dismissButton.setTitle(validity.validityButtonTitle, for: .normal)
+      dismissButton.backgroundColor = validity.validityBackground
+      validityLabel.text = validity.validityResult
+      headerBackground.backgroundColor = validity.validityBackground
+      validityImage.image = validity.validityImage
+      
+      if isDebugMode && (validity != .valid) {
+        debugSections.removeAll()
+        debugSections.append(DebugSectionModel(sectionType: .verification))
+        debugSections.append(DebugSectionModel(sectionType: .raw))
+        certificateSections = debugSections + listItems
+        shareButton.isHidden = false
+
+      } else {
+        certificateSections = listItems
+        shareButton.isHidden = true
+      }
+      infoTable.reloadData()
+    }
+
   // MARK: Actions
   @IBAction func settingsButtonAction() {
     self.performSegue(withIdentifier: Constants.showSettingsController, sender: nil)
@@ -164,7 +190,7 @@ class CertificateViewerController: UIViewController {
     }
   }
   
-  // MARK: Navigation
+  // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier {
     case Constants.showSettingsController:
@@ -178,7 +204,7 @@ class CertificateViewerController: UIViewController {
   }
 }
 
-// MARK: UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension CertificateViewerController: UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
@@ -290,14 +316,14 @@ extension CertificateViewerController: UITableViewDataSource {
 }
 
 extension CertificateViewerController: DebugRawSharing {
-   func userDidShare(text: String) {
-    let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
-    self.present(activityViewController, animated: true, completion: nil)
-  }
+    func userDidShare(text: String) {
+        let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }
                                         
 extension CertificateViewerController: DebugControllerDelegate {
-  func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
-    validateAndSetupInterface()
-  }
+    func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
+        validateCertificate()
+    }
 }

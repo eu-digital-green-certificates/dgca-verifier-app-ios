@@ -63,49 +63,49 @@ class ScanCertificateController: UIViewController {
         progressView.setProgress(0.0, animated: false)
         return controller
     }()
-
+    
     weak var delegate: ScanCertificateDelegate?
     private var captureSession: AVCaptureSession?
     private var countryItems: [CountryModel] = []
     
     private var expireDataTimer: Timer?
     var downloadedDataHasExpired: Bool {
-      return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
+        return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
     }
-
+    
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
         guard error == nil else {
-          self.showAlert(withTitle: "Barcode Error".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
-          return
+            self.showAlert(withTitle: "Barcode Error".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
+            return
         }
         self.processClassification(request)
     }
-
+    
     private var selectedCounty: CountryModel? {
         set {
-          do {
-            try UserDefaults.standard.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
-          } catch {
-            DGCLogger.logError(error)
-          }
+            do {
+              try UserDefaults.standard.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
+            } catch {
+              DGCLogger.logError(error)
+            }
         }
         get {
-          do {
-            let selected = try UserDefaults.standard.getObject(forKey: Constants.userDefaultsCountryKey,
-                castTo: CountryModel.self)
-            return selected
-          } catch {
-            DGCLogger.logError(error)
-            return nil
-          }
+            do {
+              let selected = try UserDefaults.standard.getObject(forKey: Constants.userDefaultsCountryKey,
+                  castTo: CountryModel.self)
+              return selected
+            } catch {
+              DGCLogger.logError(error)
+              return nil
+            }
         }
     }
-
+    
     deinit {
         let center = NotificationCenter.default
         center.removeObserver(self)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
@@ -126,8 +126,8 @@ class ScanCertificateController: UIViewController {
                 //self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 80)
                 self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 80)
             }
-            
         }
+        
         center.addObserver(forName: Notification.Name("StopLoadingNotificationName"), object: nil, queue: .main) { notification in
             self.activityAlert.dismiss(animated: true, completion: nil)
             self.progressView.setProgress(0.0, animated: false)
@@ -161,7 +161,7 @@ class ScanCertificateController: UIViewController {
     captureSession?.stopRunning()
   }
   
-  // MARK: Actions
+  // MARK: - Actions
   @objc func reloadExpiredData() {
      if downloadedDataHasExpired {
           captureSession?.stopRunning()
@@ -197,11 +197,11 @@ class ScanCertificateController: UIViewController {
                 destinationController.dismissDelegate = self
             }
         default:
-          break
+            break
         }
     }
 
-    // MARK: Private
+    // MARK: - Private
     
     func showAlertReloadDatabase() {
         let alert = UIAlertController(title: "Reload databases?".localized, message: "The update may take some time.".localized, preferredStyle: .alert)
@@ -222,35 +222,35 @@ class ScanCertificateController: UIViewController {
     }
     
     private func setListOfRuleCounties(list: [CountryModel]) {
-      self.countryItems = list
-      self.countryCodeView.reloadAllComponents()
-      guard self.countryItems.count > 0 else { return }
-      
-      if let selected = self.selectedCounty,
-        let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
-          countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
-      } else {
-        self.selectedCounty = self.countryItems.first
-        countryCodeView.selectRow(0, inComponent: 0, animated: false)
-      }
+        self.countryItems = list
+        self.countryCodeView.reloadAllComponents()
+        guard self.countryItems.count > 0 else { return }
+        
+        if let selected = self.selectedCounty,
+          let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
+            countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
+        } else {
+          self.selectedCounty = self.countryItems.first
+          countryCodeView.selectRow(0, inComponent: 0, animated: false)
+        }
     }
 
   private func configurePreviewLayer() {
-    guard let captureSession = captureSession else { return }
-    
-    let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-    cameraPreviewLayer.videoGravity = .resizeAspectFill
-    cameraPreviewLayer.connection?.videoOrientation = .portrait
-    cameraPreviewLayer.frame = view.frame
-    camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+      guard let captureSession = captureSession else { return }
+      
+      let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+      cameraPreviewLayer.videoGravity = .resizeAspectFill
+      cameraPreviewLayer.connection?.videoOrientation = .portrait
+      cameraPreviewLayer.frame = view.frame
+      camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
   }
 
   private func showAlert(withTitle title: String, message: String) {
-    DispatchQueue.main.async {
-      let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
-      self.present(alertController, animated: true)
-    }
+      DispatchQueue.main.async {
+          let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+          alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
+          self.present(alertController, animated: true)
+      }
   }
 
   private func showPermissionsAlert() {
@@ -259,18 +259,20 @@ class ScanCertificateController: UIViewController {
   }
 }
 
+// MARK: - Scan Certificate Delegate
+
 extension ScanCertificateController: ScanCertificateDelegate {
   func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError) {
-    DispatchQueue.main.async {
-      self.showInfoAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
-    }
+      DispatchQueue.main.async {
+          self.showInfoAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
+      }
   }
   
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
-    DispatchQueue.main.async {
-      self.captureSession?.stopRunning()
-      self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
-    }
+      DispatchQueue.main.async {
+          self.captureSession?.stopRunning()
+          self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
+      }
   }
   
   func disableBackgroundDetection() {
@@ -281,6 +283,8 @@ extension ScanCertificateController: ScanCertificateDelegate {
     SecureBackground.paused = false
   }
 }
+
+// MARK: - AV setup
 
 extension ScanCertificateController {
   private func checkPermissions() {
@@ -387,6 +391,8 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
   }
 }
 
+// MARK: - Picker delegate
+
 extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegate {
   public func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
@@ -410,6 +416,8 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
   }
 }
 
+// MARK: - NFC Result
+
 extension ScanCertificateController {
   func onNFCResult(success: Bool, message: String) {
     DGCLogger.logInfo("NFC: \(message)")
@@ -427,6 +435,8 @@ extension ScanCertificateController {
     }
   }
 }
+
+// MARK: - Adaptive Presentation Delegate
 
 extension ScanCertificateController: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidDismiss( _ presentationController: UIPresentationController) {

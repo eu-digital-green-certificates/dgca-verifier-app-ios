@@ -26,7 +26,7 @@
 //  
         
 
-import UIKit
+import Foundation
 import SwiftDGC
 import SWCompression
 import CoreData
@@ -44,6 +44,8 @@ class RevocationWorker {
     let revocationService = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)
     var loadedRevocations: [RevocationModel]?
     
+    // MARK: - Work with Revocations
+
     func processReloadRevocations(completion: @escaping ProcessingCompletion) throws {
         let center = NotificationCenter.default
         self.revocationService.getRevocationLists {[unowned self] revocations, etag, err in
@@ -205,6 +207,8 @@ class RevocationWorker {
             completion(partitionsForUpdate, nil)
         }
     }
+    
+    // MARK: - download Chunks
 
     private func downloadChunkMetadata(partitions: [PartitionModel], completion: @escaping ProcessingCompletion) {
         let group = DispatchGroup()
@@ -234,7 +238,7 @@ class RevocationWorker {
     }
     
     
-    // MARK: - Partitions
+    // MARK: - update Partitions
 
     private func updateExistedPartitions(_ partitions: [PartitionModel], completion: @escaping ProcessingCompletion) {
         DispatchQueue.main.async {
@@ -338,6 +342,8 @@ class RevocationWorker {
         }
     }
     
+    // MARK: - process Zip
+
     private func processReadZipData(kid: String, zipData: Data) {
         do {
             let tarData = try GzipArchive.unarchive(archive: zipData)
@@ -362,6 +368,5 @@ class RevocationWorker {
         } catch {
             print("Data error")
         }
-
     }
 }
