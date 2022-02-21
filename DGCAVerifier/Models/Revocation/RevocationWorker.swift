@@ -68,7 +68,7 @@ class RevocationWorker {
                     self.downloadNewRevocations(revocations: loadList) { partitions, err in
                         if err == nil, let partitions = partitions {
                             center.post(name: Notification.Name("LoadingRevocationsNotificationName"),
-                                object: nil, userInfo: ["name": "Loading the certificate database".localized])
+                                object: nil, userInfo: ["name": "Preparation of database on revocation of certificates".localized])
                             group.enter()
                             self.downloadChunkMetadata(partitions: partitions) { err in
                                 group.leave()
@@ -158,14 +158,12 @@ class RevocationWorker {
         let group = DispatchGroup()
         var partitionsForLoad = [PartitionModel]()
         var index: Float = 1.0
-        //for i in 0..<200 {
         for model in revocations {
-            
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
             self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
                 let progress: Float = index/Float(revocations.count)
-                center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil, userInfo: ["name" : "Download the certificate database".localized, "progress" : progress] )
+                center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil, userInfo: ["name" : "Downloading the certificate revocations database".localized, "progress" : progress] )
                 index += 1.0
                 if err == nil, let partitions = partitions, !partitions.isEmpty {
                     DispatchQueue.main.async {
@@ -176,7 +174,6 @@ class RevocationWorker {
                 group.leave()
             }
         }
-        //}
         group.notify(queue: .main) {
             completion(partitionsForLoad, nil)
         }
@@ -193,7 +190,7 @@ class RevocationWorker {
             group.enter()
             self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
                 let progress: Float = index/Float(revocations.count)
-                center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil, userInfo: ["name" : "certificate database update".localized, "progress" : progress] )
+                center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil, userInfo: ["name" : "Updating the certificate revocations database".localized, "progress" : progress] )
                 index += 1.0
                 print(progress)
                 if err == nil, let partitions = partitions, !partitions.isEmpty {
@@ -220,9 +217,9 @@ class RevocationWorker {
             let kidConverted = Helper.convertToBase64url(base64: part.kid)
             self.revocationService.getRevocationPartitionChunks(for:kidConverted, id: part.id ?? "null", cids: nil) { [unowned self] zipdata, err in
                 let progress: Float = index/Float(partitions.count)
-                center.post(name: Notification.Name("LoadingRevocationsNotificationName".localized), object: nil, userInfo: ["name" : "Loading the certificate metadata".localized, "progress" : progress] )
+                
+                center.post(name: Notification.Name("LoadingRevocationsNotificationName".localized), object: nil, userInfo: ["name" : "Downloading the certificate revocations metadata".localized, "progress" : progress] )
                 index += 1.0
-                print(progress)
                 guard let zipdata = zipdata else {
                     group.leave()
                     return
@@ -252,7 +249,7 @@ class RevocationWorker {
                 let loadedModifiedDate = Date(rfc3339DateTimeString: partition.lastUpdated) ?? Date.distantPast
                 
                 let progress: Float = index/Float(partitions.count)
-                center.post(name: Notification.Name("LoadingRevocationsNotificationName".localized), object: nil, userInfo: ["name" : "Updating the certificate metadata".localized, "progress" : progress] )
+                center.post(name: Notification.Name("LoadingRevocationsNotificationName".localized), object: nil, userInfo: ["name" : "Updating the certificate revocations metadata".localized, "progress" : progress] )
                 index += 1.0
                 
                 if let localPartition = localPartitions?.filter({ $0.value(forKey: "kid") as! String == partition.kid &&

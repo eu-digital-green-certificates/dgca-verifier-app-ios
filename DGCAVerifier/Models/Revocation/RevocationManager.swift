@@ -158,7 +158,7 @@ class RevocationManager: NSObject {
         do {
             let revocations = try managedContext.fetch(fetchRequest)
             revocations.forEach { managedContext.delete($0) }
-            print("  Deleted \(revocations.count) revocations for expiredDate: \(date)")
+            print("-- Deleted \(revocations.count) revocations for expiredDate: \(date)")
             
             RevocationDataStorage.shared.saveContext()
  
@@ -197,13 +197,13 @@ class RevocationManager: NSObject {
             }
             
             if let xValue = model.x {
-                partition.setValue(UInt16(xValue), forKey: "x")
+                partition.setValue(xValue, forKey: "x")
             } else {
                 partition.setValue("null", forKey: "x")
             }
             
             if let yValue = model.y {
-                partition.setValue(UInt16(yValue), forKey: "y")
+                partition.setValue(yValue, forKey: "y")
             } else {
                 partition.setValue("null", forKey: "y")
             }
@@ -288,15 +288,15 @@ class RevocationManager: NSObject {
         do {
             let slices = try managedContext.fetch(fetchRequest)
             slices.forEach { managedContext.delete($0) }
-            print("  Deleted \(slices.count) slices for id: \(hashID)")
+            print("-- Deleted \(slices.count) slices for id: \(hashID)")
             
             RevocationDataStorage.shared.saveContext()
             
         } catch let error as NSError {
-            print("Could not fetch revocations. Error: \(error.localizedDescription) for expiredDate: \(id)")
+            print("Could not fetch slices. Error: \(error.localizedDescription) for expiredDate: \(id)")
             return
         } catch {
-            print("Could not fetch revocations for expiredDate: \(id)")
+            print("Could not fetch slices for expiredDate: \(id)")
             return
         }
     }
@@ -312,10 +312,10 @@ class RevocationManager: NSObject {
             print("  Extracted \(partitions.count) partitions for id: \(kid)")
             return partitions
         } catch let error as NSError {
-            print("Could not fetch: \(error), \(error.userInfo) for id: \(kid)")
+            print("Could not fetch Partitions: \(error), \(error.userInfo) for id: \(kid)")
             return nil
         } catch {
-            print("Could not fetch for id: \(kid)")
+            print("Could not fetch Partitions for id: \(kid)")
             return nil
         }
     }
@@ -332,10 +332,10 @@ class RevocationManager: NSObject {
             return partitions.first
             
         } catch let error as NSError {
-            print("Could not fetch: \(error), \(error.userInfo) for kid: \(kid), id: \(id)")
+            print("Could not fetch Partitions: \(error), \(error.userInfo) for kid: \(kid), id: \(id)")
             return nil
         } catch {
-            print("Could not fetch for kid: \(kid), id: \(id)")
+            print("Could not fetch Partitions for kid: \(kid), id: \(id)")
             return nil
         }
     }
@@ -347,7 +347,7 @@ class RevocationManager: NSObject {
         
         do {
             let slices = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(slices.count) slice(s) for kid: \(kid), pid: \(id), cid: \(cid), sid: \(hashID)")
+            print("== Extracted \(slices.count) slice(s) for kid: \(kid), pid: \(id), cid: \(cid), sid: \(hashID)")
             return slices.first
         } catch let error as NSError {
             print("Could not fetch slices: \(error), \(error.userInfo) for kid: \(kid), id: \(id)")
@@ -355,28 +355,6 @@ class RevocationManager: NSObject {
         } catch {
             print("Could not fetch slices for kid: \(kid), id: \(id)")
             return nil
-        }
-    }
-
-    func loadPartitions(kid: String, x: String, y: String, completion: LoadingCompletion) {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-        let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
-        let predicate = NSPredicate(format: "kid == %@ AND x == %@ AND y == %@", argumentArray: [kidConverted, x, y])
-            
-        fetchRequest.predicate = predicate
-        
-        do {
-            let partitions = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(partitions.count) partitions for kid: \(kid), x: \(x), y: \(y)")
-            completion(partitions, nil)
-            
-        } catch let error as NSError {
-          print("Could not fetch requested partitions: \(error), \(error.userInfo)")
-            completion(nil, DataBaseError.dataBaseError(error: error))
-            
-        } catch {
-            print("Could not fetch requested partitions.")
-            completion(nil, DataBaseError.loading)
         }
     }
     
@@ -390,16 +368,16 @@ class RevocationManager: NSObject {
         
         do {
             let slices = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(slices.count) slices for kid: \(kid), x: \(x), y: \(y)")
+            print("== Extracted \(slices.count) slices for kid: \(kid), x: \(x), y: \(y)")
             
             return slices
             
         } catch let error as NSError {
-          print("Could not fetch requested slices: \(error), \(error.userInfo)")
+          print("Could not fetch slices: \(error), \(error.userInfo)")
             //completion(nil, DataBaseError.dataBaseError(error: error))
         
         } catch {
-            print("Could not fetch requested slices.")
+            print("Could not fetch slices.")
             // completion(nil, DataBaseError.loading)
         }
         return nil
