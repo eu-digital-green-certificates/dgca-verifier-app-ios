@@ -28,7 +28,7 @@
 
 import UIKit
 import SwiftDGC
-
+import DGCBloomFilter
 
 public typealias RevocationValidityCompletion = (RevocationValidityState) -> Void
 
@@ -47,24 +47,25 @@ extension CertificateValidator {
             let hashTypes = revocation.hashTypes {
             let lookup: CertLookUp = certificate.lookUp(mode: revocMode)
             let arrayTypes = hashTypes.split(separator: ",")
-            let numHashes = certificate.numberOfHashes(mode: revocMode)
             
             if arrayTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
-                let result = searchInDatabase(lookUp: lookup, numberOfHashes: numHashes, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     completion(.revocated)
                     return
                 }
             }
+            
             if arrayTypes.contains("UCI"), let hashData = certificate.uvciHash {
-                let result = searchInDatabase(lookUp: lookup, numberOfHashes: numHashes, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     completion(.revocated)
                     return
                 }
             }
+            
             if arrayTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
-                let result = searchInDatabase(lookUp: lookup, numberOfHashes: numHashes, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup,hash: hashData)
                 if result == true {
                     completion(.revocated)
                     return
@@ -74,8 +75,8 @@ extension CertificateValidator {
         completion(.valid)
     }
 
-    private func searchInDatabase(lookUp: CertLookUp, numberOfHashes: Int, hash: Data) -> Bool {
-        guard let filter = BloomFilter(elementsNumber: numberOfHashes, probabilityRate: 1.0e-11) else { return false }
+    private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
+        let filter = BloomFilter(data: hash)
         let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
         for slice in slices ?? [] {
             filter.resetElements()
