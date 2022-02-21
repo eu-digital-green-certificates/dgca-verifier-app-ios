@@ -149,10 +149,18 @@ class DataCenter {
         }
         
         group.enter()
-        try? revocationWorker.processReloadRevocations { err in
-             group.leave()
+        revocationWorker.processReloadRevocations { error in
+            if let err = error {
+                if case let .failedValidation(status: status) = err, status == 404 {
+                    revocationWorker.processReloadRevocations { err in
+                        print("Backend error!!")
+                    }
+                }
+            }
+            
+            group.leave()
         }
-
+        
         group.notify(queue: .main) {
             localDataManager.localData.lastFetch = Date()
             center.post(name: Notification.Name("StopLoadingNotificationName"), object: nil, userInfo: nil )
