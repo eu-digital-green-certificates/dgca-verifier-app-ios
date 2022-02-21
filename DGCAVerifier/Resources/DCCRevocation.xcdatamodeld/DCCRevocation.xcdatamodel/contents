@@ -10,11 +10,11 @@
     </entity>
     <entity name="Partition" representedClassName="Partition" versionHashModifier="partitionID" syncable="YES" codeGenerationType="class">
         <attribute name="expired" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="kid" attributeType="String"/>
-        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="x" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="y" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="x" attributeType="String"/>
+        <attribute name="y" attributeType="String"/>
         <relationship name="chunks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Chunk" inverseName="partition" inverseEntity="Chunk"/>
         <relationship name="revocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Revocation" inverseName="partitions" inverseEntity="Revocation"/>
         <fetchIndex name="byPropertyIndex">

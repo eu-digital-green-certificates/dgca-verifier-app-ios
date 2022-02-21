@@ -198,10 +198,14 @@ class RevocationManager: NSObject {
             
             if let xValue = model.x {
                 partition.setValue(UInt16(xValue), forKey: "x")
+            } else {
+                partition.setValue("null", forKey: "x")
             }
             
             if let yValue = model.y {
                 partition.setValue(UInt16(yValue), forKey: "y")
+            } else {
+                partition.setValue("null", forKey: "y")
             }
             
             let chunkParts = createChunks(chunkModels: model.chunks, partition: partition)
@@ -279,12 +283,12 @@ class RevocationManager: NSObject {
 
     func deleteSlice(kid: String, id: String, cid: String, hashID: String) {
         let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
-        let predicate: NSPredicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.id == %@ AND chunk.id == %@ AND hashID == %@", argumentArray: [kid, id, cid, hashID])
+        let predicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.id == %@ AND chunk.id == %@ AND hashID == %@", argumentArray: [kid, id, cid, hashID])
         fetchRequest.predicate = predicate
         do {
             let slices = try managedContext.fetch(fetchRequest)
             slices.forEach { managedContext.delete($0) }
-            print("  Deleted \(slices.count) partitions for id: \(hashID)")
+            print("  Deleted \(slices.count) slices for id: \(hashID)")
             
             RevocationDataStorage.shared.saveContext()
             
@@ -354,37 +358,16 @@ class RevocationManager: NSObject {
         }
     }
 
-    func loadPartitions(kid: String, x: String?, y: String?, completion: LoadingCompletion) {
+    func loadPartitions(kid: String, x: String, y: String, completion: LoadingCompletion) {
         let kidConverted = Helper.convertToBase64url(base64: kid)
         let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
-        let predicate: NSPredicate
-        if x != nil && y != nil {
-            predicate = NSPredicate(format: "kid == %@ AND x == %@ AND y == %@", argumentArray: [kidConverted, x!, y!])
+        let predicate = NSPredicate(format: "kid == %@ AND x == %@ AND y == %@", argumentArray: [kidConverted, x, y])
             
-        } else if x != nil {
-            predicate = NSPredicate(format: "kid == %@ AND x == %d", argumentArray: [kidConverted, x!])
-            
-        } else if y != nil {
-            predicate = NSPredicate(format: "kid == %@ AND y == %d", argumentArray: [kidConverted, y!])
-            
-        } else {
-            predicate = NSPredicate(format: "kid == %@", argumentArray: [kidConverted])
-        }
-        
         fetchRequest.predicate = predicate
         
         do {
             let partitions = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(partitions.count) partitions for kid: \(kid), x: \(x!), y: \(y!)")
-            if x != nil && y != nil {
-                print("  Extracted \(partitions.count) partitions for kid: \(kid), x: \(x!), y: \(y!)")
-            } else if x != nil {
-                print("  Extracted \(partitions.count) partitions for kid: \(kid), x: \(x!)")
-            } else if y != nil {
-                print("  Extracted \(partitions.count) partitions for kid: \(kid), y: \(y!)")
-            } else {
-                print("  Extracted \(partitions.count) partitions for kid: \(kid)")
-            }
+            print("  Extracted \(partitions.count) partitions for kid: \(kid), x: \(x), y: \(y)")
             completion(partitions, nil)
             
         } catch let error as NSError {
@@ -398,31 +381,16 @@ class RevocationManager: NSObject {
     }
     
     // MARK: - Chunks & Slices
-    func loadSlices(kid: String, x: String?, y: String?, section cid: String) -> [Slice]? {
+    func loadSlices(kid: String, x: String, y: String, section cid: String) -> [Slice]? {
         let kidConverted = Helper.convertToBase64url(base64: kid)
         let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
-        let predicate: NSPredicate
-        if x != nil && y != nil {
-            predicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.x == %@ AND chunk.partition.y == %@ AND chunk.cid == %@", argumentArray: [kidConverted, x!, y!, cid])
-        
-        } else if x != nil && y == nil {
-            predicate = NSPredicate(format: "chunk.partition.kid == %@ && chunk.partition.x == %@ AND chunk.cid == %@", argumentArray: [kidConverted, x!, cid])
-        
-        } else {
-            predicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.cid == %@", argumentArray: [kidConverted, cid])
-        }
-        
+        let predicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.x == %@ AND chunk.partition.y == %@ AND chunk.cid == %@", argumentArray: [kidConverted, x, y, cid])
+                
         fetchRequest.predicate = predicate
         
         do {
             let slices = try managedContext.fetch(fetchRequest)
-            if x != nil && y != nil {
-                print("  Extracted \(slices.count) slices for kid: \(kid), x: \(x!), y: \(y!)")
-            } else if x != nil {
-                print("  Extracted \(slices.count) slices for kid: \(kid), x: \(x!)")
-            } else {
-                print("  Extracted \(slices.count) slices for kid: \(kid)")
-            }
+            print("  Extracted \(slices.count) slices for kid: \(kid), x: \(x), y: \(y)")
             
             return slices
             
