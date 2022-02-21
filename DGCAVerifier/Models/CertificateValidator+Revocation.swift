@@ -76,7 +76,7 @@ extension CertificateValidator {
     private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
         let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
         for slice in slices ?? [] {
-            guard let sliceData = slice.value(forKey: "hashData") as? Data,  let sliceType = slice.type else { continue }
+            guard let sliceData = slice.value(forKey: "hashData") as? Data, let sliceType = slice.type else { continue }
             if sliceType.lowercased().contains("bloom")  {
                 let filter = BloomFilter(data: sliceData)
                 let result = filter.mightContain(element: hash)

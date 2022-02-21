@@ -123,8 +123,8 @@ class ScanCertificateController: UIViewController {
         center.addObserver(forName: Notification.Name("StartLoadingNotificationName"), object: nil, queue: .main) { notification in
             self.activityAlert.dismiss(animated: true, completion: nil)
             self.present(self.activityAlert, animated: true) {
-                //self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 80)
-                self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 80)
+                self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 100)
+                self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 120)
             }
         }
         
