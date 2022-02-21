@@ -39,7 +39,8 @@ extension CertificateValidator {
         return RevocationManager()
     }
 
-    func validateRevocation(completion: RevocationValidityCompletion) {
+
+    func validateRevocation() -> RevocationValidityState {
         let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
         
         if let revocation = revocationManager.loadRevocation(kid: kidConverted),
@@ -51,34 +52,31 @@ extension CertificateValidator {
             if arrayTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
-                    completion(.revocated)
-                    return
+                    return .revocated
                 }
             }
             
             if arrayTypes.contains("UCI"), let hashData = certificate.uvciHash {
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
-                    completion(.revocated)
-                    return
+                    return .revocated
                 }
             }
             
             if arrayTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
                 let result = searchInDatabase(lookUp: lookup,hash: hashData)
                 if result == true {
-                    completion(.revocated)
-                    return
+                    return .revocated
                 }
             }
        }
-        completion(.valid)
+        return .valid
     }
 
     private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
         let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
         for slice in slices ?? [] {
-            let sliceData = slice.value(forKey: "hashData") as! Data
+            guard let sliceData = slice.value(forKey: "hashData") as? Data else { continue }
             let filter = BloomFilter(data: sliceData)
             let result = filter.mightContain(element: hash)
             if result {

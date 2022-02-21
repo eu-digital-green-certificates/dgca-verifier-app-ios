@@ -217,7 +217,8 @@ class RevocationWorker {
 
         for part in partitions {
             group.enter()
-            self.revocationService.getRevocationPartitionChunks(for: part.kid, id: part.id ?? "null", cids: nil) { [unowned self] zipdata, err in
+            let kidConverted = Helper.convertToBase64url(base64: part.kid)
+            self.revocationService.getRevocationPartitionChunks(for:kidConverted, id: part.id ?? "null", cids: nil) { [unowned self] zipdata, err in
                 let progress: Float = index/Float(partitions.count)
                 center.post(name: Notification.Name("LoadingRevocationsNotificationName".localized), object: nil, userInfo: ["name" : "Loading the certificate metadata".localized, "progress" : progress] )
                 index += 1.0

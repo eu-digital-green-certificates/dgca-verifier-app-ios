@@ -81,28 +81,27 @@ class CertificateViewerController: UIViewController {
                 }
             }
             if validityState.isValid {
-                self?.checkCertificateRevocation { validityState in
-                    print(validityState)
-                }
+                let rez = self?.checkCertificateRevocation()
+                print(rez)
             }
         }
     }
     
-    private func checkCertificateRevocation(completion: RevocationValidityCompletion) {
-        guard let hCert = hCert else { completion(.revocated); return }
+    private func checkCertificateRevocation() -> RevocationValidityState {
+        guard let hCert = hCert else { return .revocated }
         
         let validator = CertificateValidator(with: hCert)
-        validator.validateRevocation {[weak self] revocationValidityState in
-            self?.revocationState = revocationValidityState
+        let revocationValidityState = validator.validateRevocation()
+            revocationState = revocationValidityState
             if revocationValidityState == .revocated {
                 let builder = SectionBuilder(with: hCert, validity: ValidityState.revocated)
                 builder.makeSections(for: .verifier)
 //                if let section = validityState.infoRulesSection {
 //                    builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
 //                }
-                self?.sectionBuilder = builder
+                sectionBuilder = builder
             }
-        }
+        return revocationValidityState
     }
 
   private func checkCertificateValidity(completion: ValidityCompletion) {
@@ -110,29 +109,27 @@ class CertificateViewerController: UIViewController {
         isDebugMode = DebugManager.sharedInstance.isDebugMode
         
         let validator = CertificateValidator(with: hCert)
-        DispatchQueue.global(qos: .userInitiated).async {
-            validator.validate {[weak self] (validityState) in
-                self?.validityState = validityState
-                if validityState.isNotPassed {
-                  
-                  let codes = DataCenter.countryCodes
-                  let country = hCert.ruleCountryCode ?? ""
-                  
-                  if DebugManager.sharedInstance.isDebugMode,
-                    let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
-                    self?.isDebugMode = true
-                  } else {
-                    self?.isDebugMode = false
-                  }
-                }
+        validator.validate {[weak self] (validityState) in
+            self?.validityState = validityState
+            if validityState.isNotPassed {
+                let codes = DataCenter.countryCodes
+                let country = hCert.ruleCountryCode ?? ""
                 
-                let builder = SectionBuilder(with: hCert, validity: validityState)
-                builder.makeSections(for: .verifier)
-                if let section = validityState.infoRulesSection {
-                  builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
+                if DebugManager.sharedInstance.isDebugMode,
+                  let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
+                  self?.isDebugMode = true
+                } else {
+                  self?.isDebugMode = false
                 }
-                self?.sectionBuilder = builder
             }
+            
+            let builder = SectionBuilder(with: hCert, validity: validityState)
+            builder.makeSections(for: .verifier)
+            if let section = validityState.infoRulesSection {
+                builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
+            }
+            self?.sectionBuilder = builder
+            completion(.invalid)
         }
     }
 

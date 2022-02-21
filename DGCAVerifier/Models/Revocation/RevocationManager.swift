@@ -416,7 +416,6 @@ class RevocationManager: NSObject {
         
         do {
             let slices = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(slices.count) slices for kid: \(kid), x: \(x!), y: \(y!)")
             if x != nil && y != nil {
                 print("  Extracted \(slices.count) slices for kid: \(kid), x: \(x!), y: \(y!)")
             } else if x != nil {
