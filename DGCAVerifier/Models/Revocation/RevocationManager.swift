@@ -121,16 +121,16 @@ class RevocationManager: NSObject {
             let entity = NSEntityDescription.entity(forEntityName: "Revocation", in: managedContext)!
             let revocation = Revocation(entity: entity, insertInto: managedContext)
             
-            revocation.setValue(kidConverted, forKeyPath: "kid")
+            revocation.setValue(kidConverted, forKey: "kid")
             let hashTypes = model.hashTypes.joined(separator: ",")
-            revocation.setValue(hashTypes, forKeyPath: "hashTypes")
-            revocation.setValue(model.mode, forKeyPath: "mode")
+            revocation.setValue(hashTypes, forKey: "hashTypes")
+            revocation.setValue(model.mode, forKey: "mode")
             
             if let expDate = Date(rfc3339DateTimeString: model.expires) {
-                revocation.setValue(expDate, forKeyPath: "expires")
+                revocation.setValue(expDate, forKey: "expires")
             }
             if let lastUpdated = Date(rfc3339DateTimeString: model.lastUpdated) {
-                revocation.setValue(lastUpdated, forKeyPath: "lastUpdated")
+                revocation.setValue(lastUpdated, forKey: "lastUpdated")
             }
             print("-- Added Revocation with KID: \(kidConverted)")
         }
@@ -145,7 +145,7 @@ class RevocationManager: NSObject {
                 cid: dataSliceModel.cid, hashID: dataSliceModel.hashID) else { continue }
              
             let generatedData = dataSliceModel.contentData
-            sliceObject.setValue(generatedData, forKeyPath: "hashData")
+            sliceObject.setValue(generatedData, forKey: "hashData")
         }
 
         RevocationDataStorage.shared.saveContext()
@@ -181,32 +181,32 @@ class RevocationManager: NSObject {
         for model in models {
             let entity = NSEntityDescription.entity(forEntityName: "Partition", in: managedContext)!
             let partition = Partition(entity: entity, insertInto: managedContext)
-            partition.setValue(kidConverted, forKeyPath: "kid")
+            partition.setValue(kidConverted, forKey: "kid")
             if let pid = model.id {
-                partition.setValue(pid, forKeyPath: "id")
+                partition.setValue(pid, forKey: "id")
             } else {
-                partition.setValue("null", forKeyPath: "id")
+                partition.setValue("null", forKey: "id")
             }
             
             if let expDate = Date(rfc3339DateTimeString: model.expired) {
-                partition.setValue(expDate, forKeyPath: "expired")
+                partition.setValue(expDate, forKey: "expired")
             }
             
             if let updatedDate = Date(rfc3339DateTimeString: model.lastUpdated) {
-                partition.setValue(updatedDate, forKeyPath: "lastUpdated")
+                partition.setValue(updatedDate, forKey: "lastUpdated")
             }
             
             if let xValue = model.x {
-                partition.setValue(UInt16(xValue), forKeyPath: "x")
+                partition.setValue(UInt16(xValue), forKey: "x")
             }
             
             if let yValue = model.y {
-                partition.setValue(UInt16(yValue), forKeyPath: "y")
+                partition.setValue(UInt16(yValue), forKey: "y")
             }
             
             let chunkParts = createChunks(chunkModels: model.chunks, partition: partition)
-            partition.setValue(chunkParts, forKeyPath: "chunks")
-            partition.setValue(revocation, forKeyPath: "revocation")
+            partition.setValue(chunkParts, forKey: "chunks")
+            partition.setValue(revocation, forKey: "revocation")
         }
         
         RevocationDataStorage.shared.saveContext()
@@ -220,12 +220,12 @@ class RevocationManager: NSObject {
         let slices: NSMutableOrderedSet = []
         for sliceKey in sliceModel.keys {
             let slice: Slice = createSlice(expDate: sliceKey, sliceModel: sliceModel[sliceKey]!)
-            slice.setValue(chunk, forKeyPath: "chunk")
+            slice.setValue(chunk, forKey: "chunk")
             slices.add(slice)
         }
-        chunk.setValue(cid, forKeyPath: "cid")
-        chunk.setValue(slices, forKeyPath: "slices")
-        chunk.setValue(partition, forKeyPath: "partition")
+        chunk.setValue(cid, forKey: "cid")
+        chunk.setValue(slices, forKey: "slices")
+        chunk.setValue(partition, forKey: "partition")
     }
     
     func deleteExpiredPartitions(for date: Date) {
@@ -438,20 +438,21 @@ class RevocationManager: NSObject {
         return nil
     }
     
-    func createSlice(expDate: String, sliceModel: SliceModel) -> Slice {
+    private func createSlice(expDate: String, sliceModel: SliceModel) -> Slice {
         let sliceEntity = NSEntityDescription.entity(forEntityName: "Slice", in: managedContext)!
         let slice = Slice(entity: sliceEntity, insertInto: managedContext)
         if let expDate = Date(rfc3339DateTimeString: expDate) {
-            slice.setValue(expDate, forKeyPath: "expiredDate")
+            slice.setValue(expDate, forKey: "expiredDate")
         }
 
-        slice.setValue(sliceModel.version, forKeyPath: "version")
-        slice.setValue(sliceModel.type, forKeyPath: "type")
-        slice.setValue(sliceModel.hash, forKeyPath: "hashID")
+        slice.setValue(sliceModel.version, forKey: "version")
+        slice.setValue(sliceModel.type, forKey: "type")
+        slice.setValue(sliceModel.hash, forKey: "hashID")
+        slice.setValue(nil, forKey: "hashData")
         return slice
     }
 
-    func createChunks(chunkModels: [String : SliceDict], partition: Partition) -> NSOrderedSet {
+    private func createChunks(chunkModels: [String : SliceDict], partition: Partition) -> NSOrderedSet {
         let chunkSet: NSMutableOrderedSet = []
         for key in chunkModels.keys  {
             let chunkEntity = NSEntityDescription.entity(forEntityName: "Chunk", in: managedContext)!
@@ -460,12 +461,12 @@ class RevocationManager: NSObject {
             let slices: NSMutableOrderedSet = []
             for sliceKey in sliceDict.keys {
                 let slice: Slice = createSlice(expDate: sliceKey, sliceModel: sliceDict[sliceKey]!)
-                slice.setValue(chunk, forKeyPath: "chunk")
+                slice.setValue(chunk, forKey: "chunk")
                 slices.add(slice)
             }
-            chunk.setValue(key, forKeyPath: "cid")
-            chunk.setValue(slices, forKeyPath: "slices")
-            chunk.setValue(partition, forKeyPath: "partition")
+            chunk.setValue(key, forKey: "cid")
+            chunk.setValue(slices, forKey: "slices")
+            chunk.setValue(partition, forKey: "partition")
             chunkSet.add(chunk)
         }
         return chunkSet

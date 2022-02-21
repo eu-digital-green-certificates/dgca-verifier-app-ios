@@ -76,12 +76,10 @@ extension CertificateValidator {
     }
 
     private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
-        let filter = BloomFilter(data: hash)
         let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
         for slice in slices ?? [] {
-            filter.resetElements()
             let sliceData = slice.value(forKey: "hashData") as! Data
-            filter.readFrom(data: sliceData)
+            let filter = BloomFilter(data: sliceData)
             let result = filter.mightContain(element: hash)
             if result {
                 return true
