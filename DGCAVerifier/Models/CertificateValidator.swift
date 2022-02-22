@@ -40,19 +40,19 @@ public class CertificateValidator {
     }
 
   func validate(completion: ValidityCompletion) {
-    let failures = findValidityFailures()
-    
-    let technicalValidity: HCertValidity = failures.isEmpty ? .valid : .invalid
-    let issuerValidity = validateCertLogicForIssuer()
-    let destinationValidity = validateCertLogicForDestination()
-    let travalerValidity = validateCertLogicForTraveller()
-    let (infoRulesSection, allRulesValidity): (InfoSection?, HCertValidity)
-    if technicalValidity == .valid {
-        (infoRulesSection, allRulesValidity) = validateCertLogicForAllRules()
-    } else {
-        (infoRulesSection, allRulesValidity) = (nil, .invalid)
-    }
-    
+      let failures = findValidityFailures()
+      
+      let technicalValidity: HCertValidity = failures.isEmpty ? .valid : .invalid
+      let issuerValidity = validateCertLogicForIssuer()
+      let destinationValidity = validateCertLogicForDestination()
+      let travalerValidity = validateCertLogicForTraveller()
+      let (infoRulesSection, allRulesValidity): (InfoSection?, HCertValidity)
+      if technicalValidity == .valid {
+          (infoRulesSection, allRulesValidity) = validateCertLogicForAllRules()
+      } else {
+          (infoRulesSection, allRulesValidity) = (nil, .invalid)
+      }
+
       let validityState = ValidityState(
         technicalValidity: technicalValidity,
         issuerValidity: issuerValidity,
