@@ -50,9 +50,7 @@ class CertificateViewerController: UIViewController {
   weak var dismissDelegate: DismissControllerDelegate?
   
   private var sectionBuilder: SectionBuilder?
-  
-  private var validityState: ValidityState = .invalid
-  private var revocationState: RevocationValidityState = .revocated
+  private var validityState: ValidityState = .validState
   
  private var isDebugMode = DebugManager.sharedInstance.isDebugMode
   
@@ -66,101 +64,85 @@ class CertificateViewerController: UIViewController {
     // MARK: View Controller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         infoTable.contentInset = .init(top: 0, left: 0, bottom: 32, right: 0)
         validateCertificate()
     }
-
+    
     private func validateCertificate() {
         activityIndicator.startAnimating()
         checkCertificateValidity { [weak self] validityState in
-            defer {
-                DispatchQueue.main.async {
-                  self?.activityIndicator.stopAnimating()
-                  self?.setupInterface()
-                }
-            }
-            if validityState.isValid {
-                let rez = self?.checkCertificateRevocation()
-                print(rez)
+            DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
+                self?.setupInterface()
             }
         }
     }
     
-    private func checkCertificateRevocation() -> RevocationValidityState {
-        guard let hCert = hCert else { return .revocated }
-        
-        let validator = CertificateValidator(with: hCert)
-        let revocationValidityState = validator.validateRevocation()
-            revocationState = revocationValidityState
-            if revocationValidityState == .revocated {
-                let builder = SectionBuilder(with: hCert, validity: ValidityState.revocated)
-                builder.makeSections(for: .verifier)
-//                if let section = validityState.infoRulesSection {
-//                    builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
-//                }
-                sectionBuilder = builder
-            }
-        return revocationValidityState
-    }
-
-  private func checkCertificateValidity(completion: ValidityCompletion) {
-      guard let hCert = hCert else { completion(.invalid); return }
+    private func checkCertificateValidity(completion: ValidityCompletion) {
+        guard let hCert = hCert else {
+            completion(.invalidState)
+            return
+        }
         isDebugMode = DebugManager.sharedInstance.isDebugMode
-        
+          
         let validator = CertificateValidator(with: hCert)
-        validator.validate {[weak self] (validityState) in
+        validator.validate { [weak self] (validityState) in
             self?.validityState = validityState
-            if validityState.isNotPassed {
+            if validityState.isNotPassed  {
                 let codes = DataCenter.countryCodes
                 let country = hCert.ruleCountryCode ?? ""
                 
                 if DebugManager.sharedInstance.isDebugMode,
-                  let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
-                  self?.isDebugMode = true
+                    let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
+                    self?.isDebugMode = true
                 } else {
-                  self?.isDebugMode = false
+                    self?.isDebugMode = false
                 }
             }
-            
+              
+            let revocationState = validator.validateRevocation()
+            if revocationState.revocationValidity == .revocated {
+                self?.validityState = ValidityState.revocatedState
+            }
             let builder = SectionBuilder(with: hCert, validity: validityState)
             builder.makeSections(for: .verifier)
             if let section = validityState.infoRulesSection {
                 builder.makeSectionForRuleError(ruleSection: section, for: .verifier)
             }
             self?.sectionBuilder = builder
-            completion(.invalid)
+            completion(.validState)
         }
     }
 
     private func setupInterface() {
-      guard let hCert = hCert else { return }
+        guard let hCert = hCert else { return }
         
-      shareButton.setTitle("Share".localized, for: .normal)
-      nameLabel.text = hCert.fullName
-      let validity = validityState.allRulesValidity
-      
-      dismissButton.setTitle(validity.validityButtonTitle, for: .normal)
-      dismissButton.backgroundColor = validity.validityBackground
-      validityLabel.text = validity.validityResult
-      headerBackground.backgroundColor = validity.validityBackground
-      validityImage.image = validity.validityImage
-      
-      if isDebugMode && (validity != .valid) {
-        debugSections.removeAll()
-        debugSections.append(DebugSectionModel(sectionType: .verification))
-        debugSections.append(DebugSectionModel(sectionType: .raw))
-        certificateSections = debugSections + listItems
-        shareButton.isHidden = false
+        shareButton.setTitle("Share".localized, for: .normal)
+        nameLabel.text = hCert.fullName
+        let validity = validityState.allRulesValidity
+        
+        dismissButton.setTitle(validity.validityButtonTitle, for: .normal)
+        dismissButton.backgroundColor = validity.validityBackground
+        validityLabel.text = validity.validityResult
+        headerBackground.backgroundColor = validity.validityBackground
+        validityImage.image = validity.validityImage
 
-      } else {
-        certificateSections = listItems
-        shareButton.isHidden = true
-      }
-      infoTable.reloadData()
+        if isDebugMode && (validity != .valid) {
+            debugSections.removeAll()
+            debugSections.append(DebugSectionModel(sectionType: .verification))
+            debugSections.append(DebugSectionModel(sectionType: .raw))
+            certificateSections = debugSections + listItems
+            shareButton.isHidden = false
+
+        } else {
+            certificateSections = listItems
+            shareButton.isHidden = true
+        }
+        infoTable.reloadData()
     }
 
-  // MARK: Actions
+    // MARK: Actions
   @IBAction func settingsButtonAction() {
     self.performSegue(withIdentifier: Constants.showSettingsController, sender: nil)
   }
@@ -171,41 +153,41 @@ class CertificateViewerController: UIViewController {
   }
 
   @IBAction func shareButtonAction(_ sender: Any) {
-    guard let cert = hCert else { return }
+      guard let cert = hCert else { return }
     
-    ZipManager().prepareZipData(cert) { result in
-      switch result {
-      case .success(let url):
-        var filesToShare = [Any]()
-        filesToShare.append(url)
-        let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-        self.present(activityViewController, animated: true, completion: nil)
-        
-      case .failure(let error):
-        DGCLogger.logInfo(String(format: "Error while creating zip archive: %@", error.localizedDescription))
+      ZipManager().prepareZipData(cert) { result in
+          switch result {
+          case .success(let url):
+              var filesToShare = [Any]()
+              filesToShare.append(url)
+              let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+              self.present(activityViewController, animated: true, completion: nil)
+            
+          case .failure(let error):
+              DGCLogger.logInfo(String(format: "Error while creating zip archive: %@", error.localizedDescription))
+          }
       }
-    }
   }
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    switch segue.identifier {
-    case Constants.showSettingsController:
-      if let destinationController = segue.destination as? UINavigationController,
-         let rootController = destinationController.viewControllers.first as? SettingsController {
-        rootController.delegate = self
-      }
-    default:
-      break
+      switch segue.identifier {
+        case Constants.showSettingsController:
+            if let destinationController = segue.destination as? UINavigationController,
+               let rootController = destinationController.viewControllers.first as? SettingsController {
+                rootController.delegate = self
+            }
+        default:
+          break
+        }
     }
-  }
 }
 
 // MARK: - UITableViewDataSource
 extension CertificateViewerController: UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
-    return certificateSections.count
+      return certificateSections.count
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

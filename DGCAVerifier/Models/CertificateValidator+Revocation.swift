@@ -18,19 +18,17 @@
  * limitations under the License.
  * ---license-end
  */
-//  
+//
 //  CertificateValidator+Revocation.swift
 //  DGCAVerifier
-//  
+//
 //  Created by Igor Khomiak on 20.02.2022.
-//  
+//
         
 
 import UIKit
 import SwiftDGC
 import DGCBloomFilter
-
-public typealias RevocationValidityCompletion = (RevocationValidityState) -> Void
 
 
 extension CertificateValidator {
@@ -40,7 +38,7 @@ extension CertificateValidator {
     }
 
 
-    func validateRevocation() -> RevocationValidityState {
+    func validateRevocation() -> ValidityState {
         let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
         
         if let revocation = revocationManager.loadRevocation(kid: kidConverted),
@@ -52,25 +50,25 @@ extension CertificateValidator {
             if arrayTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
-                    return .revocated
+                    return ValidityState.revocatedState
                 }
             }
             
             if arrayTypes.contains("UCI"), let hashData = certificate.uvciHash {
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
-                    return .revocated
+                    return ValidityState.revocatedState
                 }
             }
             
             if arrayTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
                 let result = searchInDatabase(lookUp: lookup,hash: hashData)
                 if result == true {
-                    return .revocated
+                    return ValidityState.revocatedState
                 }
             }
        }
-        return .valid
+        return ValidityState.validState
     }
 
     private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {

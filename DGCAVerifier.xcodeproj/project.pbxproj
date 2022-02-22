@@ -109,7 +109,6 @@
 		D2D5656727BA5D7300E821C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D5656627BA5D7300E821C6 /* Security.framework */; };
 		D2D5656927BA5E0400E821C6 /* SquareViewFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */; };
 		D2DFDB1627C25FC400BA15B9 /* CertificateValidator+Revocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */; };
-		D2DFDB1827C26CFE00BA15B9 /* RevocationValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DFDB1727C26CFE00BA15B9 /* RevocationValidityState.swift */; };
 		D2DFDB1E27C371AD00BA15B9 /* DGCBloomFilter in Frameworks */ = {isa = PBXBuildFile; productRef = D2DFDB1D27C371AD00BA15B9 /* DGCBloomFilter */; };
 		D313A7B727BC70830089D89B /* SWCompression in Frameworks */ = {isa = PBXBuildFile; productRef = D313A7B627BC70830089D89B /* SWCompression */; };
 		DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseTableController.swift */; };
@@ -216,7 +215,6 @@
 		D2D5656627BA5D7300E821C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewFinder.swift; sourceTree = "<group>"; };
 		D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertificateValidator+Revocation.swift"; sourceTree = "<group>"; };
-		D2DFDB1727C26CFE00BA15B9 /* RevocationValidityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityState.swift; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseTableController.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
@@ -405,7 +403,6 @@
 				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
 				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
 				D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */,
-				D2DFDB1727C26CFE00BA15B9 /* RevocationValidityState.swift */,
 				D2D5655527B53F9F00E821C6 /* Revocation */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
 			);
@@ -709,7 +706,6 @@
 				D21581412731719500C98986 /* ValidityState+UIKit.swift in Sources */,
 				D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */,
 				5CA450E726E78DB50029324E /* InfoCellDropDown.swift in Sources */,
-				D2DFDB1827C26CFE00BA15B9 /* RevocationValidityState.swift in Sources */,
 				DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */,
 				5CA450AD26E0F4C20029324E /* DebugCell.swift in Sources */,
 				CEA6D6EC261F8D2700715333 /* AppDelegate.swift in Sources */,

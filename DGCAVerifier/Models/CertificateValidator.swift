@@ -53,17 +53,17 @@ public class CertificateValidator {
         (infoRulesSection, allRulesValidity) = (nil, .invalid)
     }
     
-    let validity = ValidityState(
+      let validityState = ValidityState(
         technicalValidity: technicalValidity,
         issuerValidity: issuerValidity,
         destinationValidity: destinationValidity,
         travalerValidity: travalerValidity,
         allRulesValidity: allRulesValidity,
-        revocationValidity: .invalid,
+        revocationValidity: .valid,
         validityFailures: failures,
         infoRulesSection: infoRulesSection)
 
-    completion(validity)
+    completion(validityState)
   }
   
   private func findValidityFailures() -> [String] {
