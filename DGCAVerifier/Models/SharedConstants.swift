@@ -29,7 +29,7 @@
 import Foundation
 
 enum SharedConstants {
-    static let expiredDataInterval: TimeInterval = 1 * 60 * 60 // 24 * 60 * 60
+    static let expiredDataInterval: TimeInterval = 12.0 * 60 * 60
     static let dataStorageName = "secure_storage"
     
     static let linkToOpenGitHubSource = "https://github.com/eu-digital-green-certificates"

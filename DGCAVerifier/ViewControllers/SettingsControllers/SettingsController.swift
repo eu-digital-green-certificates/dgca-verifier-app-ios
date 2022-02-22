@@ -50,6 +50,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     lazy var activityAlert: UIAlertController = {
         let controller = UIAlertController(title: "Loading data", message: "\n\n\n", preferredStyle: .alert)
         controller.view.addSubview(progressView)
+        controller.view.addSubview(indicator)
         progressView.setProgress(0.0, animated: false)
         return controller
     }()
@@ -66,6 +67,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
           self.activityAlert.dismiss(animated: true, completion: nil)
           self.present(self.activityAlert, animated: true) {
               self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 100)
+              self.indicator.startAnimating()
               self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 120)
           }
       }
@@ -73,6 +75,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
       center.addObserver(forName: Notification.Name("StopLoadingNotificationName"), object: nil, queue: .main) { notification in
           self.activityAlert.dismiss(animated: true, completion: nil)
           self.progressView.setProgress(0.0, animated: false)
+          self.indicator.stopAnimating()
       }
       
       center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
