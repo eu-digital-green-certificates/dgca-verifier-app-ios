@@ -125,17 +125,11 @@
                                                     <color key="tintColor" name="verifierBlue"/>
                                                     <state key="normal" image="spinner"/>
                                                 </button>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="t5k-CF-0Rs">
-                                                    <rect key="frame" x="197" y="12" width="20" height="20"/>
-                                                    <color key="color" systemColor="secondaryLabelColor"/>
-                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pZh-NG-LMB" firstAttribute="top" secondItem="r9F-Dp-Vgr" secondAttribute="topMargin" id="2W0-g4-f2G"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="trailing" secondItem="r9F-Dp-Vgr" secondAttribute="trailingMargin" id="7QY-8e-8Pe"/>
-                                                <constraint firstItem="t5k-CF-0Rs" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="J91-7Z-kcD"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="VCJ-sw-N0N"/>
-                                                <constraint firstItem="t5k-CF-0Rs" firstAttribute="centerX" secondItem="r9F-Dp-Vgr" secondAttribute="centerX" id="aeg-N7-R9I"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="leading" secondItem="pZh-NG-LMB" secondAttribute="trailing" id="ezL-yG-ASw"/>
                                                 <constraint firstItem="pZh-NG-LMB" firstAttribute="leading" secondItem="r9F-Dp-Vgr" secondAttribute="leadingMargin" id="hwX-gt-YoF"/>
                                             </constraints>
@@ -200,7 +194,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="t5k-CF-0Rs" id="gO5-9E-Sh3"/>
                         <outlet property="debugLabel" destination="c7T-kU-ft5" id="kFx-Jk-QIV"/>
                         <outlet property="debugLabelName" destination="5ZM-hL-tLy" id="LIb-7Z-JmQ"/>
                         <outlet property="licensesLabelName" destination="3C9-S9-3Vo" id="xn8-RM-8d1"/>

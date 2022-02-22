@@ -36,13 +36,13 @@ class LocalDataManager {
     
     // MARK: - Public Keys
     func add(encodedPublicKey: String) {
-      let kid = KID.from(encodedPublicKey)
-      let kidStr = KID.string(from: kid)
-      
-      let list = localData.encodedPublicKeys[kidStr] ?? []
-      if !list.contains(encodedPublicKey) {
-        localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
-      }
+        let kid = KID.from(encodedPublicKey)
+        let kidStr = KID.string(from: kid)
+        
+        let list = localData.encodedPublicKeys[kidStr] ?? []
+        if !list.contains(encodedPublicKey) {
+          localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
+        }
     }
     
     // MARK: - Countries
@@ -95,23 +95,22 @@ class LocalDataManager {
         return localData.rules.contains(where: { $0.hash == hash })
     }
 
-
     // MARK: - Config
     func merge(other: JSON) {
       localData.config.merge(other: other)
     }
     
     var versionedConfig: JSON {
-      if localData.config["versions"][DataCenter.appVersion].exists() {
-        return localData.config["versions"][DataCenter.appVersion]
-      } else {
-        return localData.config["versions"]["default"]
-      }
+        if localData.config["versions"][DataCenter.appVersion].exists() {
+          return localData.config["versions"][DataCenter.appVersion]
+        } else {
+          return localData.config["versions"]["default"]
+        }
     }
 
     // MARK: - Services
     func save(completion: @escaping DataCompletionHandler) {
-      storage.save(localData, completion: completion)
+        storage.save(localData, completion: completion)  
     }
 
     func loadLocallyStoredData(completion: @escaping DataCompletionHandler) {

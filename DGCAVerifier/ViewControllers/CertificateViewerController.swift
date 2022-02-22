@@ -60,6 +60,10 @@ class CertificateViewerController: UIViewController {
   private var debugSections = [DebugSectionModel]()
   private var certificateSections: [CertificateSectionsProtocol] = []
 
+    deinit {
+        let center = NotificationCenter.default
+        center.removeObserver(self)
+    }
 
     // MARK: View Controller life cycle
     override func viewDidLoad() {

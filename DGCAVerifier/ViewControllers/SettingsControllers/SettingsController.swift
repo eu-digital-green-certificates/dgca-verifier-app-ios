@@ -41,7 +41,6 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
   @IBOutlet fileprivate weak var privacyLabelName: UILabel!
   @IBOutlet fileprivate weak var debugLabelName: UILabel!
   @IBOutlet fileprivate weak var debugLabel: UILabel!
-  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet fileprivate weak var versionLabel: UILabel!
 
     lazy var progressView: UIProgressView = UIProgressView(progressViewStyle: .`default`)
@@ -54,6 +53,11 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         progressView.setProgress(0.0, animated: false)
         return controller
     }()
+
+    deinit {
+        let center = NotificationCenter.default
+        center.removeObserver(self)
+    }
 
   override func viewDidLoad() {
       super.viewDidLoad()

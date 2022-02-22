@@ -106,6 +106,19 @@ class DataCenter {
         localDataManager.save(completion: completion)
     }
     
+    static func addValueSets(_ list: [ValueSet]) {
+        list.forEach { localDataManager.add(valueSet: $0) }
+    }
+
+    static func addRules(_ list: [Rule]) {
+        list.forEach { localDataManager.add(rule: $0) }
+    }
+
+    static func addCountries(_ list: [CountryModel]) {
+        localDataManager.localData.countryCodes.removeAll()
+        list.forEach { localDataManager.add(country: $0) }
+    }
+
     class func prepareLocalData(completion: @escaping DataCompletionHandler) {
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
@@ -114,7 +127,10 @@ class DataCenter {
                 completion(result)
             } else {
                 reloadStorageData { result in
-                    localDataManager.loadLocallyStoredData(completion: completion)
+                    localDataManager.loadLocallyStoredData { result in
+                        CertLogicManager.shared.setRules(ruleList: rules)
+                        completion(result)
+                    }
                 }
             }
         }
@@ -131,13 +147,19 @@ class DataCenter {
             CertLogicManager.shared.setRules(ruleList: rules)
             
             group.enter()
-            GatewayConnection.updateLocalDataStorage { group.leave() }
+            GatewayConnection.updateLocalDataStorage {
+                group.leave()
+            }
             
             group.enter()
-            GatewayConnection.loadCountryList { _ in group.leave()  }
+            GatewayConnection.loadCountryList { _ in
+                group.leave()
+            }
             
             group.enter()
-            GatewayConnection.loadValueSetsFromServer { _, err in group.leave() }
+            GatewayConnection.loadValueSetsFromServer { _, err in
+                group.leave()
+            }
             
             group.enter()
             GatewayConnection.loadRulesFromServer { _, err  in
@@ -164,7 +186,7 @@ class DataCenter {
         group.notify(queue: .main) {
             localDataManager.localData.lastFetch = Date()
             center.post(name: Notification.Name("StopLoadingNotificationName"), object: nil, userInfo: nil )
-            completion(.success(true))
+            DataCenter.saveLocalData(completion: completion)
         }
     }
 }

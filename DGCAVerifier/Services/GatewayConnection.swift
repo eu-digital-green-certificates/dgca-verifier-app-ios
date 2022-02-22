@@ -97,17 +97,15 @@ class GatewayConnection: ContextConnection {
   }
 
   static func updateLocalDataStorage(completion: (() -> Void)? = nil) {
-    certUpdate(resume: DataCenter.resumeToken) { encodedCert, token in
-      guard let encodedCert = encodedCert else {
-        status(completion: completion)
-        return
-      }
-      DataCenter.localDataManager.add(encodedPublicKey: encodedCert)
-      DataCenter.resumeToken = token
-      DataCenter.lastFetch = Date()
-      DataCenter.saveLocalData { result in
-        updateLocalDataStorage(completion: completion)
-      }
+      certUpdate(resume: DataCenter.resumeToken) { encodedCert, token in
+          guard let encodedCert = encodedCert else {
+            status(completion: completion)
+            return
+          }
+          DataCenter.localDataManager.add(encodedPublicKey: encodedCert)
+          DataCenter.resumeToken = token
+          DataCenter.lastFetch = Date()
+          updateLocalDataStorage(completion: completion)
     }
   }
 
@@ -174,16 +172,9 @@ extension GatewayConnection {
       completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
     } else {
       getListOfCountry { countryList in
-        // Remove old countryCodes
-        let newCountryCodes = DataCenter.countryCodes.filter { countryCode in
-            return countryList.contains(where: { $0.code == countryCode.code })
-        }
-        DataCenter.countryCodes = newCountryCodes
-        countryList.forEach { DataCenter.localDataManager.add(country: $0) }
-        DataCenter.saveLocalData { result in
+          DataCenter.addCountries(countryList)
           completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
-        }
-      }
+       }
     }
   }
   
@@ -257,10 +248,8 @@ extension GatewayConnection {
                 return
             }
 
-            rules.forEach { DataCenter.localDataManager.add(rule: $0) }
-            DataCenter.saveLocalData { result in
-                completion(DataCenter.rules, nil)
-            }
+            DataCenter.addRules(rules)
+            completion(DataCenter.rules, nil)
         }
     }
 
@@ -302,33 +291,42 @@ extension GatewayConnection {
     }
   }
   
-  static private func getValueSets(valueSetHash: ValueSetHash, completion: @escaping ValueSetCompletionHandler) {
-    request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
-      guard case let .success(result) = $0.result,
-        let response = result,
-        let responseStr = String(data: response, encoding: .utf8)
-      else {
-        completion(nil, GatewayError.parsingError)
-        return
-      }
-      if let valueSet: ValueSet = CertLogicEngine.getItem(from: responseStr) {
-        let downloadedValueSetHash = SHA256.digest(input: response as NSData)
-        if downloadedValueSetHash.hexString == valueSetHash.hash {
-          valueSet.setHash(hash: valueSetHash.hash)
-          completion(valueSet, nil)
-        } else {
-          completion(nil, GatewayError.encodingError)
+    static private func getValueSets(valueSetHash: ValueSetHash, completion: @escaping ValueSetCompletionHandler) {
+      request(["endpoints", "valuesets"], externalLink: "/\(valueSetHash.hash)", method: .get).response {
+        guard case let .success(result) = $0.result,
+          let response = result,
+          let responseStr = String(data: response, encoding: .utf8)
+        else {
+          completion(nil, GatewayError.parsingError)
+          return
         }
-        return
+          
+        if let valueSet: ValueSet = CertLogicEngine.getItem(from: responseStr) {
+          let downloadedValueSetHash = SHA256.digest(input: response as NSData)
+          if downloadedValueSetHash.hexString == valueSetHash.hash {
+            valueSet.setHash(hash: valueSetHash.hash)
+            completion(valueSet, nil)
+          } else {
+            completion(nil, GatewayError.encodingError)
+          }
+          return
+        }
+        completion(nil, GatewayError.encodingError)
       }
-      completion(nil, GatewayError.encodingError)
     }
-  }
-  
-  static func loadValueSetsFromServer(completion: @escaping ValueSetsCompletion) {
-    DataCenter.valueSets.forEach { DataCenter.localDataManager.add(valueSet: $0) }
-    DataCenter.saveLocalData { result in
-      completion(DataCenter.valueSets, nil)
+
+    static func loadValueSetsFromServer(completion: @escaping ValueSetsCompletion) {
+        getListOfValueSets { list, error in
+            guard error == nil else {
+              completion(nil, GatewayError.connection(error: error!))
+              return
+            }
+            guard let valueSetsList = list else {
+              completion(nil, GatewayError.connection(error: error!))
+              return
+            }
+            DataCenter.addValueSets(valueSetsList)
+            completion(DataCenter.valueSets, nil)
+        }
     }
-  }
 }

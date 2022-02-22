@@ -154,16 +154,16 @@ class ScanCertificateController: UIViewController {
               userInfo: nil, repeats: true)
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    captureSession?.startRunning()
-  }
-    
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    captureSession?.stopRunning()
-  }
-  
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      captureSession?.startRunning()
+    }
+      
+    override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      captureSession?.stopRunning()
+    }
+
   // MARK: - Actions
   @objc func reloadExpiredData() {
      if downloadedDataHasExpired {
