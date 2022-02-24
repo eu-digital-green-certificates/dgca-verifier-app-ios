@@ -111,6 +111,7 @@
 		D2DFDB1627C25FC400BA15B9 /* CertificateValidator+Revocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */; };
 		D2DFDB1E27C371AD00BA15B9 /* DGCBloomFilter in Frameworks */ = {isa = PBXBuildFile; productRef = D2DFDB1D27C371AD00BA15B9 /* DGCBloomFilter */; };
 		D313A7B727BC70830089D89B /* SWCompression in Frameworks */ = {isa = PBXBuildFile; productRef = D313A7B627BC70830089D89B /* SWCompression */; };
+		D3654EE927C73D84001C8C64 /* RevocationDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */; };
 		DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseTableController.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
@@ -125,6 +126,13 @@
 			remoteInfo = DGCAVerifier;
 		};
 		CEA6D70A261F8D2900715333 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEA6D6E0261F8D2700715333 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEA6D6E7261F8D2700715333;
+			remoteInfo = DGCAVerifier;
+		};
+		D3654EEA27C73D84001C8C64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CEA6D6E0261F8D2700715333 /* Project object */;
 			proxyType = 1;
@@ -215,6 +223,8 @@
 		D2D5656627BA5D7300E821C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewFinder.swift; sourceTree = "<group>"; };
 		D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertificateValidator+Revocation.swift"; sourceTree = "<group>"; };
+		D3654EE627C73D84001C8C64 /* DGCAVerifierDownloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DGCAVerifierDownloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationDownloadTests.swift; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseTableController.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
@@ -245,6 +255,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CEA6D706261F8D2900715333 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3654EE327C73D84001C8C64 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -423,6 +440,7 @@
 				CEA6D6EA261F8D2700715333 /* DGCAVerifier */,
 				CEA6D701261F8D2900715333 /* DGCAVerifierTests */,
 				CEA6D70C261F8D2900715333 /* DGCAVerifierUITests */,
+				D3654EE727C73D84001C8C64 /* DGCAVerifierDownloadTests */,
 				CEA6D6E9261F8D2700715333 /* Products */,
 				CE56B5032639F48E00FB31B1 /* Frameworks */,
 			);
@@ -434,6 +452,7 @@
 				CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */,
 				CEA6D6FE261F8D2900715333 /* DGCAVerifierTests.xctest */,
 				CEA6D709261F8D2900715333 /* DGCAVerifierUITests.xctest */,
+				D3654EE627C73D84001C8C64 /* DGCAVerifierDownloadTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -503,6 +522,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		D3654EE727C73D84001C8C64 /* DGCAVerifierDownloadTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */,
+			);
+			path = DGCAVerifierDownloadTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -570,13 +597,31 @@
 			productReference = CEA6D709261F8D2900715333 /* DGCAVerifierUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		D3654EE527C73D84001C8C64 /* DGCAVerifierDownloadTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3654EEE27C73D84001C8C64 /* Build configuration list for PBXNativeTarget "DGCAVerifierDownloadTests" */;
+			buildPhases = (
+				D3654EE227C73D84001C8C64 /* Sources */,
+				D3654EE327C73D84001C8C64 /* Frameworks */,
+				D3654EE427C73D84001C8C64 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3654EEB27C73D84001C8C64 /* PBXTargetDependency */,
+			);
+			name = DGCAVerifierDownloadTests;
+			productName = DGCAVerifierDOWNLOADTests;
+			productReference = D3654EE627C73D84001C8C64 /* DGCAVerifierDownloadTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		CEA6D6E0261F8D2700715333 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					CEA6D6E7261F8D2700715333 = {
@@ -588,6 +633,10 @@
 					};
 					CEA6D708261F8D2900715333 = {
 						CreatedOnToolsVersion = 12.4;
+						TestTargetID = CEA6D6E7261F8D2700715333;
+					};
+					D3654EE527C73D84001C8C64 = {
+						CreatedOnToolsVersion = 13.2.1;
 						TestTargetID = CEA6D6E7261F8D2700715333;
 					};
 				};
@@ -617,6 +666,7 @@
 				CEA6D6E7261F8D2700715333 /* DGCAVerifier */,
 				CEA6D6FD261F8D2900715333 /* DGCAVerifierTests */,
 				CEA6D708261F8D2900715333 /* DGCAVerifierUITests */,
+				D3654EE527C73D84001C8C64 /* DGCAVerifierDownloadTests */,
 			);
 		};
 /* End PBXProject section */
@@ -655,6 +705,13 @@
 			files = (
 				5CEA55C026E9EAF000269702 /* awesome.ttf in Resources */,
 				D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3654EE427C73D84001C8C64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +842,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3654EE227C73D84001C8C64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3654EE927C73D84001C8C64 /* RevocationDownloadTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -797,6 +862,11 @@
 			isa = PBXTargetDependency;
 			target = CEA6D6E7261F8D2700715333 /* DGCAVerifier */;
 			targetProxy = CEA6D70A261F8D2900715333 /* PBXContainerItemProxy */;
+		};
+		D3654EEB27C73D84001C8C64 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEA6D6E7261F8D2700715333 /* DGCAVerifier */;
+			targetProxy = D3654EEA27C73D84001C8C64 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1108,6 +1178,44 @@
 			};
 			name = Release;
 		};
+		D3654EEC27C73D84001C8C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.ve.DGCAVerifierDOWNLOADTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DGCAVerifier.app/DGCAVerifier";
+			};
+			name = Debug;
+		};
+		D3654EED27C73D84001C8C64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.ve.DGCAVerifierDOWNLOADTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DGCAVerifier.app/DGCAVerifier";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1143,6 +1251,15 @@
 			buildConfigurations = (
 				CEA6D719261F8D2900715333 /* Debug */,
 				CEA6D71A261F8D2900715333 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3654EEE27C73D84001C8C64 /* Build configuration list for PBXNativeTarget "DGCAVerifierDownloadTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3654EEC27C73D84001C8C64 /* Debug */,
+				D3654EED27C73D84001C8C64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
