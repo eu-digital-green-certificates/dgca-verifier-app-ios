@@ -299,9 +299,11 @@ extension GatewayConnection {
   }
   
   static func loadValueSetsFromServer(completion: (([CertLogic.ValueSet]) -> Void)? = nil) {
-    DataCenter.valueSets.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
-    DataCenter.saveSets { result in
-      completion?(DataCenter.valueSets)
+    getListOfValueSets { valueSetsList in
+      valueSetsList.forEach { DataCenter.valueSetsDataManager.add(valueSet: $0) }
+      DataCenter.saveSets { result in
+        completion?(DataCenter.valueSets)
+      }
     }
   }
 }

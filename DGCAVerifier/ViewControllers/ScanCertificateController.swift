@@ -29,6 +29,7 @@ import UIKit
 import SwiftDGC
 import Vision
 import AVFoundation
+import CoreNFC
 
 protocol ScanCertificateDelegate: AnyObject {
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert)
@@ -37,7 +38,7 @@ protocol ScanCertificateDelegate: AnyObject {
   func enableBackgroundDetection()
 }
 
-class ScanCertificateController: UIViewController, DismissControllerDelegate {
+class ScanCertificateController: UIViewController, DismissControllerDelegate, NFCNDEFReaderSessionDelegate {
   private enum Constants {
     static let userDefaultsCountryKey = "UDCountryKey"
     static let showSettingsSegueID = "showSettingsSegueID"
@@ -136,9 +137,8 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   }
   
   @IBAction func scanNFCAction() {
-    let helper = NFCHelper()
-    helper.onNFCResult = onNFCResult(success:message:)
-    helper.restartSession()
+    let session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: true)
+    session.begin()
   }
   
   // MARK: Navigation
@@ -195,6 +195,34 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   private func showPermissionsAlert() {
     showAlert(withTitle: "Camera Permissions".localized,
         message: "Please open Settings and grant permission for this app to use your camera.".localized)
+  }
+  
+  // MARK: NFCNDEFReaderSessionDelegate
+  func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+    onNFCResult(success: false, message: error.localizedDescription)
+  }
+  
+  func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+    for message in messages {
+      for record in message.records {
+        var payload : String? = nil;
+        if #available(iOS 13.0, *) {
+          (payload, _) = record.wellKnownTypeTextPayload()
+        } else {
+          if (record.typeNameFormat == .nfcWellKnown && record.type.hashValue == 0x54) {
+            let definition = record.payload[0]
+            let encoding = (((definition & 128) >> 7) == 0) ? String.Encoding.utf8 : String.Encoding.utf16;
+            let localeLen = Int(definition & 63)
+            payload = String(data: record.payload[localeLen...], encoding: encoding)
+          }
+        }
+        if payload != nil && payload!.prefix(4) == "HC1:" {
+          onNFCResult(success: true, message: payload!)
+          return
+        }
+      }
+    }
+    onNFCResult(success: false, message: "don't found any info")
   }
 }
 
@@ -345,7 +373,9 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
   }
   
   public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    self.selectedCounty = countryItems[row]
+    if countryItems.count > 0 {
+      self.selectedCounty = countryItems[row]
+    }
   }
 }
 
@@ -357,7 +387,7 @@ extension ScanCertificateController {
       let countryCode = self.selectedCounty?.code
       let hCert = try HCert(from: message, ruleCountryCode: countryCode)
       delegate?.scanController(self, didScanCertificate: hCert)
-
+      
     } catch let error as CertificateParsingError {
       DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
       delegate?.scanController(self, didFailWithError: error)
