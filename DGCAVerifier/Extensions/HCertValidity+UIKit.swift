@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  HCertValidity.swift
+//  HCertValidity+UIKit.swift
 //  DGCAVerifier
 //  
 //  Created by Igor Khomiak on 29.10.2021.
@@ -34,44 +34,54 @@ extension HCertValidity {
   var validityResult: String {
       switch self {
       case .valid:
-        return "Valid".localized
+          return "Valid".localized
       case .invalid:
-        return "Invalid".localized
+          return "Invalid".localized
       case .ruleInvalid:
-        return "Limited validity".localized
+          return "Limited validity".localized
+      case .revocated:
+          return "Revocated".localized
       }
     }
     
     var validityImage: UIImage {
-      switch self {
-      case .valid:
-          return UIImage(named: "check")!
-      case .invalid:
-          return UIImage(named: "error")!
-      case .ruleInvalid:
-          return UIImage(named: "check")!
-      }
+        switch self {
+        case .valid:
+            return UIImage(named: "check")!
+        case .invalid:
+            return UIImage(named: "error")!
+        case .ruleInvalid:
+            return UIImage(named: "check")!
+        case .revocated:
+            return UIImage(named: "error")!
+
+        }
     }
     
     var validityButtonTitle: String {
-      switch self {
-      case .valid:
-          return "Done".localized
-      case .invalid:
-          return "Retry".localized
-      case .ruleInvalid:
-        return "Retry".localized
-      }
+        switch self {
+        case .valid:
+            return "Done".localized
+        case .invalid:
+            return "Retry".localized
+        case .ruleInvalid:
+            return "Retry".localized
+        case .revocated:
+            return "Retry".localized
+
+        }
     }
 
     var validityBackground: UIColor {
-      switch self {
-      case .valid:
-          return UIColor.certificateGreen
-      case .invalid:
-          return UIColor.certificateRed
-      case .ruleInvalid:
-          return UIColor.certificateLimited
-      }
+        switch self {
+        case .valid:
+            return UIColor.certificateGreen
+        case .invalid:
+            return UIColor.certificateRed
+        case .ruleInvalid:
+            return UIColor.certificateLimited
+        case .revocated:
+            return UIColor.certificateRed
+        }
     }
 }

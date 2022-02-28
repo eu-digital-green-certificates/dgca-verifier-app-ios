@@ -19,33 +19,32 @@
  * ---license-end
  */
 //  
-//  DataStuctures.swift
-//  DGCAVerifier
+//  RevocationDownloadTests.swift
+//  RevocationDownloadTests
 //  
-//  Created by Igor Khomiak on 11/3/21.
+//  Created by Denis Melenevsky on 22.02.2022.
 //  
         
 
-import Foundation
+import XCTest
+@testable import DGCAVerifier
 import SwiftDGC
-import CertLogic
 
-class LocalData: Codable {
-    var encodedPublicKeys = [String: [String]]()
-    var countryCodes = [CountryModel]()
-    var valueSets = [ValueSet]()
-    var rules = [Rule]()
-    
-    var resumeToken: String?
-    var lastFetchRaw: Date?
-    var lastFetch: Date {
-      get {
-        lastFetchRaw ?? Date.distantPast
-      }
-      set {
-        lastFetchRaw = newValue
-      }
+class RevocationDownloadTests: XCTestCase {
+
+    override func setUpWithError() throws {
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    var config = Config.load()
-    var lastLaunchedAppVersion = "0.0"
+
+    override func tearDownWithError() throws {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    }
+
+    func testExample() throws {
+        let service = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)
+        
+        let worker = RevocationWorker()
+    }
+
+
 }

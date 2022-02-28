@@ -30,69 +30,53 @@ import SwiftDGC
 
 class HomeController: UIViewController {
   
-  private enum Constants {
-    static let scannerSegueID = "scannerSegueID"
-  }
-  
-  @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
-  @IBOutlet fileprivate weak var appNameLabel: UILabel!
-
-  var downloadedDataHasExpired: Bool {
-    return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
-  }
- 
-  var appWasRunWithOlderVersion: Bool {
-    return DataCenter.lastLaunchedAppVersion != DataCenter.appVersion
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    appNameLabel.text = "Verifier App"
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+    private enum Constants {
+      static let scannerSegueID = "scannerSegueID"
+    }
     
-    DataCenter.initializeLocalData {[unowned self] result in
-      DispatchQueue.main.async {
-        self.downloadedDataHasExpired || self.appWasRunWithOlderVersion ?  self.reloadStorageData() : self.initializeAllStorageData()
-      }
-    }
-  }
+    @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var appNameLabel: UILabel!
+    @IBOutlet fileprivate weak var messageLabel: UILabel!
+    @IBOutlet fileprivate weak var progresBar: UIProgressView!
 
-  func initializeAllStorageData() {
-    self.activityIndicator.startAnimating()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+      return .lightContent
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        appNameLabel.text = "Verifier App"
+        
+      let center = NotificationCenter.default
+      center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
+        let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
+          self.messageLabel?.text = strMessage
+          let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
+          self.progresBar?.setProgress(percentage, animated: true)
+      }
+        self.activityIndicator.startAnimating()
+        DataCenter.prepareLocalData {[unowned self] result in
+            DispatchQueue.main.async {
+              self.activityIndicator.stopAnimating()
+              self.loadComplete()
+            }
+        }
+    }
     
-    DataCenter.initializeLocalData { result in
-      DispatchQueue.main.async {
-        self.activityIndicator.stopAnimating()
-        self.loadComplete()
-      }
+    deinit {
+        let center = NotificationCenter.default
+        center.removeObserver(self)
     }
-  }
-  
-  func reloadStorageData() {
-    self.activityIndicator.startAnimating()
     
-    DataCenter.reloadStorageData { result in
-      DispatchQueue.main.async {
-        self.activityIndicator.stopAnimating()
-        self.loadComplete()
-      }
+    private func loadComplete() {
+        let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
+        SecureBackground.image = renderer.image { rendererContext in
+          self.view.layer.render(in: rendererContext.cgContext)
+        }
+        if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
+          showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
+        } else {
+          performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
+        }
     }
-  }
-
-
-  private func loadComplete() {
-    let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
-    SecureBackground.image = renderer.image { rendererContext in
-      self.view.layer.render(in: rendererContext.cgContext)
-    }
-    if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
-      showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
-      return
-    } else {
-      performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
-    }
-  }
 }

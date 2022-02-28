@@ -33,28 +33,28 @@
 "Current" = "Aktuell";
 "Result" = "Ergebnis";
 "Failed for %@ (see settings)" = "Fehlgeschlagen für %@ (siehe Einstellungen)";
-"Passed for %@ (see settings)" = "Bestanden für %@ (siehe Einstellungen)";
+"Passed for %@ (see settings)" = "Genehmigt für %@ (siehe Einstellungen)";
 "Open for %@ (see settings)" = "Offen für %@ (siehe Einstellungen)";
-"Failed" = "Gescheitert";
-"Passed" = "Bestanden";
+"Failed" = "Fehlgeschlagen";
+"Passed" = "Genehmigt";
 "Open" = "Offen";
-"recheck_rule" = "Weitere Einzelheiten und reisebezogene Vorschriften finden Sie unter Re-open EU";
-"Issuer Country" = "Emittentenland";
+"recheck_rule" = "Weitere Einzelheiten und reisebezogene Vorschriften finden Sie unter Re-open EU.";
+"Issuer Country" = "Ausstellerland";
 
 "Share" = "Teilen";
 "Cancel" = "Abbrechen";
 "Level 1" = "Level 1";
 "Level 2" = "Level 2";
 "Level 3" = "Level 3";
-"Disabled" = "Behinderte";
+"Disabled" = "Nicht aktiv";
 "Debug mode" = "Debug-Modus";
 "Licenses" = "Lizenzen";
 "Privacy Information" = "Datenschutzinformationen";
 "Select countrys" = "Länder auswählen";
 "Country codes list empty" = "Liste der Ländercodes leer";
 "Barcode Error" = "Barcode-Fehler";
-"Cannot Find Camera" = "Kamera kann nicht gefunden werden";
-"There seems to be a problem with the camera on your device."= "There seems to be a problem with the camera on your device.";
+"Cannot Find Camera" = "Kamera kann nicht gefunden werden.";
+"There seems to be a problem with the camera on your device." = "Es scheint ein Problem mit der Kamera Ihres Gerätes zu geben.";
 "Camera Permissions" = "Kameraberechtigungen";
 "Please open Settings and grant permission for this app to use your camera." = "Bitte öffnen Sie die Einstellungen und erteilen Sie dieser App die Berechtigung, Ihre Kamera zu verwenden.";
 "Something went wrong." = "Etwas ist schief gelaufen.";
@@ -66,6 +66,14 @@
 "Test date is in the future." = "Testdatum liegt in der Zukunft.";
 
 "Technical Verification" = "Technische Verifizierung";
-"Issuer Invalidation" = "Ungültigkeitserklärung des Emittenten";
-"Destination Acceptance" = "Zielort Akzeptanz";
-"Traveller Acceptance" = "Akzeptanz der Reisenden";
+"Issuer Invalidation" = "Aussteller Ungültigkeit";
+"Destination Acceptance" = "Einreiseregeln";
+"Traveller Acceptance" = "Regeln für Reisende";
+
+"Certificate was revoked" = "Certificate was revoked";
+
+"Downloading the certificate revocations database" = "Downloading the certificate revocations database";
+"Updating the certificate revocations database" = "Updating the certificate revocations database";
+"Downloading the certificate revocations metadata" = "Downloading the certificate revocations metadata";
+"Updating the certificate revocations metadata" = "Updating the certificate revocations metadata";
+"Preparation of database on revocation of certificates" = "Preparation of database on revocation of certificates";

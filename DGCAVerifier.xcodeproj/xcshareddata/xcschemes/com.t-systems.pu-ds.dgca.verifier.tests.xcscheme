@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1320"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -29,41 +29,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CEA6D6FD261F8D2900715333"
-               BuildableName = "DGCAVerifierTests.xctest"
-               BlueprintName = "DGCAVerifierTests"
-               ReferencedContainer = "container:DGCAVerifier.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CEA6D708261F8D2900715333"
-               BuildableName = "DGCAVerifierUITests.xctest"
-               BlueprintName = "DGCAVerifierUITests"
-               ReferencedContainer = "container:DGCAVerifier.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D3654ED827C73C48001C8C64"
-               BuildableName = "com.t-systems.pu-ds.dgca.verifier.tests.xctest"
-               BlueprintName = "com.t-systems.pu-ds.dgca.verifier.tests"
-               ReferencedContainer = "container:DGCAVerifier.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3654EE527C73D84001C8C64"
-               BuildableName = "DGCAVerifierDOWNLOADTests.xctest"
+               BuildableName = "DGCAVerifierDownloadTests.xctest"
                BlueprintName = "DGCAVerifierDownloadTests"
                ReferencedContainer = "container:DGCAVerifier.xcodeproj">
             </BuildableReference>
@@ -97,8 +67,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CEA6D6E7261F8D2700715333"
@@ -106,7 +75,7 @@
             BlueprintName = "DGCAVerifier"
             ReferencedContainer = "container:DGCAVerifier.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

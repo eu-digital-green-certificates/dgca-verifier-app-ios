@@ -25,7 +25,7 @@
 //  
         
 
-import UIKit
+import Foundation
 
 public enum DGCLogger {}
 
