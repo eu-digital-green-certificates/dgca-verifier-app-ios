@@ -28,7 +28,7 @@
 
 import UIKit
 import SwiftDGC
-import DGCBloomFilter
+//import DGCBloomFilter  // - BloomFilter temporary added locally  01.03.22
 
 
 extension CertificateValidator {
