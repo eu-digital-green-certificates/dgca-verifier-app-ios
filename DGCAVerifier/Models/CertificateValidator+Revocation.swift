@@ -37,32 +37,33 @@ extension CertificateValidator {
         return RevocationManager()
     }
 
-
     func validateRevocation() -> ValidityState {
         let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
         
         if let revocation = revocationManager.loadRevocation(kid: kidConverted),
             let revocMode = RevocationMode(rawValue: revocation.mode!),
             let hashTypes = revocation.hashTypes {
-            let lookup: CertLookUp = certificate.lookUp(mode: revocMode)
-            let arrayTypes = hashTypes.split(separator: ",")
-            
-            if arrayTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
+            let arrayHashTypes = hashTypes.split(separator: ",")
+
+            if arrayHashTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     return ValidityState.revocatedState
                 }
             }
             
-            if arrayTypes.contains("UCI"), let hashData = certificate.uvciHash {
+            if arrayHashTypes.contains("UCI"), let hashData = certificate.uvciHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     return ValidityState.revocatedState
                 }
             }
             
-            if arrayTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
-                let result = searchInDatabase(lookUp: lookup,hash: hashData)
+            if arrayHashTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     return ValidityState.revocatedState
                 }
