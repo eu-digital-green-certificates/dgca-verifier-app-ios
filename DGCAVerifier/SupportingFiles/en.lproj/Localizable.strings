@@ -70,7 +70,7 @@
 "Destination Acceptance" = "Destination Acceptance";
 "Traveller Acceptance" = "Traveller Acceptance";
 
-"Certificate was revoked" = "Certificate was revoked";
+"Certificate has been revoked" = "Certificate has been revoked";
 
 "Downloading the certificate revocations database" = "Downloading the certificate revocations database";
 "Updating the certificate revocations database" = "Updating the certificate revocations database";

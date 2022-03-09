@@ -40,7 +40,7 @@ extension HCertValidity {
       case .ruleInvalid:
           return "Limited validity".localized
       case .revocated:
-          return "Revocated".localized
+          return "Revoked".localized
       }
     }
     
