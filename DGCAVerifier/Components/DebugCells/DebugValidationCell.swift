@@ -18,12 +18,12 @@
  * limitations under the License.
  * ---license-end
  */
-//  
+//
 //  DebugValidationCell.swift
 //  DGCAVerifier
-//  
+//
 //  Created by Alexandr Chernyy on 07.09.2021.
-//  
+//
         
 
 import UIKit
@@ -46,7 +46,7 @@ class DebugValidationCell: UITableViewCell {
   @IBOutlet weak var destinationView: UILabel!
   @IBOutlet weak var travvelerView: UILabel!
   
-  private var validityState: ValidityState = .invalid
+  private var validityState: ValidityState = .validState
       
   func setupCell(with validity: ValidityState) {
     self.validityState = validity

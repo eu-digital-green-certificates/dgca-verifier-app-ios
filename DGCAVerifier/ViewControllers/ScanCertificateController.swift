@@ -30,6 +30,10 @@ import SwiftDGC
 import Vision
 import AVFoundation
 
+protocol DismissControllerDelegate: AnyObject {
+  func userDidDissmis(_ controller: UIViewController)
+}
+
 protocol ScanCertificateDelegate: AnyObject {
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert)
   func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError)
@@ -37,159 +41,219 @@ protocol ScanCertificateDelegate: AnyObject {
   func enableBackgroundDetection()
 }
 
-class ScanCertificateController: UIViewController, DismissControllerDelegate {
-  private enum Constants {
-    static let userDefaultsCountryKey = "UDCountryKey"
-    static let showSettingsSegueID = "showSettingsSegueID"
-    static let showCertificateViewer = "showCertificateViewer"
-  }
-
-  @IBOutlet fileprivate weak var aNFCButton: UIButton!
-  @IBOutlet fileprivate weak var settingsButton: UIButton!
-  @IBOutlet fileprivate weak var camView: UIView!
-  @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
-  @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
- 
-  weak var delegate: ScanCertificateDelegate?
-  private var captureSession: AVCaptureSession?
-  private var countryItems: [CountryModel] = []
-  
-  var downloadedDataHasExpired: Bool {
-    return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
-  }
-
-  lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
-    guard error == nil else {
-      self.showAlert(withTitle: "Barcode Error".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
-      return
+class ScanCertificateController: UIViewController {
+    private enum Constants {
+      static let userDefaultsCountryKey = "UDCountryKey"
+      static let showSettingsSegueID = "showSettingsSegueID"
+      static let showCertificateViewer = "showCertificateViewer"
     }
-    self.processClassification(request)
-  }
-  
-  private var selectedCounty: CountryModel? {
-    set {
-      do {
-        try UserDefaults.standard.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
-      } catch {
-        DGCLogger.logError(error)
-      }
-    }
-    get {
-      do {
-        let selected = try UserDefaults.standard.getObject(forKey: Constants.userDefaultsCountryKey,
-            castTo: CountryModel.self)
-        return selected
-      } catch {
-        DGCLogger.logError(error)
-        return nil
-      }
-    }
-  }
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    if #available(iOS 13.0, *) {
-      aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white), for: .normal)
-    } else {
-      aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
+    @IBOutlet fileprivate weak var aNFCButton: UIButton!
+    @IBOutlet fileprivate weak var settingsButton: UIButton!
+    @IBOutlet fileprivate weak var camView: UIView!
+    @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
+    @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
+    
+    lazy var indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
+    lazy var progressView: UIProgressView = UIProgressView(progressViewStyle: .`default`)
+
+    lazy var activityAlert: UIAlertController = {
+        let controller = UIAlertController(title: "Loading data", message: "\n\n\n", preferredStyle: .alert)
+        controller.view.addSubview(progressView)
+        controller.view.addSubview(indicator)
+        progressView.setProgress(0.0, animated: false)
+        return controller
+    }()
+    
+    weak var delegate: ScanCertificateDelegate?
+    private var captureSession: AVCaptureSession?
+    private var countryItems: [CountryModel] = []
+    
+    private var expireDataTimer: Timer?
+    var downloadedDataHasExpired: Bool {
+        return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
     }
     
-    delegate = self
-    countryCodeLabel.text = "Select Country of CertLogic Rule".localized
-    let countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
-    setListOfRuleCounties(list: countryList)
-    
-  #if targetEnvironment(simulator)
-      DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-      self.observationHandler(payloadString: "HC1:6BFA70$90T9WTWGSLKC 4X7923S%CA.48Y+6/AB3XK5F3 026003F3RD6Z*B1JC X8Y50.FK8ZKO/EZKEZ967L6C56..DX%DZJC2/D:+9 QE5$CLPCG/D0.CHY8ITAUIAI3DG8DXFF 8DXEDU3EI3DAWE1Z9CN9IB85T9JPCT3E5JDOA73467463W5-A67:EDOL9WEQDD+Q6TW6FA7C466KCK9E2H9G:6V6BEM6Q$D.UDRYA 96NF6L/5QW6307B$D% D3IA4W5646946%96X47XJC$+D3KC.SCXJCCWENF6OF63W5CA7746WJCT3E0ZA%JCIQEAZAWJC0FD6A5AIA%G7X+AQB9F+ALG7$X85+8+*81IA3H87+8/R8/A8+M986APH9$59/Y9WA627B873 3K9UD5M3JFG.BOO3L-GE828UE0T46/*JSTLE4MEJRX797NEXF5I$2+.LGOJXF24D2WR9 W8WQT:HHJ$7:TKP2RT+J:G4V5GT7E")
+    lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
+        guard error == nil else {
+            self.showAlert(withTitle: "Barcode Error".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
+            return
+        }
+        self.processClassification(request)
     }
-  #else
-    captureSession = AVCaptureSession()
-    checkPermissions()
-    setupCameraLiveView()
-  #endif
-    SquareViewFinder.create(from: self)
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    captureSession?.startRunning()
-  }
     
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    captureSession?.stopRunning()
+    private var selectedCounty: CountryModel? {
+        set {
+            do {
+              try UserDefaults.standard.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
+            } catch {
+              DGCLogger.logError(error)
+            }
+        }
+        get {
+            do {
+              let selected = try UserDefaults.standard.getObject(forKey: Constants.userDefaultsCountryKey,
+                  castTo: CountryModel.self)
+              return selected
+            } catch {
+              DGCLogger.logError(error)
+              return nil
+            }
+        }
+    }
+    
+    deinit {
+        let center = NotificationCenter.default
+        center.removeObserver(self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if #available(iOS 13.0, *) {
+          aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc")?.withTintColor(.white), for: .normal)
+        } else {
+          aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
+        }
+        
+        delegate = self
+        countryCodeLabel.text = "Select Country of CertLogic Rule".localized
+        let countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
+        setListOfRuleCounties(list: countryList)
+        
+        let center = NotificationCenter.default
+        center.addObserver(forName: Notification.Name("StartLoadingNotificationName"), object: nil, queue: .main) { notification in
+            self.activityAlert.dismiss(animated: true, completion: nil)
+            self.present(self.activityAlert, animated: true) {
+                self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 100)
+                self.indicator.startAnimating()
+                self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 120)
+            }
+        }
+        
+        center.addObserver(forName: Notification.Name("StopLoadingNotificationName"), object: nil, queue: .main) { notification in
+            self.activityAlert.dismiss(animated: true, completion: nil)
+            self.progressView.setProgress(0.0, animated: false)
+            self.indicator.stopAnimating()
+        }
+
+        center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
+            let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
+            self.activityAlert.title = strMessage
+            let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
+            self.progressView.setProgress(percentage, animated: true)
+        }
+
+        #if targetEnvironment(simulator)
+        #else
+          captureSession = AVCaptureSession()
+          checkPermissions()
+          setupCameraLiveView()
+        #endif
+          SquareViewFinder.create(from: self)
+          expireDataTimer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(reloadExpiredData),
+              userInfo: nil, repeats: true)
   }
   
-  func userDidDissmiss(_ controller: UIViewController) {
-    if downloadedDataHasExpired {
-      self.navigationController?.popViewController(animated: false)
-    } else {
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
       captureSession?.startRunning()
     }
-  }
+      
+    override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      captureSession?.stopRunning()
+    }
 
-  // MARK: Actions
+  // MARK: - Actions
+  @objc func reloadExpiredData() {
+     if downloadedDataHasExpired {
+          captureSession?.stopRunning()
+          showAlertReloadDatabase()
+     }
+  }
+  
   @IBAction func openSettingsController() {
     captureSession?.stopRunning()
     performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
   }
   
-  @IBAction func scanNFCAction() {
-    let helper = NFCHelper()
-    helper.onNFCResult = onNFCResult(success:message:)
-    helper.restartSession()
-  }
-  
-  // MARK: Navigation
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    switch segue.identifier {
-    case Constants.showCertificateViewer:
-      if let destinationController = segue.destination as? CertificateViewerController,
-        let certificate = sender as? HCert {
-        destinationController.hCert = certificate
-        destinationController.dismissDelegate = self
-      }
-    case Constants.showSettingsSegueID:
-      if let destinationController = (segue.destination as? UINavigationController)?.viewControllers.first as? SettingsController {
-        destinationController.dismissDelegate = self
-      }
-    default:
-      break
+    @IBAction func scanNFCAction() {
+      let helper = NFCHelper()
+      helper.onNFCResult = onNFCResult(success:message:)
+      helper.restartSession()
     }
-  }
-  
-  // MARK: Private
-  private func setListOfRuleCounties(list: [CountryModel]) {
-    self.countryItems = list
-    self.countryCodeView.reloadAllComponents()
-    guard self.countryItems.count > 0 else { return }
+
+  // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case Constants.showCertificateViewer:
+            if let destinationController = segue.destination as? CertificateViewerController,
+               let certificate = sender as? HCert {
+                destinationController.hCert = certificate
+                destinationController.presentationController?.delegate = self
+                destinationController.dismissDelegate = self
+            }
+        case Constants.showSettingsSegueID:
+            if let navController = segue.destination as? UINavigationController,
+                let destinationController = navController.viewControllers.last as? SettingsController {
+                navController.presentationController?.delegate = self
+                destinationController.dismissDelegate = self
+            }
+        default:
+            break
+        }
+    }
+
+    // MARK: - Private
     
-    if let selected = self.selectedCounty,
-      let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
-        countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
-    } else {
-      self.selectedCounty = self.countryItems.first
-      countryCodeView.selectRow(0, inComponent: 0, animated: false)
+    func showAlertReloadDatabase() {
+        let alert = UIAlertController(title: "Reload databases?".localized, message: "The update may take some time.".localized, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Later".localized, style: .default, handler: { _ in
+            self.captureSession?.startRunning()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Reload".localized, style: .default, handler: { [unowned self] (_: UIAlertAction!) in
+            self.captureSession?.stopRunning()
+            DataCenter.reloadStorageData(completion: { result in
+                DispatchQueue.main.async {
+                    self.captureSession?.startRunning()
+                }
+           })
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
-  }
-  
+    
+    private func setListOfRuleCounties(list: [CountryModel]) {
+        self.countryItems = list
+        self.countryCodeView.reloadAllComponents()
+        guard self.countryItems.count > 0 else { return }
+        
+        if let selected = self.selectedCounty,
+          let indexOfCountry = self.countryItems.firstIndex(where: {$0.code == selected.code}) {
+            countryCodeView.selectRow(indexOfCountry, inComponent: 0, animated: false)
+        } else {
+          self.selectedCounty = self.countryItems.first
+          countryCodeView.selectRow(0, inComponent: 0, animated: false)
+        }
+    }
+
   private func configurePreviewLayer() {
-    guard let captureSession = captureSession else { return }
-    
-    let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-    cameraPreviewLayer.videoGravity = .resizeAspectFill
-    cameraPreviewLayer.connection?.videoOrientation = .portrait
-    cameraPreviewLayer.frame = view.frame
-    camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+      guard let captureSession = captureSession else { return }
+      
+      let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+      cameraPreviewLayer.videoGravity = .resizeAspectFill
+      cameraPreviewLayer.connection?.videoOrientation = .portrait
+      cameraPreviewLayer.frame = view.frame
+      camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
   }
 
   private func showAlert(withTitle title: String, message: String) {
-    DispatchQueue.main.async {
-      let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
-      self.present(alertController, animated: true)
-    }
+      DispatchQueue.main.async {
+          let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+          alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
+          self.present(alertController, animated: true)
+      }
   }
 
   private func showPermissionsAlert() {
@@ -198,18 +262,20 @@ class ScanCertificateController: UIViewController, DismissControllerDelegate {
   }
 }
 
+// MARK: - Scan Certificate Delegate
+
 extension ScanCertificateController: ScanCertificateDelegate {
   func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError) {
-    DispatchQueue.main.async {
-      self.showInfoAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
-    }
+      DispatchQueue.main.async {
+          self.showInfoAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
+      }
   }
   
   func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
-    DispatchQueue.main.async {
-      self.captureSession?.stopRunning()
-      self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
-    }
+      DispatchQueue.main.async {
+          self.captureSession?.stopRunning()
+          self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
+      }
   }
   
   func disableBackgroundDetection() {
@@ -220,6 +286,8 @@ extension ScanCertificateController: ScanCertificateDelegate {
     SecureBackground.paused = false
   }
 }
+
+// MARK: - AV setup
 
 extension ScanCertificateController {
   private func checkPermissions() {
@@ -326,6 +394,8 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
   }
 }
 
+// MARK: - Picker delegate
+
 extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegate {
   public func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
@@ -349,6 +419,8 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
   }
 }
 
+// MARK: - NFC Result
+
 extension ScanCertificateController {
   func onNFCResult(success: Bool, message: String) {
     DGCLogger.logInfo("NFC: \(message)")
@@ -365,4 +437,18 @@ extension ScanCertificateController {
       DGCLogger.logError(error)
     }
   }
+}
+
+// MARK: - Adaptive Presentation Delegate
+
+extension ScanCertificateController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerDidDismiss( _ presentationController: UIPresentationController) {
+      captureSession?.startRunning()
+    }
+}
+
+extension ScanCertificateController:  DismissControllerDelegate {
+    public func userDidDissmis(_ controller: UIViewController) {
+      captureSession?.startRunning()
+    }
 }

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire",
         "state": {
           "branch": null,
-          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
-          "version": "5.4.4"
+          "revision": "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
+          "version": "5.5.0"
         }
       },
       {
@@ -20,11 +20,38 @@
         }
       },
       {
+        "package": "BigInt",
+        "repositoryURL": "https://github.com/leif-ibsen/BigInt",
+        "state": {
+          "branch": null,
+          "revision": "3ff261ecd694009513cd0a260fc03723cc61d32e",
+          "version": "1.2.12"
+        }
+      },
+      {
+        "package": "BitByteData",
+        "repositoryURL": "https://github.com/tsolomko/BitByteData",
+        "state": {
+          "branch": null,
+          "revision": "c119e12decae8f56066df3345a4ac1a05b2f06d5",
+          "version": "2.0.1"
+        }
+      },
+      {
+        "package": "DGCBloomFilter",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-bloomfilter-ios.git",
+        "state": {
+          "branch": "main",
+          "revision": "966b500e10f55b780c1bd93addf76dc36903c155",
+          "version": null
+        }
+      },
+      {
         "package": "CertLogic",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
         "state": {
           "branch": "main",
-          "revision": "5da95101196898090ef36e6189cb32f32b60ddc7",
+          "revision": "c1b17604a82415eba8378292bb0dc15773cae1ca",
           "version": null
         }
       },
@@ -33,8 +60,8 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
           "branch": null,
-          "revision": "e59a317e03491abe1f04c87b965a52abae243ddd",
-          "version": "1.1.8"
+          "revision": "c830f34a35753f4d441bd291e40e4a4feee9ede0",
+          "version": "1.1.9"
         }
       },
       {
@@ -65,21 +92,21 @@
         }
       },
       {
+        "package": "SWCompression",
+        "repositoryURL": "https://github.com/tsolomko/SWCompression.git",
+        "state": {
+          "branch": null,
+          "revision": "4ad6940f2990f2d9f27b39d013c7a64b602d9c50",
+          "version": "4.8.0"
+        }
+      },
+      {
         "package": "SwiftCBOR",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/SwiftCBOR",
         "state": {
           "branch": "master",
           "revision": "0209a2d1a30b1b42334c4ad3f8bd221b977b2273",
           "version": null
-        }
-      },
-      {
-        "package": "SwiftyJSON",
-        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
-        "state": {
-          "branch": null,
-          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
-          "version": "5.0.1"
         }
       }
     ]

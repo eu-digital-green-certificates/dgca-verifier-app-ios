@@ -69,3 +69,11 @@
 "Issuer Invalidation" = "Aussteller Ungültigkeit";
 "Destination Acceptance" = "Einreiseregeln";
 "Traveller Acceptance" = "Regeln für Reisende";
+
+"Certificate was revoked" = "Certificate was revoked";
+
+"Downloading the certificate revocations database" = "Downloading the certificate revocations database";
+"Updating the certificate revocations database" = "Updating the certificate revocations database";
+"Downloading the certificate revocations metadata" = "Downloading the certificate revocations metadata";
+"Updating the certificate revocations metadata" = "Updating the certificate revocations metadata";
+"Preparation of database on revocation of certificates" = "Preparation of database on revocation of certificates";

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G415" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Chunk" representedClassName="Chunk" syncable="YES" codeGenerationType="class">
+        <attribute name="cid" attributeType="String"/>
+        <relationship name="partition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partition" inverseName="chunks" inverseEntity="Partition"/>
+        <relationship name="slices" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Slice" inverseName="chunk" inverseEntity="Slice"/>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="cid" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="Partition" representedClassName="Partition" versionHashModifier="partitionID" syncable="YES" codeGenerationType="class">
+        <attribute name="expired" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="kid" attributeType="String"/>
+        <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="x" attributeType="String"/>
+        <attribute name="y" attributeType="String"/>
+        <relationship name="chunks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Chunk" inverseName="partition" inverseEntity="Chunk"/>
+        <relationship name="revocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Revocation" inverseName="partitions" inverseEntity="Revocation"/>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="kid" type="Binary" order="ascending"/>
+            <fetchIndexElement property="x" type="Binary" order="ascending"/>
+            <fetchIndexElement property="y" type="Binary" order="ascending"/>
+            <fetchIndexElement property="expired" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="Revocation" representedClassName="Revocation" versionHashModifier="revocationID" syncable="YES" codeGenerationType="class">
+        <attribute name="expires" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hashTypes" attributeType="String"/>
+        <attribute name="kid" attributeType="String"/>
+        <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mode" attributeType="String"/>
+        <relationship name="partitions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Partition" inverseName="revocation" inverseEntity="Partition"/>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="kid" type="Binary" order="ascending"/>
+            <fetchIndexElement property="mode" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="Slice" representedClassName="Slice" syncable="YES" codeGenerationType="class">
+        <attribute name="expiredDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hashData" optional="YES" attributeType="Binary"/>
+        <attribute name="hashID" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <attribute name="version" attributeType="String"/>
+        <relationship name="chunk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chunk" inverseName="slices" inverseEntity="Chunk"/>
+    </entity>
+    <elements>
+        <element name="Chunk" positionX="-568.5746459960938" positionY="-320.2107543945312" width="128" height="74"/>
+        <element name="Partition" positionX="-729.51513671875" positionY="-454.5152893066406" width="128" height="149"/>
+        <element name="Revocation" positionX="-904.0166015625" positionY="-514.5922088623047" width="128" height="119"/>
+        <element name="Slice" positionX="-373.4581909179688" positionY="-262.1313171386719" width="128" height="119"/>
+    </elements>
+</model>

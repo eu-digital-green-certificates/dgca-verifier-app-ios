@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  UIColor.swift
+//  UIColor+Verifier.swift
 //  DGCAVerifier
 //  
 //  Created by Yannick Spreen on 4/29/21.
