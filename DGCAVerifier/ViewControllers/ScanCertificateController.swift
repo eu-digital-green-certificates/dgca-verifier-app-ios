@@ -139,8 +139,8 @@ class ScanCertificateController: UIViewController {
         center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
             let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
             self.activityAlert.title = strMessage
-            let percentage = notification.userInfo?["progress"] as? Float ?? 0.0
-            self.progressView.setProgress(min(1.0, percentage), animated: true)
+            let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
+            self.progressView.setProgress(percentage, animated: true)
         }
 
         #if targetEnvironment(simulator)

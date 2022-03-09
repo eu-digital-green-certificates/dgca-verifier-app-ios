@@ -86,7 +86,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
           let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
           self.activityAlert.title = strMessage
           let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
-          self.progressView.setProgress(min(1.0, percentage), animated: true)
+          self.progressView.setProgress(percentage, animated: true)
       }
       updateInterface()
   }

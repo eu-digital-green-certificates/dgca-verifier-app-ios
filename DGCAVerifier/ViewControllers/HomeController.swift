@@ -52,7 +52,7 @@ class HomeController: UIViewController {
         let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
           self.messageLabel?.text = strMessage
           let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
-          self.progresBar?.setProgress(min(1.0, percentage), animated: true)
+          self.progresBar?.setProgress(percentage, animated: true)
       }
         self.activityIndicator.startAnimating()
         DataCenter.prepareLocalData {[unowned self] result in

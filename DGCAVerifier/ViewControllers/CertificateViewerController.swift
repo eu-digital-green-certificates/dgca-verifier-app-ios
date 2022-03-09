@@ -104,23 +104,16 @@ class CertificateViewerController: UIViewController {
                     self?.isDebugMode = false
                 }
             }
-            
             if validityState.technicalValidity != .invalid {
                 let revocationState = validator.validateRevocation()
                 if revocationState.revocationValidity == .revocated {
                     self?.validityState.revocationValidity = .revocated
                     self?.validityState.issuerValidity = .invalid
                     self?.validityState.travalerValidity = .invalid
-                    self?.validityState.allRulesValidity = .revocated
-                    
-                    let builder = SectionBuilder(with: hCert, validity: validityState)
-                    builder.makeRevocationSections()
-                    self?.sectionBuilder = builder
-                    completion(.validState)
-                    return
+                    self?.validityState.allRulesValidity = .invalid
                 }
             }
-
+            
             let builder = SectionBuilder(with: hCert, validity: validityState)
             builder.makeSections(for: .verifier)
             if let section = validityState.infoRulesSection {
