@@ -18,12 +18,12 @@
  * limitations under the License.
  * ---license-end
  */
-//  
+//
 //  HomeController.swift
 //  DGCAVerifier
-//  
+//
 //  Created by Yannick Spreen on 4/25/21.
-//  
+//
 
 import UIKit
 import SwiftDGC
@@ -52,7 +52,7 @@ class HomeController: UIViewController {
         let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
           self.messageLabel?.text = strMessage
           let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
-          self.progresBar?.setProgress(percentage, animated: true)
+          self.progresBar?.setProgress(min(1.0, percentage), animated: true)
       }
         self.activityIndicator.startAnimating()
         DataCenter.prepareLocalData {[unowned self] result in

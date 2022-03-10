@@ -33,36 +33,37 @@ import DGCBloomFilter
 
 extension CertificateValidator {
 
-    var revocationCoreDataManager: RevocationCoreDataManager {
+    var revocationManager: RevocationCoreDataManager {
         return RevocationCoreDataManager()
     }
-
-
+    
     func validateRevocation() -> ValidityState {
         let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
         
-        if let revocation = revocationCoreDataManager.loadRevocation(kid: kidConverted),
+        if let revocation = revocationManager.loadRevocation(kid: kidConverted),
             let revocMode = RevocationMode(rawValue: revocation.mode!),
             let hashTypes = revocation.hashTypes {
-            let lookup: CertLookUp = certificate.lookUp(mode: revocMode)
-            let arrayTypes = hashTypes.split(separator: ",")
-            
-            if arrayTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
+            let arrayHashTypes = hashTypes.split(separator: ",")
+
+            if arrayHashTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     return ValidityState.revocatedState
                 }
             }
             
-            if arrayTypes.contains("UCI"), let hashData = certificate.uvciHash {
+            if arrayHashTypes.contains("UCI"), let hashData = certificate.uvciHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
                 let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     return ValidityState.revocatedState
                 }
             }
             
-            if arrayTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
-                let result = searchInDatabase(lookUp: lookup,hash: hashData)
+            if arrayHashTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
                 if result == true {
                     return ValidityState.revocatedState
                 }
@@ -72,7 +73,7 @@ extension CertificateValidator {
     }
 
     private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
-        let slices = revocationCoreDataManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
+        let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
         for slice in slices ?? [] {
             guard let sliceData = slice.value(forKey: "hashData") as? Data, let sliceType = slice.type else { continue }
             if sliceType.lowercased().contains("bloom")  {
