@@ -38,9 +38,6 @@ let mockRevocationPartitionsResponse = """
     [{\"kid\":\"GSXuNoyWGYo=\",\"id\":null,\"x\":null,\"y\":null,\"lastUpdated\":\"2022-03-09T11:29:40.029718Z\",\"expired\":\"2023-11-27T10:15:00Z\",\"chunks\":{\"2\":{\"2023-11-27T10:15:00Z\":{\"type\":\"BLOOMFILTER\",\"version\":\"1.0\",\"hash\":\"0132815288af51fcfc709f422aee353687654513e4b105fdc8f6166e2df90bbb\"}},\"3\":{\"2023-11-27T10:15:00Z\":{\"type\":\"BLOOMFILTER\",\"version\":\"1.0\",\"hash\":\"24352fcfac12fa8077f074fe6ba1814d09383db29899a1120ca6e587a0d7399d\"}},\"5\":{\"2023-11-27T10:15:00Z\":{\"type\":\"BLOOMFILTER\",\"version\":\"1.0\",\"hash\":\"9e7556604c1774b2e5db4721a7a8ca4fe8c1aade97ad6386a0144218cc3bba56\"}},\"6\":{\"2023-11-27T10:15:00Z\":{\"type\":\"BLOOMFILTER\",\"version\":\"1.0\",\"hash\":\"482dd47c5f344538302328c57e7dd211b27274a264d830f98a0d02d5bb163fc3\"}},\"f\":{\"2023-11-27T10:15:00Z\":{\"type\":\"BLOOMFILTER\",\"version\":\"1.0\",\"hash\":\"75572ebd77dc4b07f49479b69aa7400c4a73472fd7b516dc1a10aa51dad86ea3\"}},\"8\":{\"2023-11-27T10:15:00Z\":{\"type\":\"BLOOMFILTER\",\"version\":\"1.0\",\"hash\":\"1e84743ec149ed4c5f02abe27dab0ef0bade3e8882a8d2907419b252c7a768b0\"}}}}]
     """
 
-let mockRevocationPartitionChunksResponse = """
-    """
-
 class MockRevocationService: RevocationServiceProtocol {
     func getRevocationLists(completion: @escaping RevocationListCompletion) {
         guard let data = mockRevocationListsResponse.data(using: .utf8) else {
@@ -89,15 +86,15 @@ class MockRevocationService: RevocationServiceProtocol {
     }
     
     func getRevocationPartitionChunk(for kid: String, id: String, cid: String, completion: @escaping ZIPDataTaskCompletion) {
-//        <#code#>
+        
     }
     
     func getRevocationPartitionChunkSlice(for kid: String, id: String, cid: String, sids: [String]?, completion: @escaping ZIPDataTaskCompletion) {
-//        <#code#>
+        
     }
     
     func getRevocationPartitionChunkSliceSingle(for kid: String, id: String, cid: String, sid: String, completion: @escaping ZIPDataTaskCompletion) {
-//        <#code#>
+        
     }
     
     
