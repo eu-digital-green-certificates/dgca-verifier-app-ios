@@ -39,9 +39,12 @@ typealias PartitionProcessingCompletion = ([PartitionModel]?, RevocationError?) 
 typealias MetadataProcessingCompletion = ([SliceMetaData]?, RevocationError?) -> Void
 
 class RevocationWorker {
+    init(service: RevocationServiceProtocol = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)) {
+        self.revocationService = service
+    }
     
     let revocationDataManager: RevocationCoreDataManager = RevocationCoreDataManager()
-    let revocationService = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)
+    let revocationService: RevocationServiceProtocol
     var loadedRevocations: [RevocationModel]?
     
     // MARK: - Work with Revocations

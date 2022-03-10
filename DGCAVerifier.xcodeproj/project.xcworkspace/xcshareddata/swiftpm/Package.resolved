@@ -56,15 +56,6 @@
         }
       },
       {
-        "package": "SwiftDGC",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git",
-        "state": {
-          "branch": "main",
-          "revision": "0da9ac334a85d7e3f5d5c105a671ca471532b899",
-          "version": null
-        }
-      },
-      {
         "package": "jsonlogic",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
