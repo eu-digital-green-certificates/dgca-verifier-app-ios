@@ -40,7 +40,7 @@ typealias MetadataProcessingCompletion = ([SliceMetaData]?, RevocationError?) ->
 
 class RevocationWorker {
     
-    let revocationDataManager: RevocationManager = RevocationManager()
+    let revocationDataManager: RevocationCoreDataManager = RevocationCoreDataManager()
     let revocationService = RevocationService(baseServicePath: SharedConstants.revocationServiceBase)
     var loadedRevocations: [RevocationModel]?
     

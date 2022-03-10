@@ -102,8 +102,8 @@
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
 		D2B87DA4272C30FA00B0BE19 /* HCertValidity+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */; };
-		D2D5655427B53F9400E821C6 /* RevocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655327B53F9400E821C6 /* RevocationManager.swift */; };
-		D2D5655727B53FCF00E821C6 /* RevocationDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */; };
+		D2D5655427B53F9400E821C6 /* RevocationCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */; };
+		D2D5655727B53FCF00E821C6 /* RevocationCoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655627B53FCF00E821C6 /* RevocationCoreDataStorage.swift */; };
 		D2D5655A27B5441D00E821C6 /* DCCRevocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655827B5441D00E821C6 /* DCCRevocation.xcdatamodeld */; };
 		D2D5655F27B5774600E821C6 /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
 		D2D5656727BA5D7300E821C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D5656627BA5D7300E821C6 /* Security.framework */; };
@@ -216,8 +216,8 @@
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 4; };
-		D2D5655327B53F9400E821C6 /* RevocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationManager.swift; sourceTree = "<group>"; };
-		D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationDataStorage.swift; sourceTree = "<group>"; };
+		D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataManager.swift; sourceTree = "<group>"; };
+		D2D5655627B53FCF00E821C6 /* RevocationCoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataStorage.swift; sourceTree = "<group>"; };
 		D2D5655927B5441D00E821C6 /* DCCRevocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCCRevocation.xcdatamodel; sourceTree = "<group>"; };
 		D2D5655E27B5774600E821C6 /* RevocationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationWorker.swift; sourceTree = "<group>"; };
 		D2D5656627BA5D7300E821C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -507,8 +507,8 @@
 		D2D5655527B53F9F00E821C6 /* Revocation */ = {
 			isa = PBXGroup;
 			children = (
-				D2D5655627B53FCF00E821C6 /* RevocationDataStorage.swift */,
-				D2D5655327B53F9400E821C6 /* RevocationManager.swift */,
+				D2D5655627B53FCF00E821C6 /* RevocationCoreDataStorage.swift */,
+				D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */,
 				D2D5655E27B5774600E821C6 /* RevocationWorker.swift */,
 			);
 			path = Revocation;
@@ -747,9 +747,9 @@
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				CE8912F52634C60E00CB92AF /* GatewayConnection.swift in Sources */,
 				5CA450B426E605710029324E /* DebugManager.swift in Sources */,
-				D2D5655727B53FCF00E821C6 /* RevocationDataStorage.swift in Sources */,
+				D2D5655727B53FCF00E821C6 /* RevocationCoreDataStorage.swift in Sources */,
 				CE8096D9263B07BB00A65AD6 /* UIColor+Verifier.swift in Sources */,
-				D2D5655427B53F9400E821C6 /* RevocationManager.swift in Sources */,
+				D2D5655427B53F9400E821C6 /* RevocationCoreDataManager.swift in Sources */,
 				CE1D1EF6263597A2004C8919 /* LocalDataManager.swift in Sources */,
 				D2D5656927BA5E0400E821C6 /* SquareViewFinder.swift in Sources */,
 				CED2726026398683003D47A9 /* UIFont.swift in Sources */,

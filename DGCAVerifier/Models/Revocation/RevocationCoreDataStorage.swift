@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  RevocationDataStorage.swift
+//  RevocationCoreDataStorage.swift
 //  DGCAVerifier
 //  
 //  Created by Igor Khomiak on 04.02.2022.
@@ -29,9 +29,9 @@
 import UIKit
 import CoreData
 
-class RevocationDataStorage {
+public class RevocationCoreDataStorage {
 
-    static var shared = RevocationDataStorage()
+    public static var shared = RevocationCoreDataStorage()
     
     // MARK: - Core Data stack
 
@@ -64,7 +64,7 @@ class RevocationDataStorage {
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    public func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

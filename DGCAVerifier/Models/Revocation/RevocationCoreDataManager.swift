@@ -1,5 +1,5 @@
 //
-//  RevocationManager.swift
+//  RevocationCoreDataManager.swift
 //  DCCRevocation
 //
 //  Created by Igor Khomiak on 04.01.2022.
@@ -18,10 +18,10 @@ public enum DataBaseError: Error {
 
 typealias LoadingCompletion = ([NSManagedObject]?, DataBaseError?) -> Void
 
-class RevocationManager: NSObject {
+class RevocationCoreDataManager: NSObject {
         
     var managedContext: NSManagedObjectContext! = {
-        return RevocationDataStorage.shared.persistentContainer.viewContext
+        return RevocationCoreDataStorage.shared.persistentContainer.viewContext
     }()
 
     
@@ -37,7 +37,7 @@ class RevocationManager: NSObject {
                 managedContext.delete(revocationObject)
                 print("Deleted Revocation \(kidStr ?? "")")
             }
-            RevocationDataStorage.shared.saveContext()
+            RevocationCoreDataStorage.shared.saveContext()
             
         } catch let error as NSError {
             print("Could not fetch Revocations for deleting: \(error.localizedDescription)")
@@ -86,7 +86,7 @@ class RevocationManager: NSObject {
                 managedContext.delete(revocationObject)
                 print("Deleted Revocation \(kid)")
             }
-            RevocationDataStorage.shared.saveContext()
+            RevocationCoreDataStorage.shared.saveContext()
             
         } catch let error as NSError {
             print("Could not fetch Revocations for deleting: \(error.localizedDescription)")
@@ -135,7 +135,7 @@ class RevocationManager: NSObject {
             print("-- Added Revocation with KID: \(kidConverted)")
         }
         
-        RevocationDataStorage.shared.saveContext()
+        RevocationCoreDataStorage.shared.saveContext()
     }
 
     func saveMetadataHashes(sliceHashes: [SliceMetaData]) {
@@ -148,7 +148,7 @@ class RevocationManager: NSObject {
             sliceObject.setValue(generatedData, forKey: "hashData")
         }
 
-        RevocationDataStorage.shared.saveContext()
+        RevocationCoreDataStorage.shared.saveContext()
     }
 
     func deleteExpiredRevocations(for date: Date) {
@@ -160,7 +160,7 @@ class RevocationManager: NSObject {
             revocations.forEach { managedContext.delete($0) }
             print("-- Deleted \(revocations.count) revocations for expiredDate: \(date)")
             
-            RevocationDataStorage.shared.saveContext()
+            RevocationCoreDataStorage.shared.saveContext()
  
         } catch let error as NSError {
             print("Could not fetch revocations. Error: \(error.localizedDescription) for expiredDate: \(date)")
@@ -213,7 +213,7 @@ class RevocationManager: NSObject {
             partition.setValue(revocation, forKey: "revocation")
         }
         
-        RevocationDataStorage.shared.saveContext()
+        RevocationCoreDataStorage.shared.saveContext()
     }
     
     func createAndSaveChunk(kid: String, id: String, cid: String, sliceModel: [String : SliceModel]) {
@@ -240,7 +240,7 @@ class RevocationManager: NSObject {
             let partitions = try managedContext.fetch(fetchRequest)
             partitions.forEach { managedContext.delete($0) }
             print("  Deleted \(partitions.count) partitions for expiredDate: \(date)")
-            RevocationDataStorage.shared.saveContext()
+            RevocationCoreDataStorage.shared.saveContext()
             
         } catch let error as NSError {
             print("Could not fetch revocations. Error: \(error.localizedDescription) for expiredDate: \(date)")
@@ -260,7 +260,7 @@ class RevocationManager: NSObject {
             partitions.forEach { managedContext.delete($0) }
             print("  Deleted \(partitions.count) partitions for id: \(id)")
             
-            RevocationDataStorage.shared.saveContext()
+            RevocationCoreDataStorage.shared.saveContext()
             
         } catch let error as NSError {
             print("Could not fetch revocations. Error: \(error.localizedDescription) for expiredDate: \(id)")
@@ -273,12 +273,12 @@ class RevocationManager: NSObject {
   
     func deleteChunk(_ chunk: Chunk) {
         managedContext.delete(chunk)
-        RevocationDataStorage.shared.saveContext()
+        RevocationCoreDataStorage.shared.saveContext()
     }
 
     func deleteSlice(_ slice: Slice) {
         managedContext.delete(slice)
-        RevocationDataStorage.shared.saveContext()
+        RevocationCoreDataStorage.shared.saveContext()
     }
 
     func deleteSlice(kid: String, id: String, cid: String, hashID: String) {
@@ -290,7 +290,7 @@ class RevocationManager: NSObject {
             slices.forEach { managedContext.delete($0) }
             print("-- Deleted \(slices.count) slices for id: \(hashID)")
             
-            RevocationDataStorage.shared.saveContext()
+            RevocationCoreDataStorage.shared.saveContext()
             
         } catch let error as NSError {
             print("Could not fetch slices. Error: \(error.localizedDescription) for expiredDate: \(id)")

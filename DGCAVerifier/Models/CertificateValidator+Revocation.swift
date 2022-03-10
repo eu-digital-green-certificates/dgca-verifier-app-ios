@@ -33,15 +33,15 @@ import DGCBloomFilter
 
 extension CertificateValidator {
 
-    var revocationManager: RevocationManager {
-        return RevocationManager()
+    var revocationCoreDataManager: RevocationCoreDataManager {
+        return RevocationCoreDataManager()
     }
 
 
     func validateRevocation() -> ValidityState {
         let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
         
-        if let revocation = revocationManager.loadRevocation(kid: kidConverted),
+        if let revocation = revocationCoreDataManager.loadRevocation(kid: kidConverted),
             let revocMode = RevocationMode(rawValue: revocation.mode!),
             let hashTypes = revocation.hashTypes {
             let lookup: CertLookUp = certificate.lookUp(mode: revocMode)
@@ -72,7 +72,7 @@ extension CertificateValidator {
     }
 
     private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
-        let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
+        let slices = revocationCoreDataManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
         for slice in slices ?? [] {
             guard let sliceData = slice.value(forKey: "hashData") as? Data, let sliceType = slice.type else { continue }
             if sliceType.lowercased().contains("bloom")  {
