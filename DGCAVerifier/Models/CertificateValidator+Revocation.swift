@@ -87,6 +87,8 @@ extension CertificateValidator {
                 if let result = filter?.mightContain(element: hash), result == true {
                     return true
                 }
+            } else {
+                print("Revocation Error: Unsupported type of hash")
             }
         }
         return false
