@@ -61,7 +61,7 @@ class LocalDataManager {
     func add(valueSet: ValueSet) {
         if !localData.valueSets.contains(where: { $0.valueSetId == valueSet.valueSetId }) {
           localData.valueSets.append(valueSet)
-      }
+        }
     }
     
     func deleteValueSetWithHash(hash: String) {
@@ -87,6 +87,7 @@ class LocalDataManager {
           localData.rules.append(rule)
       }
     }
+    
     func deleteRuleWithHash(hash: String) {
         localData.rules = localData.rules.filter { $0.hash != hash }
     }
