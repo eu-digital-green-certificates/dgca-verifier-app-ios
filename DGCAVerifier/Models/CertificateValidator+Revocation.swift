@@ -82,8 +82,11 @@ extension CertificateValidator {
                 if result {
                     return true
                 }
-            } else {
-                //TODO process hash type
+            } else if sliceType.lowercased().contains("hash") {
+                let filter = VariableHashFilter(data: sliceData)
+                if let result = filter?.mightContain(element: hash), result == true {
+                    return true
+                }
             }
         }
         return false

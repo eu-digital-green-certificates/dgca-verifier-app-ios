@@ -97,6 +97,7 @@
 		D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D2768F7927356C8C006C7E17 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
+		D29D227127DA6ABE00D59BB3 /* VariableHashFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
@@ -216,6 +217,7 @@
 		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
+		D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHashFilter.swift; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataManager.swift; sourceTree = "<group>"; };
 		D2D5655627B53FCF00E821C6 /* RevocationCoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataStorage.swift; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
 				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
 				D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */,
+				D29D227227DA6AC200D59BB3 /* PartialHash */,
 				D2D5655527B53F9F00E821C6 /* Revocation */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
 			);
@@ -494,6 +497,14 @@
 				CEA6D70F261F8D2900715333 /* Info.plist */,
 			);
 			path = DGCAVerifierUITests;
+			sourceTree = "<group>";
+		};
+		D29D227227DA6AC200D59BB3 /* PartialHash */ = {
+			isa = PBXGroup;
+			children = (
+				D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */,
+			);
+			path = PartialHash;
 			sourceTree = "<group>";
 		};
 		D2B605C02743D448000D914A /* SettingsControllers */ = {
@@ -765,6 +776,7 @@
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */,
 				D21581412731719500C98986 /* ValidityState+UIKit.swift in Sources */,
+				D29D227127DA6ABE00D59BB3 /* VariableHashFilter.swift in Sources */,
 				D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */,
 				5CA450E726E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */,
