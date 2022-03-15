@@ -183,7 +183,7 @@ class RevocationWorker {
         let center = NotificationCenter.default
         let group = DispatchGroup()
         var partitionsForLoad = [PartitionModel]()
-        var index: Float = 1.0
+        var index: Float = 0.0
         for model in revocations {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
@@ -192,7 +192,7 @@ class RevocationWorker {
                     completion(nil, .network(reason: err!.localizedDescription))
                     return
                 }
-
+                
                 let progress: Float = index/Float(revocations.count)
                 center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil, userInfo: ["name" : "Downloading the certificate revocations database".localized, "progress" : progress] )
                 index += 1.0
@@ -214,7 +214,7 @@ class RevocationWorker {
         let center = NotificationCenter.default
         let group = DispatchGroup()
         var partitionsForUpdate = [PartitionModel]()
-        var index: Float = 1.0
+        var index: Float = 0.0
         
         for model in revocations {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
@@ -245,7 +245,7 @@ class RevocationWorker {
 
     private func downloadChunkMetadata(partitions: [PartitionModel], completion: @escaping ProcessingCompletion) {
         let group = DispatchGroup()
-        var index: Float = 1.0
+        var index: Float = 0.0
         let center = NotificationCenter.default
 
         for part in partitions {
@@ -281,7 +281,7 @@ class RevocationWorker {
 
     private func updateExistedPartitions(_ partitions: [PartitionModel], completion: @escaping ProcessingCompletion) {
         let todayDate = Date()
-        var index: Float = 1.0
+        var index: Float = 0.0
         let center = NotificationCenter.default
         let group = DispatchGroup()
 
