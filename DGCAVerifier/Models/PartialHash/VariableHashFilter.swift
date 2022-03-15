@@ -20,7 +20,7 @@
  */
 //
 //  VariableHashFilter.swift
-//  
+//
 //
 //  Created by Igor Khomiak on 10.03.2022.
 //
@@ -39,7 +39,7 @@ public class VariableHashFilter {
     private var version: UInt16 = 1
     private var probRate: Float = 0.0
     private var currentElementAmount: Int = 0
-    private var definedElementAmount: Int = 0
+    private var definedElementAmount: Int32 = 0
 
     public private(set) var array: [BInt] = []
 
@@ -54,28 +54,28 @@ public class VariableHashFilter {
      */
 
     public init?(data: Data) {
-        guard !data.isEmpty else { return nil}
-                
-        self.version = data[0..<2].reversed().withUnsafeBytes {$0.load(as: UInt16.self)}
+        guard data.count > 11 else { return nil}
         
-        let bytes = Bytes(data[2..<5])
-        let bigEndianValue = bytes.withUnsafeBufferPointer {
+        self.version = data[0...1].reversed().withUnsafeBytes {$0.load(as: UInt16.self)}
+        
+        let floatBytes = [UInt8](data[2...5])
+        let floatValue = floatBytes.withUnsafeBufferPointer {
             $0.baseAddress!.withMemoryRebound(to: UInt32.self, capacity: 1) { $0.pointee }
         }
-        let bitPattern = UInt32(bigEndian: bigEndianValue)
+        let bitPattern = UInt32(bigEndian: floatValue)
         self.probRate = Float(bitPattern: bitPattern)
         
-        self.definedElementAmount = data[5..<9].reversed().withUnsafeBytes {$0.load(as: Int.self)}
+        self.definedElementAmount = data[6...9].reversed().withUnsafeBytes {$0.load(as: Int32.self)}
         self.currentElementAmount = 0
         
-        self.size = data[9..<10].withUnsafeBytes {$0.load(as: UInt8.self)}
+        self.size = data[10...10].withUnsafeBytes {$0.load(as: UInt8.self)}
         let numHashes: Int = (data.count - 11) / Int(size)
-        var bigArray: Array<BInt> = Array(repeating: BInt(signed: Bytes()), count: numHashes)
+        var bigArray: Array<BInt> = Array(repeating: BInt(signed: [0]), count: numHashes)
         
         currentElementAmount = 0
         var counter = 11
         while (counter < data.count) {
-            let slice: [UInt8] = [UInt8](data[counter..<counter + Int(size)]).reversed()
+            let slice: [UInt8] = [UInt8](data[counter..<counter + Int(size)])
             bigArray[currentElementAmount] = BInt(signed: slice)
             counter += Int(size)
             currentElementAmount += 1
@@ -94,24 +94,17 @@ public class VariableHashFilter {
         
         let dccHashBytes: [UInt8] = [UInt8](data)
         let filterSizeBytes: [UInt8] = Array(dccHashBytes[0..<Int(size)])
-        let rezult = binarySearch(bigInts: array, from: 0, to: array.count, element: BInt(signed: filterSizeBytes))
+        let element = BInt(signed: filterSizeBytes)
+        let rezult = elemSearch(element: element)
         return rezult
     }
 
-    private func binarySearch(bigInts: [BInt], from index1: Int, to index2: Int, element: BInt) -> Bool {
-        guard index1 >= index2 else { return false }
-        let middle = index1 + (index2 - index1) / 2
-        
-        if bigInts[middle] == element {
-            return true
+    private func elemSearch(element: BInt) -> Bool {
+        for num in array {
+            if num == element {
+                return true
+            }
         }
-        
-        if bigInts[middle] > element {
-            let rezult = binarySearch(bigInts: bigInts, from: index1, to: middle - 1, element: element)
-            return rezult
-        } else {
-            let rezult = binarySearch(bigInts: bigInts, from: middle + 1, to: index2, element: element)
-            return rezult
-        }
+        return false
     }
 }
