@@ -19,7 +19,7 @@
  * ---license-end
  */
 //
-//  CertificateValidator..swift
+//  DCCCertificateValidator.swift
 //  
 //
 //  Created by Igor Khomiak on 15.10.2021.
@@ -28,42 +28,48 @@
 import Foundation
 import SwiftDGC
 import CertLogic
+import DGCBloomFilter
 
-public typealias ValidityCompletion = (ValidityState) -> Void
 
-public class CertificateValidator {
+class DCCCertificateValidator {
     
-    public let certificate: HCert
-
+    fileprivate let certificate: HCert
+    fileprivate let revocationManager = RevocationCoreDataManager()
+    
     init(with cert: HCert) {
       self.certificate = cert
     }
 
-  func validate(completion: ValidityCompletion) {
-      let failures = findValidityFailures()
-      
-      let technicalValidity: HCertValidity = failures.isEmpty ? .valid : .invalid
-      let issuerValidity = validateCertLogicForIssuer()
-      let destinationValidity = validateCertLogicForDestination()
-      let travalerValidity = validateCertLogicForTraveller()
-      let (infoRulesSection, allRulesValidity): (InfoSection?, HCertValidity)
-      if technicalValidity == .valid {
-          (infoRulesSection, allRulesValidity) = validateCertLogicForAllRules()
-      } else {
-          (infoRulesSection, allRulesValidity) = (nil, .invalid)
-      }
+    func validateDCCCertificate() -> ValidityState {
+        let failures = findValidityFailures()
+        
+        let technicalValidity: HCertValidity = failures.isEmpty ? .valid : .invalid
+        let issuerValidity = validateCertLogicForIssuer()
+        let destinationValidity = validateCertLogicForDestination()
+        let travalerValidity = validateCertLogicForTraveller()
+        let (infoRulesSection, allRulesValidity): (InfoSection?, HCertValidity)
+        if technicalValidity == .valid {
+            (infoRulesSection, allRulesValidity) = validateCertLogicForAllRules()
+        } else {
+            (infoRulesSection, allRulesValidity) = (nil, .invalid)
+        }
+        var revocationValidity: HCertValidity = .valid
+        
+        if technicalValidity != .invalid {
+            revocationValidity = self.validateRevocation()
+        }
+        
+        let validityState = ValidityState(
+            technicalValidity: revocationValidity == .revoked ? .invalid : technicalValidity,
+            issuerValidity: issuerValidity,
+            destinationValidity: destinationValidity,
+            travalerValidity: travalerValidity,
+            allRulesValidity: allRulesValidity,
+            revocationValidity: revocationValidity,
+            validityFailures: failures,
+            infoRulesSection: infoRulesSection)
 
-      let validityState = ValidityState(
-        technicalValidity: technicalValidity,
-        issuerValidity: issuerValidity,
-        destinationValidity: destinationValidity,
-        travalerValidity: travalerValidity,
-        allRulesValidity: allRulesValidity,
-        revocationValidity: .valid,
-        validityFailures: failures,
-        infoRulesSection: infoRulesSection)
-
-    completion(validityState)
+        return validityState
   }
   
   private func findValidityFailures() -> [String] {
@@ -196,70 +202,135 @@ public class CertificateValidator {
     }
 
     private func validateCertLogicForDestination() -> HCertValidity {
-      let certType = certificationType(for: certificate.certificateType)
-      if let countryCode = certificate.ruleCountryCode {
-        let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
-        let filterParameter = FilterParameter(validationClock: Date(),
-          countryCode: countryCode,
-          certificationType: certType)
-        let externalParameters = ExternalParameter(validationClock: Date(),
-          valueSets: valueSets,
-          exp: certificate.exp,
-          iat: certificate.iat,
-          issuerCountryCode: certificate.issCode,
-          kid: certificate.kidStr)
-        let result = CertLogicManager.shared.validateDestination(filter: filterParameter,
-            external: externalParameters, payload: certificate.body.description)
-        let fails = result.filter { $0.result == .fail }
-        if !fails.isEmpty {
-          return .invalid
+        let certType = certificationType(for: certificate.certificateType)
+        if let countryCode = certificate.ruleCountryCode {
+          let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
+            
+          let filterParameter = FilterParameter(validationClock: Date(),
+            countryCode: countryCode,
+            certificationType: certType)
+            
+          let externalParameters = ExternalParameter(validationClock: Date(),
+            valueSets: valueSets,
+            exp: certificate.exp,
+            iat: certificate.iat,
+            issuerCountryCode: certificate.issCode,
+            kid: certificate.kidStr)
+          let result = CertLogicManager.shared.validateDestination(filter: filterParameter,
+              external: externalParameters, payload: certificate.body.description)
+          let fails = result.filter { $0.result == .fail }
+          if !fails.isEmpty {
+            return .invalid
+          }
+          let open = result.filter { $0.result == .open }
+          if !open.isEmpty {
+            return .ruleInvalid
+          }
         }
-        let open = result.filter { $0.result == .open }
-        if !open.isEmpty {
-          return .ruleInvalid
-        }
-      }
-      return .valid
+        return .valid
     }
     
     private func validateCertLogicForTraveller() -> HCertValidity {
-      let certType = certificationType(for: certificate.certificateType)
-      if let countryCode = certificate.ruleCountryCode {
-        let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
-        let filterParameter = FilterParameter(validationClock: Date(),
-            countryCode: countryCode,
-            certificationType: certType)
-        let externalParameters = ExternalParameter(validationClock: Date(),
-           valueSets: valueSets,
-           exp: certificate.exp,
-           iat: certificate.iat,
-           issuerCountryCode: certificate.issCode,
-           kid: certificate.kidStr)
-        let result = CertLogicManager.shared.validateTraveller(filter: filterParameter,
-            external: externalParameters, payload: certificate.body.description)
+        let certType = certificationType(for: certificate.certificateType)
+        if let countryCode = certificate.ruleCountryCode {
+            let valueSets = DataCenter.localDataManager.getValueSetsForExternalParameters()
+            let filterParameter = FilterParameter(validationClock: Date(),
+                countryCode: countryCode,
+                certificationType: certType)
+            let externalParameters = ExternalParameter(validationClock: Date(),
+               valueSets: valueSets,
+               exp: certificate.exp,
+               iat: certificate.iat,
+               issuerCountryCode: certificate.issCode,
+               kid: certificate.kidStr)
+            let result = CertLogicManager.shared.validateTraveller(filter: filterParameter,
+                external: externalParameters, payload: certificate.body.description)
+            
+            let fails = result.filter { $0.result == .fail }
+            if !fails.isEmpty {
+              return .invalid
+            }
+            let open = result.filter { $0.result == .open }
+            if !open.isEmpty {
+              return .ruleInvalid
+            }
+        }
+        return .valid
+    }
+
+    private func certificationType(for type: HCertType) -> CertificateType {
+        switch type {
+        case .recovery:
+          return .recovery
+        case .test:
+          return .test
+        case .vaccine:
+          return .vaccination
+        case .unknown:
+          return .general
+        }
+    }
+}
+
+
+extension DCCCertificateValidator {
+    
+    func validateRevocation() -> HCertValidity {
+        let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
         
-        let fails = result.filter { $0.result == .fail }
-        if !fails.isEmpty {
-          return .invalid
+        if let revocation = revocationManager.loadRevocation(kid: kidConverted),
+           let revocMode = RevocationMode(rawValue: revocation.value(forKey: "mode") as! String),
+            let hashTypes = revocation.value(forKey: "hashTypes") as? String {
+            let arrayHashTypes = hashTypes.split(separator: ",")
+            
+            if arrayHashTypes.contains("SIGNATURE"), let hashData = certificate.signatureHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
+                if result == true {
+                    return .revoked
+                }
+            }
+            
+            if arrayHashTypes.contains("UCI"), let hashData = certificate.uvciHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
+                if result == true {
+                    return .revoked
+                }
+            }
+            
+            if arrayHashTypes.contains("COUNTRYCODEUCI"), let hashData = certificate.countryCodeUvciHash {
+                let lookup: CertLookUp = certificate.lookUp(mode: revocMode, hash: hashData)
+                let result = searchInDatabase(lookUp: lookup, hash: hashData)
+                if result == true {
+                    return .revoked
+                }
+            }
         }
-        let open = result.filter { $0.result == .open }
-        if !open.isEmpty {
-          return .ruleInvalid
-        }
-      }
-      return .valid
+        return .valid
     }
     
-    private func certificationType(for type: SwiftDGC.HCertType) -> CertificateType {
-      switch type {
-      case .recovery:
-        return .recovery
-      case .test:
-        return .test
-      case .vaccine:
-        return .vaccination
-      case .unknown:
-        return .general
-      }
+    private func searchInDatabase(lookUp: CertLookUp, hash: Data) -> Bool {
+        let slices = revocationManager.loadSlices(kid: lookUp.kid, x: lookUp.x, y: lookUp.y, section: lookUp.section)
+        for slice in slices ?? [] {
+            guard let sliceData = slice.value(forKey: "hashData") as? Data,
+                let sliceType = slice.value(forKey: "type") as? String else { continue }
+            
+            if sliceType.lowercased().contains("bloom") {
+                let filter = BloomFilter(data: sliceData)
+                let result = filter.mightContain(element: hash)
+                if result {
+                    return true
+                }
+            } else if sliceType.lowercased().contains("hash") {
+                let filter = VariableHashFilter(data: sliceData)
+                if let result = filter?.mightContain(element: hash), result == true {
+                    return true
+                }
+            } else {
+                print("Revocation Error: Unsupported type of hash")
+            }
+        }
+        return false
     }
 }

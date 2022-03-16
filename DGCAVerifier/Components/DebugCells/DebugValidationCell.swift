@@ -46,7 +46,7 @@ class DebugValidationCell: UITableViewCell {
   @IBOutlet weak var destinationView: UILabel!
   @IBOutlet weak var travvelerView: UILabel!
   
-  private var validityState: ValidityState = .validState
+  private var validityState: ValidityState = ValidityState()
       
   func setupCell(with validity: ValidityState) {
     self.validityState = validity

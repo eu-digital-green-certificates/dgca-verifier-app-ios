@@ -86,9 +86,9 @@
 		D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D23EF7A8272067E00097D82B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */; };
 		D23EF7A9272067E00097D82B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D1EF5263597A2004C8919 /* LocalDataManager.swift */; };
-		D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
-		D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
-		D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* CertificateValidator.swift */; };
+		D23EF7AD272068D80097D82B /* DCCCertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* DCCCertificateValidator.swift */; };
+		D23EF7B027206B280097D82B /* DCCCertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* DCCCertificateValidator.swift */; };
+		D23EF7B127206B290097D82B /* DCCCertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7AC272068D80097D82B /* DCCCertificateValidator.swift */; };
 		D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
 		D26F1F9D273A8D64002A780F /* DGCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1F9C273A8D63002A780F /* DGCLogger.swift */; };
 		D26F1F9E273A8D64002A780F /* DGCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1F9C273A8D63002A780F /* DGCLogger.swift */; };
@@ -109,7 +109,6 @@
 		D2D5655F27B5774600E821C6 /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
 		D2D5656727BA5D7300E821C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D5656627BA5D7300E821C6 /* Security.framework */; };
 		D2D5656927BA5E0400E821C6 /* SquareViewFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */; };
-		D2DFDB1627C25FC400BA15B9 /* CertificateValidator+Revocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */; };
 		D2DFDB1E27C371AD00BA15B9 /* DGCBloomFilter in Frameworks */ = {isa = PBXBuildFile; productRef = D2DFDB1D27C371AD00BA15B9 /* DGCBloomFilter */; };
 		D313A7B727BC70830089D89B /* SWCompression in Frameworks */ = {isa = PBXBuildFile; productRef = D313A7B627BC70830089D89B /* SWCompression */; };
 		D3594C3827D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz in Resources */ = {isa = PBXBuildFile; fileRef = D3594C3727D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz */; };
@@ -212,7 +211,7 @@
 		D21B5815274D278A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D21B5819274D4E5A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D21B581B274D4E5C0040D4E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D23EF7AC272068D80097D82B /* CertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; tabWidth = 4; };
+		D23EF7AC272068D80097D82B /* DCCCertificateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = DCCCertificateValidator.swift; sourceTree = "<group>"; tabWidth = 4; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		D26F1F9C273A8D63002A780F /* DGCLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCLogger.swift; sourceTree = "<group>"; };
 		D26F1FA0273A8DC9002A780F /* String+Pad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Pad.swift"; sourceTree = "<group>"; };
@@ -228,7 +227,6 @@
 		D2D5655E27B5774600E821C6 /* RevocationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationWorker.swift; sourceTree = "<group>"; };
 		D2D5656627BA5D7300E821C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewFinder.swift; sourceTree = "<group>"; };
-		D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertificateValidator+Revocation.swift"; sourceTree = "<group>"; };
 		D3594C3727D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = mockRevocationPartitionChunks.tar.gz; sourceTree = "<group>"; };
 		D3594C3927DAE077002847E3 /* testHash */ = {isa = PBXFileReference; lastKnownFileType = file; path = testHash; sourceTree = "<group>"; };
 		D3654EE627C73D84001C8C64 /* DGCAVerifierDownloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DGCAVerifierDownloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -426,10 +424,9 @@
 			isa = PBXGroup;
 			children = (
 				D2768F7827356C8C006C7E17 /* SharedConstants.swift */,
-				D23EF7AC272068D80097D82B /* CertificateValidator.swift */,
+				D23EF7AC272068D80097D82B /* DCCCertificateValidator.swift */,
 				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
 				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
-				D2DFDB1527C25FC400BA15B9 /* CertificateValidator+Revocation.swift */,
 				D29D227227DA6AC200D59BB3 /* PartialHash */,
 				D2D5655527B53F9F00E821C6 /* Revocation */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
@@ -800,11 +797,10 @@
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
 				D26F1FA1273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
-				D2DFDB1627C25FC400BA15B9 /* CertificateValidator+Revocation.swift in Sources */,
 				D2D5655A27B5441D00E821C6 /* DCCRevocation.xcdatamodeld in Sources */,
 				D215814527329C9400C98986 /* DataCenter.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
-				D23EF7AD272068D80097D82B /* CertificateValidator.swift in Sources */,
+				D23EF7AD272068D80097D82B /* DCCCertificateValidator.swift in Sources */,
 				D2B87DA4272C30FA00B0BE19 /* HCertValidity+UIKit.swift in Sources */,
 				5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				5CA450C226E741BB0029324E /* DebugRawCell.swift in Sources */,
@@ -819,7 +815,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D23EF7B027206B280097D82B /* CertificateValidator.swift in Sources */,
+				D23EF7B027206B280097D82B /* DCCCertificateValidator.swift in Sources */,
 				5CA450BB26E7419F0029324E /* DebugSectionCell.swift in Sources */,
 				15BF68A02733D46A00552288 /* HomeController.swift in Sources */,
 				5CA450A726E0BA640029324E /* DebugController.swift in Sources */,
@@ -860,7 +856,7 @@
 				D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
-				D23EF7B127206B290097D82B /* CertificateValidator.swift in Sources */,
+				D23EF7B127206B290097D82B /* DCCCertificateValidator.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				D23EF7A9272067E00097D82B /* LocalDataManager.swift in Sources */,
 				D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */,

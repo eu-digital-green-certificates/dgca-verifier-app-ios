@@ -31,7 +31,6 @@ import SwiftDGC
 import CertLogic
 
 class DataCenter {
-    static let shared = DataCenter()
     static var appVersion: String {
         let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
         let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"

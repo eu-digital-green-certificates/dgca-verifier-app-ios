@@ -39,7 +39,7 @@ extension ValidityState {
             return Icons.error.rawValue
         case .ruleInvalid:
             return Icons.limited.rawValue
-        case .revocated:
+        case .revoked:
             return Icons.error.rawValue
        }
     }
@@ -85,7 +85,7 @@ extension ValidityState {
           return UIColor.certificateInvalid
         case .ruleInvalid:
           return UIColor.certificateRuleOpen
-        case .revocated:
+        case .revoked:
           return UIColor.certificateInvalid
         }
     }

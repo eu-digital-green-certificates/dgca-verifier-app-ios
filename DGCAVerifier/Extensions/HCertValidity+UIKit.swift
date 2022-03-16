@@ -39,7 +39,7 @@ extension HCertValidity {
           return "Invalid".localized
       case .ruleInvalid:
           return "Limited validity".localized
-      case .revocated:
+      case .revoked:
           return "Revocated".localized
       }
     }
@@ -52,7 +52,7 @@ extension HCertValidity {
             return UIImage(named: "error")!
         case .ruleInvalid:
             return UIImage(named: "check")!
-        case .revocated:
+        case .revoked:
             return UIImage(named: "error")!
 
         }
@@ -66,7 +66,7 @@ extension HCertValidity {
             return "Retry".localized
         case .ruleInvalid:
             return "Retry".localized
-        case .revocated:
+        case .revoked:
             return "Retry".localized
 
         }
@@ -80,7 +80,7 @@ extension HCertValidity {
             return UIColor.certificateRed
         case .ruleInvalid:
             return UIColor.certificateLimited
-        case .revocated:
+        case .revoked:
             return UIColor.certificateRed
         }
     }
