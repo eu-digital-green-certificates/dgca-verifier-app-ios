@@ -115,6 +115,8 @@
 		D3594C3827D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz in Resources */ = {isa = PBXBuildFile; fileRef = D3594C3727D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz */; };
 		D3594C3A27DAE077002847E3 /* testHash in Resources */ = {isa = PBXBuildFile; fileRef = D3594C3927DAE077002847E3 /* testHash */; };
 		D3654EE927C73D84001C8C64 /* RevocationDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */; };
+		D381466C27E153D500D2503A /* mockRevocationPartitionChunksUpdate.tar.gz in Resources */ = {isa = PBXBuildFile; fileRef = D381466B27E153D500D2503A /* mockRevocationPartitionChunksUpdate.tar.gz */; };
+		D381466E27E159FE00D2503A /* updatedTestHash in Resources */ = {isa = PBXBuildFile; fileRef = D381466D27E159FE00D2503A /* updatedTestHash */; };
 		DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793257265BBFB50043BA06 /* LicenseTableController.swift */; };
 		DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
 		DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */ = {isa = PBXBuildFile; fileRef = DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */; };
@@ -231,6 +233,8 @@
 		D3594C3927DAE077002847E3 /* testHash */ = {isa = PBXFileReference; lastKnownFileType = file; path = testHash; sourceTree = "<group>"; };
 		D3654EE627C73D84001C8C64 /* DGCAVerifierDownloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DGCAVerifierDownloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationDownloadTests.swift; sourceTree = "<group>"; };
+		D381466B27E153D500D2503A /* mockRevocationPartitionChunksUpdate.tar.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = mockRevocationPartitionChunksUpdate.tar.gz; sourceTree = "<group>"; };
+		D381466D27E159FE00D2503A /* updatedTestHash */ = {isa = PBXFileReference; lastKnownFileType = file; path = updatedTestHash; sourceTree = "<group>"; };
 		DA793257265BBFB50043BA06 /* LicenseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseTableController.swift; sourceTree = "<group>"; };
 		DA793259265BC00F0043BA06 /* LicenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCell.swift; sourceTree = "<group>"; };
 		DA81E47D265E71B500C9F732 /* OpenSourceNotices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenSourceNotices.json; sourceTree = "<group>"; };
@@ -540,6 +544,8 @@
 		D3654EE727C73D84001C8C64 /* DGCAVerifierDownloadTests */ = {
 			isa = PBXGroup;
 			children = (
+				D381466D27E159FE00D2503A /* updatedTestHash */,
+				D381466B27E153D500D2503A /* mockRevocationPartitionChunksUpdate.tar.gz */,
 				D3594C3927DAE077002847E3 /* testHash */,
 				D3594C3727D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz */,
 				D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */,
@@ -731,6 +737,8 @@
 			files = (
 				D3594C3A27DAE077002847E3 /* testHash in Resources */,
 				D3594C3827D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz in Resources */,
+				D381466E27E159FE00D2503A /* updatedTestHash in Resources */,
+				D381466C27E153D500D2503A /* mockRevocationPartitionChunksUpdate.tar.gz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
