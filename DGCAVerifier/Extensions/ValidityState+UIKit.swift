@@ -24,7 +24,7 @@
 //  
 //  Created by Igor Khomiak on 02.11.2021.
 //  
-        
+
 
 import UIKit
 import SwiftDGC
@@ -41,86 +41,97 @@ extension ValidityState {
             return Icons.limited.rawValue
         case .revoked:
             return Icons.error.rawValue
-       }
+        }
     }
-
+    
     var issuerInvalidationString: String {
-        switch self.issuerInvalidation {
-          case .passed:
+        switch self.issuerValidity {
+        case .valid:
             return Icons.ok.rawValue
-          case .failed:
+        case .invalid:
             return Icons.error.rawValue
-          case .open:
+        case .ruleInvalid:
             return Icons.limited.rawValue
+        case .revoked:
+            return Icons.error.rawValue
         }
     }
 
     var destinationAcceptenceString: String {
-        switch self.destinationAcceptence {
-        case .passed:
-          return Icons.ok.rawValue
-        case .failed:
-          return Icons.error.rawValue
-        case .open:
-          return Icons.limited.rawValue
+        switch self.destinationValidity {
+        case .valid:
+            return Icons.ok.rawValue
+        case .invalid:
+            return Icons.error.rawValue
+        case .ruleInvalid:
+            return Icons.limited.rawValue
+        case .revoked:
+            return Icons.error.rawValue
         }
     }
     
     var travalerAcceptenceString: String {
-        switch self.travalerAcceptence {
-        case .passed:
-          return Icons.ok.rawValue
-        case .failed:
-          return Icons.error.rawValue
-        case .open:
-          return Icons.limited.rawValue
+        switch self.travalerValidity {
+        case .valid:
+            return Icons.ok.rawValue
+        case .invalid:
+            return Icons.error.rawValue
+        case .ruleInvalid:
+            return Icons.limited.rawValue
+        case .revoked:
+            return Icons.error.rawValue
         }
     }
     
     var technicalValidityColor: UIColor {
         switch self.technicalValidity {
         case .valid:
-          return UIColor.certificateValid
+            return UIColor.certificateValid
         case .invalid:
-          return UIColor.certificateInvalid
+            return UIColor.certificateInvalid
         case .ruleInvalid:
-          return UIColor.certificateRuleOpen
+            return UIColor.certificateRuleOpen
         case .revoked:
-          return UIColor.certificateInvalid
+            return UIColor.certificateInvalid
         }
     }
 
     var issuerInvalidationColor: UIColor {
-        switch self.issuerInvalidation {
-          case .passed:
+        switch self.issuerValidity {
+        case .valid:
             return UIColor.certificateValid
-          case .failed:
+        case .invalid:
             return UIColor.certificateInvalid
-          case .open:
+        case .ruleInvalid:
             return UIColor.certificateRuleOpen
-            
+        case .revoked:
+            return UIColor.certificateInvalid
         }
     }
 
     var destinationAcceptenceColor: UIColor {
-        switch self.destinationAcceptence {
-        case .passed:
-          return UIColor.certificateValid
-        case .failed:
-          return UIColor.certificateInvalid
-        case .open:
-          return UIColor.certificateRuleOpen
+        switch self.destinationValidity {
+        case .valid:
+            return UIColor.certificateValid
+        case .invalid:
+            return UIColor.certificateInvalid
+        case .ruleInvalid:
+            return UIColor.certificateRuleOpen
+        case .revoked:
+            return UIColor.certificateInvalid
         }
     }
     
     var travalerAcceptenceColor: UIColor {
-    switch self.travalerAcceptence {
-    case .passed:
-      return UIColor.certificateValid
-    case .failed:
-        return UIColor.certificateInvalid
-    case .open:
-        return UIColor.certificateRuleOpen
+        switch self.travalerValidity {
+        case .valid:
+            return UIColor.certificateValid
+        case .invalid:
+            return UIColor.certificateInvalid
+        case .ruleInvalid:
+            return UIColor.certificateRuleOpen
+        case .revoked:
+            return UIColor.certificateInvalid
+        }
     }
-  }
 }

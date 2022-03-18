@@ -31,19 +31,19 @@ import SwiftDGC
 
 extension HCertValidity {
   
-  var validityResult: String {
-      switch self {
-      case .valid:
-          return "Valid".localized
-      case .invalid:
-          return "Invalid".localized
-      case .ruleInvalid:
-          return "Limited validity".localized
-      case .revoked:
-          return "Revocated".localized
-      }
+    var validityResult: String {
+        switch self {
+        case .valid:
+            return "Valid".localized
+        case .invalid:
+            return "Invalid".localized
+        case .ruleInvalid:
+            return "Limited validity".localized
+        case .revoked:
+            return "Revoked".localized
+        }
     }
-    
+
     var validityImage: UIImage {
         switch self {
         case .valid:
@@ -54,7 +54,6 @@ extension HCertValidity {
             return UIImage(named: "check")!
         case .revoked:
             return UIImage(named: "error")!
-
         }
     }
     
@@ -68,7 +67,6 @@ extension HCertValidity {
             return "Retry".localized
         case .revoked:
             return "Retry".localized
-
         }
     }
 

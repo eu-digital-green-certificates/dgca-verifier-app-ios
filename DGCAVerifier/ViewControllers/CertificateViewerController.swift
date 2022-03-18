@@ -50,7 +50,7 @@ class CertificateViewerController: UIViewController {
     weak var dismissDelegate: DismissControllerDelegate?
   
     private var sectionBuilder: SectionBuilder?
-    private var validityState: ValidityState = ValidityState()
+    private var validityState: ValidityState?
     
     private var isDebugMode = DebugManager.sharedInstance.isDebugMode
     
@@ -107,24 +107,24 @@ class CertificateViewerController: UIViewController {
         
         shareButton.setTitle("Share".localized, for: .normal)
         nameLabel.text = hCert.fullName
-        let validity = validityState.allRulesValidity
+        if let allRulesValidity = validityState?.allRulesValidity {
+            dismissButton.setTitle(allRulesValidity.validityButtonTitle, for: .normal)
+            dismissButton.backgroundColor = allRulesValidity.validityBackground
+            validityLabel.text = allRulesValidity.validityResult
+            headerBackground.backgroundColor = allRulesValidity.validityBackground
+            validityImage.image = allRulesValidity.validityImage
         
-        dismissButton.setTitle(validity.validityButtonTitle, for: .normal)
-        dismissButton.backgroundColor = validity.validityBackground
-        validityLabel.text = validity.validityResult
-        headerBackground.backgroundColor = validity.validityBackground
-        validityImage.image = validity.validityImage
-        
-        if isDebugMode && (validity != .valid) {
-            debugSections.removeAll()
-            debugSections.append(DebugSectionModel(sectionType: .verification))
-            debugSections.append(DebugSectionModel(sectionType: .raw))
-            certificateSections = debugSections + listItems
-            shareButton.isHidden = false
-            
-        } else {
-            certificateSections = listItems
-            shareButton.isHidden = true
+            if isDebugMode && (allRulesValidity != .valid) {
+                debugSections.removeAll()
+                debugSections.append(DebugSectionModel(sectionType: .verification))
+                debugSections.append(DebugSectionModel(sectionType: .raw))
+                certificateSections = debugSections + listItems
+                shareButton.isHidden = false
+                
+            } else {
+                certificateSections = listItems
+                shareButton.isHidden = true
+            }
         }
         infoTable.reloadData()
     }
@@ -234,7 +234,7 @@ extension CertificateViewerController: UITableViewDataSource {
                   guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugValidationCell else {
                     return UITableViewCell()
                   }
-                  cell.setupCell(with: validityState)
+                  cell.setupCell(with: validityState!)
                   return cell
               }
           }

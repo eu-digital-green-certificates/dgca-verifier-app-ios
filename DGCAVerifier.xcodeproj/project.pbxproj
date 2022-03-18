@@ -98,6 +98,7 @@
 		D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D2768F7927356C8C006C7E17 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
 		D29D227127DA6ABE00D59BB3 /* VariableHashFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */; };
+		D29D227427E3B8EE00D59BB3 /* Simplified.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D227327E3B8EE00D59BB3 /* Simplified.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B03271DAC20003B0AA6 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2725F26398683003D47A9 /* UIFont.swift */; };
@@ -220,6 +221,7 @@
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
 		D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHashFilter.swift; sourceTree = "<group>"; };
+		D29D227327E3B8EE00D59BB3 /* Simplified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simplified.swift; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataManager.swift; sourceTree = "<group>"; };
 		D2D5655627B53FCF00E821C6 /* RevocationCoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataStorage.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				D2D5655627B53FCF00E821C6 /* RevocationCoreDataStorage.swift */,
 				D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */,
 				D2D5655E27B5774600E821C6 /* RevocationWorker.swift */,
+				D29D227327E3B8EE00D59BB3 /* Simplified.swift */,
 			);
 			path = Revocation;
 			sourceTree = "<group>";
@@ -796,6 +799,7 @@
 				CE891305263581D900CB92AF /* HomeController.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
 				D26F1FA1273A8DC9002A780F /* String+Pad.swift in Sources */,
+				D29D227427E3B8EE00D59BB3 /* Simplified.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
 				D2D5655A27B5441D00E821C6 /* DCCRevocation.xcdatamodeld in Sources */,
 				D215814527329C9400C98986 /* DataCenter.swift in Sources */,

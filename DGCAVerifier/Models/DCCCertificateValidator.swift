@@ -59,16 +59,30 @@ class DCCCertificateValidator {
             revocationValidity = self.validateRevocation()
         }
         
-        let validityState = ValidityState(
-            technicalValidity: revocationValidity == .revoked ? .invalid : technicalValidity,
-            issuerValidity: issuerValidity,
-            destinationValidity: destinationValidity,
-            travalerValidity: travalerValidity,
-            allRulesValidity: allRulesValidity,
-            revocationValidity: revocationValidity,
-            validityFailures: failures,
-            infoRulesSection: infoRulesSection)
-
+        let validityState: ValidityState
+        if revocationValidity == .revoked {
+            validityState = ValidityState(
+                technicalValidity: .revoked,
+                issuerValidity: .revoked,
+                destinationValidity: .revoked,
+                travalerValidity: .revoked,
+                allRulesValidity: .revoked,
+                revocationValidity: .revoked,
+                validityFailures: failures,
+                infoRulesSection: infoRulesSection
+            )
+        } else {
+            validityState = ValidityState(
+                technicalValidity: technicalValidity,
+                issuerValidity: issuerValidity,
+                destinationValidity: destinationValidity,
+                travalerValidity: travalerValidity,
+                allRulesValidity: allRulesValidity,
+                revocationValidity: revocationValidity,
+                validityFailures: failures,
+                infoRulesSection: infoRulesSection
+            )
+        }
         return validityState
   }
   
@@ -123,17 +137,17 @@ class DCCCertificateValidator {
                 listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
                     content: error.localizedDescription,
                     countryName: certificate.ruleCountryCode,
-                    ruleValidationResult: .failed))
+                    ruleValidationResult: .invalid))
               case .open:
                 listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
                     content: error.localizedDescription,
                     countryName: certificate.ruleCountryCode,
-                    ruleValidationResult: .open))
+                    ruleValidationResult: .ruleInvalid))
               case .passed:
                 listOfRulesSection.append(InfoSection(header: "CirtLogic Engine error",
                     content: error.localizedDescription,
                     countryName: certificate.ruleCountryCode,
-                    ruleValidationResult: .passed))
+                    ruleValidationResult: .valid))
               }
               
             } else {
@@ -154,17 +168,19 @@ class DCCCertificateValidator {
                 listOfRulesSection.append(InfoSection(header: errorString,
                     content: detailsError,
                     countryName: certificate.ruleCountryCode,
-                    ruleValidationResult: .failed))
+                    ruleValidationResult: .invalid)
+                )
               case .open:
                 listOfRulesSection.append(InfoSection(header: errorString,
                     content: detailsError,
                     countryName: certificate.ruleCountryCode,
-                    ruleValidationResult: .open))
+                    ruleValidationResult: .ruleInvalid)
+                )
               case .passed:
                 listOfRulesSection.append(InfoSection(header: errorString,
                     content: detailsError,
                     countryName: certificate.ruleCountryCode,
-                    ruleValidationResult: .passed))
+                    ruleValidationResult: .valid))
               }
             }
           }

@@ -43,7 +43,7 @@ class RevocationWorker {
         self.revocationService = service
     }
     
-    let revocationDataManager: RevocationCoreDataManager = RevocationCoreDataManager()
+    let revocationCoreDataManager: RevocationCoreDataManager = RevocationCoreDataManager()
     let revocationService: RevocationServiceProtocol
     var loadedRevocations: [RevocationModel]?
     
@@ -53,51 +53,36 @@ class RevocationWorker {
         let center = NotificationCenter.default
         
         self.revocationService.getRevocationLists {[unowned self] revocations, etag, err in
-            guard err == nil else {
-                completion(.network(reason: err!.localizedDescription))
-                return
-            }
-            guard let revocations = revocations, !revocations.isEmpty, let etag = etag else {
-                completion(.nodata)
-                return
-            }
+            guard err == nil else { completion(.network(reason: err!.localizedDescription)); return }
+            guard let revocations = revocations, !revocations.isEmpty, let etag = etag else { completion(.nodata); return }
             
             SecureKeyChain.save(key: "verifierETag", data: Data(etag.utf8))
             self.saveRevocationsIfNeeds(with: revocations) { loadPartList, updatePartList, err in
                 let group = DispatchGroup()
-
+                
                 if let loadList = loadPartList, !loadList.isEmpty {
                     group.enter()
                     self.downloadNewRevocations(revocations: loadList) { partitions, err in
-                        guard err == nil else {
-                            completion(err!)
-                            return
-                        }
-
+                        guard err == nil else { completion(err!); return }
+                        
                         if let partitions = partitions, !partitions.isEmpty {
                             center.post(name: Notification.Name("LoadingRevocationsNotificationName"),
                                 object: nil, userInfo: ["name": "Preparation of database on revocation of certificates".localized])
                             group.enter()
                             self.downloadChunkMetadata(partitions: partitions) { err in
-                                guard err == nil else {
-                                    completion(err!)
-                                    return
-                                }
-
+                                guard err == nil else { completion(err!); return }
                                 group.leave()
                             }
                         }
                         group.leave()
                     }
                 }
+                
                 if let updateList = updatePartList, !updateList.isEmpty {
                     group.enter()
                     self.downloadNewRevocationsForUpdate(revocations: updateList) { partitions, err in
-                        guard err == nil else {
-                            completion(err!)
-                            return
-                        }
-
+                        guard err == nil else { completion(err!); return }
+                        
                         if let partitions = partitions {
                             center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil,
                                 userInfo: ["name": "Loading the certificate metadata".localized])
@@ -117,68 +102,84 @@ class RevocationWorker {
         }
     }
     
-    private func saveRevocationsIfNeeds(with models: [RevocationModel], completion: @escaping RevocationProcessingCompletion) {
-        // 8) Delete all KID entries in all tables which are not on this list.
-        var currentRevocations: [Revocation]?
+    private func readCurrentRevocations() -> [NSManagedObject]? {
+        var currentRevocations: [NSManagedObject]? //Revocation
         if Thread.isMainThread {
-            currentRevocations = self.revocationDataManager.currentRevocations()
+            currentRevocations = self.revocationCoreDataManager.currentRevocations()
         } else {
             DispatchQueue.main.sync {
-                currentRevocations = self.revocationDataManager.currentRevocations()
+                currentRevocations = self.revocationCoreDataManager.currentRevocations()
             }
         }
+        return currentRevocations
+    }
+
+    private func makeRevocationModel(revocation: NSManagedObject) -> SimpleRevocationModel? {
+        if let localKid = revocation.value(forKey: "kid") as? String,
+            let localMode = revocation.value(forKey: "mode") as? String,
+            let localHashTypes = revocation.value(forKey: "hashTypes") as? String,
+            let localModifiedDate = revocation.value(forKey: "lastUpdated") as? Date,
+            let localExpiredDate = revocation.value(forKey: "expires") as? Date {
+            
+            let model = SimpleRevocationModel(kid: localKid, mode: localMode, hashTypes: localHashTypes, expires: localExpiredDate, lastUpdated: localModifiedDate)
+            return model
+        }
+        return nil
+    }
+    
+    private func removeRevocation(kid: String) {
+        DispatchQueue.main.async {
+            self.revocationCoreDataManager.removeRevocation(kid: kid)
+        }
+    }
+ 
+    private func saveRevocation(model: RevocationModel) {
+        DispatchQueue.main.async {
+            self.revocationCoreDataManager.saveRevocations([model])
+        }
+    }
+
+    private func saveRevocationsIfNeeds(with models: [RevocationModel], completion: @escaping RevocationProcessingCompletion) {
+        // 8) Delete all KID entries in all tables which are not on this list.
     
         var newlyAddedRevocations = Set<RevocationModel>()
         var revocationsToReload = Set<RevocationModel>()
+        let currentRevocations = readCurrentRevocations() ?? []
 
-        if let currentRevocations = currentRevocations, !currentRevocations.isEmpty {
-            for revocationObject in currentRevocations {
-                guard
-                    let localKid = revocationObject.value(forKey: "kid") as? String,
-                    let localMode = revocationObject.value(forKey: "mode") as? String,
-                    let localModifiedDate = revocationObject.value(forKey: "lastUpdated") as? Date,
-                    let localExpiredDate = revocationObject.value(forKey: "expires") as? Date
-                else { continue }
-                let todayDate = Date()
-
-                if let loadedModel = models.filter({ Helper.convertToBase64url(base64: $0.kid) == localKid }).first {
-                    // 9) Check if “Mode” was changed. If yes, delete all associated entries with the KID.
-                    let loadedModifiedDate = Date(rfc3339DateTimeString: loadedModel.lastUpdated) ?? Date.distantPast
+        for revocationObject in currentRevocations {
+            guard let localModel = makeRevocationModel(revocation: revocationObject) else { continue }
+            let todayDate = Date()
+  
+            if let loadedModel = models.filter({ Helper.convertToBase64url(base64: $0.kid) == localModel.kid }).first {
+                // 9) Check if “Mode” was changed. If yes, delete all associated entries with the KID.
+                let loadedModifiedDate = Date(rfc3339DateTimeString: loadedModel.lastUpdated) ?? Date.distantPast
+                
+                if loadedModel.mode != localModel.mode {
+                    removeRevocation(kid: localModel.kid)
+                    saveRevocation(model: loadedModel)
                     
-                    if loadedModel.mode != localMode {
-                        DispatchQueue.main.async {
-                            self.revocationDataManager.removeRevocation(kid: localKid)
-                            self.revocationDataManager.saveRevocations([loadedModel])
-                        }
-                        newlyAddedRevocations.insert(loadedModel)
-                        
-                    } else if localModifiedDate < loadedModifiedDate {
-                        revocationsToReload.insert(loadedModel)
-                        
-                    } else if localExpiredDate < todayDate {
-                        DispatchQueue.main.async {
-                            self.revocationDataManager.removeRevocation(kid: localKid)
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.revocationDataManager.removeRevocation(kid: localKid)
-                    }
+                    newlyAddedRevocations.insert(loadedModel)
+                    
+                } else if localModel.lastUpdated < loadedModifiedDate {
+                    revocationsToReload.insert(loadedModel)
+                    
+                } else if localModel.expires < todayDate {
+                    removeRevocation(kid: localModel.kid)
                 }
+            } else {
+                removeRevocation(kid: localModel.kid)
             }
         }
-
+        
         for model in models {
-            if currentRevocations?.filter({ ($0.value(forKey: "kid") as? String) == Helper.convertToBase64url(base64:model.kid) }).isEmpty ?? false {
-                DispatchQueue.main.async {
-                    self.revocationDataManager.saveRevocations([model])
-                }
+            if currentRevocations.filter({ ($0.value(forKey: "kid") as? String) == Helper.convertToBase64url(base64:model.kid) }).isEmpty {
+                saveRevocation(model: model)
                 newlyAddedRevocations.insert(model)
             }
         }
         completion(newlyAddedRevocations, revocationsToReload, nil)
     }
-
+    
     private func downloadNewRevocations(revocations: Set<RevocationModel>, completion: @escaping PartitionProcessingCompletion) {
         let center = NotificationCenter.default
         let group = DispatchGroup()
@@ -198,7 +199,7 @@ class RevocationWorker {
                 index += 1.0
                 if err == nil, let partitions = partitions, !partitions.isEmpty {
                     DispatchQueue.main.async {
-                        self.revocationDataManager.savePartitions(kid: model.kid, models: partitions)
+                        self.revocationCoreDataManager.savePartitions(kid: model.kid, models: partitions)
                     }
                     partitionsForLoad.append(contentsOf: partitions)
                 }
@@ -220,15 +221,13 @@ class RevocationWorker {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
             self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
-                guard err == nil else {
-                    completion(nil, err!)
-                    return
-                }
+                guard err == nil else { completion(nil, err!); return }
 
                 let progress: Float = index/Float(revocations.count)
-                center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil, userInfo: ["name" : "Updating the certificate revocations database".localized, "progress" : progress] )
+                center.post(name: Notification.Name("LoadingRevocationsNotificationName"), object: nil,
+                    userInfo: ["name" : "Updating the certificate revocations database".localized, "progress" : progress] )
                 index += 1.0
-                print(progress)
+
                 if err == nil, let partitions = partitions, !partitions.isEmpty {
                     partitionsForUpdate.append(contentsOf: partitions)
                 }
@@ -288,10 +287,10 @@ class RevocationWorker {
         for partition in partitions {
             var localPartitions: [Partition]?
             if Thread.isMainThread {
-                localPartitions = revocationDataManager.loadAllPartitions(for: partition.kid)
+                localPartitions = revocationCoreDataManager.loadAllPartitions(for: partition.kid)
             } else {
                 DispatchQueue.main.sync {
-                    localPartitions = self.revocationDataManager.loadAllPartitions(for: partition.kid)
+                    localPartitions = self.revocationCoreDataManager.loadAllPartitions(for: partition.kid)
                 }
             }
             let loadedModifiedDate = Date(rfc3339DateTimeString: partition.lastUpdated) ?? Date.distantPast
@@ -310,7 +309,7 @@ class RevocationWorker {
 
                 if expiredDate < todayDate {
                     DispatchQueue.main.async {
-                        self.revocationDataManager.deletePartition(kid: kid, id: pid)
+                        self.revocationCoreDataManager.deletePartition(kid: kid, id: pid)
                     }
                 }
                 if localDate < loadedModifiedDate {
@@ -336,7 +335,7 @@ class RevocationWorker {
                         let chunk = chunkObj as? Chunk
                         if let _ = loadedChunks.filter({ $0.key == (chunk?.value(forKey: "cid") as! String) }).first {
                             DispatchQueue.main.async {
-                                self.revocationDataManager.deleteChunk(chunk!)
+                                self.revocationCoreDataManager.deleteChunk(chunk!)
                             }
                         }
                     }
@@ -351,7 +350,7 @@ class RevocationWorker {
                             for sliceObj in localSlices ?? [] {
                                 if let slice = sliceObj as? Slice, let _ = loadedSlices.filter({ $0.key == (slice.value(forKey: "hashID") as! String) }).first {
                                     DispatchQueue.main.async {
-                                        self.revocationDataManager.deleteSlice(slice)
+                                        self.revocationCoreDataManager.deleteSlice(slice)
                                     }
                                 }
                             }
@@ -366,7 +365,7 @@ class RevocationWorker {
 
                                     if sliceExpDate < todayDate {
                                         DispatchQueue.main.async {
-                                            self.revocationDataManager.deleteSlice(kid: kid, id: pid, cid: cid!, hashID: hashID!)
+                                            self.revocationCoreDataManager.deleteSlice(kid: kid, id: pid, cid: cid!, hashID: hashID!)
                                         }
                                     }
                                     if sliceExpDate != sliceDate {
@@ -391,10 +390,10 @@ class RevocationWorker {
                         } else {
                             // local chunk is absent
                             if Thread.isMainThread {
-                                revocationDataManager.createAndSaveChunk(kid: kid, id: pid, cid: chunkID, sliceModel: loadedSlices)
+                                revocationCoreDataManager.createAndSaveChunk(kid: kid, id: pid, cid: chunkID, sliceModel: loadedSlices)
                             } else {
                                 DispatchQueue.main.sync {
-                                    self.revocationDataManager.createAndSaveChunk(kid: kid, id: pid, cid: chunkID, sliceModel: loadedSlices)
+                                    self.revocationCoreDataManager.createAndSaveChunk(kid: kid, id: pid, cid: chunkID, sliceModel: loadedSlices)
                                 }
                             }
                             group.enter()
@@ -445,7 +444,7 @@ class RevocationWorker {
                 
                 let sliceMetadata = SliceMetaData(kid: kid, id: partID, cid: chunkID, hashID: sliceHashID, contentData: sliceHashData)
                 DispatchQueue.main.async {
-                    self.revocationDataManager.saveMetadataHashes(sliceHashes: [sliceMetadata])
+                    self.revocationCoreDataManager.saveMetadataHashes(sliceHashes: [sliceMetadata])
                 }
             }
         } catch {
