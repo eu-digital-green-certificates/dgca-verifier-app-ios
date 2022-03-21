@@ -29,7 +29,7 @@ import Foundation
 import SwiftDGC
 import CertLogic
 import DGCBloomFilter
-
+import DGCPartialVarHashFilter
 
 class DCCCertificateValidator {
     

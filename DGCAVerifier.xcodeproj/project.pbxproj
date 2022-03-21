@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1520F88527E8CBBE002436EB /* DGCPartialVarHashFilter in Frameworks */ = {isa = PBXBuildFile; productRef = 1520F88427E8CBBE002436EB /* DGCPartialVarHashFilter */; };
 		15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF689D2732FAC100552288 /* DataStuctures.swift */; };
 		15BF68A02733D46A00552288 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
 		15BF68A12733D46D00552288 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
@@ -97,7 +98,6 @@
 		D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D2768F7927356C8C006C7E17 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
-		D29D227127DA6ABE00D59BB3 /* VariableHashFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */; };
 		D29D227427E3B8EE00D59BB3 /* Simplified.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D227327E3B8EE00D59BB3 /* Simplified.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
@@ -220,7 +220,6 @@
 		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D2768F7827356C8C006C7E17 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		D2867F332715E4D60017321D /* dgca-app-core-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "dgca-app-core-ios"; path = "../../dgca-app-core-ios"; sourceTree = "<group>"; };
-		D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableHashFilter.swift; sourceTree = "<group>"; };
 		D29D227327E3B8EE00D59BB3 /* Simplified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simplified.swift; sourceTree = "<group>"; };
 		D2B87DA3272C30FA00B0BE19 /* HCertValidity+UIKit.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "HCertValidity+UIKit.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		D2D5655327B53F9400E821C6 /* RevocationCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevocationCoreDataManager.swift; sourceTree = "<group>"; };
@@ -252,6 +251,7 @@
 				5CAC4435268A584400E09EAC /* SwiftDGC in Frameworks */,
 				D2DFDB1E27C371AD00BA15B9 /* DGCBloomFilter in Frameworks */,
 				D2D5656727BA5D7300E821C6 /* Security.framework in Frameworks */,
+				1520F88527E8CBBE002436EB /* DGCPartialVarHashFilter in Frameworks */,
 				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
 				CE713CD22651A65F003DD1DE /* SwiftDGC in Frameworks */,
 			);
@@ -429,7 +429,6 @@
 				D23EF7AC272068D80097D82B /* DCCCertificateValidator.swift */,
 				D26F1F9C273A8D63002A780F /* DGCLogger.swift */,
 				5CA450D026E74B000029324E /* DebugSectionModel.swift */,
-				D29D227227DA6AC200D59BB3 /* PartialHash */,
 				D2D5655527B53F9F00E821C6 /* Revocation */,
 				15BF689F273304CD00552288 /* LocalDataManagement */,
 			);
@@ -504,14 +503,6 @@
 			path = DGCAVerifierUITests;
 			sourceTree = "<group>";
 		};
-		D29D227227DA6AC200D59BB3 /* PartialHash */ = {
-			isa = PBXGroup;
-			children = (
-				D29D227027DA6ABE00D59BB3 /* VariableHashFilter.swift */,
-			);
-			path = PartialHash;
-			sourceTree = "<group>";
-		};
 		D2B605C02743D448000D914A /* SettingsControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +570,7 @@
 				5CAC4434268A584400E09EAC /* SwiftDGC */,
 				D313A7B627BC70830089D89B /* SWCompression */,
 				D2DFDB1D27C371AD00BA15B9 /* DGCBloomFilter */,
+				1520F88427E8CBBE002436EB /* DGCPartialVarHashFilter */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -681,6 +673,7 @@
 				5CAC4433268A584400E09EAC /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
 				D313A7B527BC70830089D89B /* XCRemoteSwiftPackageReference "SWCompression" */,
 				D2DFDB1C27C371AD00BA15B9 /* XCRemoteSwiftPackageReference "dgc-bloomfilter-ios" */,
+				1520F88327E8CBBE002436EB /* XCRemoteSwiftPackageReference "dgca-partialvarhashfilter-ios" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -788,7 +781,6 @@
 				CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */,
 				15BF689E2732FAC200552288 /* DataStuctures.swift in Sources */,
 				D21581412731719500C98986 /* ValidityState+UIKit.swift in Sources */,
-				D29D227127DA6ABE00D59BB3 /* VariableHashFilter.swift in Sources */,
 				D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */,
 				5CA450E726E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				DA793258265BBFB50043BA06 /* LicenseTableController.swift in Sources */,
@@ -1295,6 +1287,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1520F88327E8CBBE002436EB /* XCRemoteSwiftPackageReference "dgca-partialvarhashfilter-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-partialvarhashfilter-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios";
@@ -1354,6 +1354,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1520F88427E8CBBE002436EB /* DGCPartialVarHashFilter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1520F88327E8CBBE002436EB /* XCRemoteSwiftPackageReference "dgca-partialvarhashfilter-ios" */;
+			productName = DGCPartialVarHashFilter;
+		};
 		5C3151E82681BDCF00309E45 /* CertLogic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5C3151E72681BDCF00309E45 /* XCRemoteSwiftPackageReference "dgc-certlogic-ios" */;
