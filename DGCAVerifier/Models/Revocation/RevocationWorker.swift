@@ -301,7 +301,7 @@ class RevocationWorker {
             
             if let localPartition = localPartitions?.filter({ $0.value(forKey: "kid") as! String == partition.kid &&
                 $0.value(forKey: "id") as? String == partition.id}).first {
-                guard let localDate = localPartition.value(forKey: "lastUpdatedDate") as? Date,
+                guard let localDate = localPartition.value(forKey: "lastUpdated") as? Date,
                     let expiredDate = localPartition.value(forKey: "expired") as? Date,
                     let kid = localPartition.value(forKey: "kid") as? String,
                     let pid = localPartition.value(forKey: "id") as? String,
@@ -326,7 +326,6 @@ class RevocationWorker {
                         }
                         
                         self.processReadZipData(kid: kid, zipData: zipdata)
-                        localPartition.setValue(loadedModifiedDate, forKey: "lastUpdatedDate")
                         group.leave()
                     }
                 } else {
