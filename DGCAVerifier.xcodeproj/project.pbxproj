@@ -98,6 +98,9 @@
 		D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F1FA0273A8DC9002A780F /* String+Pad.swift */; };
 		D2768F7927356C8C006C7E17 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2768F7827356C8C006C7E17 /* SharedConstants.swift */; };
+		D277DB8D27EB42FA0093C82B /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
+		D277DB8E27EB42FB0093C82B /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
+		D277DB8F27EB42FB0093C82B /* RevocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D5655E27B5774600E821C6 /* RevocationWorker.swift */; };
 		D29D227427E3B8EE00D59BB3 /* Simplified.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D227327E3B8EE00D59BB3 /* Simplified.swift */; };
 		D2B70B01271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
 		D2B70B02271DAC17003B0AA6 /* UIColor+Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8096D8263B07BB00A65AD6 /* UIColor+Verifier.swift */; };
@@ -828,6 +831,7 @@
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
 				5CA450AE26E0F4C20029324E /* DebugCell.swift in Sources */,
 				D26F1FA2273A8DC9002A780F /* String+Pad.swift in Sources */,
+				D277DB8D27EB42FA0093C82B /* RevocationWorker.swift in Sources */,
 				D26F1F9E273A8D64002A780F /* DGCLogger.swift in Sources */,
 				5CA450E826E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				5CA450B526E605710029324E /* DebugManager.swift in Sources */,
@@ -852,6 +856,7 @@
 				D2B70B04271DAC20003B0AA6 /* UIFont.swift in Sources */,
 				D26F1FA3273A8DC9002A780F /* String+Pad.swift in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
+				D277DB8E27EB42FB0093C82B /* RevocationWorker.swift in Sources */,
 				D23EF7B127206B290097D82B /* DCCCertificateValidator.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				D23EF7A9272067E00097D82B /* LocalDataManager.swift in Sources */,
@@ -867,6 +872,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3654EE927C73D84001C8C64 /* RevocationDownloadTests.swift in Sources */,
+				D277DB8F27EB42FB0093C82B /* RevocationWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

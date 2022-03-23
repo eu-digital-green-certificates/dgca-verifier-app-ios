@@ -32,7 +32,7 @@ import CertLogic
 
 class LocalDataManager {
     lazy var storage = SecureStorage<LocalData>(fileName: SharedConstants.dataStorageName)
-    var localData: LocalData = LocalData()
+    var localData = LocalData()
     
     // MARK: - Public Keys
     func add(encodedPublicKey: String) {
@@ -111,7 +111,7 @@ class LocalDataManager {
 
     // MARK: - Services
     func save(completion: @escaping DataCompletionHandler) {
-        storage.save(localData, completion: completion)  
+        storage.save(localData, completion: completion)
     }
 
     func loadLocallyStoredData(completion: @escaping DataCompletionHandler) {

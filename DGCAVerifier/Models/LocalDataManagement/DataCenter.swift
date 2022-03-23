@@ -18,12 +18,12 @@
  * limitations under the License.
  * ---license-end
  */
-//  
+//
 //  DataCenter.swift
 //  DGCAVerifier
-//  
+//
 //  Created by Igor Khomiak on 03.11.2021.
-//  
+//
         
 
 import Foundation
@@ -56,7 +56,7 @@ class DataCenter {
         }
     }
     
-    static var resumeToken: String? {
+    static var resumeToken: String {
         get {
             return localDataManager.localData.resumeToken
         }

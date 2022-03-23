@@ -292,9 +292,9 @@ class DCCCertificateValidator {
 extension DCCCertificateValidator {
     
     func validateRevocation() -> HCertValidity {
-        let kidConverted = Helper.convertToBase64url(base64: certificate.kidStr)
+        let certKID = certificate.kidStr
         
-        if let revocation = revocationManager.loadRevocation(kid: kidConverted),
+        if let revocation = revocationManager.loadRevocation(kid: certKID),
            let revocMode = RevocationMode(rawValue: revocation.value(forKey: "mode") as! String),
             let hashTypes = revocation.value(forKey: "hashTypes") as? String {
             let arrayHashTypes = hashTypes.split(separator: ",")

@@ -49,15 +49,13 @@ class RevocationCoreDataManager: NSObject {
     }
     
     func loadRevocation(kid: String) -> Revocation? {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
-        let predicate: NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kidConverted])
+        let predicate: NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate
         
         do {
             var revocations = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(revocations.count) revocations for id: \(kidConverted)")
+            print("  Extracted \(revocations.count) revocations for id: \(kid)")
             if revocations.count > 1 {
                 while revocations.count > 1 {
                     revocations.removeLast()
@@ -66,19 +64,17 @@ class RevocationCoreDataManager: NSObject {
             return revocations.first
             
         } catch let error as NSError {
-            print("Could not fetch: \(error), \(error.userInfo) for id: \(kidConverted)")
+            print("Could not fetch: \(error), \(error.userInfo) for id: \(kid)")
             return nil
         } catch {
-            print("Could not fetch for id: \(kidConverted)")
+            print("Could not fetch for id: \(kid)")
             return nil
         }
     }
 
     func removeRevocation(kid: String) {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Revocation>(entityName: "Revocation")
-        let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kidConverted])
+        let predicate:  NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate
         
         do {
@@ -86,7 +82,7 @@ class RevocationCoreDataManager: NSObject {
             print("Extracted \(revocations.count) Revocations for deleting")
             for revocationObject in revocations {
                 managedContext.delete(revocationObject)
-                print("Deleted Revocation \(kidConverted)")
+                print("Deleted Revocation \(kid)")
             }
             RevocationCoreDataStorage.shared.saveContext()
             
@@ -115,15 +111,14 @@ class RevocationCoreDataManager: NSObject {
         }
     }
     
-    func saveRevocations(_ models: [RevocationModel]) {
-        
+    func createAndSaveRevocations(_ models: [RevocationModel]) {
         for model in models {
-            let kidConverted = Helper.convertToBase64url(base64: model.kid)
+            let kid = model.kid
              
             let entity = NSEntityDescription.entity(forEntityName: "Revocation", in: managedContext)!
             let revocation = Revocation(entity: entity, insertInto: managedContext)
             
-            revocation.setValue(kidConverted, forKey: "kid")
+            revocation.setValue(kid, forKey: "kid")
             let hashTypes = model.hashTypes.joined(separator: ",")
             revocation.setValue(hashTypes, forKey: "hashTypes")
             revocation.setValue(model.mode, forKey: "mode")
@@ -134,7 +129,7 @@ class RevocationCoreDataManager: NSObject {
             if let lastUpdated = Date(rfc3339DateTimeString: model.lastUpdated) {
                 revocation.setValue(lastUpdated, forKey: "lastUpdated")
             }
-            print("-- Added Revocation with KID: \(kidConverted)")
+            print("-- Added Revocation with KID: \(kid)")
         }
         
         RevocationCoreDataStorage.shared.saveContext()
@@ -142,8 +137,8 @@ class RevocationCoreDataManager: NSObject {
 
     func saveMetadataHashes(sliceHashes: [SliceMetaData]) {
         for dataSliceModel in sliceHashes {
-            let kidConverted = Helper.convertToBase64url(base64: dataSliceModel.kid)
-            guard let sliceObject = loadSlice(kid: kidConverted, id: dataSliceModel.id,
+            let kid =  dataSliceModel.kid
+            guard let sliceObject = loadSlice(kid: kid, id: dataSliceModel.id,
                 cid: dataSliceModel.cid, hashID: dataSliceModel.hashID) else { continue }
              
             let generatedData = dataSliceModel.contentData
@@ -176,14 +171,12 @@ class RevocationCoreDataManager: NSObject {
     // MARK: - Partitions
 
     func savePartitions(kid: String, models: [PartitionModel]) {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-        
-        print("Start saving Partitions for kid: \(kidConverted)")
-        let revocation = loadRevocation(kid: kidConverted)
+        print("Start saving Partitions for kid: \(kid)")
+        let revocation = loadRevocation(kid: kid)
         for model in models {
             let entity = NSEntityDescription.entity(forEntityName: "Partition", in: managedContext)!
             let partition = Partition(entity: entity, insertInto: managedContext)
-            partition.setValue(kidConverted, forKey: "kid")
+            partition.setValue(kid, forKey: "kid")
             if let pid = model.id {
                 partition.setValue(pid, forKey: "id")
             } else {
@@ -214,14 +207,11 @@ class RevocationCoreDataManager: NSObject {
             partition.setValue(chunkParts, forKey: "chunks")
             partition.setValue(revocation, forKey: "revocation")
         }
-        
         RevocationCoreDataStorage.shared.saveContext()
     }
     
     func createAndSaveChunk(kid: String, id: String, cid: String, sliceModel: [String : SliceModel]) {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
-        let partition = loadPartition(kid: kidConverted, id: id)
+        let partition = loadPartition(kid: kid, id: id)
         let chunkEntity = NSEntityDescription.entity(forEntityName: "Chunk", in: managedContext)!
         let chunk = Chunk(entity: chunkEntity, insertInto: managedContext)
         
@@ -234,7 +224,20 @@ class RevocationCoreDataManager: NSObject {
         chunk.setValue(cid, forKey: "cid")
         chunk.setValue(slices, forKey: "slices")
         chunk.setValue(partition, forKey: "partition")
+        
+        RevocationCoreDataStorage.shared.saveContext()
     }
+    
+    func createAndSaveSlice(kid: String, id: String, cid: String, sliceKey: String, sliceModel: SliceModel) {
+        let chunk = loadChunk(kid: kid, id: id, cid: cid)
+        let slice: Slice = createSlice(expDate: sliceKey, sliceModel: sliceModel)
+        let slices = chunk?.value(forKey: "slices") as? NSMutableOrderedSet
+        slices?.add(slice)
+        chunk?.setValue(slices, forKey: "slices")
+        
+        RevocationCoreDataStorage.shared.saveContext()
+    }
+
     
     func deleteExpiredPartitions(for date: Date) {
         let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
@@ -244,6 +247,7 @@ class RevocationCoreDataManager: NSObject {
             let partitions = try managedContext.fetch(fetchRequest)
             partitions.forEach { managedContext.delete($0) }
             print("  Deleted \(partitions.count) partitions for expiredDate: \(date)")
+            
             RevocationCoreDataStorage.shared.saveContext()
             
         } catch let error as NSError {
@@ -256,10 +260,8 @@ class RevocationCoreDataManager: NSObject {
     }
     
     func deletePartition(kid: String, id: String) {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
-        let predicate: NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kidConverted, id])
+        let predicate: NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kid, id])
         fetchRequest.predicate = predicate
         do {
             let partitions = try managedContext.fetch(fetchRequest)
@@ -288,11 +290,9 @@ class RevocationCoreDataManager: NSObject {
     }
 
     func deleteSlice(kid: String, id: String, cid: String, hashID: String) {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
         let predicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.id == %@ AND chunk.id == %@ AND hashID == %@",
-            argumentArray: [kidConverted, id, cid, hashID])
+            argumentArray: [kid, id, cid, hashID])
         fetchRequest.predicate = predicate
         do {
             let slices = try managedContext.fetch(fetchRequest)
@@ -312,79 +312,91 @@ class RevocationCoreDataManager: NSObject {
 
     
     func loadAllPartitions(for kid: String) -> [Partition]? {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
-        let predicate: NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kidConverted])
+        let predicate: NSPredicate = NSPredicate(format: "kid == %@", argumentArray: [kid])
         fetchRequest.predicate = predicate
         
         do {
             let partitions = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(partitions.count) partitions for id: \(kidConverted)")
+            print("  Extracted \(partitions.count) partitions for id: \(kid)")
             return partitions
         } catch let error as NSError {
-            print("Could not fetch Partitions: \(error), \(error.userInfo) for id: \(kidConverted)")
+            print("Could not fetch Partitions: \(error), \(error.userInfo) for id: \(kid)")
             return nil
         } catch {
-            print("Could not fetch Partitions for id: \(kidConverted)")
+            print("Could not fetch Partitions for id: \(kid)")
             return nil
         }
     }
     
     func loadPartition(kid: String, id: String) -> Partition? {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Partition>(entityName: "Partition")
-        let predicate: NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kidConverted, id])
+        let predicate: NSPredicate = NSPredicate(format: "kid == %@ AND id == %@", argumentArray: [kid, id])
         fetchRequest.predicate = predicate
         
         do {
             let partitions = try managedContext.fetch(fetchRequest)
-            print("  Extracted \(partitions.count) partitions for kid: \(kidConverted), id: \(id)")
+            print("  Extracted \(partitions.count) partitions for kid: \(kid), id: \(id)")
             return partitions.first
             
         } catch let error as NSError {
-            print("Could not fetch Partitions: \(error), \(error.userInfo) for kid: \(kidConverted), id: \(id)")
+            print("Could not fetch Partitions: \(error), \(error.userInfo) for kid: \(kid), id: \(id)")
             return nil
         } catch {
-            print("Could not fetch Partitions for kid: \(kidConverted), id: \(id)")
+            print("Could not fetch Partitions for kid: \(kid), id: \(id)")
+            return nil
+        }
+    }
+
+    func loadChunk(kid: String, id: String, cid: String) -> Chunk? {
+        let fetchRequest = NSFetchRequest<Chunk>(entityName: "Chunk")
+        let predicate: NSPredicate = NSPredicate(format: "partition.kid == %@ AND partition.id == %@ AND cid == %@",
+            argumentArray: [kid, id, cid])
+        fetchRequest.predicate = predicate
+        
+        do {
+            let chunks = try managedContext.fetch(fetchRequest)
+            print("== Extracted \(chunks.count) chunk(s) for kid: \(kid), pid: \(id), cid: \(cid)")
+            return chunks.first
+        } catch let error as NSError {
+            print("Could not fetch chunks: \(error), \(error.userInfo) for kid: \(kid), id: \(id), cid: \(cid)")
+            return nil
+        } catch {
+            print("Could not fetch chunks for kid: \(kid), id: \(id), cid: \(cid)")
             return nil
         }
     }
 
     func loadSlice(kid: String, id: String, cid: String, hashID: String) -> Slice? {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
-
         let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
         let predicate: NSPredicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.id == %@ AND chunk.cid == %@ AND hashID == %@",
-            argumentArray: [kidConverted, id, cid, hashID])
+            argumentArray: [kid, id, cid, hashID])
         fetchRequest.predicate = predicate
         
         do {
             let slices = try managedContext.fetch(fetchRequest)
-            print("== Extracted \(slices.count) slice(s) for kid: \(kidConverted), pid: \(id), cid: \(cid), sid: \(hashID)")
+            print("== Extracted \(slices.count) slice(s) for kid: \(kid), pid: \(id), cid: \(cid), sid: \(hashID)")
             return slices.first
         } catch let error as NSError {
-            print("Could not fetch slices: \(error), \(error.userInfo) for kid: \(kidConverted), id: \(id)")
+            print("Could not fetch slices: \(error), \(error.userInfo) for kid: \(kid), id: \(id)")
             return nil
         } catch {
-            print("Could not fetch slices for kid: \(kidConverted), id: \(id)")
+            print("Could not fetch slices for kid: \(kid), id: \(id)")
             return nil
         }
     }
     
     // MARK: - Chunks & Slices
     func loadSlices(kid: String, x: String, y: String, section cid: String) -> [Slice]? {
-        let kidConverted = Helper.convertToBase64url(base64: kid)
         let fetchRequest = NSFetchRequest<Slice>(entityName: "Slice")
         let predicate = NSPredicate(format: "chunk.partition.kid == %@ AND chunk.partition.x == %@ AND chunk.partition.y == %@ AND chunk.cid == %@",
-            argumentArray: [kidConverted, x, y, cid])
+            argumentArray: [kid, x, y, cid])
         
         fetchRequest.predicate = predicate
         
         do {
             let slices = try managedContext.fetch(fetchRequest)
-            print("== Extracted \(slices.count) slices for kid: \(kidConverted), x: \(x), y: \(y)")
+            print("== Extracted \(slices.count) slices for kid: \(kid), x: \(x), y: \(y)")
             
             return slices
             
