@@ -132,7 +132,7 @@ class RevocationWorker {
                     completion(nil)
                 }
             } else {
-                completion(RevocationError.nodata)
+                completion(nil)
             }
         }
     }
@@ -146,7 +146,10 @@ class RevocationWorker {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
             self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
-                guard err == nil else { completion(nil, .network(reason: err!.localizedDescription)); return }
+                guard err == nil else {
+                    completion(nil, .network(reason: err!.localizedDescription))
+                    return
+                }
                 
                 index += 1.0
                 let progress: Float = index/Float(revocations.count)
@@ -179,10 +182,10 @@ class RevocationWorker {
                         completion(err!)
                         return
                     }
-                    completion(err!)
+                    completion(nil)
                 }
             } else {
-                completion(RevocationError.nodata)
+                completion(nil)
             }
         }
     }
@@ -196,7 +199,10 @@ class RevocationWorker {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
             self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
-                guard err == nil else { completion(nil, .network(reason: err!.localizedDescription)); return }
+                guard err == nil else {
+                    completion(nil, .network(reason: err!.localizedDescription))
+                    return
+                }
                 
                 index += 1.0
                 let progress: Float = index/Float(revocations.count)
@@ -214,7 +220,6 @@ class RevocationWorker {
     }
 
     // MARK: - download Chunks
-        
     private func downloadChunkMetadata(partitions: [PartitionModel], completion: @escaping ProcessingCompletion) {
         let group = DispatchGroup()
         var index: Float = 0.0
@@ -224,16 +229,19 @@ class RevocationWorker {
             group.enter()
             let kidForLoad = Helper.convertToBase64url(base64: part.kid)
             self.revocationService.getRevocationPartitionChunks(for:kidForLoad, id: part.id ?? "null", cids: nil) { [unowned self] zipdata, err in
-                guard err == nil else { completion(err!); return }
+                guard err == nil else {
+                    completion(err!)
+                    return
+                }
                 
                 index += 1.0
                 let progress: Float = index/Float(partitions.count)
                 center.post(name: Notification.Name("LoadingRevocationsNotificationName".localized), object: nil,
-                    userInfo: ["name" : "Downloading the certificate revocations metadata".localized, "progress" : progress] )
+                    userInfo: ["name" : "Downloading the certificate revocations metadata".localized, "progress" : progress])
                 
-                guard let zipdata = zipdata else { completion(RevocationError.nodata); return }
-                
-                self.processReadZipData(kid: part.kid, zipData: zipdata)
+                if let zipdata = zipdata  {
+                    self.processReadZipData(kid: part.kid, zipData: zipdata)
+                }
                 group.leave()
             }
         }
@@ -283,10 +291,13 @@ class RevocationWorker {
                     group.enter()
                     let kidForLoad = Helper.convertToBase64url(base64: localKid)
                     self.revocationService.getRevocationPartitionChunks(for: kidForLoad, id: localPid, cids: nil) { zipdata, err in
-                        guard err == nil else { completion(err!); return }
-                        guard let zipdata = zipdata else { completion(RevocationError.nodata); return }
-                        
-                        self.processReadZipData(kid: localKid, zipData: zipdata)
+                        guard err == nil else {
+                            completion(err!)
+                            return
+                        }
+                        if let zipdata = zipdata {
+                            self.processReadZipData(kid: localKid, zipData: zipdata)
+                        }
                         group.leave()
                     }
                     
@@ -320,7 +331,6 @@ class RevocationWorker {
                             }
                             
                             for loadedSlice in loadedSlices {
-                                
                                 let loadedSliceKey = loadedSlice.key
                                 let loadedSliceModel = loadedSlice.value
                                 
@@ -330,15 +340,21 @@ class RevocationWorker {
                                     let localSliceExpDate = localSlice.value(forKey: "expiredDate") as? Date {
                                     group.enter()
                                     self.processAndUpdateSlice(kid: loadedPartitionKID, id: loadedPartitionID, cid: loadedChunkID,
-                                                               localExpDate: localSliceExpDate, loadedExpDate: loadedSliceDate, sliceModel: loadedSliceModel) { err in
-                                        guard err == nil else { group.leave(); completion(err!); return }
+                                        localExpDate: localSliceExpDate, loadedExpDate: loadedSliceDate, sliceModel: loadedSliceModel) { err in
+                                        guard err == nil else {
+                                            completion(err!)
+                                            return
+                                        }
                                         group.leave()
                                     }
                                     
                                 } else {
                                     group.enter()
                                     self.createAndSaveSlice(kid: loadedPartitionKID, id: loadedPartitionID, cid: loadedChunkID, sliceKey: loadedSliceKey, sliceModel: loadedSliceModel) { err in
-                                        guard err == nil else { group.leave(); completion(err!); return }
+                                        guard err == nil else {
+                                            completion(err!)
+                                            return
+                                        }
                                         group.leave()
                                     }
                                 }
@@ -347,7 +363,10 @@ class RevocationWorker {
                             // local chunk is absent
                             group.enter()
                             self.createAndSaveChunk(kid: loadedPartitionKID, id: loadedPartitionID, cid: loadedChunkID, sliceModel: loadedSlices) { err in
-                                guard err == nil else { group.leave(); completion(err!); return }
+                                guard err == nil else {
+                                    completion(err!)
+                                    return
+                                }
                                 group.leave()
                             }
                         }
@@ -382,12 +401,9 @@ class RevocationWorker {
                     completion(err!)
                     return
                 }
-                guard let data = data else {
-                    completion(RevocationError.nodata)
-                    return
+                if let data = data  {
+                    self.processReadZipData(kid: kid, zipData: data)
                 }
-                
-                self.processReadZipData(kid: kid, zipData: data)
                 completion(nil)
             }
         } else {
@@ -412,12 +428,10 @@ class RevocationWorker {
                 completion(err!)
                 return
             }
-            guard let data = data else {
-                completion(RevocationError.nodata)
-                return
+            if let data = data {
+                self.processReadZipData(kid: kid, zipData: data)
             }
-
-            self.processReadZipData(kid: kid, zipData: data)
+            completion(nil)
         }
     }
 
@@ -436,12 +450,9 @@ class RevocationWorker {
                 completion(err!)
                 return
             }
-            guard let data = data else {
-                completion(RevocationError.nodata)
-                return
+            if let data = data {
+                self.processReadZipData(kid: kid, zipData: data)
             }
-            
-            self.processReadZipData(kid: kid, zipData: data)
             completion(nil)
         })
     }
@@ -524,5 +535,4 @@ class RevocationWorker {
         }
         return nil
     }
-
 }

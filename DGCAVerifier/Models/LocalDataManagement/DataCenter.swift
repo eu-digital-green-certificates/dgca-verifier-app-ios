@@ -146,22 +146,22 @@ class DataCenter {
             CertLogicManager.shared.setRules(ruleList: rules)
             
             group.enter()
-            GatewayConnection.updateLocalDataStorage {
+            GatewayConnection.updateLocalDataStorage { err in
                 group.leave()
             }
             
             group.enter()
-            GatewayConnection.loadCountryList { _ in
+            GatewayConnection.loadCountryList { list, err in
                 group.leave()
             }
             
             group.enter()
-            GatewayConnection.loadValueSetsFromServer { _, err in
+            GatewayConnection.loadValueSetsFromServer { list, err in
                 group.leave()
             }
             
             group.enter()
-            GatewayConnection.loadRulesFromServer { _, err  in
+            GatewayConnection.loadRulesFromServer { list, err  in
               CertLogicManager.shared.setRules(ruleList: rules)
               group.leave()
             }
@@ -173,13 +173,20 @@ class DataCenter {
         revocationWorker.processReloadRevocations { error in
             if let err = error {
                 if case let .failedValidation(status: status) = err, status == 404 {
+                    group.enter()
                     revocationWorker.processReloadRevocations { err in
-                        print("Backend error!!")
+                        guard err == nil else {
+                            print("Backend error!!")
+                            return
+                        }
+                        group.leave()
                     }
+                } else {
+                    group.leave()
                 }
+            } else {
+                group.leave()
             }
-            
-            group.leave()
         }
         
         group.notify(queue: .main) {

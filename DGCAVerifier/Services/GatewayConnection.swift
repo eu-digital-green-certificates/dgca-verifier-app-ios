@@ -44,20 +44,25 @@ enum GatewayError: Error {
   case tokenError
 }
 
+typealias GatewayCompletion = (GatewayError?) -> Void
+typealias CertUpdateCompletion = (String?, String?, GatewayError?) -> Void
+
+typealias CertStatusCompletion = ([String]?, GatewayError?) -> Void
 typealias ValueSetsCompletion = ([ValueSet]?, GatewayError?) -> Void
 typealias ValueSetCompletionHandler = (ValueSet?, GatewayError?) -> Void
 typealias RulesCompletion = ([Rule]?, GatewayError?) -> Void
 typealias RuleCompletionHandler = (Rule?, GatewayError?) -> Void
+typealias CountryCompletionHandler = ([CountryModel]?, GatewayError?) -> Void
 
 class GatewayConnection: ContextConnection {
-    static func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?) -> Void)?) {
+    static func certUpdate(resume resumeToken: String? = nil, completion: @escaping CertUpdateCompletion) {
         var headers = [String: String]()
         if let token = resumeToken {
             headers["x-resume-token"] = token
         }
         request( ["endpoints", "update"], method: .get, encoding: URLEncoding(), headers: .init(headers)).response {
             if let status = $0.response?.statusCode, status == 204 {
-                completion?(nil, nil)
+                completion(nil, nil, GatewayError.parsingError)
                 return
             }
             guard case let .success(result) = $0.result,
@@ -67,67 +72,76 @@ class GatewayConnection: ContextConnection {
                   let responseKid = headers["x-kid"],
                   let newResumeToken = headers["x-resume-token"]
             else {
-                completion?(nil, nil)
+                completion(nil, nil, GatewayError.parsingError)
                 return
             }
             let kid = KID.from(responseStr)
             let kidStr = KID.string(from: kid)
             if kidStr != responseKid {
-                completion?(nil, newResumeToken)
-                return
+                completion(nil, newResumeToken, nil)
             } else {
-                completion?(responseStr, newResumeToken)
+                completion(responseStr, newResumeToken, nil)
             }
         }
     }
-
-    static func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
+    
+    static func certStatus(resume resumeToken: String? = nil, completion: @escaping CertStatusCompletion) {
         request(["endpoints", "status"]).response {
             guard case let .success(result) = $0.result,
                 let response = result,
                 let responseStr = String(data: response, encoding: .utf8),
                 let json = JSON(parseJSON: responseStr).array
             else {
-                completion?([])
+                completion(nil, GatewayError.parsingError)
                 return
             }
             let kids = json.compactMap { $0.string }
-            completion?(kids)
+            completion(kids, nil)
         }
     }
-
-    static func updateLocalDataStorage(completion: (() -> Void)? = nil) {
-        certUpdate(resume: DataCenter.resumeToken) { encodedCert, token in
-            guard let encodedCert = encodedCert else {
-                status(completion: completion)
+    
+    static func updateLocalDataStorage(completion: @escaping GatewayCompletion) {
+        certUpdate(resume: DataCenter.resumeToken) { encodedCert, token, err in
+            guard err == nil else {
+                completion(GatewayError.connection(error: err!))
                 return
             }
-            DataCenter.localDataManager.add(encodedPublicKey: encodedCert)
-            DataCenter.resumeToken = token ?? ""
-            DataCenter.lastFetch = Date()
-            updateLocalDataStorage(completion: completion)
+            
+            if let encodedCert = encodedCert {
+                DataCenter.localDataManager.add(encodedPublicKey: encodedCert)
+                DataCenter.resumeToken = token ?? ""
+                DataCenter.lastFetch = Date()
+                updateLocalDataStorage(completion: completion)
+            } else {
+                getStatus { err in
+                    completion(err)
+                }
+            }
         }
     }
 
-    static func status(completion: (() -> Void)? = nil) {
-        certStatus { validKids in
-            guard !validKids.isEmpty else { completion?(); return }
+    private static func getStatus(completion: @escaping GatewayCompletion) {
+        certStatus { validKids, err in
+            guard err == nil else {
+                completion(GatewayError.connection(error: err!))
+                return
+            }
             
-            let invalid = DataCenter.publicKeys.keys.filter { !validKids.contains($0) }
+            let invalid = DataCenter.publicKeys.keys.filter { !((validKids ?? []).contains($0)) }
             for key in invalid {
                 DataCenter.publicKeys.removeValue(forKey: key)
             }
             DataCenter.lastFetch = Date()
             DataCenter.saveLocalData { result in
-                completion?()
+                completion(nil)
             }
         }
     }
 
-    static func fetchContext(completion: (() -> Void)? = nil) {
+    static func fetchContext(completion: @escaping (() -> Void)) {
         request( ["context"] ).response {
             guard let data = $0.data, let string = String(data: data, encoding: .utf8) else {
-                completion?()
+                completion()
                 return
             }
             let json = JSON(parseJSONC: string)
@@ -140,7 +154,7 @@ class GatewayConnection: ContextConnection {
                           .popToRootViewController(animated: false)
                     }
                 }
-                completion?()
+                completion()
             }
         }
     }
@@ -153,28 +167,34 @@ class GatewayConnection: ContextConnection {
 // MARK: Country, Rules, Valuesets extension
 extension GatewayConnection {
     // MARK: Country List
-    static func getListOfCountry(completion: (([CountryModel]) -> Void)?) {
+    static func getListOfCountry(completion: @escaping CountryCompletionHandler) {
         request(["endpoints", "countryList"], method: .get).response {
             guard case let .success(result) = $0.result, let response = result,
                 let responseStr = String(data: response, encoding: .utf8), let json = JSON(parseJSON: responseStr).array
             else {
-                completion?([])
+                completion(nil, GatewayError.parsingError)
                 return
             }
             let codes = json.compactMap { $0.string }
             var countryList: [CountryModel] = []
             codes.forEach { countryList.append(CountryModel(code: $0)) }
-            completion?(countryList)
+            completion(countryList, nil)
         }
     }
     
-    static func loadCountryList(completion: (([CountryModel]) -> Void)? = nil) {
+    static func loadCountryList(completion: @escaping CountryCompletionHandler) {
        if !DataCenter.countryCodes.isEmpty {
-        completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
+        completion(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }), nil)
        } else {
-           getListOfCountry { countryList in
-               DataCenter.addCountries(countryList)
-               completion?(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }))
+           getListOfCountry { countryList, err in
+               guard err == nil else {
+                   completion(nil, GatewayError.connection(error: err!))
+                   return
+               }
+               if let countryList = countryList {
+                   DataCenter.addCountries(countryList)
+               }
+               completion(DataCenter.countryCodes.sorted(by: { $0.name < $1.name }), nil)
             }
         }
     }
@@ -211,30 +231,30 @@ extension GatewayConnection {
             }
             downloadingGroup.notify(queue: .main) {
               completion(rulesItems.resultArray, nil)
-              DGCLogger.logInfo("Finished all requests.")
+              DGCLogger.logInfo("Finished all rules requests.")
             }
         }
     }
     
     static func getRules(ruleHash: RuleHash, completion: @escaping RuleCompletionHandler) {
         request(["endpoints", "rules"], externalLink: "/\(ruleHash.country)/\(ruleHash.hash)", method: .get).response {
-          guard case let .success(result) = $0.result,
-            let response = result, let responseStr = String(data: response, encoding: .utf8)
-          else {
-            completion(nil, GatewayError.parsingError)
-            return
-          }
-          if let rule: Rule = CertLogicEngine.getItem(from: responseStr) {
-            let downloadedRuleHash = SHA256.digest(input: response as NSData)
-            if downloadedRuleHash.hexString == ruleHash.hash {
-              rule.setHash(hash: ruleHash.hash)
-              completion(rule, nil)
-            } else {
-              completion(nil, GatewayError.encodingError)
+            guard case let .success(result) = $0.result,
+                  let response = result, let responseStr = String(data: response, encoding: .utf8)
+            else {
+                completion(nil, GatewayError.parsingError)
+                return
             }
-            return
-          }
-          completion(nil, GatewayError.encodingError)
+            if let rule: Rule = CertLogicEngine.getItem(from: responseStr) {
+                let downloadedRuleHash = SHA256.digest(input: response as NSData)
+                if downloadedRuleHash.hexString == ruleHash.hash {
+                  rule.setHash(hash: ruleHash.hash)
+                  completion(rule, nil)
+                } else {
+                    completion(nil, GatewayError.encodingError)
+                }
+            } else {
+                completion(nil, GatewayError.encodingError)
+            }
         }
     }
 
@@ -248,7 +268,6 @@ extension GatewayConnection {
                 completion(nil, GatewayError.parsingError)
                 return
             }
-
             DataCenter.addRules(rules)
             completion(DataCenter.rules, nil)
         }
@@ -275,19 +294,19 @@ extension GatewayConnection {
             valueSetsHashes.forEach { valueSetHash in
                 downloadingGroup.enter()
                 if !DataCenter.localDataManager.isValueSetExistWithHash(hash: valueSetHash.hash) {
-                  getValueSets(valueSetHash: valueSetHash) { valueSet, error in
-                      if let valueSet = valueSet {
-                        valueSetsItems.append(valueSet)
-                      }
-                      downloadingGroup.leave()
-                  }
+                    getValueSets(valueSetHash: valueSetHash) { valueSet, error in
+                        if let valueSet = valueSet {
+                          valueSetsItems.append(valueSet)
+                        }
+                        downloadingGroup.leave()
+                    }
                 } else {
                     downloadingGroup.leave()
                 }
             }
             downloadingGroup.notify(queue: .main) {
                 completion(valueSetsItems.resultArray, nil)
-                DGCLogger.logInfo("Finished all requests.")
+                DGCLogger.logInfo("Finished all value sets requests.")
             }
         }
     }
@@ -298,7 +317,7 @@ extension GatewayConnection {
                 let response = result,
                 let responseStr = String(data: response, encoding: .utf8)
             else {
-                completion(nil, GatewayError.parsingError)
+                completion(nil, .parsingError)
                 return
             }
               
@@ -307,26 +326,22 @@ extension GatewayConnection {
                 if downloadedValueSetHash.hexString == valueSetHash.hash {
                     valueSet.setHash(hash: valueSetHash.hash)
                     completion(valueSet, nil)
-                } else {
-                    completion(nil, GatewayError.encodingError)
+                    return
                 }
-                return
             }
-            completion(nil, GatewayError.encodingError)
+            completion(nil, .insufficientData)
         }
     }
 
     static func loadValueSetsFromServer(completion: @escaping ValueSetsCompletion) {
         getListOfValueSets { list, error in
             guard error == nil else {
-                completion(nil, GatewayError.connection(error: error!))
+                completion(nil, .connection(error: error!))
                 return
             }
-            guard let valueSetsList = list else {
-                completion(nil, GatewayError.connection(error: error!))
-                return
+            if let valueSetsList = list  {
+                DataCenter.addValueSets(valueSetsList)
             }
-            DataCenter.addValueSets(valueSetsList)
             completion(DataCenter.valueSets, nil)
         }
     }

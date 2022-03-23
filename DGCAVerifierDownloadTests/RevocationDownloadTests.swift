@@ -163,7 +163,7 @@ class RevocationDownloadTests: XCTestCase {
     lazy var worker = RevocationWorker(service: service)
 
     override func setUpWithError() throws {
-        worker.revocationDataManager.clearAllData()
+        worker.revocationCoreDataManager.clearAllData()
     }
 
     override func tearDownWithError() throws {
@@ -176,7 +176,7 @@ class RevocationDownloadTests: XCTestCase {
 
         service.testMode = .new
         worker.processReloadRevocations { revocationError in
-            let revocations = self.worker.revocationDataManager.currentRevocations()
+            let revocations = self.worker.revocationCoreDataManager.currentRevocations()
             
             XCTAssert(revocations.count == 2)
             
@@ -184,7 +184,7 @@ class RevocationDownloadTests: XCTestCase {
             
             XCTAssertEqual(kids, ["9cWXDDA52FQ", "GSXuNoyWGYo"])
                         
-            let slices = self.worker.revocationDataManager.loadSlices(kid: testKid, x: "null", y: "null", section: "2")
+            let slices = self.worker.revocationCoreDataManager.loadSlices(kid: testKid, x: "null", y: "null", section: "2")
             
             XCTAssertNotNil(slices)
             XCTAssert(slices!.count == 1)
@@ -237,7 +237,7 @@ class RevocationDownloadTests: XCTestCase {
         
         let updateResult = XCTWaiter.wait(for: [updateExpectation], timeout: 2.0)
         if updateResult == .completed {
-            let slices = self.worker.revocationDataManager.loadSlices(kid: testKid, x: "null", y: "null", section: "2")
+            let slices = self.worker.revocationCoreDataManager.loadSlices(kid: testKid, x: "null", y: "null", section: "2")
             
             XCTAssertNotNil(slices)
             XCTAssert(slices!.count == 1)
