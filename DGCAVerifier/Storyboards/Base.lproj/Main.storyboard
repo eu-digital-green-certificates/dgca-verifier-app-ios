@@ -177,8 +177,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W1a-Nq-HsO">
-                                <rect key="frame" x="60" y="625" width="294" height="4"/>
+                                <rect key="frame" x="60" y="619.5" width="294" height="4"/>
                             </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZK5-zm-Zdm">
+                                <rect key="frame" x="158.5" y="435" width="97.5" height="26.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="spinner" title=" Reload">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
+                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="reloadAction" destination="WAh-yr-kBl" eventType="touchUpInside" id="5wu-Tw-9w5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eo3-Vz-9CR"/>
                         <color key="backgroundColor" name="verifierBlue"/>
@@ -193,6 +205,7 @@
                             <constraint firstItem="SJI-m9-dcF" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="J8i-HJ-Mz8"/>
                             <constraint firstAttribute="trailing" secondItem="U1k-Fz-tlt" secondAttribute="trailing" id="OGa-o0-tJV"/>
                             <constraint firstItem="69c-5J-Njm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="PeV-gt-gBw"/>
+                            <constraint firstItem="ZK5-zm-Zdm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="Tcf-SW-FBz"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="top" secondItem="TSz-Wk-1F3" secondAttribute="top" id="cdZ-XD-qKo"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="top" secondItem="SJI-m9-dcF" secondAttribute="bottom" constant="8" id="eK4-uU-snd"/>
                             <constraint firstItem="yXf-VE-y9w" firstAttribute="centerY" secondItem="TSz-Wk-1F3" secondAttribute="centerY" id="exJ-Jk-0iP"/>
@@ -201,8 +214,9 @@
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="mL1-PH-CIz"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="pWb-aN-K7H"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="top" secondItem="wSz-Vc-V0a" secondAttribute="bottom" constant="32" id="rNk-At-HuJ"/>
-                            <constraint firstItem="wSz-Vc-V0a" firstAttribute="top" secondItem="W1a-Nq-HsO" secondAttribute="bottom" constant="64.5" id="sAy-6M-ekK"/>
+                            <constraint firstItem="wSz-Vc-V0a" firstAttribute="top" secondItem="W1a-Nq-HsO" secondAttribute="bottom" constant="70" id="sAy-6M-ekK"/>
                             <constraint firstItem="W1a-Nq-HsO" firstAttribute="leading" secondItem="Eo3-Vz-9CR" secondAttribute="leading" constant="60" id="tUB-HB-g9F"/>
+                            <constraint firstItem="ZK5-zm-Zdm" firstAttribute="centerY" secondItem="TSz-Wk-1F3" secondAttribute="centerY" id="vqI-jr-eQp"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="height" secondItem="TSz-Wk-1F3" secondAttribute="height" multiplier="0.15" id="w13-2b-J2X"/>
                             <constraint firstItem="Eo3-Vz-9CR" firstAttribute="trailing" secondItem="wSz-Vc-V0a" secondAttribute="trailing" constant="20" id="y7r-5u-zCR"/>
                         </constraints>
@@ -213,6 +227,7 @@
                         <outlet property="appNameLabel" destination="NXa-E7-6vV" id="p1N-ji-ryS"/>
                         <outlet property="messageLabel" destination="wSz-Vc-V0a" id="itP-zq-azf"/>
                         <outlet property="progresBar" destination="W1a-Nq-HsO" id="agO-yR-fTA"/>
+                        <outlet property="reloadButton" destination="ZK5-zm-Zdm" id="ZZp-bC-992"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="scannerSegueID" id="rRW-gu-ad2"/>
                     </connections>
                 </viewController>
@@ -225,6 +240,7 @@
         <image name="EU_logo" width="72" height="48"/>
         <image name="gear_white" width="22" height="22"/>
         <image name="icon_nfc" width="13.399999618530273" height="23.399999618530273"/>
+        <image name="spinner" width="22" height="22"/>
         <image name="verifier_icon" width="112" height="112"/>
         <namedColor name="verifierBlue">
             <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

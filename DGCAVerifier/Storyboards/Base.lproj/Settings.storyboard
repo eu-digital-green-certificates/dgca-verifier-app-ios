@@ -125,13 +125,24 @@
                                                     <color key="tintColor" name="verifierBlue"/>
                                                     <state key="normal" image="spinner"/>
                                                 </button>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pni-6h-Qf1">
+                                                    <rect key="frame" x="146" y="20" width="188" height="4"/>
+                                                </progressView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-hl-yGi">
+                                                    <rect key="frame" x="102" y="12" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pZh-NG-LMB" firstAttribute="top" secondItem="r9F-Dp-Vgr" secondAttribute="topMargin" id="2W0-g4-f2G"/>
+                                                <constraint firstItem="LEB-UD-iNN" firstAttribute="leading" secondItem="Pni-6h-Qf1" secondAttribute="trailing" constant="9" id="3II-7v-fAs"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="trailing" secondItem="r9F-Dp-Vgr" secondAttribute="trailingMargin" id="7QY-8e-8Pe"/>
+                                                <constraint firstItem="Pni-6h-Qf1" firstAttribute="leading" secondItem="Lab-hl-yGi" secondAttribute="trailing" constant="24" id="BKP-2q-uA0"/>
+                                                <constraint firstItem="Pni-6h-Qf1" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="NHA-30-b80"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="VCJ-sw-N0N"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="leading" secondItem="pZh-NG-LMB" secondAttribute="trailing" id="ezL-yG-ASw"/>
+                                                <constraint firstItem="Lab-hl-yGi" firstAttribute="leading" secondItem="r9F-Dp-Vgr" secondAttribute="leadingMargin" constant="82" id="gXY-gr-CmN"/>
                                                 <constraint firstItem="pZh-NG-LMB" firstAttribute="leading" secondItem="r9F-Dp-Vgr" secondAttribute="leadingMargin" id="hwX-gt-YoF"/>
+                                                <constraint firstItem="Lab-hl-yGi" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="n8X-i6-Spi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -196,8 +207,10 @@
                     <connections>
                         <outlet property="debugLabel" destination="c7T-kU-ft5" id="kFx-Jk-QIV"/>
                         <outlet property="debugLabelName" destination="5ZM-hL-tLy" id="LIb-7Z-JmQ"/>
+                        <outlet property="indicator" destination="Lab-hl-yGi" id="5Fy-J5-bNs"/>
                         <outlet property="licensesLabelName" destination="3C9-S9-3Vo" id="xn8-RM-8d1"/>
                         <outlet property="privacyLabelName" destination="gMd-yI-bmR" id="45e-Ci-2wB"/>
+                        <outlet property="progressView" destination="Pni-6h-Qf1" id="l0C-UJ-H13"/>
                         <outlet property="versionLabel" destination="YKH-hO-t7T" id="Oge-Gp-oE8"/>
                         <segue destination="bsF-c3-r8z" kind="presentation" identifier="DebugVC" id="2Sm-pc-s7g"/>
                         <segue destination="PQY-eb-uyP" kind="show" identifier="LicensesVC" id="thL-nP-Qqt"/>

@@ -28,27 +28,39 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
-  func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
-    if #available(iOS 13, *) {
-      return true
-    } else {
-      self.window = UIWindow()
-      self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
-      self.window!.makeKeyAndVisible()
-      return true
+    var window: UIWindow?
+    
+    var alertController: UIAlertController?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if #available(iOS 13, *) {
+            return true
+        } else {
+            self.window = UIWindow()
+            self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
+            self.window!.makeKeyAndVisible()
+            return true
+        }
     }
-  }
 
-  func applicationWillResignActive(_ application: UIApplication) {
-    SecureBackground.enable()
-  }
+    func showInfoAlert(withTitle title: String, message: String) {
+        if self.alertController == nil {
+            let infoAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { action in
+                self.alertController = nil
+            }
+            infoAlertController.addAction(action)
+            UIApplication.topMostViewController()?.present(infoAlertController, animated: true)
+            self.alertController = infoAlertController
+        }
+    }
 
-  func applicationDidBecomeActive(_ application: UIApplication) {
-    SecureBackground.disable()
-  }
+    func applicationWillResignActive(_ application: UIApplication) {
+        SecureBackground.enable()
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        SecureBackground.disable()
+    }
 
 }

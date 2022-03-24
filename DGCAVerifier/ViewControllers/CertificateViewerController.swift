@@ -82,7 +82,7 @@ class CertificateViewerController: UIViewController {
         guard let hCert = hCert else { return }
         
         isDebugMode = DebugManager.sharedInstance.isDebugMode
-          
+        
         let validator = DCCCertificateValidator(with: hCert)
         let validityState = validator.validateDCCCertificate()
         
@@ -113,7 +113,7 @@ class CertificateViewerController: UIViewController {
             validityLabel.text = allRulesValidity.validityResult
             headerBackground.backgroundColor = allRulesValidity.validityBackground
             validityImage.image = allRulesValidity.validityImage
-        
+            
             if isDebugMode && (allRulesValidity != .valid) {
                 debugSections.removeAll()
                 debugSections.append(DebugSectionModel(sectionType: .verification))

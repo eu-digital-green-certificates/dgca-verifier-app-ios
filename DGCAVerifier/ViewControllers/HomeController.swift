@@ -38,6 +38,7 @@ class HomeController: UIViewController {
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
     @IBOutlet fileprivate weak var messageLabel: UILabel!
     @IBOutlet fileprivate weak var progresBar: UIProgressView!
+    @IBOutlet fileprivate weak var reloadButton: UIButton!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
       return .lightContent
@@ -45,20 +46,30 @@ class HomeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        appNameLabel.text = "Verifier App"
+        appNameLabel.text = "Verifier App".localized
         
-      let center = NotificationCenter.default
-      center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
-        let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
-          self.messageLabel?.text = strMessage
-          let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
-          self.progresBar?.setProgress(min(1.0, percentage), animated: true)
-      }
+        let center = NotificationCenter.default
+        center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
+            let strMessage = notification.userInfo?["name"] as? String ?? "Loading data".localized
+            self.messageLabel?.text = strMessage
+            let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
+            self.progresBar?.setProgress(min(1.0, percentage), animated: true)
+        }
         self.activityIndicator.startAnimating()
+        reloadButton.isHidden = true
         DataCenter.prepareLocalData {[unowned self] result in
-            DispatchQueue.main.async {
-              self.activityIndicator.stopAnimating()
-              self.loadComplete()
+            if case let .failure(error) = result {
+                DispatchQueue.main.async {
+                    DGCLogger.logError(error)
+                    self.reloadButton.isHidden = false
+                    self.activityIndicator.stopAnimating()
+                    self.messageLabel?.text = "Failed to load data".localized
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.loadComplete()
+                }
             }
         }
     }
@@ -68,15 +79,33 @@ class HomeController: UIViewController {
         center.removeObserver(self)
     }
     
+    @IBAction func reloadAction() {
+        reloadButton.isHidden = true
+        DataCenter.prepareLocalData {[unowned self] result in
+            if case let .failure(error) = result {
+                DispatchQueue.main.async {
+                    DGCLogger.logError(error)
+                    self.reloadButton.isHidden = false
+                    self.activityIndicator.stopAnimating()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.loadComplete()
+                }
+            }
+        }
+    }
+    
     private func loadComplete() {
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
         SecureBackground.image = renderer.image { rendererContext in
-          self.view.layer.render(in: rendererContext.cgContext)
+            self.view.layer.render(in: rendererContext.cgContext)
         }
         if DataCenter.localDataManager.versionedConfig["outdated"].bool == true {
-          showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
+            showAlert(title: "Update Available".localized, subtitle: "This version of the app is out of date.".localized)
         } else {
-          performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
+            performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
         }
     }
 }

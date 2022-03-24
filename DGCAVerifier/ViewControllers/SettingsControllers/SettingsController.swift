@@ -37,23 +37,15 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     weak var dismissDelegate: DismissControllerDelegate?
     var isNavigating = false
 
-  @IBOutlet fileprivate weak var licensesLabelName: UILabel!
-  @IBOutlet fileprivate weak var privacyLabelName: UILabel!
-  @IBOutlet fileprivate weak var debugLabelName: UILabel!
-  @IBOutlet fileprivate weak var debugLabel: UILabel!
-  @IBOutlet fileprivate weak var versionLabel: UILabel!
+    @IBOutlet fileprivate weak var licensesLabelName: UILabel!
+    @IBOutlet fileprivate weak var privacyLabelName: UILabel!
+    @IBOutlet fileprivate weak var debugLabelName: UILabel!
+    @IBOutlet fileprivate weak var debugLabel: UILabel!
+    @IBOutlet fileprivate weak var versionLabel: UILabel!
+    @IBOutlet fileprivate weak var indicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var progressView: UIProgressView!
 
-    lazy var progressView: UIProgressView = UIProgressView(progressViewStyle: .`default`)
-    lazy var indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
-
-    lazy var activityAlert: UIAlertController = {
-        let controller = UIAlertController(title: "Loading data", message: "\n\n\n", preferredStyle: .alert)
-        controller.view.addSubview(progressView)
-        controller.view.addSubview(indicator)
-        progressView.setProgress(0.0, animated: false)
-        return controller
-    }()
-
+    
     deinit {
         let center = NotificationCenter.default
         center.removeObserver(self)
@@ -68,23 +60,15 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
 
       let center = NotificationCenter.default
       center.addObserver(forName: Notification.Name("StartLoadingNotificationName"), object: nil, queue: .main) { notification in
-          self.activityAlert.dismiss(animated: true, completion: nil)
-          self.present(self.activityAlert, animated: true) {
-              self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 100)
-              self.indicator.startAnimating()
-              self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 120)
-          }
+          self.indicator.startAnimating()
       }
       
       center.addObserver(forName: Notification.Name("StopLoadingNotificationName"), object: nil, queue: .main) { notification in
-          self.activityAlert.dismiss(animated: true, completion: nil)
           self.progressView.setProgress(0.0, animated: false)
           self.indicator.stopAnimating()
       }
       
       center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
-          let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
-          self.activityAlert.title = strMessage
           let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
           self.progressView.setProgress(min(1.0, percentage), animated: true)
       }

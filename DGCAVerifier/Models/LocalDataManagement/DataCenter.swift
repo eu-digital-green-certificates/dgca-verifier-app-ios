@@ -26,7 +26,7 @@
 //
         
 
-import Foundation
+import UIKit
 import SwiftDGC
 import CertLogic
 
@@ -73,7 +73,7 @@ class DataCenter {
             localDataManager.localData.encodedPublicKeys = newValue
         }
     }
-
+    
     static var countryCodes: [CountryModel] {
         get {
             return localDataManager.localData.countryCodes
@@ -82,7 +82,7 @@ class DataCenter {
             localDataManager.localData.countryCodes = newValue
         }
     }
-
+    
     static var rules: [Rule] {
         get {
           return localDataManager.localData.rules
@@ -100,7 +100,7 @@ class DataCenter {
             localDataManager.localData.valueSets = newValue
         }
     }
-
+    
     static func saveLocalData(completion: @escaping DataCompletionHandler) {
         localDataManager.save(completion: completion)
     }
@@ -108,16 +108,16 @@ class DataCenter {
     static func addValueSets(_ list: [ValueSet]) {
         list.forEach { localDataManager.add(valueSet: $0) }
     }
-
+    
     static func addRules(_ list: [Rule]) {
         list.forEach { localDataManager.add(rule: $0) }
     }
-
+    
     static func addCountries(_ list: [CountryModel]) {
         localDataManager.localData.countryCodes.removeAll()
         list.forEach { localDataManager.add(country: $0) }
     }
-
+    
     class func prepareLocalData(completion: @escaping DataCompletionHandler) {
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
@@ -147,23 +147,60 @@ class DataCenter {
             
             group.enter()
             GatewayConnection.updateLocalDataStorage { err in
+                guard err == nil else {
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
+                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
+                        completion(.failure(err!))
+                    }
+                    return
+                }
                 group.leave()
             }
             
             group.enter()
             GatewayConnection.loadCountryList { list, err in
+                guard err == nil else {
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
+                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
+                        completion(.failure(err!))
+                    }
+                    return
+                }
                 group.leave()
+
             }
             
             group.enter()
             GatewayConnection.loadValueSetsFromServer { list, err in
+                guard err == nil else {
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
+                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
+                        completion(.failure(err!))
+                    }
+                    return
+                }
                 group.leave()
-            }
+             }
             
             group.enter()
             GatewayConnection.loadRulesFromServer { list, err  in
-              CertLogicManager.shared.setRules(ruleList: rules)
-              group.leave()
+                guard err == nil else {
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
+                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
+                        completion(.failure(err!))
+                    }
+                    return
+                }
+                group.leave()
+                CertLogicManager.shared.setRules(ruleList: rules)
             }
             
             group.leave()
@@ -176,13 +213,23 @@ class DataCenter {
                     group.enter()
                     revocationWorker.processReloadRevocations { err in
                         guard err == nil else {
-                            print("Backend error!!")
+                            DispatchQueue.main.async {
+                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
+                                    message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
+                                completion(.failure(err!))
+                            }
                             return
                         }
                         group.leave()
                     }
                 } else {
-                    group.leave()
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
+                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
+                        completion(.failure(err))
+                    }
                 }
             } else {
                 group.leave()

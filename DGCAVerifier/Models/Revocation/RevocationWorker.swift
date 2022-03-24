@@ -145,7 +145,7 @@ class RevocationWorker {
         for model in revocations {
             let kidForLoad = Helper.convertToBase64url(base64: model.kid)
             group.enter()
-            self.revocationService.getRevocationPartitions(for: kidForLoad) { partitions, _, err in
+            self.revocationService.getRevocationPartitions(for: kidForLoad) {[unowned self] partitions, _, err in
                 guard err == nil else {
                     completion(nil, .network(reason: err!.localizedDescription))
                     return
@@ -290,7 +290,7 @@ class RevocationWorker {
                 if localModifiedDate < loadedModifiedDate {
                     group.enter()
                     let kidForLoad = Helper.convertToBase64url(base64: localKid)
-                    self.revocationService.getRevocationPartitionChunks(for: kidForLoad, id: localPid, cids: nil) { zipdata, err in
+                    self.revocationService.getRevocationPartitionChunks(for: kidForLoad, id: localPid, cids: nil) { [unowned self] zipdata, err in
                         guard err == nil else {
                             completion(err!)
                             return
@@ -396,7 +396,7 @@ class RevocationWorker {
         
         if localExpDate != loadedExpDate {
             let kidForLoad = Helper.convertToBase64url(base64: kid)
-            self.revocationService.getRevocationPartitionChunkSliceSingle(for: kidForLoad, id: id, cid: cid, sid: sliceModel.hash) { data, err in
+            self.revocationService.getRevocationPartitionChunkSliceSingle(for: kidForLoad, id: id, cid: cid, sid: sliceModel.hash) { [unowned self] data, err in
                 guard err == nil else {
                     completion(err!)
                     return
@@ -423,7 +423,7 @@ class RevocationWorker {
         }
         
         let kidForLoad = Helper.convertToBase64url(base64: kid)
-        self.revocationService.getRevocationPartitionChunkSliceSingle(for: kidForLoad, id: id, cid: cid, sid: sliceModel.hash) { data, err in
+        self.revocationService.getRevocationPartitionChunkSliceSingle(for: kidForLoad, id: id, cid: cid, sid: sliceModel.hash) { [unowned self] data, err in
             guard err == nil else {
                 completion(err!)
                 return
@@ -445,7 +445,7 @@ class RevocationWorker {
             }
         }
         let kidForLoad = Helper.convertToBase64url(base64: kid)
-        self.revocationService.getRevocationPartitionChunk(for: kidForLoad, id: id, cid: cid, completion: { data, err in
+        self.revocationService.getRevocationPartitionChunk(for: kidForLoad, id: id, cid: cid, completion: { [unowned self] data, err in
             guard err == nil else {
                 completion(err!)
                 return

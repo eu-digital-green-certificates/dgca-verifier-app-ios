@@ -84,21 +84,25 @@ class ScanCertificateController: UIViewController {
     
     private var selectedCounty: CountryModel? {
         set {
+            let encoder = JSONEncoder()
             do {
-              try UserDefaults.standard.setObject(newValue, forKey: Constants.userDefaultsCountryKey)
+                let data = try encoder.encode(newValue)
+                UserDefaults.standard.set(data, forKey: Constants.userDefaultsCountryKey)
             } catch {
-              DGCLogger.logError(error)
+                DGCLogger.logError(error)
             }
         }
         get {
-            do {
-              let selected = try UserDefaults.standard.getObject(forKey: Constants.userDefaultsCountryKey,
-                  castTo: CountryModel.self)
-              return selected
-            } catch {
-              DGCLogger.logError(error)
-              return nil
+            if let data = UserDefaults.standard.data(forKey: Constants.userDefaultsCountryKey) {
+                let decoder = JSONDecoder()
+                do {
+                    let object = try decoder.decode(CountryModel.self, from: data)
+                    return object
+                } catch {
+                    DGCLogger.logError(error)
+                }
             }
+            return nil
         }
     }
     
