@@ -18,12 +18,12 @@
  * limitations under the License.
  * ---license-end
  */
-//  
+//
 //  GatewayConnection.swift
 //  DGCAVerifier
-//  
+//
 //  Created by Yannick Spreen on 4/24/21.
-//  
+//
 
 import UIKit
 import Alamofire
@@ -62,9 +62,10 @@ class GatewayConnection: ContextConnection {
         }
         request( ["endpoints", "update"], method: .get, encoding: URLEncoding(), headers: .init(headers)).response {
             if let status = $0.response?.statusCode, status == 204 {
-                completion(nil, nil, GatewayError.parsingError)
+                completion(nil, nil, nil)
                 return
             }
+
             guard case let .success(result) = $0.result,
                   let response = result,
                   let responseStr = String(data: response, encoding: .utf8),
@@ -75,6 +76,7 @@ class GatewayConnection: ContextConnection {
                 completion(nil, nil, GatewayError.parsingError)
                 return
             }
+
             let kid = KID.from(responseStr)
             let kidStr = KID.string(from: kid)
             if kidStr != responseKid {

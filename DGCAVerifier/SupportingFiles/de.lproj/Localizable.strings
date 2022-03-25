@@ -81,4 +81,6 @@
 "Failed to load data" = "Failed to load data";
 "Loading data" = "Loading data";
 "Cannot update stored data" = "Cannot update stored data";
-"Please check the internet connection. If this happens again, try again later or refer to administrator." = "Please check the internet connection. If this happens again, try again later or refer to administrator.";
+"Cannot load data" = "Cannot load data";
+"Please check the internet connection and try again." = "Please check the internet connection and try again.";
+"Stored data is up to date" = "Stored data is up to date";

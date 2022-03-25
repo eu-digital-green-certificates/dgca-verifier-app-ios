@@ -30,8 +30,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
-    var alertController: UIAlertController?
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if #available(iOS 13, *) {
             return true
@@ -43,18 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func showInfoAlert(withTitle title: String, message: String) {
-        if self.alertController == nil {
-            let infoAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { action in
-                self.alertController = nil
-            }
-            infoAlertController.addAction(action)
-            UIApplication.topMostViewController()?.present(infoAlertController, animated: true)
-            self.alertController = infoAlertController
-        }
-    }
-
     func applicationWillResignActive(_ application: UIApplication) {
         SecureBackground.enable()
     }
@@ -62,5 +48,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         SecureBackground.disable()
     }
-
 }

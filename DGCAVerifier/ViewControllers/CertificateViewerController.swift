@@ -44,7 +44,6 @@ class CertificateViewerController: UIViewController {
     @IBOutlet fileprivate weak var infoTable: UITableView!
     @IBOutlet fileprivate weak var dismissButton: RoundedButton!
     @IBOutlet fileprivate weak var shareButton: RoundedButton!
-    @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
     var hCert: HCert?
     weak var dismissDelegate: DismissControllerDelegate?
@@ -59,12 +58,7 @@ class CertificateViewerController: UIViewController {
     }
     private var debugSections = [DebugSectionModel]()
     private var certificateSections: [CertificateSectionsProtocol] = []
-
-    deinit {
-        let center = NotificationCenter.default
-        center.removeObserver(self)
-    }
-
+    
     // MARK: View Controller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,12 +18,12 @@
  * limitations under the License.
  * ---license-end
  */
-//  
+//
 //  RevocationWorker.swift
 //  DGCAVerifier
-//  
+//
 //  Created by Igor Khomiak on 10.02.2022.
-//  
+//
         
 
 import Foundation
@@ -60,12 +60,12 @@ class RevocationWorker {
             let group = DispatchGroup()
             group.enter()
             self.processDownloadNewRevocations(loadPartList) { err in
-                guard err == nil else { group.leave(); completion(err!); return }
+                guard err == nil else { completion(err!); return }
                 group.leave()
             }
             group.enter()
             self.processUpdateExistedRevocations(updatePartList) { err in
-                guard err == nil else { group.leave(); completion(err!); return }
+                guard err == nil else { completion(err!); return }
                 group.leave()
             }
             

@@ -26,7 +26,7 @@
 //
         
 
-import UIKit
+import Foundation
 import SwiftDGC
 import CertLogic
 
@@ -119,92 +119,78 @@ class DataCenter {
     }
     
     class func prepareLocalData(completion: @escaping DataCompletionHandler) {
+        let group = DispatchGroup()
+        group.enter()
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
-            let shouldDownload = self.downloadedDataHasExpired || self.appWasRunWithOlderVersion
-            if !shouldDownload {
-                completion(result)
-            } else {
-                reloadStorageData { result in
-                    localDataManager.loadLocallyStoredData { result in
-                        CertLogicManager.shared.setRules(ruleList: rules)
+            group.leave()
+        }
+        group.wait()
+        
+        let areNotDownloadedData = countryCodes.isEmpty || rules.isEmpty || valueSets.isEmpty
+        let shouldReloadData = self.downloadedDataHasExpired || self.appWasRunWithOlderVersion
+        
+        if areNotDownloadedData || shouldReloadData {
+            reloadAllStorageData { result in
+                if case .failure(_) = result {
+                    if areNotDownloadedData {
+                        completion(.noData)
+                    } else {
                         completion(result)
                     }
+                } else {
+                    localDataManager.loadLocallyStoredData { result in
+                        let areNotDownloadedData = countryCodes.isEmpty || rules.isEmpty || valueSets.isEmpty
+                        if areNotDownloadedData {
+                            completion(.noData)
+                        }
+                        CertLogicManager.shared.setRules(ruleList: rules)
+                        completion(.success)
+                    }
                 }
+            }
+            
+        } else {
+            localDataManager.loadLocallyStoredData { result in
+                CertLogicManager.shared.setRules(ruleList: rules)
+                completion(result)
             }
         }
     }
     
-    static func reloadStorageData(completion: @escaping DataCompletionHandler) {
+    static func reloadAllStorageData(completion: @escaping DataCompletionHandler) {
         let group = DispatchGroup()
-        
-        let center = NotificationCenter.default
-        center.post(name: Notification.Name("StartLoadingNotificationName"), object: nil, userInfo: nil )
-        
-        group.enter()
+                
+        var errorOccured = false
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
             
             group.enter()
             GatewayConnection.updateLocalDataStorage { err in
-                guard err == nil else {
-                    DispatchQueue.main.async {
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
-                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
-                        completion(.failure(err!))
-                    }
-                    return
-                }
+                if err != nil { errorOccured = true }
                 group.leave()
             }
             
             group.enter()
             GatewayConnection.loadCountryList { list, err in
-                guard err == nil else {
-                    DispatchQueue.main.async {
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
-                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
-                        completion(.failure(err!))
-                    }
-                    return
-                }
+                if err != nil { errorOccured = true }
                 group.leave()
-
             }
             
             group.enter()
             GatewayConnection.loadValueSetsFromServer { list, err in
-                guard err == nil else {
-                    DispatchQueue.main.async {
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
-                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
-                        completion(.failure(err!))
-                    }
-                    return
-                }
+                if err != nil { errorOccured = true }
                 group.leave()
              }
             
             group.enter()
             GatewayConnection.loadRulesFromServer { list, err  in
-                guard err == nil else {
-                    DispatchQueue.main.async {
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
-                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
-                        completion(.failure(err!))
-                    }
-                    return
-                }
+                if err != nil { errorOccured = true }
                 group.leave()
                 CertLogicManager.shared.setRules(ruleList: rules)
             }
-            
-            group.leave()
         }
+        group.wait()
         
         group.enter()
         revocationWorker.processReloadRevocations { error in
@@ -212,34 +198,25 @@ class DataCenter {
                 if case let .failedValidation(status: status) = err, status == 404 {
                     group.enter()
                     revocationWorker.processReloadRevocations { err in
-                        guard err == nil else {
-                            DispatchQueue.main.async {
-                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
-                                    message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
-                                completion(.failure(err!))
-                            }
-                            return
-                        }
+                        if err != nil { errorOccured = true }
                         group.leave()
                     }
-                } else {
-                    DispatchQueue.main.async {
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.showInfoAlert(withTitle: "Cannot update stored data".localized,
-                            message: "Please check the internet connection. If this happens again, try again later or refer to administrator.".localized)
-                        completion(.failure(err))
-                    }
                 }
-            } else {
-                group.leave()
+                errorOccured = true
             }
+            group.leave()
         }
         
         group.notify(queue: .main) {
             localDataManager.localData.lastFetch = Date()
-            center.post(name: Notification.Name("StopLoadingNotificationName"), object: nil, userInfo: nil )
-            DataCenter.saveLocalData(completion: completion)
+            
+            if errorOccured == true {
+                DispatchQueue.main.async {
+                    completion(.failure(.noInputData))
+                }
+            } else {
+                DataCenter.saveLocalData(completion: completion)
+            }
         }
     }
 }
