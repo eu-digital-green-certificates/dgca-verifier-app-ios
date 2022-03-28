@@ -120,8 +120,7 @@ class LocalDataManager {
               completion(.failure(DataOperationError.noInputData))
               return
             }
-            let format = "%d pub keys loaded."
-            DGCLogger.logInfo(String(format: format, loadedData.encodedPublicKeys.count))
+            DGCLogger.logInfo(String(format: "%d pub keys loaded.", loadedData.encodedPublicKeys.count))
             if loadedData.lastLaunchedAppVersion != DataCenter.appVersion {
               loadedData.config = self.localData.config
               loadedData.lastLaunchedAppVersion = DataCenter.appVersion
