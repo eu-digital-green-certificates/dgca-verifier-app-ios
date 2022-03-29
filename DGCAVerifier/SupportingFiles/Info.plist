@@ -28,10 +28,6 @@
 	<string>Scan barcodes with your camera.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Unlock sensitive data.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>awesome.ttf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

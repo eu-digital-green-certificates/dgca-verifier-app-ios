@@ -27,7 +27,7 @@
         
 
 import UIKit
-import SwiftDGC
+import DCCInspection
 
 enum Icons: String {
   case ok = "\u{f00c}"

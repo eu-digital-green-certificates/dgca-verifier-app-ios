@@ -26,7 +26,7 @@
 //  
 
 import UIKit
-import SwiftDGC
+import DCCInspection
 
 class RuleErrorCell: UITableViewCell {
   @IBOutlet fileprivate weak var ruleLabel: UILabel!

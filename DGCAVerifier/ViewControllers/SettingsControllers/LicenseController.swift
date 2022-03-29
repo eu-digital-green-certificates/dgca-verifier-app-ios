@@ -35,34 +35,34 @@ class LicenseController: UIViewController, WKNavigationDelegate {
   @IBOutlet fileprivate weak var licenseWebView: WKWebView!
   @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
-  var licenseObject: JSON = []
+    var licenseObject: JSON = []
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    self.packageNameLabel.text = licenseObject["name"].string
-    self.licenseWebView.isUserInteractionEnabled = false
-    self.licenseWebView.navigationDelegate = self
-    if let licenseUrl = licenseObject["licenseUrl"].string {
-      loadWebView(licenseUrl)
+        self.packageNameLabel.text = licenseObject["name"].string
+        self.licenseWebView.isUserInteractionEnabled = false
+        self.licenseWebView.navigationDelegate = self
+        if let licenseUrl = licenseObject["licenseUrl"].string {
+          loadWebView(licenseUrl)
+        }
     }
-  }
 
-  func loadWebView(_ packageLink: String) {
-    DispatchQueue.main.async {
-     let request = URLRequest(url: URL(string: packageLink)!)
-      self.licenseWebView?.load(request)
+    func loadWebView(_ packageLink: String) {
+      DispatchQueue.main.async {
+       let request = URLRequest(url: URL(string: packageLink)!)
+        self.licenseWebView?.load(request)
+      }
+      
+      self.activityIndicator.startAnimating()
+      self.licenseWebView.navigationDelegate = self
     }
-    
-    self.activityIndicator.startAnimating()
-    self.licenseWebView.navigationDelegate = self
-  }
 
-  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    self.activityIndicator.stopAnimating()
-  }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+      self.activityIndicator.stopAnimating()
+    }
 
-  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-    self.activityIndicator.stopAnimating()
-  }
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+      self.activityIndicator.stopAnimating()
+    }
 }

@@ -25,7 +25,9 @@
 //
 
 import UIKit
-import SwiftDGC
+import DGCVerificationCenter
+import DCCInspection
+import DGCCoreLibrary
 
 class SettingsController: UITableViewController, DebugControllerDelegate {
     private enum Constants {
@@ -49,7 +51,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         debugLabelName.text = "Debug mode".localized
         licensesLabelName.text = "Licenses".localized
         privacyLabelName.text = "Privacy Information".localized
-        versionLabel.text = DataCenter.appVersion
+        versionLabel.text = DCCDataCenter.appVersion
 
         updateInterface()
     }
@@ -90,7 +92,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         switch section {
         case 1:
             let format = "Last updated: %@".localized
-            return String(format: format, DataCenter.lastFetch.dateTimeString)
+            return String(format: format, DCCDataCenter.lastFetch.dateTimeString)
         default:
             return nil
         }
@@ -123,7 +125,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     private func updateAllStoredData() {
         self.indicator.startAnimating()
 
-        DataCenter.reloadAllStorageData { [weak self] result in
+        DCCDataCenter.reloadStorageData { [weak self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
@@ -164,7 +166,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
 
     private func openPrivacyDoc() {
-        let link = DataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
+        let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
         openUrl(link)
     }
 

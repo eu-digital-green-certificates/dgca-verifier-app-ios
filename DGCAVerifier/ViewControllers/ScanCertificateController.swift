@@ -26,9 +26,11 @@
 //
 
 import UIKit
-import SwiftDGC
 import Vision
 import AVFoundation
+import DGCVerificationCenter
+import DCCInspection
+import DGCCoreLibrary
 
 protocol DismissControllerDelegate: AnyObject {
   func userDidDissmis(_ controller: UIViewController)
@@ -62,7 +64,7 @@ class ScanCertificateController: UIViewController {
     
     private var expireDataTimer: Timer?
     var downloadedDataHasExpired: Bool {
-        return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
+        return DCCDataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
     }
     
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
@@ -107,7 +109,7 @@ class ScanCertificateController: UIViewController {
         headerView.isHidden = true
         delegate = self
         countryCodeLabel.text = "Select Country of CertLogic Rule".localized
-        let countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
+        let countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
         setListOfRuleCounties(list: countryList)
         
         #if targetEnvironment(simulator)
@@ -179,7 +181,7 @@ class ScanCertificateController: UIViewController {
         self.headerView.isHidden = false
         self.activityIndicator.startAnimating()
 
-        DataCenter.reloadAllStorageData { [unowned self] result in
+        DCCDataCenter.reloadStorageData { [unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
@@ -319,33 +321,33 @@ extension ScanCertificateController {
         
         configurePreviewLayer()
     }
-
+    
     func processClassification(_ request: VNRequest) {
         guard let barcodes = request.results else { return }
         
         DispatchQueue.main.async {
             if self.captureSession?.isRunning == true {
-              self.camView.layer.sublayers?.removeSubrange(1...)
-
-              if let barcode = barcodes.first {
-                  let potentialQRCode: VNBarcodeObservation
-                  if #available(iOS 15, *) {
-                    guard let potentialCode = barcode as? VNBarcodeObservation,
-                        [.Aztec, .QR, .DataMatrix].contains(potentialCode.symbology),
-                        potentialCode.confidence > 0.9
-                    else { return }
-                    
-                    potentialQRCode = potentialCode
-                  } else {
+                self.camView.layer.sublayers?.removeSubrange(1...)
+                
+                if let barcode = barcodes.first {
+                    let potentialQRCode: VNBarcodeObservation
+                    if #available(iOS 15, *) {
                       guard let potentialCode = barcode as? VNBarcodeObservation,
-                        [.aztec, .qr, .dataMatrix].contains(potentialCode.symbology),
-                        potentialCode.confidence > 0.9
+                          [.Aztec, .QR, .DataMatrix].contains(potentialCode.symbology),
+                          potentialCode.confidence > 0.9
                       else { return }
-                    
+                      
                       potentialQRCode = potentialCode
-                  }
-                  DGCLogger.logInfo(potentialQRCode.symbology.rawValue.description)
-                  self.observationHandler(payloadString: potentialQRCode.payloadStringValue)
+                    } else {
+                        guard let potentialCode = barcode as? VNBarcodeObservation,
+                            [.aztec, .qr, .dataMatrix].contains(potentialCode.symbology),
+                            potentialCode.confidence > 0.9
+                        else { return }
+                      
+                        potentialQRCode = potentialCode
+                    }
+                    DGCLogger.logInfo(potentialQRCode.symbology.rawValue.description)
+                    self.observationHandler(payloadString: potentialQRCode.payloadStringValue)
                 }
             }
         }
@@ -368,38 +370,38 @@ extension ScanCertificateController {
 }
 
 extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegate {
-  public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
-    from connection: AVCaptureConnection) {
-    guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+    public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
+      from connection: AVCaptureConnection) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
-    let imageRequestHandler = VNImageRequestHandler( cvPixelBuffer: pixelBuffer, orientation: .right)
+        let imageRequestHandler = VNImageRequestHandler( cvPixelBuffer: pixelBuffer, orientation: .right)
 
-    do {
-        try imageRequestHandler.perform([detectBarcodeRequest])
-    } catch {
-        DGCLogger.logError(error)
+        do {
+            try imageRequestHandler.perform([detectBarcodeRequest])
+        } catch {
+            DGCLogger.logError(error)
+        }
     }
-  }
 }
 
 // MARK: - Picker delegate
 
 extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegate {
-  public func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
-  }
-  
-  public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    if countryItems.count == 0 { return 1 }
-    return countryItems.count
-  }
-  
-  public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    if countryItems.count == 0 {
-      return "Country codes list empty".localized
-    } else {
-      return countryItems[row].name
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if countryItems.count == 0 { return 1 }
+        return countryItems.count
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if countryItems.count == 0 {
+            return "Country codes list empty".localized
+        } else {
+            return countryItems[row].name
+        }
   }
   
   public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

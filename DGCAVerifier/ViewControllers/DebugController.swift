@@ -27,7 +27,8 @@
         
 
 import UIKit
-import SwiftDGC
+import DGCCoreLibrary
+import DCCInspection
 
 protocol DebugControllerDelegate: AnyObject {
   func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel)
@@ -57,7 +58,7 @@ class DebugVC: UIViewController {
     tableView.dataSource = self
     tableView.delegate = self
     
-    self.countryList = DataCenter.countryCodes.sorted(by: { $0.name < $1.name })
+    self.countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
     self.tableView.reloadData()
     debugSwitcher.isOn = DebugManager.sharedInstance.isDebugMode
     
@@ -175,11 +176,10 @@ extension DebugVC: UITableViewDataSource {
 }
 
 extension DebugVC: UITableViewDelegate{
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let countryModel = countryList[indexPath.row]
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
-    DataCenter.localDataManager.update(country: countryModel)
+    DCCDataCenter.localDataManager.update(country: countryModel)
     if let cell = tableView.cellForRow(at: indexPath) {
       cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
     }

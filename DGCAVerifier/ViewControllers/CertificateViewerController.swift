@@ -25,8 +25,9 @@
 //
 
 import UIKit
-import SwiftDGC
-
+import DGCVerificationCenter
+import DCCInspection
+import DGCCoreLibrary
 
 protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
@@ -81,7 +82,7 @@ class CertificateViewerController: UIViewController {
         let validityState = validator.validateDCCCertificate()
         
         if validityState.isNotPassed  {
-            let codes = DataCenter.countryCodes
+            let codes = DCCDataCenter.countryCodes
             let country = hCert.ruleCountryCode ?? ""
             
             if DebugManager.sharedInstance.isDebugMode,

@@ -65,6 +65,33 @@
         }
       },
       {
+        "package": "DGCVerificationCenter",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-center.git",
+        "state": {
+          "branch": "main",
+          "revision": "a0441d4174b06ba49bb93cd02a974ae77c6f4555",
+          "version": null
+        }
+      },
+      {
+        "package": "DGCCoreLibrary",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-core-library.git",
+        "state": {
+          "branch": "main",
+          "revision": "8bbb71e2f1323dc412aeb4419837a1f8009e6837",
+          "version": null
+        }
+      },
+      {
+        "package": "DCCInspection",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection.git",
+        "state": {
+          "branch": "main",
+          "revision": "bd972f7a3fd89cbcfaa9cbb757076729b910e419",
+          "version": null
+        }
+      },
+      {
         "package": "jsonlogic",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
@@ -116,6 +143,15 @@
           "branch": "master",
           "revision": "0209a2d1a30b1b42334c4ad3f8bd221b977b2273",
           "version": null
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON",
+        "state": {
+          "branch": null,
+          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+          "version": "5.0.1"
         }
       }
     ]

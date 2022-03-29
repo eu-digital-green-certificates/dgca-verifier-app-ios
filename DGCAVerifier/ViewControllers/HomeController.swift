@@ -26,7 +26,8 @@
 //
 
 import UIKit
-import SwiftDGC
+import DCCInspection
+import DGCCoreLibrary
 
 class HomeController: UIViewController {
   
@@ -66,7 +67,7 @@ class HomeController: UIViewController {
     private func reloadData() {
         reloadButton.isHidden = true
         self.activityIndicator.startAnimating()
-        DataCenter.prepareLocalData {[unowned self] result in
+        DCCDataCenter.prepareLocalData {[unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)

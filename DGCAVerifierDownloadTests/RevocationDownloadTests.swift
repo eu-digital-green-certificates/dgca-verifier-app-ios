@@ -28,7 +28,7 @@
 
 import XCTest
 @testable import DGCAVerifier
-import SwiftDGC
+import DCCInspection
 
 let mockRevocationListsResponse = """
     [{\"kid\":\"9cWXDDA52FQ=\",\"mode\":\"POINT\",\"hashTypes\":[\"SIGNATURE\"],\"expires\":\"2023-03-01T11:00:00Z\",\"lastUpdated\":\"2022-03-04T16:08:49Z\"},{\"kid\":\"GSXuNoyWGYo=\",\"mode\":\"POINT\",\"hashTypes\":[\"UCI\"],\"expires\":\"2023-11-27T10:15:14Z\",\"lastUpdated\":\"2022-03-09T11:29:40Z\"}]

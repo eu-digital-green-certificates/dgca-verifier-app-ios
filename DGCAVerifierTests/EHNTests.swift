@@ -7,7 +7,6 @@
 
 @testable import DGCAVerifier
 import XCTest
-import SwiftDGC
 
 class EHNTests: XCTestCase {
   let trustJson = """

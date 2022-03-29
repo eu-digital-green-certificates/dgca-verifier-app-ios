@@ -27,7 +27,7 @@
         
 
 import UIKit
-import SwiftDGC
+import DCCInspection
 
 protocol DebugRawSharing: AnyObject {
   func userDidShare(text: String)
