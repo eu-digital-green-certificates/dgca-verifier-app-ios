@@ -33,7 +33,7 @@ import DCCInspection
 import DGCCoreLibrary
 
 protocol DismissControllerDelegate: AnyObject {
-  func userDidDissmis(_ controller: UIViewController)
+    func userDidDissmis(_ controller: UIViewController)
 }
 
 protocol ScanCertificateDelegate: AnyObject {
@@ -45,9 +45,9 @@ protocol ScanCertificateDelegate: AnyObject {
 
 class ScanCertificateController: UIViewController {
     private enum Constants {
-      static let userDefaultsCountryKey = "UDCountryKey"
-      static let showSettingsSegueID = "showSettingsSegueID"
-      static let showCertificateViewer = "showCertificateViewer"
+        static let userDefaultsCountryKey = "UDCountryKey"
+        static let showSettingsSegueID = "showSettingsSegueID"
+        static let showCertificateViewer = "showCertificateViewer"
     }
 
     @IBOutlet fileprivate weak var aNFCButton: UIButton!
@@ -64,7 +64,7 @@ class ScanCertificateController: UIViewController {
     
     private var expireDataTimer: Timer?
     var downloadedDataHasExpired: Bool {
-        return DCCDataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
+        return DCCDataCenter.downloadedDataHasExpired
     }
     
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
@@ -405,28 +405,27 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
   }
   
   public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    self.selectedCounty = countryItems[row]
+      self.selectedCounty = countryItems[row]
   }
 }
 
 // MARK: - NFC Result
-
 extension ScanCertificateController {
-  func onNFCResult(success: Bool, message: String) {
-    DGCLogger.logInfo("NFC: \(message)")
-    guard success else { return }
-    do {
-      let countryCode = self.selectedCounty?.code
-      let hCert = try HCert(from: message, ruleCountryCode: countryCode)
-      delegate?.scanController(self, didScanCertificate: hCert)
+    func onNFCResult(success: Bool, message: String) {
+        DGCLogger.logInfo("NFC: \(message)")
+        guard success else { return }
+        do {
+          let countryCode = self.selectedCounty?.code
+          let hCert = try HCert(from: message, ruleCountryCode: countryCode)
+          delegate?.scanController(self, didScanCertificate: hCert)
 
-    } catch let error as CertificateParsingError {
-      DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
-      delegate?.scanController(self, didFailWithError: error)
-    } catch {
-      DGCLogger.logError(error)
+        } catch let error as CertificateParsingError {
+          DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
+          delegate?.scanController(self, didFailWithError: error)
+        } catch {
+          DGCLogger.logError(error)
+        }
     }
-  }
 }
 
 // MARK: - Adaptive Presentation Delegate

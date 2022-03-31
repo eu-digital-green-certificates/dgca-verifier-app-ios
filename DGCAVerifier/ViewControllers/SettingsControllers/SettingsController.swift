@@ -27,7 +27,6 @@
 import UIKit
 import DGCVerificationCenter
 import DGCCoreLibrary
-import DCCInspection
 
 class SettingsController: UITableViewController, DebugControllerDelegate {
     private enum Constants {
@@ -166,9 +165,9 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
 
     private func openPrivacyDoc() {
-        if let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string {
-            openUrl(link)
-        }
+//        if let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string {
+//            openUrl(link)
+//        }
     }
 
     func openEuCertDoc() {

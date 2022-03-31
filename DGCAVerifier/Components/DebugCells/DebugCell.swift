@@ -27,7 +27,7 @@
 
 
 import UIKit
-import DCCInspection
+import DGCCoreLibrary
 
 class DebugCell: UITableViewCell {
 

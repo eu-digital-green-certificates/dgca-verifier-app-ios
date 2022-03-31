@@ -45,15 +45,14 @@ class CertificateViewerController: UIViewController {
     @IBOutlet fileprivate weak var infoTable: UITableView!
     @IBOutlet fileprivate weak var dismissButton: RoundedButton!
     @IBOutlet fileprivate weak var shareButton: RoundedButton!
-
+    
     var hCert: HCert?
     weak var dismissDelegate: DismissControllerDelegate?
-  
+    
     private var sectionBuilder: SectionBuilder?
     private var validityState: ValidityState?
     
     private var isDebugMode = DebugManager.sharedInstance.isDebugMode
-    
     private var listItems: [InfoSection] {
         sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
     }
@@ -137,7 +136,8 @@ class CertificateViewerController: UIViewController {
     @IBAction func shareButtonAction(_ sender: Any) {
         guard let cert = hCert else { return }
         
-        ZipManager().prepareZipData(cert) { result in
+        let debugLevel = DebugManager.sharedInstance.debugLevel.rawValue
+        ZipManager(debugLevel: debugLevel).prepareZipData(cert) { result in
             switch result {
             case .success(let url):
                 var filesToShare = [Any]()

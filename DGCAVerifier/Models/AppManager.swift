@@ -29,7 +29,7 @@
 import UIKit
 import DGCVerificationCenter
 
-class AppManager: NSObject {
+class AppManager {
     
     static var appVersion: String {
         let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
@@ -45,7 +45,7 @@ class AppManager: NSObject {
     
     var verificationCenter: DGCVerificationCenter
     
-    override init() {
+    init() {
         self.verificationCenter = DGCVerificationCenter()
     }
 }
