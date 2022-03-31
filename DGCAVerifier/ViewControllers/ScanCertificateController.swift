@@ -134,19 +134,19 @@ class ScanCertificateController: UIViewController {
         captureSession?.stopRunning()
     }
 
-  // MARK: - Actions
-  @objc func reloadExpiredData() {
-     if downloadedDataHasExpired {
-          captureSession?.stopRunning()
-          showAlertReloadDatabase()
-     }
-  }
-  
-  @IBAction func openSettingsController() {
-      captureSession?.stopRunning()
-      performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
-  }
-  
+    // MARK: - Actions
+    @objc func reloadExpiredData() {
+       if downloadedDataHasExpired {
+            captureSession?.stopRunning()
+            showAlertReloadDatabase()
+       }
+    }
+
+    @IBAction func openSettingsController() {
+        captureSession?.stopRunning()
+        performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
+    }
+    
     @IBAction func scanNFCAction() {
         let helper = NFCHelper()
         helper.onNFCResult = onNFCResult(success:message:)
@@ -181,7 +181,7 @@ class ScanCertificateController: UIViewController {
         self.headerView.isHidden = false
         self.activityIndicator.startAnimating()
 
-        DCCDataCenter.reloadStorageData { [unowned self] result in
+        AppManager.shared.verificationCenter.updateStoredData(appType: .verifier) { [unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)

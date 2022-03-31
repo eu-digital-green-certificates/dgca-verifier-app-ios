@@ -27,6 +27,7 @@
         
 
 import UIKit
+import DGCCoreLibrary
 
 typealias ExpandBlock = (_ debugSection: DebugSectionModel?) -> Void
 

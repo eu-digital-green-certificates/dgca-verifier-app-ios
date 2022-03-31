@@ -19,37 +19,33 @@
  * ---license-end
  */
 //  
-//  DebugSectionModel.swift
+//  AppManager.swift
 //  DGCAVerifier
 //  
-//  Created by Alexandr Chernyy on 07.09.2021.
+//  Created by Igor Khomiak on 31.03.2022.
 //  
         
 
-import Foundation
+import UIKit
+import DGCVerificationCenter
 
-enum DebugSectionType: String {
-  case verification = "Verification"
-  case raw = "Raw Data"
-}
-
-class DebugSectionModel {
-    let sectionType: DebugSectionType
-    var isExpanded = false
-  
-    var numberOfItems: Int {
-        if !isExpanded {
-            return 1
-        }
-        switch sectionType {
-        case .verification:
-          return 2
-        case .raw:
-          return 2
-        }
+class AppManager: NSObject {
+    
+    static var appVersion: String {
+        let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
+        let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
+        return "\(versionValue)(\(buildNumValue))"
     }
-  
-    init(sectionType: DebugSectionType) {
-        self.sectionType = sectionType
+
+    static let shared = AppManager()
+    
+     var lastFetch: String {
+        return "" //lastFetch.dateTimeString
+    }
+    
+    var verificationCenter: DGCVerificationCenter
+    
+    override init() {
+        self.verificationCenter = DGCVerificationCenter()
     }
 }

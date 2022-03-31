@@ -27,6 +27,7 @@
         
 
 import UIKit
+import DGCCoreLibrary
 import DCCInspection
 
 protocol DebugRawSharing: AnyObject {

@@ -26,8 +26,8 @@
 
 import UIKit
 import DGCVerificationCenter
-import DCCInspection
 import DGCCoreLibrary
+import DCCInspection
 
 class SettingsController: UITableViewController, DebugControllerDelegate {
     private enum Constants {
@@ -51,7 +51,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         debugLabelName.text = "Debug mode".localized
         licensesLabelName.text = "Licenses".localized
         privacyLabelName.text = "Privacy Information".localized
-        versionLabel.text = DCCDataCenter.appVersion
+        versionLabel.text = AppManager.appVersion
 
         updateInterface()
     }
@@ -92,7 +92,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         switch section {
         case 1:
             let format = "Last updated: %@".localized
-            return String(format: format, DCCDataCenter.lastFetch.dateTimeString)
+            return String(format: format, AppManager.shared.lastFetch)
         default:
             return nil
         }
@@ -125,7 +125,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     private func updateAllStoredData() {
         self.indicator.startAnimating()
 
-        DCCDataCenter.reloadStorageData { [weak self] result in
+        AppManager.shared.verificationCenter.updateStoredData(appType: .verifier) { [weak self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
@@ -166,17 +166,18 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
 
     private func openPrivacyDoc() {
-        let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
-        openUrl(link)
+        if let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string {
+            openUrl(link)
+        }
     }
 
     func openEuCertDoc() {
-        let link = SharedConstants.linkToOopenEuCertDoc
+        let link = DGCVerificationCenter.SharedLinks.linkToOopenEuCertDoc
         openUrl(link)
     }
 
     func openGitHubSource() {
-        let link = SharedConstants.linkToOpenGitHubSource
+        let link = DGCVerificationCenter.SharedLinks.linkToOpenGitHubSource
         openUrl(link)
     }
 
