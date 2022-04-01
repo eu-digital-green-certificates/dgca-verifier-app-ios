@@ -118,7 +118,7 @@ class DataCenter {
         list.forEach { localDataManager.add(country: $0) }
     }
     
-    class func prepareLocalData(completion: @escaping DataCompletionHandler) {
+    static func prepareLocalData(completion: @escaping DataCompletionHandler) {
         let group = DispatchGroup()
         group.enter()
         localDataManager.loadLocallyStoredData { result in

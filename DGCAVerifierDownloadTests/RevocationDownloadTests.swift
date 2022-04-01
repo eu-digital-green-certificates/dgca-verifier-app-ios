@@ -59,6 +59,7 @@ let testHashId = "0132815288af51fcfc709f422aee353687654513e4b105fdc8f6166e2df90b
 let updatedTestHashId = "0132815288af51fcfc709f422aee353687654513e4b105fdc8f6166e2df90bbc"
 
 class MockRevocationService: RevocationServiceProtocol {
+    
     enum TestMode {
         case new
         case update
@@ -90,8 +91,8 @@ class MockRevocationService: RevocationServiceProtocol {
             completion(nil, nil, .nodata)
         }
     }
-    
-    func getRevocationPartitions(for kid: String, completion: @escaping PartitionListCompletion) {
+        
+    func getRevocationPartitions(for kid: String, dateString dateStr: String?, completion: @escaping PartitionListCompletion) {
         let responseString: String
         switch testMode {
         case .new:
@@ -115,11 +116,11 @@ class MockRevocationService: RevocationServiceProtocol {
         }
     }
     
-    func getRevocationPartitions(for kid: String, id: String, completion: @escaping PartitionListCompletion) {
+    func getRevocationPartitions(for kid: String, id: String, dateString dateStr: String?, completion: @escaping PartitionListCompletion) {
         print(kid)
     }
     
-    func getRevocationPartitionChunks(for kid: String, id: String, cids: [String]?, completion: @escaping ZIPDataTaskCompletion) {
+    func getRevocationPartitionChunks(for kid: String, id: String, cids: [String]?, dateString dateStr: String?, completion: @escaping ZIPDataTaskCompletion) {
         let gzFilename: String
         switch testMode {
         case .new:
@@ -143,19 +144,17 @@ class MockRevocationService: RevocationServiceProtocol {
         }
     }
     
-    func getRevocationPartitionChunk(for kid: String, id: String, cid: String, completion: @escaping ZIPDataTaskCompletion) {
+    func getRevocationPartitionChunk(for kid: String, id: String, cid: String, dateString dateStr: String?, completion: @escaping ZIPDataTaskCompletion) {
         
     }
     
-    func getRevocationPartitionChunkSlice(for kid: String, id: String, cid: String, sids: [String]?, completion: @escaping ZIPDataTaskCompletion) {
+    func getRevocationPartitionChunkSlice(for kid: String, id: String, cid: String, sids: [String]?, dateString dateStr: String?, completion: @escaping ZIPDataTaskCompletion) {
         
     }
     
-    func getRevocationPartitionChunkSliceSingle(for kid: String, id: String, cid: String, sid: String, completion: @escaping ZIPDataTaskCompletion) {
+    func getRevocationPartitionChunkSliceSingle(for kid: String, id: String, cid: String, sid: String, dateString dateStr: String?, completion: @escaping ZIPDataTaskCompletion) {
         
     }
-    
-    
 }
 
 class RevocationDownloadTests: XCTestCase {

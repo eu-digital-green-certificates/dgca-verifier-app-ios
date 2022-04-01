@@ -27,6 +27,7 @@
         
 
 import Foundation
+import SwiftDGC
 
 struct SimpleRevocationModel {
     let kid: String
@@ -34,4 +35,8 @@ struct SimpleRevocationModel {
     let hashTypes: String
     let expires: Date
     let lastUpdated: Date
+    
+    var lastUpdatedString: String {
+        return lastUpdated.dateOffsetString
+    }
 }

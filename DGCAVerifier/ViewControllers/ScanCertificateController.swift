@@ -62,7 +62,7 @@ class ScanCertificateController: UIViewController {
     
     private var expireDataTimer: Timer?
     var downloadedDataHasExpired: Bool {
-        return DataCenter.lastFetch.timeIntervalSinceNow < -SharedConstants.expiredDataInterval
+        return DataCenter.downloadedDataHasExpired
     }
     
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
