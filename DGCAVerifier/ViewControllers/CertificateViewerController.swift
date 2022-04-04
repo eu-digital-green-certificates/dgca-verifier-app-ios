@@ -46,12 +46,13 @@ class CertificateViewerController: UIViewController {
     @IBOutlet fileprivate weak var dismissButton: RoundedButton!
     @IBOutlet fileprivate weak var shareButton: RoundedButton!
     
-    var hCert: HCert?
+    var certificate: MultiTypeCertificate?
     weak var dismissDelegate: DismissControllerDelegate?
     
     private var sectionBuilder: SectionBuilder?
     private var validityState: ValidityState?
-    
+    let verificationCenter = AppManager.shared.verificationCenter
+
     private var isDebugMode = DebugManager.sharedInstance.isDebugMode
     private var listItems: [InfoSection] {
         sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
@@ -73,16 +74,16 @@ class CertificateViewerController: UIViewController {
     }
     
     private func checkCertificateValidity() {
-        guard let hCert = hCert else { return }
+        guard let certificate = certificate else { return }
         
         isDebugMode = DebugManager.sharedInstance.isDebugMode
         
-        let validator = DCCCertificateValidator(with: hCert)
+        let validator = DCCCertificateValidator(with: certificate)
         let validityState = validator.validateDCCCertificate()
         
         if validityState.isNotPassed  {
             let codes = DCCDataCenter.countryCodes
-            let country = hCert.ruleCountryCode ?? ""
+            let country = certificate.ruleCountryCode ?? ""
             
             if DebugManager.sharedInstance.isDebugMode,
                 let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
@@ -92,15 +93,15 @@ class CertificateViewerController: UIViewController {
             }
         }
         
-        self.sectionBuilder = SectionBuilder(with: hCert, validity: validityState, for: .verifier)
+        self.sectionBuilder = SectionBuilder(with: certificate, validity: validityState, for: .verifier)
         self.validityState = validityState
     }
     
     private func setupInterface() {
-        guard let hCert = hCert else { return }
+        guard let certificate = certificate else { return }
         
         shareButton.setTitle("Share".localized, for: .normal)
-        nameLabel.text = hCert.fullName
+        nameLabel.text = certificate.fullName
         if let allRulesValidity = validityState?.allRulesValidity {
             dismissButton.setTitle(allRulesValidity.validityButtonTitle, for: .normal)
             dismissButton.backgroundColor = allRulesValidity.validityBackground
@@ -134,10 +135,10 @@ class CertificateViewerController: UIViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        guard let cert = hCert else { return }
+        guard let certificate = certificate else { return }
         
         let debugLevel = DebugManager.sharedInstance.debugLevel.rawValue
-        ZipManager(debugLevel: debugLevel).prepareZipData(cert) { result in
+        ZipManager(debugLevel: debugLevel).prepareZipData(certificate) { result in
             switch result {
             case .success(let url):
                 var filesToShare = [Any]()
@@ -220,7 +221,7 @@ extension CertificateViewerController: UITableViewDataSource {
                   guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugRawCell else {
                     return UITableViewCell()
                   }
-                  cell.setupCell(for: debugSection, cert: hCert)
+                  cell.setupCell(for: debugSection, cert: certificate)
                   cell.delegate = self
                   return cell
 

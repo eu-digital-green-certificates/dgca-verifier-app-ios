@@ -29,7 +29,6 @@ import UIKit
 import Vision
 import AVFoundation
 import DGCVerificationCenter
-import DCCInspection
 import DGCCoreLibrary
 
 protocol DismissControllerDelegate: AnyObject {
@@ -37,8 +36,6 @@ protocol DismissControllerDelegate: AnyObject {
 }
 
 protocol ScanCertificateDelegate: AnyObject {
-  func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert)
-  func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError)
   func disableBackgroundDetection()
   func enableBackgroundDetection()
 }
@@ -58,13 +55,14 @@ class ScanCertificateController: UIViewController {
     @IBOutlet fileprivate weak var headerView: UIView!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
     
-    weak var delegate: ScanCertificateDelegate?
     private var captureSession: AVCaptureSession?
     private var countryItems: [CountryModel] = []
     
+    let verificationCenter = AppManager.shared.verificationCenter
+    
     private var expireDataTimer: Timer?
     var downloadedDataHasExpired: Bool {
-        return DCCDataCenter.downloadedDataHasExpired
+        return VerificationDataCenter.downloadedDataHasExpired
     }
     
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
@@ -107,7 +105,6 @@ class ScanCertificateController: UIViewController {
             aNFCButton.setBackgroundImage(UIImage(named: "icon_nfc"), for: .normal)
         }
         headerView.isHidden = true
-        delegate = self
         countryCodeLabel.text = "Select Country of CertLogic Rule".localized
         let countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
         setListOfRuleCounties(list: countryList)
@@ -158,8 +155,8 @@ class ScanCertificateController: UIViewController {
         switch segue.identifier {
         case Constants.showCertificateViewer:
             if let destinationController = segue.destination as? CertificateViewerController,
-               let certificate = sender as? HCert {
-                destinationController.hCert = certificate
+               let certificate = sender as? Certificate {
+                destinationController.certificate = certificate
                 destinationController.presentationController?.delegate = self
                 destinationController.dismissDelegate = self
             }
@@ -181,7 +178,7 @@ class ScanCertificateController: UIViewController {
         self.headerView.isHidden = false
         self.activityIndicator.startAnimating()
 
-        AppManager.shared.verificationCenter.updateStoredData(appType: .verifier) { [unowned self] result in
+        verificationCenter.updateStoredData(appType: .verifier) { [unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
@@ -254,14 +251,14 @@ class ScanCertificateController: UIViewController {
 
 // MARK: - Scan Certificate Delegate
 
-extension ScanCertificateController: ScanCertificateDelegate {
-    func scanController(_ controller: ScanCertificateController, didFailWithError error: CertificateParsingError) {
+extension ScanCertificateController {
+    func scannerDidFailWithError(error: Error) {
         DispatchQueue.main.async {
             self.showAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
         }
     }
     
-    func scanController(_ controller: ScanCertificateController, didScanCertificate certificate: HCert) {
+    func scannerDidScanCertificate(_ certificate: Certificate) {
         DispatchQueue.main.async {
             self.captureSession?.stopRunning()
             self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
@@ -278,14 +275,13 @@ extension ScanCertificateController: ScanCertificateDelegate {
 }
 
 // MARK: - AV setup
-
 extension ScanCertificateController {
     private func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
-            delegate?.disableBackgroundDetection()
+            self.disableBackgroundDetection()
             AVCaptureDevice.requestAccess(for: .video) { granted in
-                self.delegate?.enableBackgroundDetection()
+                self.enableBackgroundDetection()
                 if !granted {
                     self.showPermissionsAlert()
                 }
@@ -355,16 +351,13 @@ extension ScanCertificateController {
 
     private func observationHandler(payloadString: String?) {
         guard let barcodeString = payloadString, !barcodeString.isEmpty else { return }
-        do {
-            let countryCode = self.selectedCounty?.code
-            let hCert = try HCert(from: barcodeString, ruleCountryCode: countryCode)
-            delegate?.scanController(self, didScanCertificate: hCert)
-
-        } catch let error as CertificateParsingError {
+        
+        let countryCode = self.selectedCounty?.code
+        if let certificate = Certificate(from: barcodeString, ruleCountryCode: countryCode) {
+            scannerDidScanCertificate(certificate)
+        } else {
             DGCLogger.logInfo("Error when validating the certificate? \(barcodeString)")
-            delegate?.scanController(self, didFailWithError: error)
-        } catch {
-            //delegate?.scanController(self, didFailWithError: error)
+            //scannerDidFailWithError(error: error)
         }
     }
 }
@@ -414,16 +407,12 @@ extension ScanCertificateController {
     func onNFCResult(success: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
         guard success else { return }
-        do {
-          let countryCode = self.selectedCounty?.code
-          let hCert = try HCert(from: message, ruleCountryCode: countryCode)
-          delegate?.scanController(self, didScanCertificate: hCert)
-
-        } catch let error as CertificateParsingError {
-          DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
-          delegate?.scanController(self, didFailWithError: error)
-        } catch {
-          DGCLogger.logError(error)
+            let countryCode = self.selectedCounty?.code
+        if let certificate = Certificate(from: message, ruleCountryCode: countryCode) {
+            scannerDidScanCertificate(certificate)
+        } else {
+            DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
+            //scannerDidFailWithError(error: error)
         }
     }
 }

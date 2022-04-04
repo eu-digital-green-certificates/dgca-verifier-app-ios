@@ -41,6 +41,8 @@ class HomeController: UIViewController {
     @IBOutlet fileprivate weak var reloadButton: UIButton!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
+    let verificationCenter = AppManager.shared.verificationCenter
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
       return .lightContent
     }
@@ -67,7 +69,7 @@ class HomeController: UIViewController {
     private func reloadData() {
         reloadButton.isHidden = true
         self.activityIndicator.startAnimating()
-        AppManager.shared.verificationCenter.prepareStoredData(appType: .verifier) {[unowned self] result in
+        verificationCenter.prepareStoredData(appType: .verifier) {[unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
