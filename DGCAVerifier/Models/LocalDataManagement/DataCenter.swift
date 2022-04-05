@@ -162,6 +162,7 @@ class DataCenter {
         let group = DispatchGroup()
                 
         var errorOccured = false
+        group.enter()
         localDataManager.loadLocallyStoredData { result in
             CertLogicManager.shared.setRules(ruleList: rules)
             
@@ -189,8 +190,8 @@ class DataCenter {
                 group.leave()
                 CertLogicManager.shared.setRules(ruleList: rules)
             }
+            group.leave()
         }
-        group.wait()
         
         group.enter()
         revocationWorker.processReloadRevocations { error in
