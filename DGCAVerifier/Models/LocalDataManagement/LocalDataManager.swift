@@ -41,7 +41,7 @@ class LocalDataManager {
         
         let list = localData.encodedPublicKeys[kidStr] ?? []
         if !list.contains(encodedPublicKey) {
-          localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
+            localData.encodedPublicKeys[kidStr] = list + [encodedPublicKey]
         }
     }
     
@@ -60,7 +60,7 @@ class LocalDataManager {
     // MARK: - ValueSets
     func add(valueSet: ValueSet) {
         if !localData.valueSets.contains(where: { $0.valueSetId == valueSet.valueSetId }) {
-          localData.valueSets.append(valueSet)
+            localData.valueSets.append(valueSet)
         }
     }
     
@@ -80,50 +80,50 @@ class LocalDataManager {
         }
         return returnValue
     }
-
+    
     // MARK: - Rules
     func add(rule: Rule) {
         if !localData.rules.contains(where: { $0.identifier == rule.identifier && $0.version == rule.version }) {
-          localData.rules.append(rule)
-      }
+            localData.rules.append(rule)
+        }
     }
     
     func deleteRuleWithHash(hash: String) {
         localData.rules = localData.rules.filter { $0.hash != hash }
     }
-      
+    
     func isRuleExistWithHash(hash: String) -> Bool {
         return localData.rules.contains(where: { $0.hash == hash })
     }
-
+    
     // MARK: - Config
     func merge(other: JSON) {
-      localData.config.merge(other: other)
+        localData.config.merge(other: other)
     }
     
     var versionedConfig: JSON {
         if localData.config["versions"][DataCenter.appVersion].exists() {
-          return localData.config["versions"][DataCenter.appVersion]
+            return localData.config["versions"][DataCenter.appVersion]
         } else {
-          return localData.config["versions"]["default"]
+            return localData.config["versions"]["default"]
         }
     }
-
+    
     // MARK: - Services
     func save(completion: @escaping DataCompletionHandler) {
         storage.save(localData, completion: completion)
     }
-
+    
     func loadLocallyStoredData(completion: @escaping DataCompletionHandler) {
         storage.loadStoredData(fallback: localData) { [unowned self] data in
             guard let loadedData = data else {
-              completion(.failure(DataOperationError.noInputData))
-              return
+                completion(.failure(DataOperationError.noInputData))
+                return
             }
             DGCLogger.logInfo(String(format: "%d pub keys loaded.", loadedData.encodedPublicKeys.count))
             if loadedData.lastLaunchedAppVersion != DataCenter.appVersion {
-              loadedData.config = self.localData.config
-              loadedData.lastLaunchedAppVersion = DataCenter.appVersion
+                loadedData.config = self.localData.config
+                loadedData.lastLaunchedAppVersion = DataCenter.appVersion
             }
             self.localData = loadedData
             self.save(completion: completion)

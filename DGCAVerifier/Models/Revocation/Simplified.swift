@@ -45,6 +45,7 @@ struct SimpleSlice {
     let kid: String
     let partID: String
     let chunkID: String
+    let version: String
     let hashID: String
     let expiredDate: Date
     var hashData: Data?
