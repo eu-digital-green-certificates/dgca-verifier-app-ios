@@ -84,7 +84,8 @@ class RevocationWorker {
         let currentRevocations = readLocalRevocations() ?? []
         
         for revocationObject in currentRevocations {
-            guard let localModel = makeRevocationModel(revocation: revocationObject) else { continue }
+            let revocation = revocationObject as! Revocation
+            guard let localModel = makeRevocationModel(revocation: revocation) else { continue }
             let todayDate = Date()
   
             if let loadedModel = models.filter({ $0.kid == localModel.kid }).first {
@@ -279,7 +280,7 @@ class RevocationWorker {
                     let localPid = localPartition.value(forKey: "id") as? String,
                     let localChunks: NSOrderedSet = localPartition.value(forKey: "chunks") as? NSOrderedSet else { continue }
                 
-                let lastUpdatedStr = localModifiedDate.dateOffsetString
+                let headerDateStr = localModifiedDate.dateOffsetString
                 
                 if localExpiredDate < todayDate {
                     DispatchQueue.main.async {
@@ -323,19 +324,19 @@ class RevocationWorker {
                                 let localIDSlices = localSlices.filter({($0 as! Slice).value(forKey: "hashID") as! String == loadedSliceModel.hash }) as? [Slice]
                                 if let localSlice = localIDSlices?.first,
                                     let loadedSliceDate = Date(rfc3339DateTimeString: loadedSliceKey),
-                                    let localSliceExpDate = localSlice.value(forKey: "expiredDate") as? Date {
-                                    let localSliceType = localSlice.value(forKey: "type") as! String
+                                   let simpleLocalSlice = makeSimpleSlice(slice: localSlice, dateString: headerDateStr) {
                                     
+                                    let simpleLoadedSlice = SimpleSlice(kid: loadedPartitionKID,
+                                        partID: loadedPartitionID,
+                                        chunkID: loadedChunkID,
+                                        hashID: loadedSliceModel.hash,
+                                        expiredDate: loadedSliceDate,
+                                        hashData: nil,
+                                        type: loadedSliceModel.type,
+                                        dateString: headerDateStr)
+
                                     group.enter()
-                                    self.processAndUpdateSlice(kid: loadedPartitionKID,
-                                        id: loadedPartitionID,
-                                        cid: loadedChunkID,
-                                        localType: localSliceType,
-                                        localExpDate: localSliceExpDate,
-                                        loadedExpDate: loadedSliceDate,
-                                        sliceModel: loadedSliceModel,
-                                        dateString: lastUpdatedStr) { err in
-                                        
+                                    self.processAndUpdateSlice(loadedSlice: simpleLoadedSlice, localSlice: simpleLocalSlice, dateString: headerDateStr) { err in
                                         guard err == nil else {
                                             completion(err!)
                                             return
@@ -373,29 +374,29 @@ class RevocationWorker {
         }
     }
     
-    private func processAndUpdateSlice(kid: String, id: String, cid: String, localType: String, localExpDate: Date, loadedExpDate: Date,
-            sliceModel: SliceModel, dateString: String?,  completion: @escaping ProcessingCompletion) {
-        guard sliceModel.version == "1.0" else { completion(nil); return }
+    private func processAndUpdateSlice(loadedSlice: SimpleSlice, localSlice: SimpleSlice, dateString: String?,  completion: @escaping ProcessingCompletion) {
         
-        if localExpDate < Date() {
+        if localSlice.expiredDate < Date() {
             DispatchQueue.main.async {
-                self.revocationCoreDataManager.deleteSlice(kid: kid, id: id, cid: cid, hashID: sliceModel.hash)
+                self.revocationCoreDataManager.deleteSlice(kid: localSlice.kid, id: localSlice.partID, cid: localSlice.chunkID, hashID: localSlice.hashID)
             }
-        } else if localExpDate != loadedExpDate || sliceModel.type != localType {
-            let kidForLoad = Helper.convertToBase64url(base64: kid)
-            self.revocationService.getRevocationPartitionChunkSliceSingle(for: kidForLoad, id: id, cid: cid, sid: sliceModel.hash,
-                    dateString: dateString) { [unowned self] data, err in
+        } else if localSlice.expiredDate != loadedSlice.expiredDate || localSlice.type != loadedSlice.type {
+            let kidForLoad = Helper.convertToBase64url(base64: loadedSlice.kid)
+            self.revocationService.getRevocationPartitionChunkSliceSingle(for: kidForLoad, id: loadedSlice.partID,
+                cid: loadedSlice.chunkID, sid: loadedSlice.hashID, dateString: dateString) { [unowned self] data, err in
                 guard err == nil else {
                     completion(err!)
                     return
                 }
                 if let data = data  {
-                    self.processReadZipData(kid: kid, zipData: data)
+                    self.processReadZipData(kid: loadedSlice.kid, zipData: data)
+                    print("###   Updated Slice with KID: \(loadedSlice.kid), id: \(loadedSlice.partID), cid: \(localSlice.chunkID), sid: \(localSlice.hashID)")
+
                 }
                 completion(nil)
             }
         } else {
-            print("   Slice kid: \(kid), id: \(id), cid: \(cid), sid: \(sliceModel.hash) is up to date")
+            print("---   Slice with KID: \(loadedSlice.kid), id: \(loadedSlice.partID), cid: \(localSlice.chunkID), sid: \(localSlice.hashID) is up to date")
             completion(nil)
         }
     }
@@ -511,14 +512,30 @@ class RevocationWorker {
         return localPartitions
     }
 
-    private func makeRevocationModel(revocation: NSManagedObject) -> SimpleRevocationModel? {
+    private func makeRevocationModel(revocation: Revocation) -> SimpleRevocation? {
         if let localKid = revocation.value(forKey: "kid") as? String,
             let localMode = revocation.value(forKey: "mode") as? String,
             let localHashTypes = revocation.value(forKey: "hashTypes") as? String,
             let localModifiedDate = revocation.value(forKey: "lastUpdated") as? Date,
             let localExpiredDate = revocation.value(forKey: "expires") as? Date {
             
-            let model = SimpleRevocationModel(kid: localKid, mode: localMode, hashTypes: localHashTypes, expires: localExpiredDate, lastUpdated: localModifiedDate)
+            let model = SimpleRevocation(kid: localKid, mode: localMode, hashTypes: localHashTypes, expires: localExpiredDate, lastUpdated: localModifiedDate)
+            return model
+        }
+        return nil
+    }
+    
+    private func makeSimpleSlice(slice: Slice, dateString: String) -> SimpleSlice? {
+        if let sliceKID = slice.value(forKeyPath: "chunk.partition.kid") as? String,
+           let slicePID = slice.value(forKeyPath: "chunk.partition.id") as? String,
+           let sliceChunkID = slice.value(forKeyPath: "chunk.cid") as? String,
+           let sliceHashID = slice.value(forKey: "hashID") as? String,
+           let sliceHashData = slice.value(forKey: "hashData") as? Data,
+           let sliceType = slice.value(forKey: "type") as? String,
+           let sliceExpiredDate = slice.value(forKey: "expiredDate") as? Date {
+            
+            let model = SimpleSlice(kid: sliceKID, partID: slicePID, chunkID: sliceChunkID, hashID: sliceHashID,
+                expiredDate: sliceExpiredDate, hashData: sliceHashData, type: sliceType, dateString: dateString)
             return model
         }
         return nil
