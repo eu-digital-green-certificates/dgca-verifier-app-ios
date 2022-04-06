@@ -163,8 +163,8 @@ extension DebugVC: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugCell", for: indexPath) as?
-            DebugCell else { return UITableViewCell() }
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebugDCCCell", for: indexPath) as?
+            DebugDCCCell else { return UITableViewCell() }
     
     let countryModel = countryList[indexPath.row]
     cell.setCountry(countryModel: countryModel)

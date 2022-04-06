@@ -12,7 +12,7 @@
         <!--Certificate Viewer Controller-->
         <scene sceneID="uZX-v2-ZjL">
             <objects>
-                <viewController id="WCj-Xf-fml" customClass="CertificateViewerController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WCj-Xf-fml" customClass="DCCCertificateViewerController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zct-pN-WQt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +53,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIJ-V3-NpL">
-                                        <rect key="frame" x="0.0" y="166.66666666666666" width="414" height="493.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="166.66666666666666" width="414" height="493.33333333333326"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RuleErrorCell" rowHeight="131" id="ncw-IB-rzy" customClass="RuleErrorCell" customModule="DGCAVerifier" customModuleProvider="target">
@@ -174,7 +174,7 @@
                                                     <outlet property="ruleValueLabel" destination="QtB-sY-6vD" id="0K1-6d-9zk"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DebugSectionCell" rowHeight="56" id="moW-jp-UUa" customClass="DebugSectionCell" customModule="DGCAVerifier" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DebugDCCSectionCell" rowHeight="56" id="moW-jp-UUa" customClass="DebugDCCSectionCell" customModule="DGCAVerifier" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="175.66666603088379" width="414" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="moW-jp-UUa" id="MhT-xj-dIx">
@@ -221,7 +221,7 @@
                                                     <outlet property="nameLabel" destination="CYU-Y1-9kS" id="YcK-2F-WIp"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DebugRawCell" rowHeight="69" id="pid-I6-MVN" customClass="DebugRawCell" customModule="DGCAVerifier" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DebugDCCRawCell" rowHeight="69" id="pid-I6-MVN" customClass="DebugDCCRawCell" customModule="DGCAVerifier" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="231.66666603088379" width="414" height="69"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pid-I6-MVN" id="rZ9-9w-04D">
@@ -249,7 +249,7 @@
                                                     <outlet property="rawLabel" destination="HAN-Xx-7OK" id="Ato-ZP-nXp"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DebugValidationCell" rowHeight="77" id="ItR-5T-Ine" customClass="DebugValidationCell" customModule="DGCAVerifier" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DebugDCCValidationCell" rowHeight="77" id="ItR-5T-Ine" customClass="DebugDCCValidationCell" customModule="DGCAVerifier" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="300.66666603088379" width="414" height="77"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ItR-5T-Ine" id="5yC-E4-TOz">

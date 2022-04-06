@@ -28,6 +28,7 @@
 
 import UIKit
 import DCCInspection
+import DGCCoreLibrary
 
 class InfoCell: UITableViewCell {
     @IBOutlet fileprivate weak var headerLabel: UILabel!

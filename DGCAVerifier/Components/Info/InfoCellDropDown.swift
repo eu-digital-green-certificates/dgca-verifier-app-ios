@@ -28,6 +28,7 @@
 
 import UIKit
 import DCCInspection
+import DGCCoreLibrary
 
 typealias DropDownBlock = (Bool) -> Void
 

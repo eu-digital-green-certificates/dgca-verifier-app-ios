@@ -19,7 +19,7 @@
  * ---license-end
  */
 //
-//  DebugValidationCell.swift
+//  DebugDCCValidationCell.swift
 //  DGCAVerifier
 //
 //  Created by Alexandr Chernyy on 07.09.2021.
@@ -35,7 +35,7 @@ enum Icons: String {
   case error = "\u{f05e}"
 }
 
-class DebugValidationCell: UITableViewCell {
+class DebugDCCValidationCell: UITableViewCell {
 
   @IBOutlet weak var techninalLabel: UILabel!
   @IBOutlet weak var issuerLabel: UILabel!
@@ -48,7 +48,7 @@ class DebugValidationCell: UITableViewCell {
   
   private var validityState: ValidityState?
       
-  func setupCell(with validity: ValidityState) {
+  func setupCell(with validity: ValidityState?) {
     self.validityState = validity
     setupView()
     setupIcons()

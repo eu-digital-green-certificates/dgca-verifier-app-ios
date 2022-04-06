@@ -27,6 +27,7 @@
 
 import UIKit
 import DCCInspection
+import DGCCoreLibrary
 
 class RuleErrorCell: UITableViewCell {
   @IBOutlet fileprivate weak var ruleLabel: UILabel!
@@ -74,12 +75,12 @@ class RuleErrorCell: UITableViewCell {
     case .valid:
       failedLabel.textColor = .certificateGreen
       failedLabel.text = "Passed".localized
-    case .ruleInvalid:
+    case .partlyValid:
       failedLabel.textColor = .certificateGreen
       failedLabel.text = "Open".localized
-    case .revoked:
-      failedLabel.textColor = .certificateRed
-      failedLabel.text = "Revoked".localized
+//    case .revoked:
+//      failedLabel.textColor = .certificateRed
+//      failedLabel.text = "Revoked".localized
     }
 
     if let countryName = infoItem.countryName {
@@ -88,10 +89,10 @@ class RuleErrorCell: UITableViewCell {
         resultValueLabel.text = String(format: "Failed for %@ (see settings)".localized, countryName)
       case .valid:
         resultValueLabel.text = String(format: "Passed for %@ (see settings)".localized, countryName)
-      case .ruleInvalid:
+      case .partlyValid:
         resultValueLabel.text = String(format: "Open for %@ (see settings)".localized, countryName)
-      case .revoked:
-        resultValueLabel.text = String(format: "Revoked for %@ (see settings)".localized, countryName)
+//      case .revoked:
+//        resultValueLabel.text = String(format: "Revoked for %@ (see settings)".localized, countryName)
       }
       
     } else {
@@ -100,10 +101,10 @@ class RuleErrorCell: UITableViewCell {
         resultValueLabel.text = "Failed".localized
       case .valid:
         resultValueLabel.text = "Passed".localized
-      case .ruleInvalid:
+      case .partlyValid:
         resultValueLabel.text = "Open".localized
-      case .revoked:
-        resultValueLabel.text = "Revoked".localized
+//      case .revoked:
+//        resultValueLabel.text = "Revoked".localized
       }
     }
   }

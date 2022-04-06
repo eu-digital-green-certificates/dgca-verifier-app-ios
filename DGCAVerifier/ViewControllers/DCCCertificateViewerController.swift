@@ -18,7 +18,7 @@
  * ---license-end
  */
 //
-//  CertificateViewerController.swift
+//  DCCCertificateViewerController.swift
 //  DGCAVerifier
 //
 //  Created by Yannick Spreen on 4/19/21.
@@ -33,7 +33,7 @@ protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
 extension DebugSectionModel: CertificateSectionsProtocol {}
 
-class CertificateViewerController: UIViewController {
+class DCCCertificateViewerController: UIViewController {
     private struct Constants {
       static let showSettingsController = "showSettingsController"
     }
@@ -49,7 +49,7 @@ class CertificateViewerController: UIViewController {
     var certificate: MultiTypeCertificate?
     weak var dismissDelegate: DismissControllerDelegate?
     
-    private var sectionBuilder: SectionBuilder?
+    private var sectionBuilder: DCCSectionBuilder?
     private var validityState: ValidityState?
     let verificationCenter = AppManager.shared.verificationCenter
 
@@ -74,27 +74,27 @@ class CertificateViewerController: UIViewController {
     }
     
     private func checkCertificateValidity() {
-        guard let certificate = certificate else { return }
+        guard let cert = certificate?.digitalCertificate as? HCert else { return }
         
         isDebugMode = DebugManager.sharedInstance.isDebugMode
         
-        let validator = DCCCertificateValidator(with: certificate)
-        let validityState = validator.validateDCCCertificate()
+        let validityState = AppManager.shared.verificationCenter.dccInspector?.validateCertificate(cert)
         
-        if validityState.isNotPassed  {
-            let codes = DCCDataCenter.countryCodes
-            let country = certificate.ruleCountryCode ?? ""
-            
-            if DebugManager.sharedInstance.isDebugMode,
-                let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
-                self.isDebugMode = true
-            } else {
-                self.isDebugMode = false
+        if let state = validityState as? ValidityState {
+            if state.isVerificationFailed {
+                let codes = DCCDataCenter.countryCodes
+                let country = cert.ruleCountryCode ?? ""
+                
+                if DebugManager.sharedInstance.isDebugMode,
+                    let countryModel = codes.filter({ $0.code == country }).first, countryModel.debugModeEnabled {
+                    self.isDebugMode = true
+                } else {
+                    self.isDebugMode = false
+                }
             }
+            self.sectionBuilder = DCCSectionBuilder(with: cert, validity: state, for: .verifier)
+            self.validityState = state
         }
-        
-        self.sectionBuilder = SectionBuilder(with: certificate, validity: validityState, for: .verifier)
-        self.validityState = validityState
     }
     
     private func setupInterface() {
@@ -135,7 +135,7 @@ class CertificateViewerController: UIViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        guard let certificate = certificate else { return }
+        guard let certificate = certificate?.digitalCertificate as? HCert else { return }
         
         let debugLevel = DebugManager.sharedInstance.debugLevel.rawValue
         ZipManager(debugLevel: debugLevel).prepareZipData(certificate) { result in
@@ -168,7 +168,7 @@ class CertificateViewerController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension CertificateViewerController: UITableViewDataSource {
+extension DCCCertificateViewerController: UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
       return certificateSections.count
@@ -203,8 +203,8 @@ extension CertificateViewerController: UITableViewDataSource {
           let debugSection = certDebugSection as! DebugSectionModel
           
           if indexPath.row == 0 {
-              let cellID = String(describing: DebugSectionCell.self)
-              guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugSectionCell else {
+              let cellID = String(describing: DebugDCCSectionCell.self)
+              guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugDCCSectionCell else {
                 return UITableViewCell()
               }
               cell.setupCell(for: debugSection)
@@ -217,8 +217,8 @@ extension CertificateViewerController: UITableViewDataSource {
           } else {
               switch debugSection.sectionType {
               case .raw:
-                  let cellID = String(describing: DebugRawCell.self)
-                  guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugRawCell else {
+                  let cellID = String(describing: DebugDCCRawCell.self)
+                  guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugDCCRawCell else {
                     return UITableViewCell()
                   }
                   cell.setupCell(for: debugSection, cert: certificate)
@@ -226,11 +226,11 @@ extension CertificateViewerController: UITableViewDataSource {
                   return cell
 
               case .verification:
-                  let cellID = String(describing: DebugValidationCell.self)
-                  guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugValidationCell else {
+                  let cellID = String(describing: DebugDCCValidationCell.self)
+                  guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugDCCValidationCell else {
                     return UITableViewCell()
                   }
-                  cell.setupCell(with: validityState!)
+                  cell.setupCell(with: validityState)
                   return cell
               }
           }
@@ -278,14 +278,14 @@ extension CertificateViewerController: UITableViewDataSource {
     }
 }
 
-extension CertificateViewerController: DebugRawSharing {
+extension DCCCertificateViewerController: DebugRawSharing {
     func userDidShare(text: String) {
         let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
     }
 }
 
-extension CertificateViewerController: DebugControllerDelegate {
+extension DCCCertificateViewerController: DebugControllerDelegate {
     func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
         validateCertificate()
     }
