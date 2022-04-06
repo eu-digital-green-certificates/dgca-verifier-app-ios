@@ -102,7 +102,16 @@ class DCCCertificateViewerController: UIViewController {
         
         shareButton.setTitle("Share".localized, for: .normal)
         nameLabel.text = certificate.fullName
-        if let allRulesValidity = validityState?.allRulesValidity {
+        if let _ = validityState?.isRevoked {
+            dismissButton.setTitle("Retry".localized, for: .normal)
+            dismissButton.backgroundColor = validityState?.allRulesValidity.revocationBackground
+            validityLabel.text = "Revoked".localized
+            headerBackground.backgroundColor = validityState?.allRulesValidity.revocationBackground
+            validityImage.image = validityState?.allRulesValidity.revocationIcon
+            
+            certificateSections = listItems
+
+        } else if let allRulesValidity = validityState?.allRulesValidity {
             dismissButton.setTitle(allRulesValidity.validityButtonTitle, for: .normal)
             dismissButton.backgroundColor = allRulesValidity.validityBackground
             validityLabel.text = allRulesValidity.validityResult
