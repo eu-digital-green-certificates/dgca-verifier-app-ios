@@ -372,7 +372,7 @@ extension ScanCertificateController {
                     scannerDidScanCertificate(certificate)
                 }
             }
-            
+        
         } else if CertificateApplicant.isApplicableICAOFormat(payload: barcodeString) {
             
         } else if CertificateApplicant.isApplicableDIVOCFormat(payload: barcodeString) {
