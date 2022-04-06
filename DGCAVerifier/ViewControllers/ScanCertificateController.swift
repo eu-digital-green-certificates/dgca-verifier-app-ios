@@ -180,7 +180,7 @@ class ScanCertificateController: UIViewController {
             break
         }
     }
-
+    
     // MARK: - Private
     private func updateAllStoredData() {
         self.captureSession?.stopRunning()
@@ -206,10 +206,10 @@ class ScanCertificateController: UIViewController {
             }
         }
     }
-
+    
     private func showAlertReloadDatabase() {
         let alert = UIAlertController(title: "Reload databases?".localized, message: "The update may take some time.".localized, preferredStyle: .alert)
-
+        
         alert.addAction(UIAlertAction(title: "Later".localized, style: .default, handler: { _ in
             self.captureSession?.startRunning()
         }))
@@ -233,7 +233,7 @@ class ScanCertificateController: UIViewController {
             countryCodeView.selectRow(0, inComponent: 0, animated: false)
         }
     }
-
+    
     private func configurePreviewLayer() {
       guard let captureSession = captureSession else { return }
       
@@ -243,7 +243,7 @@ class ScanCertificateController: UIViewController {
       cameraPreviewLayer.frame = view.frame
       camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
     }
-
+    
     private func showAlert(withTitle title: String, message: String) {
       DispatchQueue.main.async {
           let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -251,7 +251,7 @@ class ScanCertificateController: UIViewController {
           self.present(alertController, animated: true)
       }
     }
-
+    
     private func showPermissionsAlert() {
       showAlert(withTitle: "Camera Permissions".localized,
           message: "Please open Settings and grant permission for this app to use your camera.".localized)
@@ -364,15 +364,15 @@ extension ScanCertificateController {
         guard let barcodeString = payloadString, !barcodeString.isEmpty else { return }
         
         if CertificateApplicant.isApplicableDCCFormat(payload: barcodeString) {
-            if dccCountryItems.isEmpty {
+            if self.selectedCounty == nil {
                 showDCCCountryList()
             } else {
                 let countryCode = self.selectedCounty?.code
                 if let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
                     scannerDidScanCertificate(certificate)
                 }
-
             }
+            
         } else if CertificateApplicant.isApplicableICAOFormat(payload: barcodeString) {
             
         } else if CertificateApplicant.isApplicableDIVOCFormat(payload: barcodeString) {
