@@ -19,37 +19,31 @@
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiu-UP-1vm">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucg-eW-KIs" customClass="RoundedBox" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="175" y="416" width="64" height="64"/>
-                                        <subviews>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-AB-3pf">
-                                                <rect key="frame" x="13.5" y="13.5" width="37" height="37"/>
-                                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </activityIndicatorView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="GGB-n7-cjE"/>
-                                            <constraint firstItem="tRL-AB-3pf" firstAttribute="centerY" secondItem="Ucg-eW-KIs" secondAttribute="centerY" id="LwG-hs-9r7"/>
-                                            <constraint firstAttribute="height" constant="64" id="MEa-Kr-JYf"/>
-                                            <constraint firstItem="tRL-AB-3pf" firstAttribute="centerX" secondItem="Ucg-eW-KIs" secondAttribute="centerX" id="sqc-rs-1mE"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
-                                                <real key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucg-eW-KIs" customClass="RoundedBox" customModule="DGCAVerifier" customModuleProvider="target">
+                                <rect key="frame" x="175" y="416" width="64" height="64"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-AB-3pf">
+                                        <rect key="frame" x="13.5" y="13.5" width="37" height="37"/>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="Ucg-eW-KIs" firstAttribute="centerY" secondItem="eiu-UP-1vm" secondAttribute="centerY" id="KY6-J4-TaU"/>
-                                    <constraint firstItem="Ucg-eW-KIs" firstAttribute="centerX" secondItem="eiu-UP-1vm" secondAttribute="centerX" id="luF-Vy-4ze"/>
+                                    <constraint firstAttribute="width" constant="64" id="GGB-n7-cjE"/>
+                                    <constraint firstItem="tRL-AB-3pf" firstAttribute="centerY" secondItem="Ucg-eW-KIs" secondAttribute="centerY" id="LwG-hs-9r7"/>
+                                    <constraint firstAttribute="height" constant="64" id="MEa-Kr-JYf"/>
+                                    <constraint firstItem="tRL-AB-3pf" firstAttribute="centerX" secondItem="Ucg-eW-KIs" secondAttribute="centerX" id="sqc-rs-1mE"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKS-9P-FHm">
                                 <rect key="frame" x="0.0" y="684" width="414" height="50"/>
@@ -129,7 +123,9 @@
                             <constraint firstItem="eiu-UP-1vm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1bh-bA-VHC"/>
                             <constraint firstAttribute="bottom" secondItem="eiu-UP-1vm" secondAttribute="bottom" id="3gD-zG-6Sk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5YE-Ts-nyc" secondAttribute="trailing" constant="24" id="BXa-4a-28t"/>
+                            <constraint firstItem="Ucg-eW-KIs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GBx-kN-2vy"/>
                             <constraint firstItem="eiu-UP-1vm" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="WSm-hh-LlA"/>
+                            <constraint firstItem="Ucg-eW-KIs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XXh-qs-Ydd"/>
                             <constraint firstAttribute="bottom" secondItem="HA7-Xa-kp8" secondAttribute="bottom" id="Zrz-DW-WqH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y3Q-ch-qEs" secondAttribute="trailing" constant="24" id="bMH-ru-2AW"/>
                             <constraint firstItem="eiu-UP-1vm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cUh-wX-06g"/>
