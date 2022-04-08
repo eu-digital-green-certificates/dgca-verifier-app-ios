@@ -54,31 +54,6 @@
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKS-9P-FHm">
                                 <rect key="frame" x="0.0" y="684" width="414" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5v-WV-5n7" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
-                                        <rect key="frame" x="274" y="6.5" width="120" height="37"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="Fa7-88-kzY"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="mc7-Tg-Dm9"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Continue">
-                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="19"/>
-                                        </buttonConfiguration>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
-                                                <real key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="verificationAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="zxK-96-oVT"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmt-XU-cwz">
                                         <rect key="frame" x="20" y="10" width="374" height="30"/>
                                         <constraints>
@@ -88,16 +63,28 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvh-lS-Frs">
+                                        <rect key="frame" x="174" y="6.5" width="220" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="5T1-BY-Gnk"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Continie Verification">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="19"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="verificationAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="jzC-vN-F4s"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Kmt-XU-cwz" secondAttribute="trailing" constant="20" id="BNz-iN-flQ"/>
                                     <constraint firstItem="Kmt-XU-cwz" firstAttribute="leading" secondItem="gKS-9P-FHm" secondAttribute="leading" constant="20" id="Bgp-3c-AyE"/>
-                                    <constraint firstAttribute="trailing" secondItem="m5v-WV-5n7" secondAttribute="trailing" constant="20" id="CiF-lN-xbc"/>
                                     <constraint firstItem="Kmt-XU-cwz" firstAttribute="centerY" secondItem="gKS-9P-FHm" secondAttribute="centerY" id="IqR-Py-tAg"/>
-                                    <constraint firstItem="m5v-WV-5n7" firstAttribute="centerY" secondItem="gKS-9P-FHm" secondAttribute="centerY" id="L5H-NG-8Mq"/>
                                     <constraint firstAttribute="height" constant="50" id="OlB-f7-toi"/>
-                                    <constraint firstItem="m5v-WV-5n7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gKS-9P-FHm" secondAttribute="leading" constant="20" id="wk2-B0-YmC"/>
+                                    <constraint firstItem="lvh-lS-Frs" firstAttribute="centerY" secondItem="gKS-9P-FHm" secondAttribute="centerY" id="qH4-fr-7dg"/>
+                                    <constraint firstAttribute="trailing" secondItem="lvh-lS-Frs" secondAttribute="trailing" constant="20" symbolic="YES" id="yRQ-TE-52G"/>
                                 </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA7-Xa-kp8">
@@ -165,7 +152,7 @@
                         <outlet property="countryCodeView" destination="HA7-Xa-kp8" id="28q-RN-U55"/>
                         <outlet property="headerView" destination="gKS-9P-FHm" id="W7O-5d-j7b"/>
                         <outlet property="settingsButton" destination="5YE-Ts-nyc" id="aM2-Bz-XQA"/>
-                        <outlet property="verificationButton" destination="m5v-WV-5n7" id="H25-Fo-sqN"/>
+                        <outlet property="verificationButton" destination="lvh-lS-Frs" id="IZq-Go-mh8"/>
                         <segue destination="Bq5-EK-ZXe" kind="presentation" identifier="showSettingsSegueID" id="AUB-ge-vqn"/>
                         <segue destination="aag-vh-0jp" kind="presentation" identifier="showDCCCertificate" id="6bX-o3-GKF"/>
                         <segue destination="Xi7-RT-lfv" kind="presentation" identifier="showVCCredentials" id="Vhh-Ls-lZi"/>
@@ -327,11 +314,6 @@
             <point key="canvasLocation" x="-675.36231884057975" y="105.80357142857143"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="m5v-WV-5n7">
-            <size key="intrinsicContentSize" width="106.5" height="37"/>
-        </designable>
-    </designables>
     <resources>
         <image name="EU_logo" width="72" height="48"/>
         <image name="gear_white" width="22" height="22"/>
