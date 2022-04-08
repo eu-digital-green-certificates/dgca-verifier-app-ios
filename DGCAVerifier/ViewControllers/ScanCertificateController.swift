@@ -140,7 +140,7 @@ class ScanCertificateController: UIViewController {
     private func showDCCCountryList() {
         headerView.isHidden = false
         countryCodeView.isHidden = false
-        verificationButton.isHidden = false
+        verificationButton.isHidden = true
         countryCodeLabel.text = "Select Country of CertLogic Rule".localized
         let countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
         setListOfRuleCounties(list: countryList)
@@ -173,9 +173,11 @@ class ScanCertificateController: UIViewController {
     @IBAction fileprivate func verificationAction() {
         hideDCCCountryList()
         if let barcodeString = barcodeString,
-           let countryCode = self.selectedCounty?.code,
-           let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
-           scannerDidScanCertificate(certificate)
+            let countryCode = self.selectedCounty?.code,
+            let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
+            
+            self.barcodeString = nil
+            scannerDidScanCertificate(certificate)
         }
     }
 
@@ -406,7 +408,8 @@ private extension ScanCertificateController {
             if self.selectedCounty == nil {
                 self.barcodeString = barcodeString
                 showDCCCountryList()
-            } else {
+                
+            } else if self.barcodeString == nil {
                 let countryCode = self.selectedCounty?.code
                 if let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
                     scannerDidScanCertificate(certificate)
@@ -421,8 +424,6 @@ private extension ScanCertificateController {
             DGCLogger.logInfo("Cannot applicate \(barcodeString) to any available type")
             //scannerDidFailWithError(error: error)
         }
-        
-        
     }
 }
 
