@@ -22,9 +22,9 @@
 		5CA450BA26E7419F0029324E /* DebugDCCSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugDCCSectionCell.swift */; };
 		5CA450BB26E7419F0029324E /* DebugDCCSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugDCCSectionCell.swift */; };
 		5CA450BC26E7419F0029324E /* DebugDCCSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugDCCSectionCell.swift */; };
-		5CA450C226E741BB0029324E /* DebugDCCRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugDCCRawCell.swift */; };
-		5CA450C326E741BB0029324E /* DebugDCCRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugDCCRawCell.swift */; };
-		5CA450C426E741BB0029324E /* DebugDCCRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugDCCRawCell.swift */; };
+		5CA450C226E741BB0029324E /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
+		5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
+		5CA450C426E741BB0029324E /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
 		5CA450CA26E7421C0029324E /* DebugDCCValidationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugDCCValidationCell.swift */; };
 		5CA450CB26E7421C0029324E /* DebugDCCValidationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugDCCValidationCell.swift */; };
 		5CA450CC26E7421C0029324E /* DebugDCCValidationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugDCCValidationCell.swift */; };
@@ -41,7 +41,7 @@
 		CE13CF0A262DCDDA0070C80E /* DCCCertificateViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* DCCCertificateViewerController.swift */; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		CE345FAC26446694003B457E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
-		CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* CertificateViewer.storyboard */; };
+		CE345FAF264466AA003B457E /* DCCCertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */; };
 		CE345FB426446817003B457E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB626446817003B457E /* Localizable.strings */; };
 		CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37B642263867D700DEE13D /* SecureBackground.swift */; };
 		CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59D1B526428D78004EBDD6 /* SettingsController.swift */; };
@@ -60,6 +60,9 @@
 		D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
+		D277555228004AE8005FEE00 /* VCCredentialsViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */; };
+		D277555428004B07005FEE00 /* SHCCredentialsViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */; };
+		D277555628007998005FEE00 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
 		D2B454ED27F352E500D8A296 /* DGCVerificationCenter in Frameworks */ = {isa = PBXBuildFile; productRef = D2B454EC27F352E500D8A296 /* DGCVerificationCenter */; };
 		D2B454EE27F35BEA00D8A296 /* DCCCertificateViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* DCCCertificateViewerController.swift */; };
 		D2B454EF27F35BED00D8A296 /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
@@ -72,7 +75,7 @@
 		D2B454F727F374DF00D8A296 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		D2B454F827F374E200D8A296 /* DebugDCCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450AC26E0F4C20029324E /* DebugDCCCell.swift */; };
 		D2B454F927F374E500D8A296 /* DebugDCCValidationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C826E7421C0029324E /* DebugDCCValidationCell.swift */; };
-		D2B454FA27F374E700D8A296 /* DebugDCCRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugDCCRawCell.swift */; };
+		D2B454FA27F374E700D8A296 /* DebugRawCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450C026E741BB0029324E /* DebugRawCell.swift */; };
 		D2B454FB27F374EA00D8A296 /* DebugDCCSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450B826E7419F0029324E /* DebugDCCSectionCell.swift */; };
 		D2B454FC27F374EC00D8A296 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
 		D2B454FD27F374EF00D8A296 /* LicenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA793259265BC00F0043BA06 /* LicenseCell.swift */; };
@@ -115,8 +118,8 @@
 		D2F6552927ECEAB0004C7D4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
 		D2F6552A27ECEAB2004C7D4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F1261F8D2700715333 /* Main.storyboard */; };
 		D2F6552B27ECEAB3004C7D4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F1261F8D2700715333 /* Main.storyboard */; };
-		D2F6552C27ECEAB6004C7D4B /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* CertificateViewer.storyboard */; };
-		D2F6552D27ECEAB7004C7D4B /* CertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* CertificateViewer.storyboard */; };
+		D2F6552C27ECEAB6004C7D4B /* DCCCertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */; };
+		D2F6552D27ECEAB7004C7D4B /* DCCCertificateViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */; };
 		D2F6552E27ECEABB004C7D4B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
 		D2F6552F27ECEABC004C7D4B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
 		D2F6553227ECEADF004C7D4B /* NFCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA4509B26DCCA770029324E /* NFCHelper.swift */; };
@@ -182,7 +185,7 @@
 		5CA450A526E0BA640029324E /* DebugController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450AC26E0F4C20029324E /* DebugDCCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDCCCell.swift; sourceTree = "<group>"; };
 		5CA450B826E7419F0029324E /* DebugDCCSectionCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugDCCSectionCell.swift; sourceTree = "<group>"; tabWidth = 2; };
-		5CA450C026E741BB0029324E /* DebugDCCRawCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugDCCRawCell.swift; sourceTree = "<group>"; tabWidth = 2; };
+		5CA450C026E741BB0029324E /* DebugRawCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugRawCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450C826E7421C0029324E /* DebugDCCValidationCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DebugDCCValidationCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450DD26E78D990029324E /* InfoCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		5CA450E526E78DB50029324E /* InfoCellDropDown.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InfoCellDropDown.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -192,7 +195,7 @@
 		CE13CF09262DCDDA0070C80E /* DCCCertificateViewerController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = DCCCertificateViewerController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
-		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CertificateViewer.storyboard; sourceTree = "<group>"; };
+		CE345FB0264466AA003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DCCCertificateViewer.storyboard; sourceTree = "<group>"; };
 		CE345FB526446817003B457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE37B642263867D700DEE13D /* SecureBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBackground.swift; sourceTree = "<group>"; };
 		CE59D1B526428D78004EBDD6 /* SettingsController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -220,6 +223,9 @@
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		D26F952A274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VCCredentialsViewer.storyboard; sourceTree = "<group>"; };
+		D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SHCCredentialsViewer.storyboard; sourceTree = "<group>"; };
+		D277555528007998005FEE00 /* RoundedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedBox.swift; sourceTree = "<group>"; };
 		D2D5656627BA5D7300E821C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewFinder.swift; sourceTree = "<group>"; };
 		D2D8F2B427F5C83B00508610 /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
@@ -283,7 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA450B826E7419F0029324E /* DebugDCCSectionCell.swift */,
-				5CA450C026E741BB0029324E /* DebugDCCRawCell.swift */,
+				5CA450C026E741BB0029324E /* DebugRawCell.swift */,
 				5CA450C826E7421C0029324E /* DebugDCCValidationCell.swift */,
 				5CA450AC26E0F4C20029324E /* DebugDCCCell.swift */,
 			);
@@ -331,7 +337,9 @@
 			children = (
 				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
 				CEA6D6F1261F8D2700715333 /* Main.storyboard */,
-				CE345FB1264466AA003B457E /* CertificateViewer.storyboard */,
+				CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */,
+				D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */,
+				D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */,
 				CE345FAE26446694003B457E /* Settings.storyboard */,
 			);
 			path = Storyboards;
@@ -348,9 +356,9 @@
 		CE13CF1C262DDE600070C80E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE13CF09262DCDDA0070C80E /* DCCCertificateViewerController.swift */,
-				D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */,
 				CE891304263581D900CB92AF /* HomeController.swift */,
+				D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */,
+				D277555728007BC5005FEE00 /* DCCCerificateViewer */,
 				5CA450A526E0BA640029324E /* DebugController.swift */,
 				D2B605C02743D448000D914A /* SettingsControllers */,
 			);
@@ -363,6 +371,7 @@
 				5CA450DC26E78D850029324E /* Info */,
 				5CA450B726E741820029324E /* DebugCells */,
 				CE13CF22262DDF810070C80E /* RoundedButton.swift */,
+				D277555528007998005FEE00 /* RoundedBox.swift */,
 				D2D5656827BA5E0400E821C6 /* SquareViewFinder.swift */,
 			);
 			path = Components;
@@ -459,6 +468,14 @@
 				CEA6D70F261F8D2900715333 /* Info.plist */,
 			);
 			path = DGCAVerifierUITests;
+			sourceTree = "<group>";
+		};
+		D277555728007BC5005FEE00 /* DCCCerificateViewer */ = {
+			isa = PBXGroup;
+			children = (
+				CE13CF09262DCDDA0070C80E /* DCCCertificateViewerController.swift */,
+			);
+			path = DCCCerificateViewer;
 			sourceTree = "<group>";
 		};
 		D2B605C02743D448000D914A /* SettingsControllers */ = {
@@ -625,8 +642,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE345FAF264466AA003B457E /* CertificateViewer.storyboard in Resources */,
+				D277555428004B07005FEE00 /* SHCCredentialsViewer.storyboard in Resources */,
+				CE345FAF264466AA003B457E /* DCCCertificateViewer.storyboard in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
+				D277555228004AE8005FEE00 /* VCCredentialsViewer.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				D2387C5927450F9100C55DF7 /* context.jsonc in Resources */,
@@ -647,7 +666,7 @@
 				D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */,
 				D2F6553327ECEAE6004C7D4B /* Localizable.strings in Resources */,
 				D2F6552E27ECEABB004C7D4B /* Settings.storyboard in Resources */,
-				D2F6552C27ECEAB6004C7D4B /* CertificateViewer.storyboard in Resources */,
+				D2F6552C27ECEAB6004C7D4B /* DCCCertificateViewer.storyboard in Resources */,
 				D2F6553927ECEAF2004C7D4B /* Assets.xcassets in Resources */,
 				D2F6552A27ECEAB2004C7D4B /* Main.storyboard in Resources */,
 			);
@@ -662,7 +681,7 @@
 				D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */,
 				D2F6553427ECEAE6004C7D4B /* Localizable.strings in Resources */,
 				D2F6552F27ECEABC004C7D4B /* Settings.storyboard in Resources */,
-				D2F6552D27ECEAB7004C7D4B /* CertificateViewer.storyboard in Resources */,
+				D2F6552D27ECEAB7004C7D4B /* DCCCertificateViewer.storyboard in Resources */,
 				D2F6553A27ECEAF2004C7D4B /* Assets.xcassets in Resources */,
 				D2F6552B27ECEAB3004C7D4B /* Main.storyboard in Resources */,
 			);
@@ -712,6 +731,7 @@
 				CE13CF0A262DCDDA0070C80E /* DCCCertificateViewerController.swift in Sources */,
 				CE37B643263867D700DEE13D /* SecureBackground.swift in Sources */,
 				D2D5656927BA5E0400E821C6 /* SquareViewFinder.swift in Sources */,
+				D277555628007998005FEE00 /* RoundedBox.swift in Sources */,
 				5CA450BA26E7419F0029324E /* DebugDCCSectionCell.swift in Sources */,
 				5CA450CA26E7421C0029324E /* DebugDCCValidationCell.swift in Sources */,
 				DA79325A265BC00F0043BA06 /* LicenseCell.swift in Sources */,
@@ -729,7 +749,7 @@
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
 				D2D8F2BB27F5D49B00508610 /* DebugManager.swift in Sources */,
 				5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */,
-				5CA450C226E741BB0029324E /* DebugDCCRawCell.swift in Sources */,
+				5CA450C226E741BB0029324E /* DebugRawCell.swift in Sources */,
 				5CA450DF26E78D990029324E /* InfoCell.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 				D2D8F2B527F5C83B00508610 /* AppManager.swift in Sources */,
@@ -749,7 +769,7 @@
 				5CE07C8A26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				CEA6D703261F8D2900715333 /* DGCAVerifierTests.swift in Sources */,
 				5CA450CB26E7421C0029324E /* DebugDCCValidationCell.swift in Sources */,
-				5CA450C326E741BB0029324E /* DebugDCCRawCell.swift in Sources */,
+				5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */,
 				D2F6551827ECEA70004C7D4B /* SettingsController.swift in Sources */,
 				D2F6552427ECEA93004C7D4B /* SecureBackground.swift in Sources */,
 				D2F6551A27ECEA74004C7D4B /* LicenseTableController.swift in Sources */,
@@ -784,7 +804,7 @@
 				D2F6551D27ECEA78004C7D4B /* LicenseController.swift in Sources */,
 				5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */,
 				D2F6550F27ECEA52004C7D4B /* LicenseCell.swift in Sources */,
-				5CA450C426E741BB0029324E /* DebugDCCRawCell.swift in Sources */,
+				5CA450C426E741BB0029324E /* DebugRawCell.swift in Sources */,
 				5CA450E126E78D990029324E /* InfoCell.swift in Sources */,
 				5CA450E926E78DB50029324E /* InfoCellDropDown.swift in Sources */,
 				D2F6552527ECEA94004C7D4B /* SecureBackground.swift in Sources */,
@@ -821,7 +841,7 @@
 				D2D8F2C227F5D49B00508610 /* DebugSectionModel.swift in Sources */,
 				D2B454FC27F374EC00D8A296 /* RuleErrorCell.swift in Sources */,
 				D2B454FB27F374EA00D8A296 /* DebugDCCSectionCell.swift in Sources */,
-				D2B454FA27F374E700D8A296 /* DebugDCCRawCell.swift in Sources */,
+				D2B454FA27F374E700D8A296 /* DebugRawCell.swift in Sources */,
 				D2B454F327F35BFD00D8A296 /* LicenseTableController.swift in Sources */,
 				D2D8F2B827F5C83B00508610 /* AppManager.swift in Sources */,
 			);
@@ -856,12 +876,12 @@
 			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
-		CE345FB1264466AA003B457E /* CertificateViewer.storyboard */ = {
+		CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CE345FB0264466AA003B457E /* Base */,
 			);
-			name = CertificateViewer.storyboard;
+			name = DCCCertificateViewer.storyboard;
 			sourceTree = "<group>";
 		};
 		CE345FB626446817003B457E /* Localizable.strings */ = {

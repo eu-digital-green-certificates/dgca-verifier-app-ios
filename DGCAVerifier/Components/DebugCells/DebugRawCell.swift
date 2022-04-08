@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugDCCRawCell.swift
+//  DebugRawCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 07.09.2021.
@@ -27,15 +27,13 @@
         
 
 import UIKit
-import DGCCoreLibrary
-import DCCInspection
 import DGCVerificationCenter
 
 protocol DebugRawSharing: AnyObject {
   func userDidShare(text: String)
 }
 
-class DebugDCCRawCell: UITableViewCell, UIContextMenuInteractionDelegate {
+class DebugRawCell: UITableViewCell, UIContextMenuInteractionDelegate {
   @IBOutlet fileprivate weak var rawLabel: UILabel!
   weak var delegate: DebugRawSharing?
   
@@ -66,7 +64,7 @@ class DebugDCCRawCell: UITableViewCell, UIContextMenuInteractionDelegate {
       rawLabel.text = ""
       return
     }
-    rawLabel.text = (certificate.digitalCertificate as! HCert).body.description
+    rawLabel.text = certificate.body?.description
     rawLabel.sizeToFit()
   }
   

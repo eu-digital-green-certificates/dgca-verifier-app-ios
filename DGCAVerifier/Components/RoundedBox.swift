@@ -1,3 +1,4 @@
+//
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgca-verifier-app-ios
@@ -17,17 +18,17 @@
  * limitations under the License.
  * ---license-end
  */
-//
-//  RoundedButton.swift
+//  
+//  RoundedBox.swift
 //  DGCAVerifier
-//
-//  Created by Yannick Spreen on 4/19/21.
-//
+//  
+//  Created by Igor Khomiak on 08.04.2022.
+//  
+        
 
 import UIKit
 
-
-@IBDesignable class RoundedButton : UIButton {
+@IBDesignable class RoundedBox : UIView {
     
     @IBInspectable var radius: CGFloat = 5.0 {
         didSet {

@@ -35,7 +35,6 @@ import DGCCoreLibrary
 import DCCInspection
 #endif
 
-
 protocol DismissControllerDelegate: AnyObject {
     func userDidDissmis(_ controller: UIViewController)
 }
@@ -44,21 +43,29 @@ class ScanCertificateController: UIViewController {
     private enum Constants {
         static let userDefaultsCountryKey = "UDCountryKey"
         static let showSettingsSegueID = "showSettingsSegueID"
-        static let showCertificateViewer = "showCertificateViewer"
+        
+        static let showDCCCertificate = "showDCCCertificate"
+        static let showICAOCertificate = "showICAOCertificate"
+        static let showDIVOCCertificate = "showDIVOCCertificate"
+        static let showVCCredentials = "showVCCredentials"
+        static let showSHCCredentials = "showSHCCredentials"
     }
 
     @IBOutlet fileprivate weak var aNFCButton: UIButton!
     @IBOutlet fileprivate weak var settingsButton: UIButton!
+    @IBOutlet fileprivate weak var verificationButton: UIButton!
     @IBOutlet fileprivate weak var camView: UIView!
     @IBOutlet fileprivate weak var countryCodeView: UIPickerView!
     @IBOutlet fileprivate weak var countryCodeLabel: UILabel!
     @IBOutlet fileprivate weak var headerView: UIView!
+    @IBOutlet fileprivate weak var activityHeaderView: UIView!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
     
     private var captureSession: AVCaptureSession?
     private var dccCountryItems: [CountryModel] = []
+    private var barcodeString: String?
     
-    let verificationCenter = AppManager.shared.verificationCenter
+    private let verificationCenter = AppManager.shared.verificationCenter
     
     private var expireDataTimer: Timer?
     var downloadedDataHasExpired: Bool {
@@ -106,7 +113,8 @@ class ScanCertificateController: UIViewController {
         }
         headerView.isHidden = true
         countryCodeView.isHidden = true
-                
+        activityHeaderView.isHidden = true
+        
         #if targetEnvironment(simulator)
         // do nothing
         #else
@@ -118,27 +126,29 @@ class ScanCertificateController: UIViewController {
         expireDataTimer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(reloadExpiredData),
             userInfo: nil, repeats: true)
     }
-  
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         captureSession?.startRunning()
     }
-      
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         captureSession?.stopRunning()
     }
-
-    func showDCCCountryList() {
-        headerView.isHidden = true
+    
+    private func showDCCCountryList() {
+        headerView.isHidden = false
+        countryCodeView.isHidden = false
+        verificationButton.isHidden = false
         countryCodeLabel.text = "Select Country of CertLogic Rule".localized
         let countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
         setListOfRuleCounties(list: countryList)
-        countryCodeView.isHidden = false
     }
     
-    func hideDCCCountryList() {
+    private func hideDCCCountryList() {
         countryCodeView.isHidden = true
+        headerView.isHidden = true
     }
     
     // MARK: - Actions
@@ -148,28 +158,58 @@ class ScanCertificateController: UIViewController {
             showAlertReloadDatabase()
        }
     }
-
-    @IBAction func openSettingsController() {
+    
+    @IBAction fileprivate func openSettingsController() {
         captureSession?.stopRunning()
         performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
     }
     
-    @IBAction func scanNFCAction() {
+    @IBAction fileprivate func scanNFCAction() {
         let helper = NFCHelper()
         helper.onNFCResult = onNFCResult(success:message:)
         helper.restartSession()
+    }
+    
+    @IBAction fileprivate func verificationAction() {
+        hideDCCCountryList()
+        if let barcodeString = barcodeString,
+           let countryCode = self.selectedCounty?.code,
+           let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
+           scannerDidScanCertificate(certificate)
+        }
     }
 
   // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case Constants.showCertificateViewer:
+        case Constants.showDCCCertificate:
             if let destinationController = segue.destination as? DCCCertificateViewerController,
                let certificate = sender as? MultiTypeCertificate {
                 destinationController.certificate = certificate
                 destinationController.presentationController?.delegate = self
                 destinationController.dismissDelegate = self
             }
+            
+        case Constants.showICAOCertificate:
+            break
+            // TODO: Add ICAO viewer controller
+            
+        case Constants.showDIVOCCertificate:
+            break
+            // TODO: Add ICAO viewer controller
+            
+        case Constants.showICAOCertificate:
+            break
+            // TODO: Add DIVOC viewer controller
+
+        case Constants.showVCCredentials:
+            break
+            // TODO: Add VC credentials controller
+            
+        case Constants.showICAOCertificate:
+            break
+            // TODO: Add DIVOC controller
+
         case Constants.showSettingsSegueID:
             if let navController = segue.destination as? UINavigationController,
                 let destinationController = navController.viewControllers.last as? SettingsController {
@@ -183,23 +223,24 @@ class ScanCertificateController: UIViewController {
     
     // MARK: - Private
     private func updateAllStoredData() {
-        self.captureSession?.stopRunning()
-        self.headerView.isHidden = false
-        self.activityIndicator.startAnimating()
+        captureSession?.stopRunning()
+        activityHeaderView.isHidden = true
+        activityIndicator.startAnimating()
 
         verificationCenter.updateStoredData(appType: .verifier) { [unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
-                    self.headerView.isHidden = true
+                    self.activityHeaderView.isHidden = true
                     self.activityIndicator.stopAnimating()
-                    self.showAlert(withTitle: "Cannot update stored data".localized, message: "Please check the internet connection and try again.".localized)
+                    self.showAlert(withTitle: "Cannot update stored data".localized,
+                        message: "Please check the internet connection and try again.".localized)
                     self.captureSession?.startRunning()
                 }
             } else {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
-                    self.headerView.isHidden = true
+                    self.activityHeaderView.isHidden = true
                     self.showAlert(withTitle: "Stored data is up to date", message: "")
                     self.captureSession?.startRunning()
                 }
@@ -208,7 +249,8 @@ class ScanCertificateController: UIViewController {
     }
     
     private func showAlertReloadDatabase() {
-        let alert = UIAlertController(title: "Reload databases?".localized, message: "The update may take some time.".localized, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Reload databases?".localized,
+            message: "The update may take some time.".localized, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Later".localized, style: .default, handler: { _ in
             self.captureSession?.startRunning()
@@ -264,11 +306,9 @@ class ScanCertificateController: UIViewController {
     private func enableBackgroundDetection() {
         SecureBackground.paused = false
     }
-
 }
 
-// MARK: - Scan Certificate
-
+// MARK: - Scan of Certificates
 extension ScanCertificateController {
     func scannerDidFailWithError(error: Error) {
         DispatchQueue.main.async {
@@ -279,15 +319,14 @@ extension ScanCertificateController {
     func scannerDidScanCertificate(_ certificate: MultiTypeCertificate) {
         DispatchQueue.main.async {
             self.captureSession?.stopRunning()
-            self.performSegue(withIdentifier: Constants.showCertificateViewer, sender: certificate)
+            self.performSegue(withIdentifier: Constants.showDCCCertificate, sender: certificate)
         }
     }
-    
 }
 
 // MARK: - AV setup
-extension ScanCertificateController {
-    private func checkPermissions() {
+private extension ScanCertificateController {
+    func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
             self.disableBackgroundDetection()
@@ -304,7 +343,7 @@ extension ScanCertificateController {
         }
     }
 
-    private func setupCameraLiveView() {
+    func setupCameraLiveView() {
         captureSession?.sessionPreset = .hd1280x720
 
         let videoDevice = AVCaptureDevice
@@ -354,17 +393,18 @@ extension ScanCertificateController {
                         potentialQRCode = potentialCode
                     }
                     DGCLogger.logInfo(potentialQRCode.symbology.rawValue.description)
-                    self.observationHandler(payloadString: potentialQRCode.payloadStringValue)
+                    self.observationHandler(payload: potentialQRCode.payloadStringValue)
                 }
             }
         }
     }
 
-    private func observationHandler(payloadString: String?) {
-        guard let barcodeString = payloadString, !barcodeString.isEmpty else { return }
+    func observationHandler(payload: String?) {
+        guard let barcodeString = payload, !barcodeString.isEmpty else { return }
         
         if CertificateApplicant.isApplicableDCCFormat(payload: barcodeString) {
             if self.selectedCounty == nil {
+                self.barcodeString = barcodeString
                 showDCCCountryList()
             } else {
                 let countryCode = self.selectedCounty?.code
@@ -387,7 +427,7 @@ extension ScanCertificateController {
 }
 
 extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
       from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
@@ -395,6 +435,7 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
 
         do {
             try imageRequestHandler.perform([detectBarcodeRequest])
+            
         } catch {
             DGCLogger.logError(error)
         }
@@ -403,25 +444,22 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
 
 // MARK: - Picker delegate
 extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegate {
-    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if dccCountryItems.count == 0 { return 1 }
-        return dccCountryItems.count
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return dccCountryItems.isEmpty ? 1 : dccCountryItems.count
     }
     
-    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if dccCountryItems.count == 0 {
-            return "Country codes list empty".localized
-        } else {
-            return dccCountryItems[row].name
-        }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return dccCountryItems.isEmpty ? "Country codes list empty".localized : dccCountryItems[row].name
     }
   
-    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedCounty = dccCountryItems[row]
+        verificationButton.isHidden = false
+        countryCodeLabel.text = ""
     }
 }
 
@@ -441,15 +479,14 @@ extension ScanCertificateController {
 }
 
 // MARK: - Adaptive Presentation Delegate
-
 extension ScanCertificateController: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidDismiss( _ presentationController: UIPresentationController) {
-      captureSession?.startRunning()
+        captureSession?.startRunning()
     }
 }
 
 extension ScanCertificateController:  DismissControllerDelegate {
     public func userDidDissmis(_ controller: UIViewController) {
-      captureSession?.startRunning()
+        captureSession?.startRunning()
     }
 }

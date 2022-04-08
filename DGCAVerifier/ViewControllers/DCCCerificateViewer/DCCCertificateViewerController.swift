@@ -226,8 +226,8 @@ extension DCCCertificateViewerController: UITableViewDataSource {
           } else {
               switch debugSection.sectionType {
               case .raw:
-                  let cellID = String(describing: DebugDCCRawCell.self)
-                  guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugDCCRawCell else {
+                  let cellID = String(describing: DebugRawCell.self)
+                  guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? DebugRawCell else {
                     return UITableViewCell()
                   }
                   cell.setupCell(for: debugSection, cert: certificate)
