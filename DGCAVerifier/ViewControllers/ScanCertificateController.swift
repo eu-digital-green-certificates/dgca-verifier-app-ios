@@ -50,7 +50,7 @@ class ScanCertificateController: UIViewController {
         static let showVCCredentials = "showVCCredentials"
         static let showSHCCredentials = "showSHCCredentials"
     }
-
+    
     @IBOutlet fileprivate weak var aNFCButton: UIButton!
     @IBOutlet fileprivate weak var settingsButton: UIButton!
     @IBOutlet fileprivate weak var verificationButton: UIButton!

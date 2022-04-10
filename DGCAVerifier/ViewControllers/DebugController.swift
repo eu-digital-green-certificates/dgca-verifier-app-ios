@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugVC.swift
+//  DebugController.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 02.09.2021.
@@ -34,7 +34,7 @@ protocol DebugControllerDelegate: AnyObject {
   func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel)
 }
 
-class DebugVC: UIViewController {
+class DebugController: UIViewController {
 
   private enum Constants {
     static let fontSize: CGFloat = 16
@@ -62,15 +62,15 @@ class DebugVC: UIViewController {
     self.tableView.reloadData()
     debugSwitcher.isOn = DebugManager.sharedInstance.isDebugMode
     
-    var tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel1))
+    var tap = UITapGestureRecognizer(target: self, action: #selector(tapOnLabel1))
     level1.isUserInteractionEnabled = true
     level1.addGestureRecognizer(tap)
 
-    tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel2))
+    tap = UITapGestureRecognizer(target: self, action: #selector(tapOnLabel2))
     level2.isUserInteractionEnabled = true
     level2.addGestureRecognizer(tap)
 
-    tap = UITapGestureRecognizer(target: self, action: #selector(DebugVC.tapOnLabel3))
+    tap = UITapGestureRecognizer(target: self, action: #selector(tapOnLabel3))
     level3.isUserInteractionEnabled = true
     level3.addGestureRecognizer(tap)
     
@@ -153,7 +153,7 @@ class DebugVC: UIViewController {
   }
 }
 
-extension DebugVC: UITableViewDataSource {
+extension DebugController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if DebugManager.sharedInstance.isDebugMode {
       return countryList.count
@@ -175,7 +175,7 @@ extension DebugVC: UITableViewDataSource {
   }
 }
 
-extension DebugVC: UITableViewDelegate{
+extension DebugController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let countryModel = countryList[indexPath.row]
     countryModel.debugModeEnabled = !countryModel.debugModeEnabled
