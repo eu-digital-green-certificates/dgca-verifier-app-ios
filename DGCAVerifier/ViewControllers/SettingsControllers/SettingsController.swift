@@ -49,7 +49,8 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     @IBOutlet fileprivate weak var debugLabelName: UILabel!
     @IBOutlet fileprivate weak var debugLabel: UILabel!
     @IBOutlet fileprivate weak var versionLabel: UILabel!
- 
+    @IBOutlet fileprivate weak var manageDataLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         var filterType: String = ""
@@ -62,6 +63,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         debugLabelName.text = "Debug mode".localized
         licensesLabelName.text = "Licenses".localized
         privacyLabelName.text = "Privacy Information".localized
+        manageDataLabel.text = "Manage Data".localized
         versionLabel.text = AppManager.appVersion
 
         updateInterface()
@@ -118,32 +120,32 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         }
     }
     
-
-    private func openPrivacyDoc() {
-//        if let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string {
-//            openUrl(link)
-//        }
+    func openPrivacyDoc() {
+#if canImport(DCCInspection)
+        let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
+        openUrl(link)
+#endif
     }
-
+    
     func openEuCertDoc() {
         let link = DGCVerificationCenter.SharedLinks.linkToOopenEuCertDoc
         openUrl(link)
     }
-
+    
     func openGitHubSource() {
         let link = DGCVerificationCenter.SharedLinks.linkToOpenGitHubSource
         openUrl(link)
     }
-
+    
     func openDebugSettings() {
         performSegue(withIdentifier: Constants.debugSegueID, sender: self)
     }
-
+    
     func openLicenses() {
         isNavigating = true
         performSegue(withIdentifier: Constants.licenseSegueID, sender: self)
     }
-
+    
     func openUrl(_ string: String!) {
         if let url = URL(string: string) {
             UIApplication.shared.open(url)
@@ -153,12 +155,12 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     func showDataManager() {
         performSegue(withIdentifier: Constants.showDataManager, sender: self)
     }
-
+    
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
         dismissDelegate?.userDidDissmis(self)
     }
-  
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case Constants.debugSegueID:

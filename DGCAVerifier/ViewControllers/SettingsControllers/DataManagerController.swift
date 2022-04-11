@@ -62,7 +62,6 @@ class DataManagerController: UITableViewController {
         return applicableInspectors.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CertTypeCell", for: indexPath) as! CertTypeCell
 
@@ -109,11 +108,15 @@ class DataManagerController: UITableViewController {
 
 extension DataManagerController: DataManagingProtocol {
     func loadingInspector(_ inspector: ApplicableInspector, didFinishLoadingData value: Bool) {
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func loadingInspector(_ inspector: ApplicableInspector, didFailLoadingDataWith error: Error) {
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
 }

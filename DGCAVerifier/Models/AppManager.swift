@@ -39,10 +39,6 @@ class AppManager {
 
     static let shared = AppManager()
     
-     var lastFetch: String {
-        return "" //lastFetch.dateTimeString
-    }
-    
     var verificationCenter: DGCVerificationCenter
     
     init() {

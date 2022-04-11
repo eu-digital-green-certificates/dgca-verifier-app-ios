@@ -27,7 +27,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iTunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="U6u-5u-dRM">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Verifier-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="U6u-5u-dRM">
                                                     <rect key="frame" x="20" y="5" width="39" height="39"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="39" id="auG-4O-rI4"/>
@@ -148,10 +148,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Trusted Public Keys and Revocation Data" footerTitle="Last updated: 2021-05-01 20:00:00" id="eFb-hd-Bdj" userLabel="Trusted Public Keys, Revocation Data">
+                            <tableViewSection headerTitle="Trusted Public Keys and Revocation Data" id="eFb-hd-Bdj" userLabel="Trusted Public Keys, Revocation Data">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PNB-E7-7Sz">
-                                        <rect key="frame" x="0.0" y="324.5" width="414" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="317" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNB-E7-7Sz" id="r9F-Dp-Vgr">
                                             <rect key="frame" x="0.0" y="0.0" width="385.5" height="44.5"/>
@@ -195,6 +195,7 @@
                         <outlet property="debugLabel" destination="c7T-kU-ft5" id="kFx-Jk-QIV"/>
                         <outlet property="debugLabelName" destination="5ZM-hL-tLy" id="LIb-7Z-JmQ"/>
                         <outlet property="licensesLabelName" destination="3C9-S9-3Vo" id="xn8-RM-8d1"/>
+                        <outlet property="manageDataLabel" destination="pZh-NG-LMB" id="uNB-9c-2Vq"/>
                         <outlet property="privacyLabelName" destination="gMd-yI-bmR" id="45e-Ci-2wB"/>
                         <outlet property="versionLabel" destination="RVo-62-8eZ" id="uzL-jt-xBP"/>
                         <segue destination="bsF-c3-r8z" kind="presentation" identifier="DebugVC" id="2Sm-pc-s7g"/>
@@ -605,8 +606,13 @@
             <point key="canvasLocation" x="2000.0000000000002" y="458.70535714285711"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="m8Z-ZF-ela">
+            <size key="intrinsicContentSize" width="133" height="37"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="iTunesArtwork" width="512" height="512"/>
+        <image name="Verifier-app-icon" width="60" height="60"/>
         <namedColor name="charcoalGrey">
             <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
