@@ -38,11 +38,11 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         static let debugSegueID = "DebugVC"
         static let showDataManager = "showDataManager"
     }
-
+    
     weak var delegate: DebugControllerDelegate?
     weak var dismissDelegate: DismissControllerDelegate?
     var isNavigating = false
-
+    
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
     @IBOutlet fileprivate weak var licensesLabelName: UILabel!
     @IBOutlet fileprivate weak var privacyLabelName: UILabel!
@@ -50,18 +50,17 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     @IBOutlet fileprivate weak var debugLabel: UILabel!
     @IBOutlet fileprivate weak var versionLabel: UILabel!
     @IBOutlet fileprivate weak var manageDataLabel: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var filterType: String = ""
         var colaboratorsType = ""
         #if canImport(DCCInspection)
-        filterType = sliceType.rawValue.uppercased().contains("BLOOM") ? "BLOOM" : "HASH"
-        let link = DCCDataCenter.localDataManager.versionedConfig["context"]["url"].rawString()
-        colaboratorsType = link!.contains("acc2") ? "ACC2" : "TST"
-
+            filterType = sliceType.rawValue.uppercased().contains("BLOOM") ? "BLOOM" : "HASH"
+            let link = DCCDataCenter.localDataManager.versionedConfig["context"]["url"].rawString()
+            colaboratorsType = link!.contains("acc2") ? "ACC2" : "TST"
         #endif
-
+        
         appNameLabel.text = (Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String) +
             " (" + filterType + ", " + colaboratorsType + ")"
         
@@ -70,7 +69,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         privacyLabelName.text = "Privacy Information".localized
         manageDataLabel.text = "Manage Data".localized
         versionLabel.text = AppManager.appVersion
-
+        
         updateInterface()
     }
     
@@ -78,7 +77,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         super.viewWillAppear(animated)
         isNavigating = false
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if !isNavigating  {
@@ -86,7 +85,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
               level: DebugManager.sharedInstance.debugLevel)
         }
     }
-  
+    
     private func updateInterface() {
         if !DebugManager.sharedInstance.isDebugMode {
             debugLabel.text = "Disabled".localized
