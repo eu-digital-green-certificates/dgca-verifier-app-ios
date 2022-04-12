@@ -185,7 +185,7 @@ class ScanCertificateController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case Constants.showDCCCertificate:
-            if let destinationController = segue.destination as? DCCCertificateViewerController,
+            if let destinationController = segue.destination as? DCCViewerController,
                let certificate = sender as? MultiTypeCertificate {
                 destinationController.certificate = certificate
                 destinationController.presentationController?.delegate = self

@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Certificate Viewer Controller-->
+        <!--Viewer Controller-->
         <scene sceneID="uZX-v2-ZjL">
             <objects>
-                <viewController id="WCj-Xf-fml" customClass="DCCCertificateViewerController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WCj-Xf-fml" customClass="DCCViewerController" customModule="DGCAVerifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zct-pN-WQt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -452,7 +452,7 @@
                                                     <outlet property="headerLabel" destination="Nti-sd-yGx" id="y34-Nx-ygo"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoCellDropDown" rowHeight="151" id="0GV-1b-47m" customClass="InfoCellDropDown" customModule="DGCAVerifier" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoCellDropDown" rowHeight="151" id="0GV-1b-47m" customClass="InfoCellDropDown" customModule="DGCAVerifier" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="525.66666603088379" width="414" height="151"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0GV-1b-47m" id="njZ-p7-edw">

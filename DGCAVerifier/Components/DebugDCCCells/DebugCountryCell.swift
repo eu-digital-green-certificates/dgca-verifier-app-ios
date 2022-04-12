@@ -19,7 +19,7 @@
  * ---license-end
  */
 //  
-//  DebugDCCCell.swift
+//  DebugCountryCell.swift
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 02.09.2021.
@@ -29,7 +29,7 @@
 import UIKit
 import DGCCoreLibrary
 
-class DebugDCCCell: UITableViewCell {
+class DebugCountryCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     private var country: CountryModel? {
@@ -44,7 +44,7 @@ class DebugDCCCell: UITableViewCell {
             return
         }
         nameLabel.text = country.name
-        }
+    }
     
     func setCountry(countryModel: CountryModel) {
         country = countryModel

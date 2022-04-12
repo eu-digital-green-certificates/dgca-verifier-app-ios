@@ -18,7 +18,7 @@
  * ---license-end
  */
 //
-//  DCCCertificateViewerController.swift
+//  DCCViewerController.swift
 //  DGCAVerifier
 //
 //  Created by Yannick Spreen on 4/19/21.
@@ -33,7 +33,7 @@ protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
 extension DebugSectionModel: CertificateSectionsProtocol {}
 
-class DCCCertificateViewerController: UIViewController {
+class DCCViewerController: UIViewController {
     private struct Constants {
       static let showSettingsController = "showSettingsController"
     }
@@ -110,7 +110,7 @@ class DCCCertificateViewerController: UIViewController {
             validityImage.image = validityState?.allRulesValidity.revocationIcon
             
             certificateSections = listItems
-
+            
         } else if let allRulesValidity = validityState?.allRulesValidity {
             dismissButton.setTitle(allRulesValidity.validityButtonTitle, for: .normal)
             dismissButton.backgroundColor = allRulesValidity.validityBackground
@@ -177,7 +177,7 @@ class DCCCertificateViewerController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension DCCCertificateViewerController: UITableViewDataSource {
+extension DCCViewerController: UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
       return certificateSections.count
@@ -287,14 +287,14 @@ extension DCCCertificateViewerController: UITableViewDataSource {
     }
 }
 
-extension DCCCertificateViewerController: DebugRawSharing {
+extension DCCViewerController: DebugRawSharing {
     func userDidShare(text: String) {
         let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
     }
 }
 
-extension DCCCertificateViewerController: DebugControllerDelegate {
+extension DCCViewerController: DebugControllerDelegate {
     func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
         validateCertificate()
     }
