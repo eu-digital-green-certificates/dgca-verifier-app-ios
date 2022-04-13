@@ -113,7 +113,7 @@ class ScanCertificateController: UIViewController {
         headerView.isHidden = true
         countryCodeView.isHidden = true
         activityHeaderView.isHidden = true
-        
+        verificationButton.setTitle("Continue Verification".localized, for: .normal)
         #if targetEnvironment(simulator)
         // do nothing
         #else

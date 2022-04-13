@@ -63,7 +63,7 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="5T1-BY-Gnk"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Continie Verification">
+                                        <buttonConfiguration key="configuration" style="plain" title="Continue Verification">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="19"/>
                                         </buttonConfiguration>
                                         <connections>

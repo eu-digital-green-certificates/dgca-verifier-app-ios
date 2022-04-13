@@ -102,7 +102,7 @@ class DCCViewerController: UIViewController {
         
         shareButton.setTitle("Share".localized, for: .normal)
         nameLabel.text = certificate.fullName
-        if let _ = validityState?.isRevoked {
+        if let state = validityState, state.isRevoked {
             dismissButton.setTitle("Retry".localized, for: .normal)
             dismissButton.backgroundColor = validityState?.allRulesValidity.revocationBackground
             validityLabel.text = "Revoked".localized

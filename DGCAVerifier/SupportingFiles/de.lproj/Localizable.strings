@@ -87,7 +87,10 @@
 "Reload" = "Reload";
 "Later" = "Later";
 "Reload databases?" = "Reload databases?";
+"The update may take some time." = "The update may take some time.";
 "Verifier App would like to access the camera" = "Verifier App would like to access the camera";
 "Applicable Types" = "Applicable Types";
 "Continue" = "Continue";
 "DCC Country Code" = "DCC Country Code";
+"DCC Country Codes" = "DCC Country Codes";
+"Continue Verification" = "Continue Verification";
