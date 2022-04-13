@@ -43,7 +43,7 @@ class CertTypeCell: UITableViewCell {
         didSet {
             certTypeName.text = applicant?.type.certificateDescription
             certTaskName.text = applicant?.type.certificateTaskDescription
-            let dateString = applicant?.inspector.lastUpdate.dateString ?? ""
+            let dateString = applicant?.inspector.lastUpdate.dateTimeString ?? ""
             lastUpdateLabel.text = "Last updated: " + dateString
         }
     }
@@ -55,7 +55,9 @@ class CertTypeCell: UITableViewCell {
                 self?.delegate?.loadingInspector(self!.applicant!, didFailLoadingDataWith: error)
                 return
             }
-            self?.activityIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
+            }
             self?.delegate?.loadingInspector(self!.applicant!, didFinishLoadingData: true)
         }
 

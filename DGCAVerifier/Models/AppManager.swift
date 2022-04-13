@@ -31,6 +31,8 @@ import DGCVerificationCenter
 
 class AppManager {
     
+    static let userDefaultsCountryKey = "UDCountryKey"
+
     static var appVersion: String {
         let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
         let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"

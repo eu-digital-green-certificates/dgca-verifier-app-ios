@@ -41,7 +41,6 @@ protocol DismissControllerDelegate: AnyObject {
 
 class ScanCertificateController: UIViewController {
     private enum Constants {
-        static let userDefaultsCountryKey = "UDCountryKey"
         static let showSettingsSegueID = "showSettingsSegueID"
         
         static let showDCCCertificate = "showDCCCertificate"
@@ -85,13 +84,13 @@ class ScanCertificateController: UIViewController {
             let encoder = JSONEncoder()
             do {
                 let data = try encoder.encode(newValue)
-                UserDefaults.standard.set(data, forKey: Constants.userDefaultsCountryKey)
+                UserDefaults.standard.set(data, forKey: AppManager.userDefaultsCountryKey)
             } catch {
                 DGCLogger.logError(error)
             }
         }
         get {
-            if let data = UserDefaults.standard.data(forKey: Constants.userDefaultsCountryKey) {
+            if let data = UserDefaults.standard.data(forKey: AppManager.userDefaultsCountryKey) {
                 let decoder = JSONDecoder()
                 do {
                     let object = try decoder.decode(CountryModel.self, from: data)

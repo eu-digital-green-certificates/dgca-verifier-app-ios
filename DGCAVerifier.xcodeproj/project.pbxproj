@@ -56,10 +56,12 @@
 		CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAD87E262714C4009AFEF9 /* EHNTests.swift */; };
 		D2158143273184E200C98986 /* LicenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2158142273184E200C98986 /* LicenseController.swift */; };
 		D21B5818274D4E5A0040D4E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D21B581A274D4E5A0040D4E8 /* InfoPlist.strings */; };
-		D2387C5927450F9100C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
-		D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D23EF7BB272094CB0097D82B /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
+		D242CEE92806D7CD007F2F4F /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D242CEEA2806D7CD007F2F4F /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D242CEEB2806D7CE007F2F4F /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D242CEEC2806D7CE007F2F4F /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
+		D242CEEE2806EAAA007F2F4F /* CountryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242CEED2806EAAA007F2F4F /* CountryListController.swift */; };
 		D277555228004AE8005FEE00 /* VCCredentialsViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */; };
 		D277555428004B07005FEE00 /* SHCCredentialsViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */; };
 		D277555628007998005FEE00 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
@@ -223,6 +225,7 @@
 		D21B5819274D4E5A0040D4E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D21B581B274D4E5C0040D4E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ScanCertificateController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
+		D242CEED2806EAAA007F2F4F /* CountryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListController.swift; sourceTree = "<group>"; };
 		D26F952A274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VCCredentialsViewer.storyboard; sourceTree = "<group>"; };
@@ -486,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				CE59D1B526428D78004EBDD6 /* SettingsController.swift */,
+				D242CEED2806EAAA007F2F4F /* CountryListController.swift */,
 				D277555828033DF1005FEE00 /* DataManagerController.swift */,
 				DA793257265BBFB50043BA06 /* LicenseTableController.swift */,
 				D2158142273184E200C98986 /* LicenseController.swift */,
@@ -650,11 +654,11 @@
 			files = (
 				D277555428004B07005FEE00 /* SHCCredentialsViewer.storyboard in Resources */,
 				CE345FAF264466AA003B457E /* DCCCertificateViewer.storyboard in Resources */,
+				D242CEE92806D7CD007F2F4F /* context.jsonc in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				D277555228004AE8005FEE00 /* VCCredentialsViewer.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
-				D2387C5927450F9100C55DF7 /* context.jsonc in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
 				DA81E47E265E71B500C9F732 /* OpenSourceNotices.json in Resources */,
 				CEA6D6F3261F8D2700715333 /* Main.storyboard in Resources */,
@@ -668,8 +672,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2F6552827ECEAAF004C7D4B /* LaunchScreen.storyboard in Resources */,
+				D242CEEA2806D7CD007F2F4F /* context.jsonc in Resources */,
 				D2F6553627ECEAEA004C7D4B /* InfoPlist.strings in Resources */,
-				D2387C5A27450F9200C55DF7 /* context.jsonc in Resources */,
 				D2F6553327ECEAE6004C7D4B /* Localizable.strings in Resources */,
 				D2F6552E27ECEABB004C7D4B /* Settings.storyboard in Resources */,
 				D2F6552C27ECEAB6004C7D4B /* DCCCertificateViewer.storyboard in Resources */,
@@ -683,8 +687,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2F6552927ECEAB0004C7D4B /* LaunchScreen.storyboard in Resources */,
+				D242CEEB2806D7CE007F2F4F /* context.jsonc in Resources */,
 				D2F6553727ECEAEA004C7D4B /* InfoPlist.strings in Resources */,
-				D2387C5B27450F9200C55DF7 /* context.jsonc in Resources */,
 				D2F6553427ECEAE6004C7D4B /* Localizable.strings in Resources */,
 				D2F6552F27ECEABC004C7D4B /* Settings.storyboard in Resources */,
 				D2F6552D27ECEAB7004C7D4B /* DCCCertificateViewer.storyboard in Resources */,
@@ -698,6 +702,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2F6553527ECEAE7004C7D4B /* Localizable.strings in Resources */,
+				D242CEEC2806D7CE007F2F4F /* context.jsonc in Resources */,
 				D2F6553827ECEAEB004C7D4B /* InfoPlist.strings in Resources */,
 				D3594C3A27DAE077002847E3 /* testHash in Resources */,
 				D3594C3827D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz in Resources */,
@@ -752,6 +757,7 @@
 				D2158143273184E200C98986 /* LicenseController.swift in Sources */,
 				CE891305263581D900CB92AF /* HomeController.swift in Sources */,
 				CE59D1B626428D78004EBDD6 /* SettingsController.swift in Sources */,
+				D242CEEE2806EAAA007F2F4F /* CountryListController.swift in Sources */,
 				D2D8F2BF27F5D49B00508610 /* DebugSectionModel.swift in Sources */,
 				5CA450A626E0BA640029324E /* DebugController.swift in Sources */,
 				5CA4509C26DCCA770029324E /* NFCHelper.swift in Sources */,
@@ -1057,7 +1063,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1065,7 +1071,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
@@ -1082,7 +1088,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1090,7 +1096,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";

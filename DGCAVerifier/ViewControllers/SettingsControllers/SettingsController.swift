@@ -37,12 +37,13 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         static let licenseSegueID = "LicensesVC"
         static let debugSegueID = "DebugVC"
         static let showDataManager = "showDataManager"
+        static let showCountryList = "showCountryList"
     }
     
     weak var delegate: DebugControllerDelegate?
     weak var dismissDelegate: DismissControllerDelegate?
     var isNavigating = false
-    
+    var isDCCAdded = false
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
     @IBOutlet fileprivate weak var licensesLabelName: UILabel!
     @IBOutlet fileprivate weak var privacyLabelName: UILabel!
@@ -50,15 +51,49 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     @IBOutlet fileprivate weak var debugLabel: UILabel!
     @IBOutlet fileprivate weak var versionLabel: UILabel!
     @IBOutlet fileprivate weak var manageDataLabel: UILabel!
-    
+    @IBOutlet fileprivate weak var countryTitleLabel: UILabel!
+    @IBOutlet fileprivate weak var selectedCountryLabel: UILabel!
+
+#if canImport(DCCInspection)
+
+    private var selectedCounty: CountryModel? {
+        set {
+            let encoder = JSONEncoder()
+            do {
+                let data = try encoder.encode(newValue)
+                UserDefaults.standard.set(data, forKey: AppManager.userDefaultsCountryKey)
+            } catch {
+                DGCLogger.logError(error)
+            }
+        }
+        get {
+            if let data = UserDefaults.standard.data(forKey: AppManager.userDefaultsCountryKey) {
+                let decoder = JSONDecoder()
+                do {
+                    let object = try decoder.decode(CountryModel.self, from: data)
+                    return object
+                } catch {
+                    DGCLogger.logError(error)
+                }
+            }
+            return nil
+        }
+    }
+#endif
+
     override func viewDidLoad() {
         super.viewDidLoad()
         var filterType: String = ""
         var colaboratorsType = ""
+        selectedCountryLabel.text = ""
+        
+        selectedCountryLabel.text = ""
         #if canImport(DCCInspection)
+            isDCCAdded = true
             filterType = sliceType.rawValue.uppercased().contains("BLOOM") ? "BLOOM" : "HASH"
             let link = DCCDataCenter.localDataManager.versionedConfig["context"]["url"].rawString()
             colaboratorsType = link!.contains("acc2") ? "ACC2" : "TST"
+            selectedCountryLabel.text = selectedCounty?.name
         #endif
         
         appNameLabel.text = (Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String) +
@@ -69,13 +104,16 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         privacyLabelName.text = "Privacy Information".localized
         manageDataLabel.text = "Manage Data".localized
         versionLabel.text = AppManager.appVersion
-        
-        updateInterface()
+        countryTitleLabel.text = "DCC Country Code"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isNavigating = false
+        updateInterface()
+        #if canImport(DCCInspection)
+            selectedCountryLabel.text = selectedCounty?.name
+        #endif
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -119,45 +157,54 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
             }
         case 2:
             showDataManager()
+        case 3:
+            showCountryList()
+            
         default:
             break
         }
     }
     
-    func openPrivacyDoc() {
-#if canImport(DCCInspection)
-        let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
-        openUrl(link)
-#endif
+    private func openPrivacyDoc() {
+        if isDCCAdded {
+            let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
+            openUrl(link)
+        }
     }
     
-    func openEuCertDoc() {
+    private func openEuCertDoc() {
         let link = DGCVerificationCenter.SharedLinks.linkToOopenEuCertDoc
         openUrl(link)
     }
     
-    func openGitHubSource() {
+    private func openGitHubSource() {
         let link = DGCVerificationCenter.SharedLinks.linkToOpenGitHubSource
         openUrl(link)
     }
     
-    func openDebugSettings() {
+    private func openDebugSettings() {
         performSegue(withIdentifier: Constants.debugSegueID, sender: self)
     }
     
-    func openLicenses() {
+    private func openLicenses() {
         isNavigating = true
         performSegue(withIdentifier: Constants.licenseSegueID, sender: self)
     }
     
-    func openUrl(_ string: String!) {
+    private func openUrl(_ string: String!) {
         if let url = URL(string: string) {
             UIApplication.shared.open(url)
         }
     }
     
-    func showDataManager() {
+    private func showDataManager() {
         performSegue(withIdentifier: Constants.showDataManager, sender: self)
+    }
+    
+    private func showCountryList() {
+        if isDCCAdded {
+            performSegue(withIdentifier: Constants.showCountryList, sender: self)
+        }
     }
     
     @IBAction func dismissAction() {
