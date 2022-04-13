@@ -40,13 +40,12 @@ protocol DataManagingProtocol: AnyObject {
 }
 
 class DataManagerController: UITableViewController {
-
     var applicableInspectors: [ApplicableInspector] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Verifiable Certificates".localized
+        title = "Applicable Types".localized
         applicableInspectors = AppManager.shared.verificationCenter.applicableInspectors
     }
 
@@ -72,7 +71,6 @@ class DataManagerController: UITableViewController {
     
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -85,7 +83,7 @@ class DataManagerController: UITableViewController {
         let message = "Please check the internet connection and try again.".localized
         
         let infoAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Continue", style: .default) { action in
+        let action = UIAlertAction(title: "Continue".localized, style: .default) { action in
             self.tableView.reloadData()
         }
         infoAlertController.addAction(action)
@@ -97,13 +95,12 @@ class DataManagerController: UITableViewController {
         let message = ""
         
         let infoAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Continue", style: .default) { action in
+        let action = UIAlertAction(title: "Continue".localized, style: .default) { action in
             self.tableView.reloadData()
         }
         infoAlertController.addAction(action)
         self.present(infoAlertController, animated: true)
     }
-
 }
 
 extension DataManagerController: DataManagingProtocol {
@@ -118,5 +115,4 @@ extension DataManagerController: DataManagingProtocol {
             self.tableView.reloadData()
         }
     }
-
 }

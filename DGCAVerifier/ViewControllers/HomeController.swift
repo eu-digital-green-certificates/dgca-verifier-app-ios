@@ -109,7 +109,7 @@ class HomeController: UIViewController {
     }
     
     func showAlertCannotReload() {
-        let alert = UIAlertController(title: "Cannot update stored data".localized, message: "You can continue working. Please update your data later.".localized, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Cannot update stored data".localized, message: "Please update your data later.".localized, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Later".localized, style: .default, handler: { _ in
             self.activityIndicator.stopAnimating()

@@ -52,11 +52,10 @@
 "Privacy Information" = "Privacy Information";
 "Select countrys" = "Select countrys";
 "Country codes list empty" = "Country codes list empty";
-"Barcode Error" = "Barcode Error";
+"Cannot read Barcode" = "Cannot read Barcode";
 "Cannot Find Camera" = "Cannot Find Camera";
 "There seems to be a problem with the camera on your device." = "There seems to be a problem with the camera on your device.";
-"Camera Permissions" = "Camera Permissions";
-"Please open Settings and grant permission for this app to use your camera." = "Please open Settings and grant permission for this app to use your camera.";
+"Please open the Settings and grant permission for this app to use your camera." = "Please open the Settings and grant permission for this app to use your camera.";
 "Something went wrong." = "Something went wrong.";
 "Select Country of CertLogic Rule" = "Select Country of CertLogic Rule";
 
@@ -84,3 +83,11 @@
 "Cannot load data" = "Cannot load data";
 "Please check the internet connection and try again." = "Please check the internet connection and try again.";
 "Stored data is up to date" = "Stored data is up to date";
+"Please update your data later." = "Please update your data later.";
+"Reload" = "Reload";
+"Later" = "Later";
+"Reload databases?" = "Reload databases?";
+"The update may take some time." = "The update may take some time.";
+"Verifier App would like to access the camera" = "Verifier App would like to access the camera";
+"Applicable Types" = "Applicable Types";
+"Continue" = "Continue";

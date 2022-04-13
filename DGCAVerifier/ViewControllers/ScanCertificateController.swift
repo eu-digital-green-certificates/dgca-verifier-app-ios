@@ -74,7 +74,7 @@ class ScanCertificateController: UIViewController {
     
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
         guard error == nil else {
-            self.showAlert(withTitle: "Barcode Error".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
+            self.showAlert(withTitle: "Cannot read Barcode".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
             return
         }
         self.processClassification(request)
@@ -297,8 +297,8 @@ class ScanCertificateController: UIViewController {
     }
     
     private func showPermissionsAlert() {
-      showAlert(withTitle: "Camera Permissions".localized,
-          message: "Please open Settings and grant permission for this app to use your camera.".localized)
+      showAlert(withTitle: "Verifier App would like to access the camera".localized,
+          message: "Please open the Settings and grant permission for this app to use your camera.".localized)
     }
     
     private func disableBackgroundDetection() {
@@ -314,7 +314,7 @@ class ScanCertificateController: UIViewController {
 extension ScanCertificateController {
     func scannerDidFailWithError(error: Error) {
         DispatchQueue.main.async {
-            self.showAlert(withTitle: "Barcode Error".localized, message: "Something went wrong.".localized)
+            self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Something went wrong.".localized)
         }
     }
     
