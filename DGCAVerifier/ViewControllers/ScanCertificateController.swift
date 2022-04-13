@@ -181,7 +181,7 @@ class ScanCertificateController: UIViewController {
         }
     }
 
-  // MARK: - Navigation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case Constants.showDCCCertificate:
@@ -279,13 +279,13 @@ class ScanCertificateController: UIViewController {
     }
     
     private func configurePreviewLayer() {
-      guard let captureSession = captureSession else { return }
-      
-      let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-      cameraPreviewLayer.videoGravity = .resizeAspectFill
-      cameraPreviewLayer.connection?.videoOrientation = .portrait
-      cameraPreviewLayer.frame = view.frame
-      camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+        guard let captureSession = captureSession else { return }
+        
+        let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        cameraPreviewLayer.videoGravity = .resizeAspectFill
+        cameraPreviewLayer.connection?.videoOrientation = .portrait
+        cameraPreviewLayer.frame = view.frame
+        camView.layer.insertSublayer(cameraPreviewLayer, at: 0)
     }
     
     private func showAlert(withTitle title: String, message: String) {
@@ -297,8 +297,8 @@ class ScanCertificateController: UIViewController {
     }
     
     private func showPermissionsAlert() {
-      showAlert(withTitle: "Verifier App would like to access the camera".localized,
-          message: "Please open the Settings and grant permission for this app to use your camera.".localized)
+        showAlert(withTitle: "Verifier App would like to access the camera".localized,
+            message: "Please open the Settings and grant permission for this app to use your camera.".localized)
     }
     
     private func disableBackgroundDetection() {
