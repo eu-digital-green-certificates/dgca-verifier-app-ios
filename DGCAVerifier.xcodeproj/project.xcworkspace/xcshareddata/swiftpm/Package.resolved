@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift",
         "state": {
           "branch": null,
-          "revision": "12f2389aca4a07e0dd54c86ec23d0721ed88b8db",
-          "version": "1.4.3"
+          "revision": "4c4662dcff510fe0c74323279711daed16f08528",
+          "version": "1.5.0"
         }
       },
       {
@@ -96,7 +96,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection.git",
         "state": {
           "branch": "main",
-          "revision": "9ee071ba576b00ed417c5a9e2d57af885beba5bf",
+          "revision": "0970ab48c6df601a998e9f2a54841cf7961b75e6",
           "version": null
         }
       },

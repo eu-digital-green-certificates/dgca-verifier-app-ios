@@ -227,7 +227,7 @@ class ScanCertificateController: UIViewController {
         captureSession?.stopRunning()
         activityHeaderView.isHidden = true
         activityIndicator.startAnimating()
-
+        
         verificationCenter.updateStoredData(appType: .verifier) { [unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
@@ -467,12 +467,25 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
 extension ScanCertificateController {
     func onNFCResult(success: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
-        guard success else { return }
-            let countryCode = self.selectedCounty?.code
-        if let certificate = MultiTypeCertificate(from: message, ruleCountryCode: countryCode) {
-            scannerDidScanCertificate(certificate)
+        guard success, !message.isEmpty else { return }
+        if CertificateApplicant.isApplicableDCCFormat(payload: message) {
+            if self.selectedCounty == nil {
+                self.barcodeString = message
+                showDCCCountryList()
+                
+            } else if self.barcodeString == nil {
+                let countryCode = self.selectedCounty?.code
+                if let certificate = MultiTypeCertificate(from: message, ruleCountryCode: countryCode) {
+                    scannerDidScanCertificate(certificate)
+                }
+            }
+        
+        } else if CertificateApplicant.isApplicableICAOFormat(payload: message) {
+            
+        } else if CertificateApplicant.isApplicableDIVOCFormat(payload: message) {
+            
         } else {
-            DGCLogger.logInfo("Error when validating the certificate from NFC? \(message)")
+            DGCLogger.logInfo("Cannot applicate \(message) to any available type")
             //scannerDidFailWithError(error: error)
         }
     }

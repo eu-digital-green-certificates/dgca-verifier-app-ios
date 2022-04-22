@@ -46,7 +46,7 @@ class HomeController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
       return .lightContent
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         appNameLabel.text = "Verifier App".localized
