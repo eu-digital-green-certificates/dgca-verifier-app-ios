@@ -60,6 +60,7 @@ class CardContainerController: UIViewController {
     
 	private func setupView() {
         self.saveButton.isHidden = editMode
+        self.saveButton.setTitle("Retry".localized, for: .normal)
     }
     	
 	@IBAction func didPressDoneBtn(_ sender: UIButton) {
@@ -68,29 +69,7 @@ class CardContainerController: UIViewController {
 	}
 	
 	@IBAction func didPressSaveBtn(_ sender: UIButton) {
-        #if canImport(DGCSHInspection)
-
-        guard let shCert = certificate?.digitalCertificate as? SHCert else { return }
-
-        SHDataCenter.shDataManager.add(shCert) { result in
-            if case .success = result {
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Smart Helth Card saved successfully".localized, subtitle: "Your card is now awailable in the Wallet App".localized) { _ in
-                        self.dismiss(animated: true)
-                        self.dismissDelegate?.userDidDissmis(self)
-                    }
-                }
-
-            } else if case .failure(let error) = result {
-                DispatchQueue.main.async {
-                    DGCLogger.logError(error)
-                    self.showAlert(title: "Cannot save Smart Helth Card".localized, subtitle: "An error occurred while saving".localized) { _ in
-                        self.dismiss(animated: true)
-                        self.dismissDelegate?.userDidDissmis(self)
-                    }
-                }
-            }
-        }
-        #endif
+        self.dismiss(animated: true)
+        self.dismissDelegate?.userDidDissmis(self)
     }
 }
