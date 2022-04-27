@@ -30,7 +30,7 @@ let debugKey = "UDDebugSwitchConstants"
 let logLevelKey = "UDLogLevelConstants"
 
 import Foundation
- 
+
 enum DebugLevel: Int {
   case level1 = 0
   case level2

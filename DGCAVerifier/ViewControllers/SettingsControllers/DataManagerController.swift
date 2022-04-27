@@ -64,7 +64,7 @@ class DataManagerController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CertTypeCell", for: indexPath) as! CertTypeCell
 
-        cell.applicant = applicableInspectors[indexPath.row]
+        cell.applicableInspector = applicableInspectors[indexPath.row]
         cell.delegate = self
         return cell
     }

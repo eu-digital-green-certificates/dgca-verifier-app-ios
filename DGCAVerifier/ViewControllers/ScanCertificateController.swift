@@ -46,7 +46,6 @@ class ScanCertificateController: UIViewController {
         static let showDCCCertificate = "showDCCCertificate"
         static let showICAOCertificate = "showICAOCertificate"
         static let showDIVOCCertificate = "showDIVOCCertificate"
-        static let showVCCredentials = "showVCCredentials"
         static let showSHCCredentials = "showSHCCredentials"
     }
     
@@ -173,7 +172,7 @@ class ScanCertificateController: UIViewController {
         hideDCCCountryList()
         if let barcodeString = barcodeString,
             let countryCode = self.selectedCounty?.code,
-            let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
+            let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
             
             self.barcodeString = nil
             scannerDidScanCertificate(certificate)
@@ -199,24 +198,17 @@ class ScanCertificateController: UIViewController {
             break
             // TODO: Add ICAO viewer controller
             
-        case Constants.showICAOCertificate:
+        case Constants.showSHCCredentials:
             break
-            // TODO: Add DIVOC viewer controller
-
-        case Constants.showVCCredentials:
-            break
-            // TODO: Add VC credentials controller
+            // TODO: Add SHCCredentials viewer controller
             
-        case Constants.showICAOCertificate:
-            break
-            // TODO: Add DIVOC controller
-
         case Constants.showSettingsSegueID:
             if let navController = segue.destination as? UINavigationController,
                 let destinationController = navController.viewControllers.last as? SettingsController {
                 navController.presentationController?.delegate = self
                 destinationController.dismissDelegate = self
             }
+            
         default:
             break
         }
@@ -410,7 +402,7 @@ private extension ScanCertificateController {
                 
             } else if self.barcodeString == nil {
                 let countryCode = self.selectedCounty?.code
-                if let certificate = MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
+                if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
                     scannerDidScanCertificate(certificate)
                 }
             }
@@ -475,7 +467,7 @@ extension ScanCertificateController {
                 
             } else if self.barcodeString == nil {
                 let countryCode = self.selectedCounty?.code
-                if let certificate = MultiTypeCertificate(from: message, ruleCountryCode: countryCode) {
+                if let certificate = try? MultiTypeCertificate(from: message, ruleCountryCode: countryCode) {
                     scannerDidScanCertificate(certificate)
                 }
             }

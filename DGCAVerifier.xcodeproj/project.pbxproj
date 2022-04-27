@@ -62,7 +62,6 @@
 		D242CEEB2806D7CE007F2F4F /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D242CEEC2806D7CE007F2F4F /* context.jsonc in Resources */ = {isa = PBXBuildFile; fileRef = 5CFEDB0A269D72B600074F66 /* context.jsonc */; };
 		D242CEEE2806EAAA007F2F4F /* CountryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D242CEED2806EAAA007F2F4F /* CountryListController.swift */; };
-		D277555228004AE8005FEE00 /* VCCredentialsViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */; };
 		D277555428004B07005FEE00 /* SHCCredentialsViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */; };
 		D277555628007998005FEE00 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
 		D277555928033DF1005FEE00 /* DataManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555828033DF1005FEE00 /* DataManagerController.swift */; };
@@ -228,7 +227,6 @@
 		D242CEED2806EAAA007F2F4F /* CountryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListController.swift; sourceTree = "<group>"; };
 		D26F952A274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D26F952B274D02BA006379BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VCCredentialsViewer.storyboard; sourceTree = "<group>"; };
 		D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SHCCredentialsViewer.storyboard; sourceTree = "<group>"; };
 		D277555528007998005FEE00 /* RoundedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedBox.swift; sourceTree = "<group>"; };
 		D277555828033DF1005FEE00 /* DataManagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerController.swift; sourceTree = "<group>"; };
@@ -346,7 +344,6 @@
 				CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */,
 				CEA6D6F1261F8D2700715333 /* Main.storyboard */,
 				CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */,
-				D277555128004AE8005FEE00 /* VCCredentialsViewer.storyboard */,
 				D277555328004B07005FEE00 /* SHCCredentialsViewer.storyboard */,
 				CE345FAE26446694003B457E /* Settings.storyboard */,
 			);
@@ -656,7 +653,6 @@
 				CE345FAF264466AA003B457E /* DCCCertificateViewer.storyboard in Resources */,
 				D242CEE92806D7CD007F2F4F /* context.jsonc in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
-				D277555228004AE8005FEE00 /* VCCredentialsViewer.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
 				CE345FB426446817003B457E /* Localizable.strings in Resources */,
 				CEA6D6F5261F8D2900715333 /* Assets.xcassets in Resources */,
@@ -1063,7 +1059,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1088,7 +1084,7 @@
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9FH6TNGWF2;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

@@ -80,7 +80,7 @@ class DCCViewerController: UIViewController {
         
         let validityState = AppManager.shared.verificationCenter.dccInspector?.validateCertificate(cert)
         
-        if let state = validityState as? ValidityState {
+        if let state = validityState {
             if state.isVerificationFailed {
                 let codes = DCCDataCenter.countryCodes
                 let country = cert.ruleCountryCode ?? ""

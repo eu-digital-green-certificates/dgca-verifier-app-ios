@@ -27,7 +27,7 @@
         
 
 import UIKit
-import DCCInspection
+import DGCCoreLibrary
 
 enum Icons: String {
   case ok = "\u{f00c}"

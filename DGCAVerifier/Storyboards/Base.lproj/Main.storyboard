@@ -151,7 +151,6 @@
                         <outlet property="verificationButton" destination="lvh-lS-Frs" id="IZq-Go-mh8"/>
                         <segue destination="Bq5-EK-ZXe" kind="presentation" identifier="showSettingsSegueID" id="AUB-ge-vqn"/>
                         <segue destination="aag-vh-0jp" kind="presentation" identifier="showDCCCertificate" id="6bX-o3-GKF"/>
-                        <segue destination="Xi7-RT-lfv" kind="presentation" identifier="showVCCredentials" id="Vhh-Ls-lZi"/>
                         <segue destination="mvY-ol-Lde" kind="presentation" identifier="showSHCCredentials" id="AQ7-9F-73Q"/>
                     </connections>
                 </viewController>
@@ -174,14 +173,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7CM-GC-6sP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1351" y="96"/>
-        </scene>
-        <!--VCCredentialsViewer-->
-        <scene sceneID="bCq-0S-MKb">
-            <objects>
-                <viewControllerPlaceholder storyboardName="VCCredentialsViewer" id="Xi7-RT-lfv" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xTU-5i-NVF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1349" y="147"/>
         </scene>
         <!--SHCCredentialsViewer-->
         <scene sceneID="Ypd-5H-2ii">

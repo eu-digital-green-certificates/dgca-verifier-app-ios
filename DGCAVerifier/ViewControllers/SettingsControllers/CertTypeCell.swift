@@ -39,26 +39,28 @@ class CertTypeCell: UITableViewCell {
 
     var delegate: DataManagingProtocol?
     
-    var applicant: ApplicableInspector? {
+    var applicableInspector: ApplicableInspector? {
         didSet {
-            certTypeName.text = applicant?.type.certificateDescription
-            certTaskName.text = applicant?.type.certificateTaskDescription
-            let dateString = applicant?.inspector.lastUpdate.dateTimeString ?? ""
+            certTypeName.text = applicableInspector?.type.certificateDescription
+            certTaskName.text = applicableInspector?.type.certificateTaskDescription
+            let dateString = applicableInspector?.inspector.lastUpdate.dateTimeString ?? ""
             lastUpdateLabel.text = "Last updated: " + dateString
         }
     }
     
     @IBAction func reloadDataAction() {
         activityIndicator.startAnimating()
-        applicant?.inspector.updateLocallyStoredData(appType: .verifier) { [weak self] rezult in
+        guard let applicableInspector = applicableInspector else { return }
+        
+        applicableInspector.inspector.updateLocallyStoredData(appType: .verifier) { [weak self] rezult in
             if case let .failure(error) = rezult {
-                self?.delegate?.loadingInspector(self!.applicant!, didFailLoadingDataWith: error)
+                self?.delegate?.loadingInspector(applicableInspector, didFailLoadingDataWith: error)
                 return
             }
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
             }
-            self?.delegate?.loadingInspector(self!.applicant!, didFinishLoadingData: true)
+            self?.delegate?.loadingInspector(self!.applicableInspector!, didFinishLoadingData: true)
         }
 
     }
