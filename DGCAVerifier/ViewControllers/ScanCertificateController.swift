@@ -19,6 +19,7 @@
  */
 //
 //  ScanCertificateController.swift
+//  DGCAVerifier
 //
 //  Created by Yannick Spreen on 4/8/21.
 //
@@ -199,9 +200,14 @@ class ScanCertificateController: UIViewController {
             // TODO: Add ICAO viewer controller
             
         case Constants.showSHCCredentials:
-            break
-            // TODO: Add SHCCredentials viewer controller
-            
+            guard let destinationController = segue.destination as? CardContainerController else { return }
+            if let certificate = sender as? MultiTypeCertificate {
+                destinationController.certificate = certificate
+                destinationController.presentationController?.delegate = self
+            }
+            destinationController.editMode = false
+            destinationController.dismissDelegate = self
+
         case Constants.showSettingsSegueID:
             if let navController = segue.destination as? UINavigationController,
                 let destinationController = navController.viewControllers.last as? SettingsController {
@@ -310,9 +316,22 @@ extension ScanCertificateController {
     }
     
     func scannerDidScanCertificate(_ certificate: MultiTypeCertificate) {
-        DispatchQueue.main.async {
-            self.captureSession?.stopRunning()
-            self.performSegue(withIdentifier: Constants.showDCCCertificate, sender: certificate)
+        DispatchQueue.main.async { [weak self] in
+            self?.captureSession?.stopRunning()
+            
+            switch certificate.certificateType {
+            case .unknown:
+                // TODO: Show Alert here
+                break
+            case .dcc:
+                self?.performSegue(withIdentifier: Constants.showDCCCertificate, sender: certificate)
+            case .icao:
+                self?.performSegue(withIdentifier: Constants.showICAOCertificate, sender: certificate)
+            case .divoc:
+                self?.performSegue(withIdentifier: Constants.showDIVOCCertificate, sender: certificate)
+            case .shc:
+                self?.performSegue(withIdentifier: Constants.showSHCCredentials, sender: certificate)
+            }
         }
     }
 }
@@ -411,9 +430,15 @@ private extension ScanCertificateController {
             
         } else if CertificateApplicant.isApplicableDIVOCFormat(payload: barcodeString) {
             
+        } else if CertificateApplicant.isApplicableSHCFormat(payload: barcodeString) {
+            if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: nil) {
+                scannerDidScanCertificate(certificate)
+            } else {
+                scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
+            }
         } else {
             DGCLogger.logInfo("Cannot applicate \(barcodeString) to any available type")
-            //scannerDidFailWithError(error: error)
+            scannerDidFailWithError(error: CertificateParsingError.unknownFormat)
         }
     }
 }
@@ -476,9 +501,15 @@ extension ScanCertificateController {
             
         } else if CertificateApplicant.isApplicableDIVOCFormat(payload: message) {
             
+        } else if CertificateApplicant.isApplicableSHCFormat(payload: message) {
+            if let certificate = try? MultiTypeCertificate(from: message, ruleCountryCode: nil) {
+                scannerDidScanCertificate(certificate)
+            } else {
+                scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
+            }
         } else {
             DGCLogger.logInfo("Cannot applicate \(message) to any available type")
-            //scannerDidFailWithError(error: error)
+            scannerDidFailWithError(error: CertificateParsingError.unknownFormat)
         }
     }
 }

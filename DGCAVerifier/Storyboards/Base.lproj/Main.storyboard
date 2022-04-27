@@ -174,10 +174,10 @@
             </objects>
             <point key="canvasLocation" x="1351" y="96"/>
         </scene>
-        <!--SHCCredentialsViewer-->
+        <!--SmartHealth-->
         <scene sceneID="Ypd-5H-2ii">
             <objects>
-                <viewControllerPlaceholder storyboardName="SHCCredentialsViewer" id="mvY-ol-Lde" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="SmartHealth" id="mvY-ol-Lde" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BME-zf-FZl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1354" y="201"/>
