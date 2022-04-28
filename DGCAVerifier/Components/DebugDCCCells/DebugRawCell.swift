@@ -73,22 +73,22 @@ class DebugRawCell: UITableViewCell, UIContextMenuInteractionDelegate {
     configurationForMenuAtLocation location: CGPoint)
     -> UIContextMenuConfiguration? {
 
-    let copy = UIAction(title: "Copy Raw Data",
+        let copy = UIAction(title: "Copy Raw Data".localized,
       image: UIImage(systemName: "doc.on.doc.fill")) { [unowned self] _ in
 
       UIPasteboard.general.string = self.rawLabel.text
      }
 
-    let share = UIAction(title: "Share Raw Data",
+        let share = UIAction(title: "Share Raw Data".localized,
       image: UIImage(systemName: "square.and.arrow.up.fill")) { [unowned self] _ in
       self.delegate?.userDidShare(text: self.rawLabel.text ?? "")
     }
     if let txt = self.rawLabel.text, !txt.isEmpty {
       return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-        UIMenu(title: "Actions", children: [ copy, share ])
+          UIMenu(title: "Actions".localized, children: [ copy, share ])
       }
     } else {
-      return nil
+        return nil
     }
   }
   

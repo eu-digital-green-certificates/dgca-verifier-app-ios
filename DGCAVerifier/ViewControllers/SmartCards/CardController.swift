@@ -81,7 +81,7 @@ class CardController: UIViewController {
         lastDoseLabel.text = shCert.dates.last?.string
         if shCert.firstName == "" && shCert.lastName == "" {
             self.invalidLabel.isHidden = false
-            self.invalidLabel.text = "Could not find valid payload information. Swipe right to view all collected data.".localized
+            self.invalidLabel.text = "Cannot find valid payload information. Swipe right to view all collected data.".localized
         }
     #endif
     }

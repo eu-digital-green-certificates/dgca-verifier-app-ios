@@ -175,15 +175,10 @@ class ScanCertificateController: UIViewController {
     
     @IBAction fileprivate func verificationAction() {
         hideDCCCountryList()
-        if let barcodeString = barcodeString,
-           let countryCode = self.selectedCounty?.code {
+        if let barcodeString = barcodeString, let _ = self.selectedCounty?.code {
             self.barcodeString = nil
             
-            if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
-                scannerDidScanCertificate(certificate)
-            }  else {
-                scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
-            }
+            observationHandler(payload: barcodeString)
             
         } else {
             self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Please select the country.".localized)
@@ -459,7 +454,7 @@ private extension ScanCertificateController {
             } catch CertificateParsingError.kidNotFound(let rawUrl) {
                 DGCLogger.logInfo("Error kidNotFound when parse SH card.")
                 self.showAlert(title: "Unknown issuer of Smart Card".localized,
-                    subtitle: "Do you want to continue to identify the issuer?",
+                        subtitle: "Do you want to continue to identify the issuer?".localized,
                     actionTitle: "Continue".localized,
                     cancelTitle: "Cancel".localized ) { response in
                     if response {
@@ -533,37 +528,8 @@ extension ScanCertificateController {
     func onNFCResult(success: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
         guard success, !message.isEmpty else { return }
-        if CertificateApplicant.isApplicableDCCFormat(payload: message) {
-            if self.selectedCounty == nil {
-                self.barcodeString = message
-                showDCCCountryList()
-                
-            } else if self.barcodeString == nil {
-                let countryCode = self.selectedCounty?.code
-                if let certificate = try? MultiTypeCertificate(from: message, ruleCountryCode: countryCode) {
-                    scannerDidScanCertificate(certificate)
-                } else {
-                    scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
-                }
-            }
         
-        } else if CertificateApplicant.isApplicableICAOFormat(payload: message) {
-            // TODO: add processing of ICAO format
-            
-        } else if CertificateApplicant.isApplicableDIVOCFormat(payload: message) {
-            // TODO: add processing of DIVOC format
-            
-        } else if CertificateApplicant.isApplicableSHCFormat(payload: message) {
-            if let certificate = try? MultiTypeCertificate(from: message, ruleCountryCode: nil) {
-                scannerDidScanCertificate(certificate)
-            } else {
-                scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
-            }
-            
-        } else {
-            DGCLogger.logInfo("Cannot applicate \(message) to any available type")
-            scannerDidFailWithError(error: CertificateParsingError.unknownFormat)
-        }
+        observationHandler(payload: message)
     }
 }
 

@@ -70,7 +70,6 @@
 "Traveller Acceptance" = "Regeln für Reisende";
 
 "Certificate was revoked" = "Certificate was revoked";
-
 "Downloading the certificate revocations database" = "Downloading the certificate revocations database";
 "Updating the certificate revocations database" = "Updating the certificate revocations database";
 "Downloading the certificate revocations metadata" = "Downloading the certificate revocations metadata";
@@ -100,3 +99,6 @@
 "Please select the country." = "Please select the country.";
 "Unknown issuer of Smart Card" = "Unknown issuer of Smart Card";
 "Do you want to continue to identify the issuer?" = "Do you want to continue to identify the issuer?";
+"Share Raw Data" = "Share Raw Data";
+"Actions" = "Actions";
+"Cannot find valid payload information. Swipe right to view all collected data." = "Cannot find valid payload information. Swipe right to view all collected data.";
