@@ -172,11 +172,17 @@ class ScanCertificateController: UIViewController {
     @IBAction fileprivate func verificationAction() {
         hideDCCCountryList()
         if let barcodeString = barcodeString,
-            let countryCode = self.selectedCounty?.code,
-            let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
-            
+           let countryCode = self.selectedCounty?.code {
             self.barcodeString = nil
-            scannerDidScanCertificate(certificate)
+            
+            if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
+                scannerDidScanCertificate(certificate)
+            }  else {
+                scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
+            }
+            
+        } else {
+            self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Please select the country.".localized)
         }
     }
 
@@ -185,7 +191,7 @@ class ScanCertificateController: UIViewController {
         switch segue.identifier {
         case Constants.showDCCCertificate:
             if let destinationController = segue.destination as? DCCViewerController,
-               let certificate = sender as? MultiTypeCertificate {
+                let certificate = sender as? MultiTypeCertificate {
                 destinationController.certificate = certificate
                 destinationController.presentationController?.delegate = self
                 destinationController.dismissDelegate = self
@@ -311,7 +317,14 @@ class ScanCertificateController: UIViewController {
 extension ScanCertificateController {
     func scannerDidFailWithError(error: Error) {
         DispatchQueue.main.async {
-            self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Something went wrong.".localized)
+            switch error {
+            case CertificateParsingError.invalidStructure:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Cryptographic signature is invalid".localized)
+            case CertificateParsingError.unknownFormat:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Unknown certificate type.".localized)
+            default:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Unknown barcode format.".localized)
+            }
         }
     }
     
@@ -410,7 +423,7 @@ private extension ScanCertificateController {
             }
         }
     }
-
+    
     func observationHandler(payload: String?) {
         guard let barcodeString = payload, !barcodeString.isEmpty else { return }
         
@@ -423,12 +436,16 @@ private extension ScanCertificateController {
                 let countryCode = self.selectedCounty?.code
                 if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
                     scannerDidScanCertificate(certificate)
+                } else {
+                    scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
                 }
             }
         
         } else if CertificateApplicant.isApplicableICAOFormat(payload: barcodeString) {
+            // TODO: add processing of ICAO format
             
         } else if CertificateApplicant.isApplicableDIVOCFormat(payload: barcodeString) {
+            // TODO: add processing of DIVOC format
             
         } else if CertificateApplicant.isApplicableSHCFormat(payload: barcodeString) {
             if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: nil) {
@@ -494,12 +511,16 @@ extension ScanCertificateController {
                 let countryCode = self.selectedCounty?.code
                 if let certificate = try? MultiTypeCertificate(from: message, ruleCountryCode: countryCode) {
                     scannerDidScanCertificate(certificate)
+                } else {
+                    scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
                 }
             }
         
         } else if CertificateApplicant.isApplicableICAOFormat(payload: message) {
+            // TODO: add processing of ICAO format
             
         } else if CertificateApplicant.isApplicableDIVOCFormat(payload: message) {
+            // TODO: add processing of DIVOC format
             
         } else if CertificateApplicant.isApplicableSHCFormat(payload: message) {
             if let certificate = try? MultiTypeCertificate(from: message, ruleCountryCode: nil) {
@@ -507,6 +528,7 @@ extension ScanCertificateController {
             } else {
                 scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
             }
+            
         } else {
             DGCLogger.logInfo("Cannot applicate \(message) to any available type")
             scannerDidFailWithError(error: CertificateParsingError.unknownFormat)

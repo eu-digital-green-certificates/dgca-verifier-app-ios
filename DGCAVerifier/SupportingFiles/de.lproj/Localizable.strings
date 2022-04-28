@@ -94,3 +94,7 @@
 "DCC Country Code" = "DCC Country Code";
 "DCC Country Codes" = "DCC Country Codes";
 "Continue Verification" = "Continue Verification";
+"Unknown barcode format." = "Unknown barcode format.";
+"Cryptographic signature is invalid" = "Cryptographic signature is invalid";
+"Unknown certificate type." = "Unknown certificate type.";
+"Please select the country." = "Please select the country.";
