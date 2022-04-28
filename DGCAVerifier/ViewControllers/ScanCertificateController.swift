@@ -141,7 +141,7 @@ class ScanCertificateController: UIViewController {
         countryCodeView.isHidden = false
         verificationButton.isHidden = true
         countryCodeLabel.text = "Select Country of CertLogic Rule".localized
-        let countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
+        let countryList = DGCVerificationCenter.countryCodes
         setListOfRuleCounties(list: countryList)
     }
     

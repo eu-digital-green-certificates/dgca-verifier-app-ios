@@ -28,7 +28,10 @@
 
 import UIKit
 import DGCCoreLibrary
+import DGCVerificationCenter
+#if canImport(DCCInspection)
 import DCCInspection
+#endif
 
 protocol DebugControllerDelegate: AnyObject {
     func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel)
@@ -41,11 +44,11 @@ class DebugController: UIViewController {
       static let selectedFontSize: CGFloat = 18
     }
 
-    @IBOutlet weak var debugSwitcher: UISwitch!
-    @IBOutlet weak var level1: UILabel!
-    @IBOutlet weak var level2: UILabel!
-    @IBOutlet weak var level3: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var debugSwitcher: UISwitch!
+    @IBOutlet fileprivate weak var level1: UILabel!
+    @IBOutlet fileprivate weak var level2: UILabel!
+    @IBOutlet fileprivate weak var level3: UILabel!
+    @IBOutlet fileprivate weak var tableView: UITableView!
     @IBOutlet fileprivate weak var selectCountriesLabel: UILabel!
     @IBOutlet fileprivate weak var debugModeLabel: UILabel!
 
@@ -58,7 +61,7 @@ class DebugController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        self.countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
+        self.countryList = DGCVerificationCenter.countryCodes
         self.tableView.reloadData()
         debugSwitcher.isOn = DebugManager.sharedInstance.isDebugMode
         
@@ -155,11 +158,7 @@ class DebugController: UIViewController {
 
 extension DebugController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if DebugManager.sharedInstance.isDebugMode {
-            return countryList.count
-        } else {
-            return 0
-        }
+        return DebugManager.sharedInstance.isDebugMode ? countryList.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -178,8 +177,11 @@ extension DebugController: UITableViewDataSource {
 extension DebugController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let countryModel = countryList[indexPath.row]
-        countryModel.debugModeEnabled = !countryModel.debugModeEnabled
-        DCCDataCenter.localDataManager.update(country: countryModel)
+
+        #if canImport(DCCInspection)
+            countryModel.debugModeEnabled = !countryModel.debugModeEnabled
+            DCCDataCenter.localDataManager.update(country: countryModel)
+        #endif
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = countryModel.debugModeEnabled ? .checkmark : .none
         }

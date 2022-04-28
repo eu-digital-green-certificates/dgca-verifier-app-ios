@@ -30,10 +30,6 @@ import UIKit
 import DGCVerificationCenter
 import DGCCoreLibrary
 
-#if canImport(DCCInspection)
-import DCCInspection
-#endif
-
 protocol DataManagingProtocol: AnyObject {
     func loadingInspector(_ inspector: ApplicableInspector, didFinishLoadingData value: Bool)
     func loadingInspector(_ inspector: ApplicableInspector, didFailLoadingDataWith error: Error)
@@ -69,15 +65,6 @@ class DataManagerController: UITableViewController {
         return cell
     }
     
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     private func showAlertCannotReload() {
         let title = "Cannot update stored data".localized
         let message = "Please check the internet connection and try again.".localized

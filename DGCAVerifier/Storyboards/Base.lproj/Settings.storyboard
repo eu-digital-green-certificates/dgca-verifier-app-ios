@@ -151,14 +151,14 @@
                             <tableViewSection headerTitle="Trusted Public Keys and Revocation Data" id="eFb-hd-Bdj" userLabel="Trusted Public Keys, Revocation Data">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PNB-E7-7Sz">
-                                        <rect key="frame" x="0.0" y="317" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="317" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNB-E7-7Sz" id="r9F-Dp-Vgr">
-                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZh-NG-LMB">
-                                                    <rect key="frame" x="20" y="11" width="107" height="22"/>
+                                                    <rect key="frame" x="20" y="11" width="107" height="22.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" name="verifierBlue"/>
                                                     <nil key="highlightedColor"/>
@@ -177,7 +177,7 @@
                             <tableViewSection id="25u-NP-7ji">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="49" id="M64-Tt-fZ6">
-                                        <rect key="frame" x="0.0" y="397" width="414" height="49"/>
+                                        <rect key="frame" x="0.0" y="397.5" width="414" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M64-Tt-fZ6" id="CqR-xO-0VF">
                                             <rect key="frame" x="0.0" y="0.0" width="385.5" height="49"/>
@@ -332,8 +332,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8lQ-1B-URM">
-                                <rect key="frame" x="197" y="508" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8lQ-1B-URM">
+                                <rect key="frame" x="188.5" y="499.5" width="37" height="37"/>
                                 <color key="color" systemColor="secondaryLabelColor"/>
                             </activityIndicatorView>
                         </subviews>
@@ -612,6 +612,7 @@
                                         </label>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6hP-FB-dzw">
                                             <rect key="frame" x="20" y="131.5" width="20" height="20"/>
+                                            <color key="color" systemColor="secondaryLabelColor"/>
                                         </activityIndicatorView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8Z-ZF-ela" customClass="RoundedButton" customModule="DGCAVerifier" customModuleProvider="target">
                                             <rect key="frame" x="107" y="123" width="200" height="37"/>
@@ -622,7 +623,7 @@
                                             <color key="tintColor" name="verifierBlue"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Reload Data">
-                                                <fontDescription key="titleFontDescription" type="boldSystem" pointSize="19"/>
+                                                <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
                                             </buttonConfiguration>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="radius">
@@ -691,7 +692,7 @@
     </scenes>
     <designables>
         <designable name="m8Z-ZF-ela">
-            <size key="intrinsicContentSize" width="133" height="37"/>
+            <size key="intrinsicContentSize" width="137.5" height="38"/>
         </designable>
     </designables>
     <resources>

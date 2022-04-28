@@ -28,6 +28,8 @@
 
 import XCTest
 @testable import DGCAVerifier
+#if canImport(DCCInspection)
+
 import DCCInspection
 
 let mockRevocationListsResponse = """
@@ -256,3 +258,4 @@ class MockRevocationService: RevocationServiceProtocol {
 //        }
 //    }
 //}
+#endif

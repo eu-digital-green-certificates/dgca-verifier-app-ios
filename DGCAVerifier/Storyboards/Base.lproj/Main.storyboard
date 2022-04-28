@@ -41,7 +41,10 @@
                                         <real key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -77,6 +80,8 @@
                                     <constraint firstItem="Kmt-XU-cwz" firstAttribute="leading" secondItem="gKS-9P-FHm" secondAttribute="leading" constant="20" id="Bgp-3c-AyE"/>
                                     <constraint firstItem="Kmt-XU-cwz" firstAttribute="centerY" secondItem="gKS-9P-FHm" secondAttribute="centerY" id="IqR-Py-tAg"/>
                                     <constraint firstAttribute="height" constant="50" id="OlB-f7-toi"/>
+                                    <constraint firstItem="lvh-lS-Frs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gKS-9P-FHm" secondAttribute="leading" constant="20" id="YIk-TO-Pls"/>
+                                    <constraint firstItem="lvh-lS-Frs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kmt-XU-cwz" secondAttribute="trailing" constant="-220" id="Ylq-Eh-YKt"/>
                                     <constraint firstItem="lvh-lS-Frs" firstAttribute="centerY" secondItem="gKS-9P-FHm" secondAttribute="centerY" id="qH4-fr-7dg"/>
                                     <constraint firstAttribute="trailing" secondItem="lvh-lS-Frs" secondAttribute="trailing" constant="20" symbolic="YES" id="yRQ-TE-52G"/>
                                 </constraints>

@@ -44,6 +44,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     weak var dismissDelegate: DismissControllerDelegate?
     var isNavigating = false
     var isDCCAdded = false
+    
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
     @IBOutlet fileprivate weak var licensesLabelName: UILabel!
     @IBOutlet fileprivate weak var privacyLabelName: UILabel!
@@ -53,8 +54,6 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     @IBOutlet fileprivate weak var manageDataLabel: UILabel!
     @IBOutlet fileprivate weak var countryTitleLabel: UILabel!
     @IBOutlet fileprivate weak var selectedCountryLabel: UILabel!
-
-#if canImport(DCCInspection)
 
     private var selectedCounty: CountryModel? {
         set {
@@ -79,21 +78,22 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
             return nil
         }
     }
-#endif
 
     override func viewDidLoad() {
         super.viewDidLoad()
         var filterType: String = ""
         var colaboratorsType = ""
         selectedCountryLabel.text = ""
-        
         selectedCountryLabel.text = ""
+        
         #if canImport(DCCInspection)
             isDCCAdded = true
             filterType = sliceType.rawValue.uppercased().contains("BLOOM") ? "BLOOM" : "HASH"
             let link = DCCDataCenter.localDataManager.versionedConfig["context"]["url"].rawString()
             colaboratorsType = link!.contains("acc2") ? "ACC2" : "TST"
             selectedCountryLabel.text = selectedCounty?.name
+        #else
+            countryTitleLabel.textColor = .gray
         #endif
         
         appNameLabel.text = (Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String) +
@@ -155,8 +155,10 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
             } else if indexPath.row == 2 {
                 openDebugSettings()
             }
+            
         case 2:
             showDataManager()
+            
         case 3:
             showCountryList()
             
@@ -166,10 +168,10 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
     
     private func openPrivacyDoc() {
-        if isDCCAdded {
+        #if canImport(DCCInspection)
             let link = DCCDataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
             openUrl(link)
-        }
+        #endif
     }
     
     private func openEuCertDoc() {

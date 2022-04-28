@@ -235,20 +235,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfC-bY-oMP">
-                                <rect key="frame" x="7" y="54" width="110" height="35"/>
+                                <rect key="frame" x="6.9999999999999929" y="54" width="119.33333333333331" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ZfC-bY-oMP" secondAttribute="height" multiplier="22:7" id="ZHL-wF-pBx"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" titleAlignment="leading">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Done">
-                                            <attributes>
-                                                <font key="NSFont" size="18" name="Helvetica-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <buttonConfiguration key="configuration" style="plain" title="Done" titleAlignment="leading">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="didPressDoneBtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kma-1C-jdk"/>
@@ -269,7 +263,7 @@
                                         <real key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" name="AccentColor"/>
@@ -280,7 +274,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYc-54-hI0">
-                                <rect key="frame" x="0.0" y="89" width="375" height="634"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="631"/>
                                 <connections>
                                     <segue destination="bEn-4T-Txt" kind="embed" identifier="pageEmbedSegue" id="qyy-iT-Xyh"/>
                                 </connections>

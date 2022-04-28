@@ -27,7 +27,7 @@
         
 
 import UIKit
-import DCCInspection
+import DGCVerificationCenter
 import DGCCoreLibrary
 
 class CountryCell: UITableViewCell {
@@ -38,7 +38,7 @@ class CountryCell: UITableViewCell {
             setupView()
         }
     }
-
+    
     func setupView() {
         guard let nameLabel = nameLabel, let country = country else {
             nameLabel.text = ""
@@ -55,7 +55,6 @@ class CountryCell: UITableViewCell {
 class CountryListController: UITableViewController {
 
     private var countryList: [CountryModel] = []
-
     private var selectedCounty: CountryModel? {
         set {
             let encoder = JSONEncoder()
@@ -82,28 +81,23 @@ class CountryListController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         title = "DCC Country Codes".localized
-        self.countryList = DCCDataCenter.countryCodes.sorted(by: { $0.name < $1.name })
+        self.countryList = DGCVerificationCenter.countryCodes
         self.tableView.reloadData()
-
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return countryList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CountryCell", for: indexPath) as?
-                CountryCell else { return UITableViewCell() }
+            CountryCell else { return UITableViewCell() }
         
         let countryModel = countryList[indexPath.row]
         cell.setCountry(countryModel: countryModel)
@@ -119,16 +113,4 @@ class CountryListController: UITableViewController {
         }
         tableView.reloadData()
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

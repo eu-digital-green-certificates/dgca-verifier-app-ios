@@ -26,8 +26,10 @@
 
 import UIKit
 import DGCVerificationCenter
-import DCCInspection
 import DGCCoreLibrary
+
+#if canImport(DCCInspection)
+import DCCInspection
 
 protocol CertificateSectionsProtocol {}
 extension InfoSection: CertificateSectionsProtocol {}
@@ -49,16 +51,20 @@ class DCCViewerController: UIViewController {
     var certificate: MultiTypeCertificate?
     weak var dismissDelegate: DismissControllerDelegate?
     
-    private var sectionBuilder: DCCSectionBuilder?
+
+    private let verificationCenter = AppManager.shared.verificationCenter
+
     private var validityState: ValidityState?
-    let verificationCenter = AppManager.shared.verificationCenter
 
     private var isDebugMode = DebugManager.sharedInstance.isDebugMode
+    private var debugSections = [DebugSectionModel]()
+    private var certificateSections: [CertificateSectionsProtocol] = []
+    
+    private var sectionBuilder: DCCSectionBuilder?
     private var listItems: [InfoSection] {
         sectionBuilder?.infoSection.filter { !$0.isPrivate } ?? []
     }
-    private var debugSections = [DebugSectionModel]()
-    private var certificateSections: [CertificateSectionsProtocol] = []
+
     
     // MARK: View Controller life cycle
     override func viewDidLoad() {
@@ -299,3 +305,12 @@ extension DCCViewerController: DebugControllerDelegate {
         validateCertificate()
     }
 }
+
+#else
+
+class DCCViewerController: UIViewController {
+    var certificate: MultiTypeCertificate?
+    weak var dismissDelegate: DismissControllerDelegate?
+}
+
+#endif
