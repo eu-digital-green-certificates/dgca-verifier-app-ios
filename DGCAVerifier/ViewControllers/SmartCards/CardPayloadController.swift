@@ -42,11 +42,11 @@ class CardPayloadController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCardShadow()
-#if canImport(DGCSHInspection)
+    #if canImport(DGCSHInspection)
         if let shCert = certificate?.digitalCertificate as? SHCert {
             payloadTextView.text = shCert.prettyBody
         }
-#endif
+    #endif
     }
     
     private func setupCardShadow() {

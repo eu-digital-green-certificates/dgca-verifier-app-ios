@@ -30,9 +30,6 @@ import UIKit
 import DGCVerificationCenter
 import DGCCoreLibrary
 
-#if canImport(DGCSHInspection)
-import DGCSHInspection
-#endif
 
 class CardContainerController: UIViewController {
 	@IBOutlet weak var smartCardView: UIView!
