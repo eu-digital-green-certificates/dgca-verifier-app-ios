@@ -98,3 +98,5 @@
 "Cryptographic signature is invalid" = "Cryptographic signature is invalid";
 "Unknown certificate type." = "Unknown certificate type.";
 "Please select the country." = "Please select the country.";
+"Unknown issuer of Smart Card" = "Unknown issuer of Smart Card";
+"Do you want to continue to identify the issuer?" = "Do you want to continue to identify the issuer?";

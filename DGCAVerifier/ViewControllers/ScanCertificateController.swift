@@ -36,6 +36,10 @@ import DGCCoreLibrary
 import DCCInspection
 #endif
 
+#if canImport(DGCSHInspection)
+import DGCSHInspection
+#endif
+
 protocol DismissControllerDelegate: AnyObject {
     func userDidDissmis(_ controller: UIViewController)
 }
@@ -448,9 +452,36 @@ private extension ScanCertificateController {
             // TODO: add processing of DIVOC format
             
         } else if CertificateApplicant.isApplicableSHCFormat(payload: barcodeString) {
-            if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: nil) {
+            do {
+                let certificate = try MultiTypeCertificate(from: barcodeString)
                 scannerDidScanCertificate(certificate)
-            } else {
+
+            } catch CertificateParsingError.kidNotFound(let rawUrl) {
+                DGCLogger.logInfo("Error kidNotFound when parse SH card.")
+                self.showAlert(title: "Unknown issuer of Smart Card".localized,
+                    subtitle: "Do you want to continue to identify the issuer?",
+                    actionTitle: "Continue".localized,
+                    cancelTitle: "Cancel".localized ) { response in
+                    if response {
+                        #if canImport(DGCSHInspection)
+                        TrustedListLoader.resolveUnknownIssuer(rawUrl) { kidList, result in
+                            if let certificate = try? MultiTypeCertificate(from: barcodeString) {
+                                self.scannerDidScanCertificate(certificate)
+                            } else {
+                                DGCLogger.logInfo("Error validating barcodeString: \(barcodeString)")
+                                self.scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
+                            }
+                        }
+                        #endif
+                        
+                    } else { // user cancels
+                        DGCLogger.logInfo("User cancelled verifying.")
+                    }
+                }
+                
+            } catch let error as CertificateParsingError {
+                scannerDidFailWithError(error: error)
+            } catch {
                 scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
             }
         } else {
