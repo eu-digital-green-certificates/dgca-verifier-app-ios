@@ -42,7 +42,7 @@ class DataManagerController: UITableViewController {
         super.viewDidLoad()
 
         title = "Applicable Types".localized
-        applicableInspectors = AppManager.shared.verificationCenter.applicableInspectors
+        applicableInspectors = DGCVerificationCenter.shared.applicableInspectors
     }
 
     // MARK: - Table view data source

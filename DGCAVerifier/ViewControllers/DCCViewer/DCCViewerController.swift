@@ -52,7 +52,7 @@ class DCCViewerController: UIViewController {
     weak var dismissDelegate: DismissControllerDelegate?
     
 
-    private let verificationCenter = AppManager.shared.verificationCenter
+    private let verificationCenter = DGCVerificationCenter.shared
 
     private var validityState: ValidityState?
 
@@ -84,7 +84,7 @@ class DCCViewerController: UIViewController {
         
         isDebugMode = DebugManager.sharedInstance.isDebugMode
         
-        let validityState = AppManager.shared.verificationCenter.dccInspector?.validateCertificate(cert)
+        let validityState = DGCVerificationCenter.shared.dccInspector?.validateCertificate(cert)
         
         if let state = validityState {
             if state.isVerificationFailed {

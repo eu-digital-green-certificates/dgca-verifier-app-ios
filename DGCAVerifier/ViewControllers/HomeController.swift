@@ -41,7 +41,7 @@ class HomeController: UIViewController {
     @IBOutlet fileprivate weak var reloadButton: UIButton!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
 
-    let verificationCenter = AppManager.shared.verificationCenter
+    let verificationCenter = DGCVerificationCenter.shared
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
       return .lightContent

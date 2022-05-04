@@ -27,23 +27,7 @@
         
 
 import UIKit
-import DGCVerificationCenter
 
 class AppManager {
-    
     static let userDefaultsCountryKey = "UDCountryKey"
-
-    static var appVersion: String {
-        let versionValue = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?.?.?"
-        let buildNumValue = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?.?.?"
-        return "\(versionValue)(\(buildNumValue))"
-    }
-
-    static let shared = AppManager()
-    
-    var verificationCenter: DGCVerificationCenter
-    
-    init() {
-        self.verificationCenter = DGCVerificationCenter()
-    }
 }

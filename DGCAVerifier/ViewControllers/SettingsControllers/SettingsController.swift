@@ -103,7 +103,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         licensesLabelName.text = "Licenses".localized
         privacyLabelName.text = "Privacy Information".localized
         manageDataLabel.text = "Manage Data".localized
-        versionLabel.text = AppManager.appVersion
+        versionLabel.text = DGCVerificationCenter.appVersion
         countryTitleLabel.text = "DCC Country Code"
     }
     
@@ -175,12 +175,12 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     }
     
     private func openEuCertDoc() {
-        let link = DGCVerificationCenter.SharedLinks.linkToOopenEuCertDoc
+        let link = SharedLinks.linkToOopenEuCertDoc
         openUrl(link)
     }
     
     private func openGitHubSource() {
-        let link = DGCVerificationCenter.SharedLinks.linkToOpenGitHubSource
+        let link = SharedLinks.linkToOpenGitHubSource
         openUrl(link)
     }
     

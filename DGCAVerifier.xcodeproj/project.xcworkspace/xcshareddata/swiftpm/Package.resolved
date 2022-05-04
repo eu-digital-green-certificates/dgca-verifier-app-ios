@@ -78,7 +78,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-sh-inspection.git",
         "state": {
           "branch": "main",
-          "revision": "c81d84f802502b9a70252850d4384f939cde5fbf",
+          "revision": "2fb100053b88ab48add745b68805f2e322dc92cf",
           "version": null
         }
       },
@@ -96,7 +96,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-center.git",
         "state": {
           "branch": "main",
-          "revision": "9c2e58bb077cc04177331a53b85a00960686d656",
+          "revision": "c1211aec3ff8ab1d98ddabf59a5a02e93a4a80d9",
           "version": null
         }
       },
@@ -105,7 +105,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-core-library.git",
         "state": {
           "branch": "main",
-          "revision": "80342601056986e7fdc88e880a64a96a815ef8be",
+          "revision": "954e9b9b4379b90498d2cddc194be784b1463b93",
           "version": null
         }
       },
@@ -114,7 +114,7 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection.git",
         "state": {
           "branch": "main",
-          "revision": "afc8a9a0656c294797aba74273ffe4ca7d858e4d",
+          "revision": "1dd557cfd41076ea4433aac8a20e57f64e044f12",
           "version": null
         }
       },
@@ -128,12 +128,21 @@
         }
       },
       {
+        "package": "JOSESwift",
+        "repositoryURL": "https://github.com/airsidemobile/JOSESwift.git",
+        "state": {
+          "branch": "master",
+          "revision": "6db0244a2bc69807a397f7bcef417924e51551b3",
+          "version": null
+        }
+      },
+      {
         "package": "jsonlogic",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
-          "branch": null,
-          "revision": "c830f34a35753f4d441bd291e40e4a4feee9ede0",
-          "version": "1.1.9"
+          "branch": "feat/dccDateOfBirth",
+          "revision": "948c4c820f9c36dad2149c05b4e2dd1cc1ef3b3f",
+          "version": null
         }
       },
       {
@@ -177,8 +186,8 @@
         "repositoryURL": "https://github.com/KittyMac/Spanker.git",
         "state": {
           "branch": null,
-          "revision": "b57e8aef16069f205ac74d5f2b27fa1224824a0c",
-          "version": "0.2.19"
+          "revision": "40c000b10b08cc9d1fb777827d35767048493fb4",
+          "version": "0.2.21"
         }
       },
       {

@@ -67,14 +67,9 @@ class ScanCertificateController: UIViewController {
     private var captureSession: AVCaptureSession?
     private var dccCountryItems: [CountryModel] = []
     private var barcodeString: String?
-    
-    private let verificationCenter = AppManager.shared.verificationCenter
-    
+        
     private var expireDataTimer: Timer?
-    var downloadedDataHasExpired: Bool {
-        return VerificationDataCenter.downloadedDataHasExpired
-    }
-    
+        
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
         guard error == nil else {
             self.showAlert(withTitle: "Cannot read Barcode".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
@@ -156,7 +151,7 @@ class ScanCertificateController: UIViewController {
     
     // MARK: - Actions
     @objc func reloadExpiredData() {
-       if downloadedDataHasExpired {
+       if DGCVerificationCenter.shared.downloadedDataHasExpired {
             captureSession?.stopRunning()
             showAlertReloadDatabase()
        }
@@ -231,7 +226,7 @@ class ScanCertificateController: UIViewController {
         activityHeaderView.isHidden = true
         activityIndicator.startAnimating()
         
-        verificationCenter.updateStoredData(appType: .verifier) { [unowned self] result in
+        DGCVerificationCenter.shared.updateStoredData(appType: .verifier) { [unowned self] result in
             if case let .failure(error) = result {
                 DispatchQueue.main.async {
                     DGCLogger.logError(error)
