@@ -179,7 +179,7 @@ class ScanCertificateController: UIViewController {
             self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Please select the country.".localized)
         }
     }
-
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
