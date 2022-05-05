@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gbn-9x-STG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -101,23 +100,23 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Trusted Public Keys" footerTitle="Last updated: 2021-05-01 20:00:00" id="eFb-hd-Bdj">
+                            <tableViewSection headerTitle="Trusted Public Keys and Revocation Data" footerTitle="Last updated: 2021-05-01 20:00:00" id="eFb-hd-Bdj" userLabel="Trusted Public Keys, Revocation Data">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PNB-E7-7Sz">
-                                        <rect key="frame" x="0.0" y="239.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="239.5" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNB-E7-7Sz" id="r9F-Dp-Vgr">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reload" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZh-NG-LMB">
-                                                    <rect key="frame" x="20" y="11" width="323" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZh-NG-LMB">
+                                                    <rect key="frame" x="20" y="11" width="323" height="22.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEB-UD-iNN">
-                                                    <rect key="frame" x="343" y="-4.5" width="51" height="52.5"/>
+                                                    <rect key="frame" x="343" y="-4" width="51" height="52.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="51" id="OZG-ML-Sqp"/>
                                                         <constraint firstAttribute="height" constant="52" id="nhl-M3-fbq"/>
@@ -125,36 +124,31 @@
                                                     <color key="tintColor" name="verifierBlue"/>
                                                     <state key="normal" image="spinner"/>
                                                 </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-hl-yGi">
+                                                    <rect key="frame" x="197" y="12.5" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pZh-NG-LMB" firstAttribute="top" secondItem="r9F-Dp-Vgr" secondAttribute="topMargin" id="2W0-g4-f2G"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="trailing" secondItem="r9F-Dp-Vgr" secondAttribute="trailingMargin" id="7QY-8e-8Pe"/>
+                                                <constraint firstItem="pZh-NG-LMB" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="HZR-jU-qzS"/>
+                                                <constraint firstItem="Lab-hl-yGi" firstAttribute="centerX" secondItem="r9F-Dp-Vgr" secondAttribute="centerX" id="NnM-DK-Sur"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="VCJ-sw-N0N"/>
                                                 <constraint firstItem="LEB-UD-iNN" firstAttribute="leading" secondItem="pZh-NG-LMB" secondAttribute="trailing" id="ezL-yG-ASw"/>
                                                 <constraint firstItem="pZh-NG-LMB" firstAttribute="leading" secondItem="r9F-Dp-Vgr" secondAttribute="leadingMargin" id="hwX-gt-YoF"/>
+                                                <constraint firstItem="Lab-hl-yGi" firstAttribute="centerY" secondItem="r9F-Dp-Vgr" secondAttribute="centerY" id="n8X-i6-Spi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="ZWb-W8-ctm">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="WNk-DL-0mK">
-                                        <rect key="frame" x="0.0" y="327.5" width="414" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WNk-DL-0mK" id="6VX-Mr-f32">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </tableViewCell>
-                                </cells>
+                                <cells/>
                             </tableViewSection>
                             <tableViewSection id="KQQ-gB-Jez">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="trH-0v-yYO">
-                                        <rect key="frame" x="0.0" y="413.5" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="364.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="trH-0v-yYO" id="JsN-kr-KFe">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -196,6 +190,7 @@
                     <connections>
                         <outlet property="debugLabel" destination="c7T-kU-ft5" id="kFx-Jk-QIV"/>
                         <outlet property="debugLabelName" destination="5ZM-hL-tLy" id="LIb-7Z-JmQ"/>
+                        <outlet property="indicator" destination="Lab-hl-yGi" id="5Fy-J5-bNs"/>
                         <outlet property="licensesLabelName" destination="3C9-S9-3Vo" id="xn8-RM-8d1"/>
                         <outlet property="privacyLabelName" destination="gMd-yI-bmR" id="45e-Ci-2wB"/>
                         <outlet property="versionLabel" destination="YKH-hO-t7T" id="Oge-Gp-oE8"/>

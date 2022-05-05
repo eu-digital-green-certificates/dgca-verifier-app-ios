@@ -27,7 +27,6 @@
         
 
 import Foundation
-import SwiftDGC
 
 enum DebugSectionType: String {
   case verification = "Verification"

@@ -68,34 +68,42 @@ class RuleErrorCell: UITableViewCell {
     ruleValueLabel.text = infoItem.header
     currentValueLabel.text = infoItem.content
     switch infoItem.ruleValidationResult {
-    case .failed:
+    case .invalid:
       failedLabel.textColor = .certificateRed
       failedLabel.text = "Failed".localized
-    case .passed:
+    case .valid:
       failedLabel.textColor = .certificateGreen
       failedLabel.text = "Passed".localized
-    case .open:
+    case .ruleInvalid:
       failedLabel.textColor = .certificateGreen
       failedLabel.text = "Open".localized
+    case .revoked:
+      failedLabel.textColor = .certificateRed
+      failedLabel.text = "Revoked".localized
     }
 
     if let countryName = infoItem.countryName {
       switch infoItem.ruleValidationResult {
-      case .failed:
+      case .invalid:
         resultValueLabel.text = String(format: "Failed for %@ (see settings)".localized, countryName)
-      case .passed:
+      case .valid:
         resultValueLabel.text = String(format: "Passed for %@ (see settings)".localized, countryName)
-      case .open:
+      case .ruleInvalid:
         resultValueLabel.text = String(format: "Open for %@ (see settings)".localized, countryName)
+      case .revoked:
+        resultValueLabel.text = String(format: "Revoked for %@ (see settings)".localized, countryName)
       }
+      
     } else {
       switch infoItem.ruleValidationResult {
-      case .failed:
+      case .invalid:
         resultValueLabel.text = "Failed".localized
-      case .passed:
+      case .valid:
         resultValueLabel.text = "Passed".localized
-      case .open:
+      case .ruleInvalid:
         resultValueLabel.text = "Open".localized
+      case .revoked:
+        resultValueLabel.text = "Revoked".localized
       }
     }
   }

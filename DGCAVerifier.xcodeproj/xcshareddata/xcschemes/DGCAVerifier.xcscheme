@@ -63,7 +63,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3654EE527C73D84001C8C64"
-               BuildableName = "DGCAVerifierDOWNLOADTests.xctest"
+               BuildableName = "DGCAVerifierDownloadTests.xctest"
                BlueprintName = "DGCAVerifierDownloadTests"
                ReferencedContainer = "container:DGCAVerifier.xcodeproj">
             </BuildableReference>

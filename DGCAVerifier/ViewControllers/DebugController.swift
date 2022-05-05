@@ -23,8 +23,8 @@
 //  DGCAVerifier
 //  
 //  Created by Alexandr Chernyy on 02.09.2021.
-//  
-        
+//
+
 
 import UIKit
 import SwiftDGC

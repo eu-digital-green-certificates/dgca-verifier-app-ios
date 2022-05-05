@@ -31,22 +31,22 @@ import SwiftDGC
 
 class DebugCell: UITableViewCell {
 
-  @IBOutlet weak var nameLabel: UILabel!
-  private var country: CountryModel? {
-    didSet {
-      setupView()
+    @IBOutlet weak var nameLabel: UILabel!
+    private var country: CountryModel? {
+        didSet {
+            setupView()
+        }
     }
-  }
 
-  func setupView() {
-    guard let nameLabel = nameLabel, let country = country else {
-      nameLabel.text = ""
-      return
+    func setupView() {
+        guard let nameLabel = nameLabel, let country = country else {
+            nameLabel.text = ""
+            return
+        }
+        nameLabel.text = country.name
+        }
+    
+    func setCountry(countryModel: CountryModel) {
+        country = countryModel
     }
-    nameLabel.text = country.name
-  }
-  
-  func setCountry(countryModel: CountryModel) {
-    country = countryModel
-  }
 }

@@ -37,178 +37,175 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     weak var dismissDelegate: DismissControllerDelegate?
     var isNavigating = false
 
-  @IBOutlet fileprivate weak var licensesLabelName: UILabel!
-  @IBOutlet fileprivate weak var privacyLabelName: UILabel!
-  @IBOutlet fileprivate weak var debugLabelName: UILabel!
-  @IBOutlet fileprivate weak var debugLabel: UILabel!
-  @IBOutlet fileprivate weak var versionLabel: UILabel!
+    @IBOutlet fileprivate weak var licensesLabelName: UILabel!
+    @IBOutlet fileprivate weak var privacyLabelName: UILabel!
+    @IBOutlet fileprivate weak var debugLabelName: UILabel!
+    @IBOutlet fileprivate weak var debugLabel: UILabel!
+    @IBOutlet fileprivate weak var versionLabel: UILabel!
+    @IBOutlet fileprivate weak var indicator: UIActivityIndicatorView!
 
-    lazy var progressView: UIProgressView = UIProgressView(progressViewStyle: .`default`)
-    lazy var indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        debugLabelName.text = "Debug mode".localized
+        licensesLabelName.text = "Licenses".localized
+        privacyLabelName.text = "Privacy Information".localized
+        versionLabel.text = DataCenter.appVersion
 
-    lazy var activityAlert: UIAlertController = {
-        let controller = UIAlertController(title: "Loading data", message: "\n\n\n", preferredStyle: .alert)
-        controller.view.addSubview(progressView)
-        controller.view.addSubview(indicator)
-        progressView.setProgress(0.0, animated: false)
-        return controller
-    }()
-
-    deinit {
-        let center = NotificationCenter.default
-        center.removeObserver(self)
+        updateInterface()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isNavigating = false
     }
 
-  override func viewDidLoad() {
-      super.viewDidLoad()
-      debugLabelName.text = "Debug mode".localized
-      licensesLabelName.text = "Licenses".localized
-      privacyLabelName.text = "Privacy Information".localized
-      versionLabel.text = DataCenter.appVersion
-
-      let center = NotificationCenter.default
-      center.addObserver(forName: Notification.Name("StartLoadingNotificationName"), object: nil, queue: .main) { notification in
-          self.activityAlert.dismiss(animated: true, completion: nil)
-          self.present(self.activityAlert, animated: true) {
-              self.indicator.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 100)
-              self.indicator.startAnimating()
-              self.progressView.center = CGPoint(x: self.activityAlert.view.frame.size.width/2, y: 120)
-          }
-      }
-      
-      center.addObserver(forName: Notification.Name("StopLoadingNotificationName"), object: nil, queue: .main) { notification in
-          self.activityAlert.dismiss(animated: true, completion: nil)
-          self.progressView.setProgress(0.0, animated: false)
-          self.indicator.stopAnimating()
-      }
-      
-      center.addObserver(forName: Notification.Name("LoadingRevocationsNotificationName"), object: nil, queue: .main) { notification in
-          let strMessage = notification.userInfo?["name"] as? String ?? "Loading Database"
-          self.activityAlert.title = strMessage
-          let percentage = notification.userInfo?["progress" ] as? Float ?? 0.0
-          self.progressView.setProgress(percentage, animated: true)
-      }
-      updateInterface()
-  }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if !isNavigating  {
+            delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
+              level: DebugManager.sharedInstance.debugLevel)
+        }
+    }
   
-  override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      isNavigating = false
-  }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      if !isNavigating  {
-          delegate?.debugControllerDidSelect(isDebugMode: DebugManager.sharedInstance.isDebugMode,
-            level: DebugManager.sharedInstance.debugLevel)
-      }
-  }
+    private func updateInterface() {
+        if !DebugManager.sharedInstance.isDebugMode {
+            debugLabel.text = "Disabled".localized
+        } else {
+            switch DebugManager.sharedInstance.debugLevel {
+            case .level1:
+                debugLabel.text = "Level 1".localized
+            case .level2:
+                debugLabel.text = "Level 2".localized
+            case .level3:
+                debugLabel.text = "Level 3".localized
+             }
+        }
+    }
+    
+    func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
+        updateInterface()
+    }
 
-  
-  private func updateInterface() {
-      if !DebugManager.sharedInstance.isDebugMode {
-          debugLabel.text = "Disabled".localized
-      } else {
-        switch DebugManager.sharedInstance.debugLevel {
-        case .level1:
-            debugLabel.text = "Level 1".localized
-        case .level2:
-            debugLabel.text = "Level 2".localized
-        case .level3:
-            debugLabel.text = "Level 3".localized
-         }
-      }
-  }
-  
-  func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
-      updateInterface()
-  }
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            let format = "Last updated: %@".localized
+            return String(format: format, DataCenter.lastFetch.dateTimeString)
+        default:
+            return nil
+        }
+    }
 
-  override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-      switch section {
-      case 1:
-          let format = "Last updated: %@".localized
-          return String(format: format, DataCenter.lastFetch.dateTimeString)
-      default:
-          return nil
-      }
-  }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        return cell
+    }
 
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = super.tableView(tableView, cellForRowAt: indexPath)
-      return cell
-  }
-
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      tableView.deselectRow(at: indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-              openPrivacyDoc()
+                openPrivacyDoc()
             } else if indexPath.row == 1 {
-              openLicenses()
+                openLicenses()
             } else if indexPath.row == 2 {
-              openDebugSettings()
+                openDebugSettings()
             }
         case 1:
-            reloadAllData()
+            updateAllStoredData()
         default:
             break
         }
     }
 
-  func reloadAllData() {
-      DataCenter.reloadStorageData { result in
-          DispatchQueue.main.async { [weak self] in
-              self?.tableView.reloadData()
-          }
-      }
-  }
+    private func updateAllStoredData() {
+        self.indicator.startAnimating()
 
-  func openPrivacyDoc() {
-      let link = DataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
-      openUrl(link)
-  }
-
-  func openEuCertDoc() {
-      let link = SharedConstants.linkToOopenEuCertDoc
-      openUrl(link)
-  }
-
-  func openGitHubSource() {
-      let link = SharedConstants.linkToOpenGitHubSource
-      openUrl(link)
-  }
-
-  func openDebugSettings() {
-      performSegue(withIdentifier: Constants.debugSegueID, sender: self)
-  }
-
-  func openLicenses() {
-      isNavigating = true
-      performSegue(withIdentifier: Constants.licenseSegueID, sender: self)
-  }
-
-  func openUrl(_ string: String!) {
-      if let url = URL(string: string) {
-          UIApplication.shared.open(url)
-      }
-  }
-
-  @IBAction func dismissAction() {
-      dismiss(animated: true, completion: nil)
-      dismissDelegate?.userDidDissmis(self)
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    switch segue.identifier {
-    case Constants.debugSegueID:
-      if let destinationController = segue.destination as? DebugVC {
-        destinationController.delegate = self
-      }
-    default:
-      break
+        DataCenter.reloadAllStorageData { [weak self] result in
+            if case let .failure(error) = result {
+                DispatchQueue.main.async {
+                    DGCLogger.logError(error)
+                    self?.indicator.stopAnimating()
+                    self?.showAlertCannotReload()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.indicator.stopAnimating()
+                    self?.showAlertReloadCompleted()
+                }
+            }
+        }
     }
-  }
+
+    private func showAlertCannotReload() {
+        let title = "Cannot update stored data".localized
+        let message = "Please check the internet connection and try again.".localized
+        
+        let infoAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continue", style: .default) { action in
+            self.tableView.reloadData()
+        }
+        infoAlertController.addAction(action)
+        self.present(infoAlertController, animated: true)
+    }
+
+    private func showAlertReloadCompleted() {
+        let title = "Stored data is up to date".localized
+        let message = ""
+        
+        let infoAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continue", style: .default) { action in
+            self.tableView.reloadData()
+        }
+        infoAlertController.addAction(action)
+        self.present(infoAlertController, animated: true)
+    }
+
+    private func openPrivacyDoc() {
+        let link = DataCenter.localDataManager.versionedConfig["privacyUrl"].string ?? ""
+        openUrl(link)
+    }
+
+    func openEuCertDoc() {
+        let link = SharedConstants.linkToOopenEuCertDoc
+        openUrl(link)
+    }
+
+    func openGitHubSource() {
+        let link = SharedConstants.linkToOpenGitHubSource
+        openUrl(link)
+    }
+
+    func openDebugSettings() {
+        performSegue(withIdentifier: Constants.debugSegueID, sender: self)
+    }
+
+    func openLicenses() {
+        isNavigating = true
+        performSegue(withIdentifier: Constants.licenseSegueID, sender: self)
+    }
+
+    func openUrl(_ string: String!) {
+        if let url = URL(string: string) {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    @IBAction func dismissAction() {
+        dismiss(animated: true, completion: nil)
+        dismissDelegate?.userDidDissmis(self)
+    }
+  
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case Constants.debugSegueID:
+            if let destinationController = segue.destination as? DebugVC {
+                destinationController.delegate = self
+            }
+        default:
+            break
+        }
+    }
 }

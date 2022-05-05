@@ -28,27 +28,24 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
-  func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
-    if #available(iOS 13, *) {
-      return true
-    } else {
-      self.window = UIWindow()
-      self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
-      self.window!.makeKeyAndVisible()
-      return true
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if #available(iOS 13, *) {
+            return true
+        } else {
+            self.window = UIWindow()
+            self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
+            self.window!.makeKeyAndVisible()
+            return true
+        }
     }
-  }
 
-  func applicationWillResignActive(_ application: UIApplication) {
-    SecureBackground.enable()
-  }
+    func applicationWillResignActive(_ application: UIApplication) {
+        SecureBackground.enable()
+    }
 
-  func applicationDidBecomeActive(_ application: UIApplication) {
-    SecureBackground.disable()
-  }
-
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        SecureBackground.disable()
+    }
 }
