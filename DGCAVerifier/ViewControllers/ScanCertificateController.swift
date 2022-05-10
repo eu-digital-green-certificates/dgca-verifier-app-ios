@@ -316,6 +316,18 @@ extension ScanCertificateController {
                 self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Cryptographic signature is invalid".localized)
             case CertificateParsingError.unknownFormat:
                 self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Unknown certificate type.".localized)
+            case CertificateParsingError.invalidSignature:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Invalid signature".localized)
+            case CertificateParsingError.badPubKey:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Bad public key".localized)
+            case CertificateParsingError.issuerNotIncluded:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Issuer not included.".localized)
+            case CertificateParsingError.kidNotIncluded:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Kid not included.".localized)
+            case CertificateParsingError.timeBeforeNBF:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Time before NBF.".localized)
+            case CertificateParsingError.credentialExpired:
+                self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Credential expired.".localized)
             default:
                 self.showAlert(withTitle: "Cannot read Barcode".localized, message: "Unknown barcode format.".localized)
             }
