@@ -535,7 +535,7 @@ extension ScanCertificateController {
     func onNFCResult(success: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
         guard success, !message.isEmpty else { return }
-        
+        showInfoAlert(withTitle: "NFC Test", message: "message")
         observationHandler(payload: message)
     }
 }

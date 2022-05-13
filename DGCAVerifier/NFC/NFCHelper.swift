@@ -61,12 +61,22 @@ class NFCHelper: NSObject, NFCNDEFReaderSessionDelegate {
         payload += "\(record.type)\n"
         payload += "\(record.typeNameFormat)\n"
         
-        if let resultString = String(data: record.payload, encoding: .utf8) {
-          onNFCResult(true, resultString)
-        } else {
-          onNFCResult(false, "don't found any info")
-        }
+//        if let resultString = String(data: record.payload, encoding: .utf8) {
+//          onNFCResult(true, resultString)
+//        } else {
+//          onNFCResult(false, "don't found any info")
+//        }
       }
     }
+      
+      if !payload.isEmpty {
+           if let hceRange = payload.range(of: "HCE:") {
+               payload.removeSubrange(payload.startIndex..<hceRange.lowerBound)
+           }
+           onNFCResult(true, payload)
+       } else {
+           onNFCResult(false, "don't found any info")
+       }
+
   }
 }
