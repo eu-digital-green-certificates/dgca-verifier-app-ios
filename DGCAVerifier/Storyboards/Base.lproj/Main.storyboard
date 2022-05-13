@@ -26,10 +26,10 @@
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-AB-3pf">
                                         <rect key="frame" x="13.5" y="13.5" width="37" height="37"/>
-                                        <color key="color" name="charcoalGrey"/>
+                                        <color key="color" name="certificateBlue"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="GGB-n7-cjE"/>
                                     <constraint firstItem="tRL-AB-3pf" firstAttribute="centerY" secondItem="Ucg-eW-KIs" secondAttribute="centerY" id="LwG-hs-9r7"/>
@@ -44,11 +44,11 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKS-9P-FHm">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKS-9P-FHm">
                                 <rect key="frame" x="0.0" y="684" width="414" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmt-XU-cwz">
@@ -65,6 +65,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="5T1-BY-Gnk"/>
                                         </constraints>
+                                        <color key="tintColor" name="certificateBlue"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Continue Verification">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="19"/>
@@ -74,7 +75,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Kmt-XU-cwz" secondAttribute="trailing" constant="20" id="BNz-iN-flQ"/>
                                     <constraint firstItem="Kmt-XU-cwz" firstAttribute="leading" secondItem="gKS-9P-FHm" secondAttribute="leading" constant="20" id="Bgp-3c-AyE"/>
@@ -88,7 +89,7 @@
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA7-Xa-kp8">
                                 <rect key="frame" x="0.0" y="734" width="414" height="162"/>
-                                <color key="backgroundColor" white="1" alpha="0.82110315439652426" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="lc3-dU-zg5"/>
                                 </constraints>
@@ -311,8 +312,8 @@
         <image name="gear_white" width="22" height="22"/>
         <image name="icon_nfc" width="13.399999618530273" height="23.399999618530273"/>
         <image name="verifier_icon" width="112" height="112"/>
-        <namedColor name="charcoalGrey">
-            <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="certificateBlue">
+            <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="disabledText">
             <color red="0.62400001287460327" green="0.62400001287460327" blue="0.62400001287460327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -320,6 +321,9 @@
         <namedColor name="verifierBlue">
             <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -25,7 +25,6 @@
 //  Created by Alexandr Chernyy on 07.09.2021.
 //  
         
-
 import Foundation
 
 enum DebugSectionType: String {
@@ -48,7 +47,7 @@ class DebugSectionModel {
           return 2
         }
     }
-  
+    
     init(sectionType: DebugSectionType) {
         self.sectionType = sectionType
     }

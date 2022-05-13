@@ -28,20 +28,26 @@ import UIKit
 
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-  var window: UIWindow?
-  func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-    if let windowScene = scene as? UIWindowScene {
-      self.window = UIWindow(windowScene: windowScene)
-      self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
-      self.window!.makeKeyAndVisible()
+    var window: UIWindow? {
+        didSet {
+            let style = UITraitCollection.current.userInterfaceStyle
+            window?.overrideUserInterfaceStyle = style
+        }
     }
-  }
+    
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if let windowScene = scene as? UIWindowScene {
+            self.window = UIWindow(windowScene: windowScene)
+            self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
+            self.window!.makeKeyAndVisible()
+        }
+    }
+      
+    func sceneWillResignActive(_ scene: UIScene) {
+        SecureBackground.enable()
+    }
 
-  func sceneWillResignActive(_ scene: UIScene) {
-    SecureBackground.enable()
-  }
-
-  func sceneDidBecomeActive(_ scene: UIScene) {
-    SecureBackground.disable()
-  }
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        SecureBackground.disable()
+    }
 }

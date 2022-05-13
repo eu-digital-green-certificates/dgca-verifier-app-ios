@@ -114,7 +114,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "cd236a16d13ddbe9f16804c5c383a1c01bb0cda4"
+        "revision" : "203839970c328bbb512e96d13bb8175b06e3f7c5"
       }
     },
     {
@@ -202,8 +202,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tsolomko/SWCompression.git",
       "state" : {
-        "revision" : "4ad6940f2990f2d9f27b39d013c7a64b602d9c50",
-        "version" : "4.8.0"
+        "revision" : "0714d4421e1fa1e02af51cd8e615417a95f0d230",
+        "version" : "4.8.1"
       }
     },
     {
