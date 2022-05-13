@@ -67,9 +67,10 @@ class ScanCertificateController: UIViewController {
     private var captureSession: AVCaptureSession?
     private var dccCountryItems: [CountryModel] = []
     private var barcodeString: String?
-        
+    private var nearCommunicatingHelper: NFCHelper?
+    
     private var expireDataTimer: Timer?
-        
+    
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
         guard error == nil else {
             self.showAlert(withTitle: "Cannot read Barcode".localized, message: error?.localizedDescription ?? "Something went wrong.".localized)
@@ -163,9 +164,12 @@ class ScanCertificateController: UIViewController {
     }
     
     @IBAction fileprivate func scanNFCAction() {
-        let helper = NFCHelper()
-        helper.onNFCResult = onNFCResult(success:message:)
-        helper.restartSession()
+        if self.nearCommunicatingHelper == nil {
+            let helper = NFCHelper()
+            helper.delegate = self
+            self.nearCommunicatingHelper = helper
+        }
+        self.nearCommunicatingHelper?.restartSession()
     }
     
     @IBAction fileprivate func verificationAction() {
@@ -531,11 +535,11 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
 }
 
 // MARK: - NFC Result
-extension ScanCertificateController {
-    func onNFCResult(success: Bool, message: String) {
+extension ScanCertificateController: NFCCommunicating {
+    func onNFCResult(_ result: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
-        guard success, !message.isEmpty else { return }
         showInfoAlert(withTitle: "NFC Test", message: "message")
+        guard result, !message.isEmpty else { return }
         observationHandler(payload: message)
     }
 }
