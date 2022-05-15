@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else {
             self.window = UIWindow()
-            self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
-            self.window!.makeKeyAndVisible()
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
+            self.window?.makeKeyAndVisible()
             return true
         }
     }

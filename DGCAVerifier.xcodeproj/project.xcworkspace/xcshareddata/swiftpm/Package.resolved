@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Chronometer.git",
       "state" : {
-        "revision" : "0a8b65b0265674328d2cbda84c9a7cb21164891f",
-        "version" : "0.2.0"
+        "revision" : "bf49dace3be107ab11609ed428c1b7878a07be52",
+        "version" : "0.1.4"
       }
     },
     {
@@ -78,7 +78,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgc-sh-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "0fcf15c0517635a97ba631eb6bcdaad45785dc20"
+        "revision" : "0fb15fa2448a5b7b061711e05c9511a4741bdeb1"
       }
     },
     {
@@ -114,7 +114,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "203839970c328bbb512e96d13bb8175b06e3f7c5"
+        "revision" : "a814dace6f064b95ab9fdcc65c473171d58a919e"
       }
     },
     {
@@ -122,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Hitch.git",
       "state" : {
-        "revision" : "08ebf1181b986718c17ac6088bbc82a0b2cf8438",
-        "version" : "0.5.1"
+        "revision" : "eec08edd53a0d433f707d241483e03e59becafe9",
+        "version" : "0.4.36"
       }
     },
     {
@@ -176,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Sextant.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "66df85ded4001cfb2413bd7d2fb4031cb70a1f43"
+        "revision" : "ce0e5bd27b04c80de12d3729f028d01155d4b2a8",
+        "version" : "0.4.11"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Spanker.git",
       "state" : {
-        "revision" : "7a5c80ae47dc98321700a44edea56acee9d7757e",
-        "version" : "0.3.0"
+        "revision" : "6becc7caf3e1648d2b9331652dc4809e91514cff",
+        "version" : "0.2.25"
       }
     },
     {

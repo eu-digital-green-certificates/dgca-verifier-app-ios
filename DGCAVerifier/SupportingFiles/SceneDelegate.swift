@@ -38,8 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            self.window!.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
-            self.window!.makeKeyAndVisible()
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
+            self.window?.makeKeyAndVisible()
         }
     }
       
@@ -48,6 +48,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        let style = UITraitCollection.current.userInterfaceStyle
+        let mySceneDelegate = scene.delegate as? SceneDelegate
+        let window = mySceneDelegate?.window
+        window?.overrideUserInterfaceStyle = style
+
         SecureBackground.disable()
     }
 }
