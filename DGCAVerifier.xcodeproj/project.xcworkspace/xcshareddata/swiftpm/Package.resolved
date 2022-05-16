@@ -91,9 +91,9 @@
       }
     },
     {
-      "identity" : "dgca-verification-center",
+      "identity" : "dgca-verification-center-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-center.git",
+      "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-center-ios.git",
       "state" : {
         "branch" : "main",
         "revision" : "8ba593ee3f53bc2e76a6d653880efd6fd2d0c691"

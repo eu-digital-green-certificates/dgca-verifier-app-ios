@@ -86,7 +86,6 @@
 		D277555628007998005FEE00 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
 		D277555928033DF1005FEE00 /* DataManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555828033DF1005FEE00 /* DataManagerController.swift */; };
 		D277555B280349B2005FEE00 /* CertTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555A280349B2005FEE00 /* CertTypeCell.swift */; };
-		D2B454ED27F352E500D8A296 /* DGCVerificationCenter in Frameworks */ = {isa = PBXBuildFile; productRef = D2B454EC27F352E500D8A296 /* DGCVerificationCenter */; };
 		D2B454EE27F35BEA00D8A296 /* DCCViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF09262DCDDA0070C80E /* DCCViewerController.swift */; };
 		D2B454EF27F35BED00D8A296 /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
 		D2B454F027F35BF000D8A296 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
@@ -155,6 +154,7 @@
 		D2F6553927ECEAF2004C7D4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F4261F8D2900715333 /* Assets.xcassets */; };
 		D2F6553A27ECEAF2004C7D4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F4261F8D2900715333 /* Assets.xcassets */; };
 		D2F6553B27ECEAF3004C7D4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F4261F8D2900715333 /* Assets.xcassets */; };
+		D2FF04732832661900B1A7E8 /* DGCVerificationCenter in Frameworks */ = {isa = PBXBuildFile; productRef = D2FF04722832661900B1A7E8 /* DGCVerificationCenter */; };
 		D3594C3827D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz in Resources */ = {isa = PBXBuildFile; fileRef = D3594C3727D9F988002847E3 /* mockRevocationPartitionChunks.tar.gz */; };
 		D3594C3A27DAE077002847E3 /* testHash in Resources */ = {isa = PBXBuildFile; fileRef = D3594C3927DAE077002847E3 /* testHash */; };
 		D3654EE927C73D84001C8C64 /* RevocationDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3654EE827C73D84001C8C64 /* RevocationDownloadTests.swift */; };
@@ -277,9 +277,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2FF04732832661900B1A7E8 /* DGCVerificationCenter in Frameworks */,
 				D2D5656727BA5D7300E821C6 /* Security.framework in Frameworks */,
 				CE13CF00262DCC180070C80E /* (null) in Frameworks */,
-				D2B454ED27F352E500D8A296 /* DGCVerificationCenter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +587,7 @@
 			);
 			name = DGCAVerifier;
 			packageProductDependencies = (
-				D2B454EC27F352E500D8A296 /* DGCVerificationCenter */,
+				D2FF04722832661900B1A7E8 /* DGCVerificationCenter */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* DGCAVerifier.app */;
@@ -684,7 +684,7 @@
 			);
 			mainGroup = CEA6D6DF261F8D2700715333;
 			packageReferences = (
-				D2B454EB27F352E500D8A296 /* XCRemoteSwiftPackageReference "dgca-verification-center" */,
+				D2FF04712832661900B1A7E8 /* XCRemoteSwiftPackageReference "dgca-verification-center-ios" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -1348,9 +1348,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D2B454EB27F352E500D8A296 /* XCRemoteSwiftPackageReference "dgca-verification-center" */ = {
+		D2FF04712832661900B1A7E8 /* XCRemoteSwiftPackageReference "dgca-verification-center-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-verification-center.git";
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-verification-center-ios.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -1359,9 +1359,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D2B454EC27F352E500D8A296 /* DGCVerificationCenter */ = {
+		D2FF04722832661900B1A7E8 /* DGCVerificationCenter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D2B454EB27F352E500D8A296 /* XCRemoteSwiftPackageReference "dgca-verification-center" */;
+			package = D2FF04712832661900B1A7E8 /* XCRemoteSwiftPackageReference "dgca-verification-center-ios" */;
 			productName = DGCVerificationCenter;
 		};
 /* End XCSwiftPackageProductDependency section */
