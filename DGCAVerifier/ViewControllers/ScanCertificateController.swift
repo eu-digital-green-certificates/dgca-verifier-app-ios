@@ -538,9 +538,11 @@ extension ScanCertificateController: UIPickerViewDataSource, UIPickerViewDelegat
 extension ScanCertificateController: NFCCommunicating {
     func onNFCResult(_ result: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
-        showInfoAlert(withTitle: "NFC Test", message: "message")
-        guard result, !message.isEmpty else { return }
-        observationHandler(payload: message)
+        DispatchQueue.main.async {
+            self.showInfoAlert(withTitle: "NFC Test", message: "message")
+            guard result, !message.isEmpty else { return }
+            self.observationHandler(payload: message)
+        }
     }
 }
 
