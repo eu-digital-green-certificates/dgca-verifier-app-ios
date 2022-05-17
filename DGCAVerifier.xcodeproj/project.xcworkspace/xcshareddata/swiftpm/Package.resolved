@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
       "state" : {
-        "branch" : "main",
-        "revision" : "c5103a55ca87c9a6189ed4da1fd0d67f07ab5fc9"
+        "revision" : "c5103a55ca87c9a6189ed4da1fd0d67f07ab5fc9",
+        "version" : "1.3.0"
       }
     },
     {
@@ -96,7 +96,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-center-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8ba593ee3f53bc2e76a6d653880efd6fd2d0c691"
+        "revision" : "825e272dcd4485b88c971e29ca2e3c8ca0d1613d"
       }
     },
     {
@@ -114,7 +114,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a814dace6f064b95ab9fdcc65c473171d58a919e"
+        "revision" : "a17311d3c95203a1bf9ab9df77832fee341a4521"
       }
     },
     {
