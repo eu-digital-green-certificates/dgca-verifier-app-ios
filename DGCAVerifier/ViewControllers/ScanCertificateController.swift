@@ -176,7 +176,6 @@ class ScanCertificateController: UIViewController {
         hideDCCCountryList()
         if let barcodeString = barcodeString, let _ = self.selectedCounty?.code {
             self.barcodeString = nil
-            
             observationHandler(payload: barcodeString)
             
         } else {
@@ -240,6 +239,7 @@ class ScanCertificateController: UIViewController {
                         message: "Please check the internet connection and try again.".localized)
                     self.captureSession?.startRunning()
                 }
+                
             } else {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
@@ -290,11 +290,11 @@ class ScanCertificateController: UIViewController {
     }
     
     private func showAlert(withTitle title: String, message: String) {
-      DispatchQueue.main.async {
-          let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-          alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
-          self.present(alertController, animated: true)
-      }
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK".localized, style: .default))
+            self.present(alertController, animated: true)
+        }
     }
     
     private func showPermissionsAlert() {
@@ -539,8 +539,10 @@ extension ScanCertificateController: NFCCommunicating {
     func onNFCResult(_ result: Bool, message: String) {
         DGCLogger.logInfo("NFC: \(message)")
         DispatchQueue.main.async {
-            self.showInfoAlert(withTitle: "NFC Test", message: "message")
-            guard result, !message.isEmpty else { return }
+            guard result, !message.isEmpty else {
+                self.showInfoAlert(withTitle: "Cannot read NFC Data".localized, message: message)
+                return
+            }
             self.observationHandler(payload: message)
         }
     }

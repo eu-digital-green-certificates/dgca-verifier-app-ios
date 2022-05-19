@@ -38,44 +38,32 @@ class NFCHelper: NSObject, NFCNDEFReaderSessionDelegate {
     weak var delegate: NFCCommunicating?
     
     func restartSession() {
-      let session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
-      session.begin()
+        let session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
+        session.begin()
     }
-
+    
     // MARK: NFCNDEFReaderSessionDelegate
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
         delegate?.onNFCResult(false, message: error.localizedDescription)
     }
-
+    
     func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
-        var payload = ""
         for message in messages {
             for record in message.records {
-                DGCLogger.logInfo("NFC_READ: RECORD IDENTIFIER\(record.identifier)")
-                DGCLogger.logInfo("NFC_READ: RECORD payload\(record.payload)")
-                DGCLogger.logInfo("NFC_READ: RECORD type\(record.type)")
-                DGCLogger.logInfo("NFC_READ: RECORD typeNameFormat\(record.typeNameFormat)")
+                DGCLogger.logInfo("NFC_READ: RECORD IDENTIFIER: \(record.identifier)")
+                DGCLogger.logInfo("NFC_READ: RECORD payload: \(record.payload)")
+                DGCLogger.logInfo("NFC_READ: RECORD type: \(record.type)")
+                DGCLogger.logInfo("NFC_READ: RECORD typeNameFormat: \(record.typeNameFormat)")
                 
-                payload += "\(record.identifier)\n"
-                payload += "\(record.payload)\n"
-                payload += "\(record.type)\n"
-                payload += "\(record.typeNameFormat)\n"
-
-      //        if let resultString = String(data: record.payload, encoding: .utf8) {
-      //          onNFCResult(true, resultString)
-      //        } else {
-      //          onNFCResult(false, "don't found any info")
-      //        }
+                if var resultString = String(data: record.payload, encoding: .utf8) {
+                    if let hceRange = resultString.range(of: "HC1:") {
+                        resultString.removeSubrange(resultString.startIndex..<hceRange.lowerBound)
+                    }
+                    delegate?.onNFCResult(true, message: resultString)
+                } else {
+                    delegate?.onNFCResult(false, message: "don't found any info")
+                }
             }
-      }
-      
-      if !payload.isEmpty {
-           if let hceRange = payload.range(of: "HCE:") {
-               payload.removeSubrange(payload.startIndex..<hceRange.lowerBound)
-           }
-          delegate?.onNFCResult(true, message: payload)
-       } else {
-           delegate?.onNFCResult(false, message: "don't found any info")
-       }
+        }
     }
 }
