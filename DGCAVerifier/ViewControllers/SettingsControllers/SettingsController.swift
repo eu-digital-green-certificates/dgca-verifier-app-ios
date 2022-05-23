@@ -32,7 +32,8 @@ import DGCCoreLibrary
 import DCCInspection
 #endif
 
-class SettingsController: UITableViewController, DebugControllerDelegate {
+class SettingsController: UITableViewController, DebuggingDelegate {
+    
     private enum Constants {
         static let licenseSegueID = "LicensesVC"
         static let debugSegueID = "DebugVC"
@@ -40,8 +41,9 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         static let showCountryList = "showCountryList"
     }
     
-    weak var delegate: DebugControllerDelegate?
-    weak var dismissDelegate: DismissControllerDelegate?
+    weak var delegate: DebuggingDelegate?
+    weak var activityDelegate: UserActivityDelegate?
+    
     var isNavigating = false
     var isDCCAdded = false
     
@@ -104,7 +106,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
         privacyLabelName.text = "Privacy Information".localized
         manageDataLabel.text = "Manage Data".localized
         versionLabel.text = DGCVerificationCenter.appVersion
-        countryTitleLabel.text = "DCC Country Code"
+        countryTitleLabel.text = "DCC Country Code".localized
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -211,7 +213,7 @@ class SettingsController: UITableViewController, DebugControllerDelegate {
     
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
-        dismissDelegate?.userDidDissmis(self)
+        activityDelegate?.userDidDissmis(self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

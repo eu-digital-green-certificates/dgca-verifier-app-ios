@@ -40,14 +40,10 @@ import DCCInspection
 import DGCSHInspection
 #endif
 
-protocol DismissControllerDelegate: AnyObject {
-    func userDidDissmis(_ controller: UIViewController)
-}
 
 class ScanCertificateController: UIViewController {
     private enum Constants {
         static let showSettingsSegueID = "showSettingsSegueID"
-        
         static let showDCCCertificate = "showDCCCertificate"
         static let showICAOCertificate = "showICAOCertificate"
         static let showDIVOCCertificate = "showDIVOCCertificate"
@@ -68,7 +64,6 @@ class ScanCertificateController: UIViewController {
     private var dccCountryItems: [CountryModel] = []
     private var barcodeString: String?
     private var nearCommunicatingHelper: NFCHelper?
-    
     private var expireDataTimer: Timer?
     
     lazy private var detectBarcodeRequest = VNDetectBarcodesRequest { request, error in
@@ -191,7 +186,7 @@ class ScanCertificateController: UIViewController {
                 let certificate = sender as? MultiTypeCertificate {
                 destinationController.certificate = certificate
                 destinationController.presentationController?.delegate = self
-                destinationController.dismissDelegate = self
+                destinationController.actuvityDelegate = self
             }
             
         case Constants.showICAOCertificate:
@@ -209,13 +204,13 @@ class ScanCertificateController: UIViewController {
                 destinationController.presentationController?.delegate = self
             }
             destinationController.editMode = false
-            destinationController.dismissDelegate = self
+            destinationController.activityDelegate = self
 
         case Constants.showSettingsSegueID:
             if let navController = segue.destination as? UINavigationController,
                 let destinationController = navController.viewControllers.last as? SettingsController {
                 navController.presentationController?.delegate = self
-                destinationController.dismissDelegate = self
+                destinationController.activityDelegate = self
             }
             
         default:
@@ -550,13 +545,18 @@ extension ScanCertificateController: NFCCommunicating {
 
 // MARK: - Adaptive Presentation Delegate
 extension ScanCertificateController: UIAdaptivePresentationControllerDelegate {
-    public func presentationControllerDidDismiss( _ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         captureSession?.startRunning()
     }
 }
 
-extension ScanCertificateController:  DismissControllerDelegate {
-    public func userDidDissmis(_ controller: UIViewController) {
+extension ScanCertificateController: UserActivityDelegate {
+    func userDidDissmis(_ controller: AnyObject) {
         captureSession?.startRunning()
+    }
+    
+    func userOpensSettings(from controller: AnyObject) {
+        captureSession?.stopRunning()
+        performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
     }
 }

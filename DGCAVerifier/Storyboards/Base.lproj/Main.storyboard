@@ -174,7 +174,7 @@
         <!--DCCCertificateViewer-->
         <scene sceneID="5ro-Ce-zs5">
             <objects>
-                <viewControllerPlaceholder storyboardName="DCCCertificateViewer" id="aag-vh-0jp" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="DCCCertificateViewer" bundleIdentifier="DGCDCCInterfaces" id="aag-vh-0jp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7CM-GC-6sP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1351" y="96"/>

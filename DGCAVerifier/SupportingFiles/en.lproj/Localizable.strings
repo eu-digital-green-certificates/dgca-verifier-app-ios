@@ -103,3 +103,6 @@
 "Share Raw Data" = "Share Raw Data";
 "Actions" = "Actions";
 "Cannot find valid payload information. Swipe right to view all collected data." = "Cannot find valid payload information. Swipe right to view all collected data.";
+
+"DCC Country Code" = "DCC Country Code";
+"Last updated: " = "Last updated: ";

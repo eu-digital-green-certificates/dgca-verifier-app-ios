@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/BigInt",
       "state" : {
-        "revision" : "3ff261ecd694009513cd0a260fc03723cc61d32e",
-        "version" : "1.2.12"
+        "revision" : "b840fe49dc816012c7fc9e975a9b5058a3b42bbc",
+        "version" : "1.3.0"
       }
     },
     {
@@ -78,7 +78,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgc-sh-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "fdfa2c8d333e8a513f47fb2bf8ec6238eecf9bc0"
+        "revision" : "19b5c28221f1a97688115572880907f04e545720"
       }
     },
     {
@@ -105,7 +105,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-core-library-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "337c8e31afddcaf8512b7557c8ae4d6b3e139f03"
+        "revision" : "1470a05521a7a200a10aeddd9611c5f851eddb4e"
       }
     },
     {
@@ -114,7 +114,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-dcc-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5da70723c47e4653efb604584371a7e885032330"
+        "revision" : "bf4640e6d72ee99449eb4aee3910b534d4908666"
       }
     },
     {

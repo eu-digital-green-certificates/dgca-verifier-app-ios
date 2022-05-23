@@ -49,7 +49,7 @@ class DCCViewerController: UIViewController {
     @IBOutlet fileprivate weak var shareButton: RoundedButton!
     
     var certificate: MultiTypeCertificate?
-    weak var dismissDelegate: DismissControllerDelegate?
+    weak var actuvityDelegate: UserActivityDelegate?
     
 
     private let verificationCenter = DGCVerificationCenter.shared
@@ -146,7 +146,7 @@ class DCCViewerController: UIViewController {
     
     @IBAction func dissmissButtonAction() {
         dismiss(animated: true, completion: nil)
-        dismissDelegate?.userDidDissmis(self)
+        actuvityDelegate?.userDidDissmis(self)
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
@@ -300,7 +300,7 @@ extension DCCViewerController: DebugRawSharing {
     }
 }
 
-extension DCCViewerController: DebugControllerDelegate {
+extension DCCViewerController: DebuggingDelegate {
     func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel) {
         validateCertificate()
     }
@@ -310,7 +310,7 @@ extension DCCViewerController: DebugControllerDelegate {
 
 class DCCViewerController: UIViewController {
     var certificate: MultiTypeCertificate?
-    weak var dismissDelegate: DismissControllerDelegate?
+    weak var actuvityDelegate: UserActivityDelegate?
 }
 
 #endif

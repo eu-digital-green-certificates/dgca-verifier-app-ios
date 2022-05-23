@@ -51,6 +51,7 @@ class CardController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupView()
         setupCardShadow()
         loadData()

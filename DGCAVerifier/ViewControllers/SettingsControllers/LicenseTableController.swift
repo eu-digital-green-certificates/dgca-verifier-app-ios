@@ -34,17 +34,17 @@ class LicenseTableController: UITableViewController {
     private var selectedLicense: JSON = []
 
     override func viewDidLoad() {
-      super.viewDidLoad()
-      self.loadLicenses()
+        super.viewDidLoad()
+        self.loadLicenses()
         self.title = "Licenses".localized
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.destination is LicenseController {
-        if let destVC = segue.destination as? LicenseController {
-          destVC.licenseObject = self.selectedLicense
+        if segue.destination is LicenseController {
+            if let destVC = segue.destination as? LicenseController {
+                destVC.licenseObject = self.selectedLicense
+            }
         }
-      }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,7 +58,7 @@ class LicenseTableController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? LicenseCell {
-          self.selectedLicense = cell.licenseObject
+            self.selectedLicense = cell.licenseObject
         }
         // segue to the vc
         performSegue(withIdentifier: "licenseSegue", sender: nil)
@@ -69,15 +69,15 @@ class LicenseTableController: UITableViewController {
     }
 
     private func loadLicenses() {
-      do {
-          guard let licenseFileLocation = Bundle.main.path(forResource: "OpenSourceNotices", ofType: "json") else { return }
-          guard let jsonData = try String(contentsOfFile: licenseFileLocation).data(using: .utf8) else { return }
-            
-          let jsonDoc = try JSON(data: jsonData)
-          self.licenses = jsonDoc["licenses"].array ?? []
+        do {
+            guard let licenseFileLocation = Bundle.main.path(forResource: "OpenSourceNotices", ofType: "json") else { return }
+            guard let jsonData = try String(contentsOfFile: licenseFileLocation).data(using: .utf8) else { return }
+              
+            let jsonDoc = try JSON(data: jsonData)
+            self.licenses = jsonDoc["licenses"].array ?? []
         } catch {
             DGCLogger.logError(error)
-          return
+            return
         }
         DGCLogger.logInfo(self.licenses.description)
     }

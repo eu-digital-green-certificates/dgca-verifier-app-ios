@@ -40,8 +40,8 @@ class CardContainerController: UIViewController {
     
     var certificate: MultiTypeCertificate?
     var editMode: Bool = false
-    weak var dismissDelegate: DismissControllerDelegate?
-
+    weak var activityDelegate: UserActivityDelegate?
+    
     override func viewDidLoad() {
 		super.viewDidLoad()
         setupView()
@@ -59,14 +59,14 @@ class CardContainerController: UIViewController {
         self.saveButton.isHidden = editMode
         self.saveButton.setTitle("Retry".localized, for: .normal)
     }
-    	
+    
 	@IBAction func didPressDoneBtn(_ sender: UIButton) {
         self.dismiss(animated: true)
-        self.dismissDelegate?.userDidDissmis(self)
+        self.activityDelegate?.userDidDissmis(self)
 	}
 	
 	@IBAction func didPressSaveBtn(_ sender: UIButton) {
         self.dismiss(animated: true)
-        self.dismissDelegate?.userDidDissmis(self)
+        self.activityDelegate?.userDidDissmis(self)
     }
 }

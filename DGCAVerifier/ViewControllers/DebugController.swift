@@ -33,10 +33,6 @@ import DGCVerificationCenter
 import DCCInspection
 #endif
 
-protocol DebugControllerDelegate: AnyObject {
-    func debugControllerDidSelect(isDebugMode: Bool, level: DebugLevel)
-}
-
 class DebugController: UIViewController {
 
     private enum Constants {
@@ -53,7 +49,7 @@ class DebugController: UIViewController {
     @IBOutlet fileprivate weak var debugModeLabel: UILabel!
 
     private var countryList = [CountryModel]()
-    weak var delegate: DebugControllerDelegate?
+    weak var delegate: DebuggingDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

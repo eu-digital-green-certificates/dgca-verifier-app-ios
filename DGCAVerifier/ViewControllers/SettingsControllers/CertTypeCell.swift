@@ -44,7 +44,7 @@ class CertTypeCell: UITableViewCell {
             certTypeName.text = applicableInspector?.type.certificateDescription
             certTaskName.text = applicableInspector?.type.certificateTaskDescription
             let dateString = applicableInspector?.inspector.lastUpdate.dateTimeString ?? ""
-            lastUpdateLabel.text = "Last updated: " + dateString
+            lastUpdateLabel.text = "Last updated: ".localized + dateString
         }
     }
     
@@ -62,6 +62,5 @@ class CertTypeCell: UITableViewCell {
             }
             self?.delegate?.loadingInspector(self!.applicableInspector!, didFinishLoadingData: true)
         }
-
     }
 }
