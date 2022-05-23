@@ -33,14 +33,14 @@ class InfoCell: UITableViewCell {
     @IBOutlet fileprivate weak var headerLabel: UILabel!
     @IBOutlet fileprivate weak var contentLabel: UILabel!
 
-  func setupCell(with info: InfoSection?) {
-    guard let info = info else {
-        headerLabel.text = ""
-        contentLabel.text = ""
-        return
+    func setupCell(with info: InfoSection?) {
+        guard let info = info else {
+            headerLabel.text = ""
+            contentLabel.text = ""
+            return
+        }
+        
+        headerLabel?.text = info.header
+        contentLabel?.text = info.content
     }
-    
-    headerLabel?.text = info.header
-    contentLabel?.text = info.content
-  }
 }

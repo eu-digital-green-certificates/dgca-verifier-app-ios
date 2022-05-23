@@ -554,9 +554,4 @@ extension ScanCertificateController: UserActivityDelegate {
     func userDidDissmis(_ controller: AnyObject) {
         captureSession?.startRunning()
     }
-    
-    func userOpensSettings(from controller: AnyObject) {
-        captureSession?.stopRunning()
-        performSegue(withIdentifier: Constants.showSettingsSegueID, sender: nil)
-    }
 }

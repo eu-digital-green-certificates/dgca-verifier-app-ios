@@ -31,14 +31,12 @@ import DGCVerificationCenter
 import DGCCoreLibrary
 
 class CertTypeCell: UITableViewCell {
-    
     @IBOutlet fileprivate weak var certTypeName: UILabel!
     @IBOutlet fileprivate weak var certTaskName: UILabel!
     @IBOutlet fileprivate weak var lastUpdateLabel: UILabel!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
-
-    var delegate: DataManagingProtocol?
     
+    var delegate: DataManagingProtocol?
     var applicableInspector: ApplicableInspector? {
         didSet {
             certTypeName.text = applicableInspector?.type.certificateDescription

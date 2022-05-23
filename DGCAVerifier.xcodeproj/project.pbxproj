@@ -91,6 +91,9 @@
 		D2ADAE74283BDEB400210986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F1261F8D2700715333 /* Main.storyboard */; };
 		D2ADAE75283BDEB800210986 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA6D6F6261F8D2900715333 /* LaunchScreen.storyboard */; };
 		D2ADAE76283BDEBD00210986 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
+		D2ADAE77283BE87200210986 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
+		D2ADAE78283BE87200210986 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
+		D2ADAE79283BE87300210986 /* RoundedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277555528007998005FEE00 /* RoundedBox.swift */; };
 		D2B454EF27F35BED00D8A296 /* ScanCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */; };
 		D2B454F027F35BF000D8A296 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE891304263581D900CB92AF /* HomeController.swift */; };
 		D2B454F127F35BF300D8A296 /* DebugController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA450A526E0BA640029324E /* DebugController.swift */; };
@@ -843,6 +846,7 @@
 				5CA450CB26E7421C0029324E /* DebugDCCValidationCell.swift in Sources */,
 				5CA450C326E741BB0029324E /* DebugRawCell.swift in Sources */,
 				D2F6551827ECEA70004C7D4B /* SettingsController.swift in Sources */,
+				D2ADAE77283BE87200210986 /* RoundedBox.swift in Sources */,
 				D2F6552427ECEA93004C7D4B /* SecureBackground.swift in Sources */,
 				D2F6551A27ECEA74004C7D4B /* LicenseTableController.swift in Sources */,
 				CEFAD87F262714C4009AFEF9 /* EHNTests.swift in Sources */,
@@ -870,6 +874,7 @@
 				D26BB4D028199CDC0021EA4E /* CardController.swift in Sources */,
 				D2F6551327ECEA61004C7D4B /* RoundedButton.swift in Sources */,
 				D2F6551727ECEA6A004C7D4B /* ScanCertificateController.swift in Sources */,
+				D2ADAE78283BE87200210986 /* RoundedBox.swift in Sources */,
 				D2F6551127ECEA5E004C7D4B /* SquareViewFinder.swift in Sources */,
 				15BF68A12733D46D00552288 /* HomeController.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* DGCAVerifierUITests.swift in Sources */,
@@ -904,6 +909,7 @@
 				D26BB4CF28199CDB0021EA4E /* CardController.swift in Sources */,
 				D2B4550027F3750E00D8A296 /* SecureBackground.swift in Sources */,
 				D2B454F227F35BF900D8A296 /* SettingsController.swift in Sources */,
+				D2ADAE79283BE87300210986 /* RoundedBox.swift in Sources */,
 				D2B454FF27F374F400D8A296 /* InfoCellDropDown.swift in Sources */,
 				D2B454EF27F35BED00D8A296 /* ScanCertificateController.swift in Sources */,
 				D2B454F827F374E200D8A296 /* DebugCountryCell.swift in Sources */,

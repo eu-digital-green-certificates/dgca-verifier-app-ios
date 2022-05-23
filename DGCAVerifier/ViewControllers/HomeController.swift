@@ -32,7 +32,7 @@ import DGCCoreLibrary
 class HomeController: UIViewController {
   
     private enum Constants {
-      static let scannerSegueID = "scannerSegueID"
+        static let scannerSegueID = "scannerSegueID"
     }
     
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
@@ -40,7 +40,7 @@ class HomeController: UIViewController {
     @IBOutlet fileprivate weak var progresBar: UIProgressView!
     @IBOutlet fileprivate weak var reloadButton: UIButton!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
-
+    
     let verificationCenter = DGCVerificationCenter.shared
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
