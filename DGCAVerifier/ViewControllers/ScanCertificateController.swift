@@ -345,8 +345,6 @@ extension ScanCertificateController {
                 self?.performSegue(withIdentifier: Constants.showDCCCertificate, sender: certificate)
             case .icao:
                 self?.performSegue(withIdentifier: Constants.showICAOCertificate, sender: certificate)
-            case .divoc:
-                self?.performSegue(withIdentifier: Constants.showDIVOCCertificate, sender: certificate)
             case .shc:
                 self?.performSegue(withIdentifier: Constants.showSHCCredentials, sender: certificate)
             }
@@ -432,7 +430,7 @@ private extension ScanCertificateController {
     func observationHandler(payload: String?) {
         guard let barcodeString = payload, !barcodeString.isEmpty else { return }
         
-        if CertificateApplicant.isApplicableDCCFormat(payload: barcodeString) {
+        if DGCVerificationCenter.shared.isApplicableDCCFormat(payload: barcodeString) {
             if self.selectedCounty == nil {
                 self.barcodeString = barcodeString
                 showDCCCountryList()
@@ -446,13 +444,10 @@ private extension ScanCertificateController {
                 }
             }
         
-        } else if CertificateApplicant.isApplicableICAOFormat(payload: barcodeString) {
+        } else if DGCVerificationCenter.shared.isApplicableICAOFormat(payload: barcodeString) {
             // TODO: add processing of ICAO format
-            
-        } else if CertificateApplicant.isApplicableDIVOCFormat(payload: barcodeString) {
-            // TODO: add processing of DIVOC format
-            
-        } else if CertificateApplicant.isApplicableSHCFormat(payload: barcodeString) {
+                        
+        } else if DGCVerificationCenter.shared.isApplicableSHCFormat(payload: barcodeString) {
             do {
                 let certificate = try MultiTypeCertificate(from: barcodeString)
                 scannerDidScanCertificate(certificate)

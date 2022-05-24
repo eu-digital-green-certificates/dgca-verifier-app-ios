@@ -52,8 +52,6 @@ class DCCViewerController: UIViewController {
     weak var actuvityDelegate: UserActivityDelegate?
     
 
-    private let verificationCenter = DGCVerificationCenter.shared
-
     private var validityState: ValidityState?
 
     private var isDebugMode = DebugManager.sharedInstance.isDebugMode
@@ -83,11 +81,9 @@ class DCCViewerController: UIViewController {
         guard let cert = certificate?.digitalCertificate as? HCert else { return }
         
         isDebugMode = DebugManager.sharedInstance.isDebugMode
-        
-        let validityState = DGCVerificationCenter.shared.dccInspector?.validateCertificate(cert)
-        
-        if let state = validityState {
-            if state.isVerificationFailed {
+                
+        if let validityState = DGCVerificationCenter.shared.dccInspector?.validateCertificate(cert) {
+            if validityState.isVerificationFailed {
                 let codes = DCCDataCenter.countryCodes
                 let country = cert.ruleCountryCode ?? ""
                 
@@ -98,8 +94,8 @@ class DCCViewerController: UIViewController {
                     self.isDebugMode = false
                 }
             }
-            self.sectionBuilder = DCCSectionBuilder(with: cert, validity: state, for: .verifier)
-            self.validityState = state
+            self.sectionBuilder = DCCSectionBuilder(with: cert, validity: validityState, for: .verifier)
+            self.validityState = validityState
         }
     }
     
