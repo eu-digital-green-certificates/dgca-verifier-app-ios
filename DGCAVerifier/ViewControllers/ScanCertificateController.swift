@@ -410,6 +410,7 @@ private extension ScanCertificateController {
                       
                         potentialQRCode = potentialCode
                     }
+                    
                     DGCLogger.logInfo(potentialQRCode.symbology.rawValue.description)
                     self.observationHandler(payload: potentialQRCode.payloadStringValue)
                 }
@@ -424,7 +425,7 @@ private extension ScanCertificateController {
             if self.selectedCounty == nil {
                 self.barcodeString = barcodeString
                 showDCCCountryList()
-                
+            
             } else if self.barcodeString == nil {
                 let countryCode = self.selectedCounty?.code
                 if let certificate = try? MultiTypeCertificate(from: barcodeString, ruleCountryCode: countryCode) {
@@ -433,7 +434,7 @@ private extension ScanCertificateController {
                     scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
                 }
             }
-                                
+        
         } else if DGCVerificationCenter.shared.isApplicableSHCFormat(payload: barcodeString) {
             do {
                 let certificate = try MultiTypeCertificate(from: barcodeString)
@@ -480,9 +481,9 @@ extension ScanCertificateController: AVCaptureVideoDataOutputSampleBufferDelegat
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
       from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-
+        
         let imageRequestHandler = VNImageRequestHandler( cvPixelBuffer: pixelBuffer, orientation: .right)
-
+        
         do {
             try imageRequestHandler.perform([detectBarcodeRequest])
             
