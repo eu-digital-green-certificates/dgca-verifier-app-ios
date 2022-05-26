@@ -45,8 +45,6 @@ class ScanCertificateController: UIViewController {
     private enum Constants {
         static let showSettingsSegueID = "showSettingsSegueID"
         static let showDCCCertificate = "showDCCCertificate"
-        static let showICAOCertificate = "showICAOCertificate"
-        static let showDIVOCCertificate = "showDIVOCCertificate"
         static let showSHCCredentials = "showSHCCredentials"
     }
     
@@ -188,15 +186,7 @@ class ScanCertificateController: UIViewController {
                 destinationController.presentationController?.delegate = self
                 destinationController.actuvityDelegate = self
             }
-            
-        case Constants.showICAOCertificate:
-            break
-            // TODO: Add ICAO viewer controller
-            
-        case Constants.showDIVOCCertificate:
-            break
-            // TODO: Add ICAO viewer controller
-            
+                        
         case Constants.showSHCCredentials:
             guard let destinationController = segue.destination as? CardContainerController else { return }
             if let certificate = sender as? MultiTypeCertificate {
@@ -341,10 +331,10 @@ extension ScanCertificateController {
             case .unknown:
                 // TODO: Show Alert here
                 break
+                
             case .dcc:
                 self?.performSegue(withIdentifier: Constants.showDCCCertificate, sender: certificate)
-            case .icao:
-                self?.performSegue(withIdentifier: Constants.showICAOCertificate, sender: certificate)
+
             case .shc:
                 self?.performSegue(withIdentifier: Constants.showSHCCredentials, sender: certificate)
             }
@@ -443,10 +433,7 @@ private extension ScanCertificateController {
                     scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
                 }
             }
-        
-        } else if DGCVerificationCenter.shared.isApplicableICAOFormat(payload: barcodeString) {
-            // TODO: add processing of ICAO format
-                        
+                                
         } else if DGCVerificationCenter.shared.isApplicableSHCFormat(payload: barcodeString) {
             do {
                 let certificate = try MultiTypeCertificate(from: barcodeString)
@@ -477,9 +464,11 @@ private extension ScanCertificateController {
                 
             } catch let error as CertificateParsingError {
                 scannerDidFailWithError(error: error)
+                
             } catch {
                 scannerDidFailWithError(error: CertificateParsingError.invalidStructure)
             }
+            
         } else {
             DGCLogger.logInfo("Cannot applicate \(barcodeString) to any available type")
             scannerDidFailWithError(error: CertificateParsingError.unknownFormat)
