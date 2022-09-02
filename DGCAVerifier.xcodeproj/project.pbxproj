@@ -41,6 +41,7 @@
 		C9E7957428AF7EAE00BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
 		C9E7957528AF7EAF00BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
 		C9E7957628AF7EAF00BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
+		CAECCA4028C216B80076443C /* EUID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAECCA3F28C216B80076443C /* EUID.storyboard */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		CE345FAC26446694003B457E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
@@ -223,6 +224,7 @@
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		C9E7957228AF7EA300BD4B1B /* EUIDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUIDController.swift; sourceTree = "<group>"; };
+		CAECCA3F28C216B80076443C /* EUID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EUID.storyboard; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* DCCViewerController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = DCCViewerController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */,
 				D22C0AFE28198D1E00BD5007 /* SmartHealth.storyboard */,
 				CE345FAE26446694003B457E /* Settings.storyboard */,
+				CAECCA3F28C216B80076443C /* EUID.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2CBC2BB2836C98E007E8AB3 /* context.jsonc in Resources */,
+				CAECCA4028C216B80076443C /* EUID.storyboard in Resources */,
 				D22C0AFF28198D1E00BD5007 /* SmartHealth.storyboard in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
