@@ -37,6 +37,11 @@
 		5CE07C8926938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
 		5CE07C8A26938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
 		5CE07C8B26938DE700A032F9 /* RuleErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */; };
+		C9E7957328AF7EA300BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
+		C9E7957428AF7EAE00BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
+		C9E7957528AF7EAF00BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
+		C9E7957628AF7EAF00BD4B1B /* EUIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7957228AF7EA300BD4B1B /* EUIDController.swift */; };
+		CAECCA4028C216B80076443C /* EUID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAECCA3F28C216B80076443C /* EUID.storyboard */; };
 		CE13CF00262DCC180070C80E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CE13CF23262DDF810070C80E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13CF22262DDF810070C80E /* RoundedButton.swift */; };
 		CE345FAC26446694003B457E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE345FAE26446694003B457E /* Settings.storyboard */; };
@@ -218,6 +223,8 @@
 		5CE07C8726938DE700A032F9 /* RuleErrorCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = RuleErrorCell.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		5CFEDB0A269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
 		5CFEDB0C269D72B600074F66 /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
+		C9E7957228AF7EA300BD4B1B /* EUIDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUIDController.swift; sourceTree = "<group>"; };
+		CAECCA3F28C216B80076443C /* EUID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EUID.storyboard; sourceTree = "<group>"; };
 		CE13CF09262DCDDA0070C80E /* DCCViewerController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; lineEnding = 1; path = DCCViewerController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE13CF22262DDF810070C80E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CE345FAD26446694003B457E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
@@ -365,6 +372,14 @@
 			path = Release;
 			sourceTree = "<group>";
 		};
+		C9E7957128AF7E7500BD4B1B /* EUID */ = {
+			isa = PBXGroup;
+			children = (
+				C9E7957228AF7EA300BD4B1B /* EUIDController.swift */,
+			);
+			path = EUID;
+			sourceTree = "<group>";
+		};
 		CE13CF19262DDE200070C80E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +388,7 @@
 				CE345FB1264466AA003B457E /* DCCCertificateViewer.storyboard */,
 				D22C0AFE28198D1E00BD5007 /* SmartHealth.storyboard */,
 				CE345FAE26446694003B457E /* Settings.storyboard */,
+				CAECCA3F28C216B80076443C /* EUID.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -390,6 +406,7 @@
 			children = (
 				CE891304263581D900CB92AF /* HomeController.swift */,
 				D23EF7BA272094CB0097D82B /* ScanCertificateController.swift */,
+				C9E7957128AF7E7500BD4B1B /* EUID */,
 				D26BB4C228199CB90021EA4E /* SmartCards */,
 				D277555728007BC5005FEE00 /* DCCViewer */,
 				5CA450A526E0BA640029324E /* DebugController.swift */,
@@ -705,6 +722,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2CBC2BB2836C98E007E8AB3 /* context.jsonc in Resources */,
+				CAECCA4028C216B80076443C /* EUID.storyboard in Resources */,
 				D22C0AFF28198D1E00BD5007 /* SmartHealth.storyboard in Resources */,
 				CEA6D6F8261F8D2900715333 /* LaunchScreen.storyboard in Resources */,
 				5C9C65A426A8507A00F14FC2 /* README.md in Resources */,
@@ -826,6 +844,7 @@
 				5CA450DF26E78D990029324E /* InfoCell.swift in Sources */,
 				CEA6D6EE261F8D2700715333 /* SceneDelegate.swift in Sources */,
 				D2D8F2B527F5C83B00508610 /* AppManager.swift in Sources */,
+				C9E7957328AF7EA300BD4B1B /* EUIDController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +854,7 @@
 			files = (
 				D2F6551227ECEA60004C7D4B /* RoundedButton.swift in Sources */,
 				5CA450BB26E7419F0029324E /* DebugDCCSectionCell.swift in Sources */,
+				C9E7957428AF7EAE00BD4B1B /* EUIDController.swift in Sources */,
 				15BF68A02733D46A00552288 /* HomeController.swift in Sources */,
 				D2F6550E27ECEA51004C7D4B /* LicenseCell.swift in Sources */,
 				5CA450A726E0BA640029324E /* DebugController.swift in Sources */,
@@ -892,6 +912,7 @@
 				D2F6552527ECEA94004C7D4B /* SecureBackground.swift in Sources */,
 				D2D8F2C127F5D49B00508610 /* DebugSectionModel.swift in Sources */,
 				D2F6551927ECEA72004C7D4B /* SettingsController.swift in Sources */,
+				C9E7957528AF7EAF00BD4B1B /* EUIDController.swift in Sources */,
 				5CA450A826E0BA640029324E /* DebugController.swift in Sources */,
 				5CA450AF26E0F4C20029324E /* DebugCountryCell.swift in Sources */,
 				D2F6551B27ECEA74004C7D4B /* LicenseTableController.swift in Sources */,
@@ -927,6 +948,7 @@
 				D2F6553227ECEADF004C7D4B /* NFCHelper.swift in Sources */,
 				D2D8F2C227F5D49B00508610 /* DebugSectionModel.swift in Sources */,
 				D2B454FC27F374EC00D8A296 /* RuleErrorCell.swift in Sources */,
+				C9E7957628AF7EAF00BD4B1B /* EUIDController.swift in Sources */,
 				D2B454FB27F374EA00D8A296 /* DebugDCCSectionCell.swift in Sources */,
 				D2B454FA27F374E700D8A296 /* DebugRawCell.swift in Sources */,
 				D2B454F327F35BFD00D8A296 /* LicenseTableController.swift in Sources */,
@@ -1135,10 +1157,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 56;
-				DEVELOPMENT_TEAM = 9FH6TNGWF2;
+				DEVELOPMENT_TEAM = 35JU98YCUF;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1148,7 +1170,7 @@
 				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1160,10 +1182,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DGCAVerifier/DGCAVerifier.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 56;
-				DEVELOPMENT_TEAM = 9FH6TNGWF2;
+				DEVELOPMENT_TEAM = 35JU98YCUF;
 				INFOPLIST_FILE = DGCAVerifier/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1173,7 +1195,7 @@
 				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.t-systems.pu-ds.dgca.verifier.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Digital Green Certificate Verifier";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
