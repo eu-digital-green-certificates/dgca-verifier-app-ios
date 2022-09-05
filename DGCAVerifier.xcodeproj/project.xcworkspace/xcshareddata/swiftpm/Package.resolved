@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire",
       "state" : {
-        "revision" : "354dda32d89fc8cd4f5c46487f64957d355f53d8",
-        "version" : "5.6.1"
+        "revision" : "8dd85aee02e39dd280c75eef88ffdb86eed4b07b",
+        "version" : "5.6.2"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/BigInt",
       "state" : {
-        "revision" : "9e79977c6be2590f737c01dc891abd7283b9505c",
-        "version" : "1.3.1"
+        "revision" : "b72c765c800800279a723cddd8d5ed35f803d07a",
+        "version" : "1.5.1"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Chronometer.git",
       "state" : {
-        "revision" : "bf49dace3be107ab11609ed428c1b7878a07be52",
-        "version" : "0.1.4"
+        "revision" : "1360b46bfa6eecbdedd24590b95f97d3e59dc027",
+        "version" : "0.1.6"
       }
     },
     {
@@ -78,7 +78,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgc-sh-inspection-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "4c96846cd0c56ebdaafb739f864d25b621dd9ccd"
+        "revision" : "2a3572d13a9af92578136bb228ff4d7e5455b77b"
       }
     },
     {
@@ -96,7 +96,7 @@
       "location" : "https://github.com/eu-digital-green-certificates/dgca-verification-center-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "6e0318145ad0565f72ef7f418297791f5d5583ec"
+        "revision" : "d9d8534f3ba5ccf624dea41de1ac835bf306354a"
       }
     },
     {
@@ -122,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Hitch.git",
       "state" : {
-        "revision" : "eec08edd53a0d433f707d241483e03e59becafe9",
-        "version" : "0.4.36"
+        "revision" : "6c4eeb3a675c5649a27e51a8dfd67ab0439357d1",
+        "version" : "0.4.48"
       }
     },
     {
@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
       "state" : {
-        "revision" : "3898636b43b62e571849790f74485dd1504ee785",
-        "version" : "1.2.3"
+        "revision" : "10580f69c911df26736ebf31b4eaf629f2972d10",
+        "version" : "1.2.4"
       }
     },
     {
@@ -176,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Sextant.git",
       "state" : {
-        "revision" : "ce0e5bd27b04c80de12d3729f028d01155d4b2a8",
-        "version" : "0.4.11"
+        "revision" : "7080eaf2f5173fa97349d97aed73966387beb799",
+        "version" : "0.4.12"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Spanker.git",
       "state" : {
-        "revision" : "6becc7caf3e1648d2b9331652dc4809e91514cff",
-        "version" : "0.2.25"
+        "revision" : "c383c78d988f925d071b0f204e4591c8a198843e",
+        "version" : "0.2.27"
       }
     },
     {
