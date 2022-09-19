@@ -33,14 +33,12 @@ class HomeController: UIViewController {
   
     private enum Constants {
         static let scannerSegueID = "scannerSegueID"
-        static let euidCheckQRCode = "euidCheckQRCode"
     }
     
     @IBOutlet fileprivate weak var appNameLabel: UILabel!
     @IBOutlet fileprivate weak var messageLabel: UILabel!
     @IBOutlet fileprivate weak var progresBar: UIProgressView!
     @IBOutlet fileprivate weak var reloadButton: UIButton!
-    @IBOutlet fileprivate weak var actionButtonsStackView: UIStackView!
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
     
     let verificationCenter = DGCVerificationCenter.shared
@@ -98,14 +96,6 @@ class HomeController: UIViewController {
     @IBAction func reloadAction() {
         reloadData()
     }
-    @IBAction func verifyCertificateAction() {
-        self.prepareSecureBackground()
-        performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
-    }
-    @IBAction func dccCheck() {
-        self.prepareSecureBackground()
-        performSegue(withIdentifier: Constants.euidCheckQRCode, sender: nil)
-    }
     
     private func showAlertNoData() {
         let title = "Cannot load data".localized
@@ -133,13 +123,11 @@ class HomeController: UIViewController {
     }
     
     private func loadComplete() {
-        actionButtonsStackView.isHidden = false
-    }
-    
-    private func prepareSecureBackground() {
         let renderer = UIGraphicsImageRenderer(size: self.view.bounds.size)
         SecureBackground.image = renderer.image { rendererContext in
             self.view.layer.render(in: rendererContext.cgContext)
         }
+        // performSegue(withIdentifier: Constants.scannerSegueID, sender: nil)
+        performSegue(withIdentifier: "toEUIDStoryboardSegue", sender: nil)
     }
 }
