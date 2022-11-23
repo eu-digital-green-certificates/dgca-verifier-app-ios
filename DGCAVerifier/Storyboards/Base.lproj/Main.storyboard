@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q2g-Cz-5x2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -22,6 +21,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFx-TW-pOU">
+                                <rect key="frame" x="0.0" y="690" width="414" height="44"/>
+                                <items/>
+                            </toolbar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-AB-3pf">
+                                <rect key="frame" x="197" y="702" width="20" height="20"/>
+                            </activityIndicatorView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA7-Xa-kp8">
                                 <rect key="frame" x="0.0" y="734" width="414" height="162"/>
                                 <color key="backgroundColor" white="1" alpha="0.82110315439652426" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,7 +45,9 @@
                                     <constraint firstAttribute="height" constant="30" id="efO-TH-y0a"/>
                                     <constraint firstAttribute="width" constant="30" id="iGZ-8Q-pd1"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="gear_white"/>
+                                <state key="normal" backgroundImage="gear_white">
+                                    <color key="titleShadowColor" name="disabledText"/>
+                                </state>
                                 <connections>
                                     <action selector="openSettingsController" destination="BYZ-38-t0r" eventType="touchUpInside" id="NDg-4c-uF4"/>
                                 </connections>
@@ -71,6 +79,7 @@
                             <constraint firstItem="eiu-UP-1vm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1bh-bA-VHC"/>
                             <constraint firstItem="Kmt-XU-cwz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="2nI-Kp-cDL"/>
                             <constraint firstAttribute="bottom" secondItem="eiu-UP-1vm" secondAttribute="bottom" id="3gD-zG-6Sk"/>
+                            <constraint firstItem="HA7-Xa-kp8" firstAttribute="top" secondItem="oFx-TW-pOU" secondAttribute="bottom" id="6ew-ge-jfy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5YE-Ts-nyc" secondAttribute="trailing" constant="24" id="BXa-4a-28t"/>
                             <constraint firstItem="HA7-Xa-kp8" firstAttribute="top" secondItem="Kmt-XU-cwz" secondAttribute="bottom" constant="-30" id="Fxt-KY-xmr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Kmt-XU-cwz" secondAttribute="trailing" constant="20" id="TiF-jo-8dB"/>
@@ -81,15 +90,21 @@
                             <constraint firstItem="Y3Q-ch-qEs" firstAttribute="top" secondItem="5YE-Ts-nyc" secondAttribute="bottom" constant="40" id="coP-xI-icF"/>
                             <constraint firstItem="5YE-Ts-nyc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hlp-dj-7lU"/>
                             <constraint firstItem="HA7-Xa-kp8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jsf-aa-3We"/>
+                            <constraint firstItem="oFx-TW-pOU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="k55-gb-fyv"/>
+                            <constraint firstItem="tRL-AB-3pf" firstAttribute="centerY" secondItem="oFx-TW-pOU" secondAttribute="centerY" id="lSy-I1-rkf"/>
+                            <constraint firstItem="oFx-TW-pOU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mk1-OZ-4FJ"/>
+                            <constraint firstItem="tRL-AB-3pf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nCZ-Bp-3GT"/>
                             <constraint firstItem="HA7-Xa-kp8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="t5D-31-dhq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DC8-2u-JQC"/>
                     <connections>
                         <outlet property="aNFCButton" destination="Y3Q-ch-qEs" id="7tE-cD-R1f"/>
+                        <outlet property="activityIndicator" destination="tRL-AB-3pf" id="jyU-6c-UcP"/>
                         <outlet property="camView" destination="eiu-UP-1vm" id="Clp-eq-8HD"/>
                         <outlet property="countryCodeLabel" destination="Kmt-XU-cwz" id="ffH-xr-Wwt"/>
                         <outlet property="countryCodeView" destination="HA7-Xa-kp8" id="28q-RN-U55"/>
+                        <outlet property="headerView" destination="oFx-TW-pOU" id="mUl-sw-ec4"/>
                         <outlet property="settingsButton" destination="5YE-Ts-nyc" id="aM2-Bz-XQA"/>
                         <segue destination="Bq5-EK-ZXe" kind="presentation" identifier="showSettingsSegueID" id="AUB-ge-vqn"/>
                         <segue destination="aag-vh-0jp" kind="presentation" identifier="showCertificateViewer" id="6bX-o3-GKF"/>
@@ -177,8 +192,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W1a-Nq-HsO">
-                                <rect key="frame" x="60" y="625" width="294" height="4"/>
+                                <rect key="frame" x="60" y="619.5" width="294" height="4"/>
                             </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZK5-zm-Zdm">
+                                <rect key="frame" x="129" y="428.5" width="156" height="39"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Download Data"/>
+                                <connections>
+                                    <action selector="reloadAction" destination="WAh-yr-kBl" eventType="touchUpInside" id="5wu-Tw-9w5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eo3-Vz-9CR"/>
                         <color key="backgroundColor" name="verifierBlue"/>
@@ -193,6 +218,7 @@
                             <constraint firstItem="SJI-m9-dcF" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="J8i-HJ-Mz8"/>
                             <constraint firstAttribute="trailing" secondItem="U1k-Fz-tlt" secondAttribute="trailing" id="OGa-o0-tJV"/>
                             <constraint firstItem="69c-5J-Njm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="PeV-gt-gBw"/>
+                            <constraint firstItem="ZK5-zm-Zdm" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="Tcf-SW-FBz"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="top" secondItem="TSz-Wk-1F3" secondAttribute="top" id="cdZ-XD-qKo"/>
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="top" secondItem="SJI-m9-dcF" secondAttribute="bottom" constant="8" id="eK4-uU-snd"/>
                             <constraint firstItem="yXf-VE-y9w" firstAttribute="centerY" secondItem="TSz-Wk-1F3" secondAttribute="centerY" id="exJ-Jk-0iP"/>
@@ -201,8 +227,9 @@
                             <constraint firstItem="NXa-E7-6vV" firstAttribute="centerX" secondItem="TSz-Wk-1F3" secondAttribute="centerX" id="mL1-PH-CIz"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="leading" secondItem="TSz-Wk-1F3" secondAttribute="leading" id="pWb-aN-K7H"/>
                             <constraint firstItem="SnU-NM-uwu" firstAttribute="top" secondItem="wSz-Vc-V0a" secondAttribute="bottom" constant="32" id="rNk-At-HuJ"/>
-                            <constraint firstItem="wSz-Vc-V0a" firstAttribute="top" secondItem="W1a-Nq-HsO" secondAttribute="bottom" constant="64.5" id="sAy-6M-ekK"/>
+                            <constraint firstItem="wSz-Vc-V0a" firstAttribute="top" secondItem="W1a-Nq-HsO" secondAttribute="bottom" constant="70" id="sAy-6M-ekK"/>
                             <constraint firstItem="W1a-Nq-HsO" firstAttribute="leading" secondItem="Eo3-Vz-9CR" secondAttribute="leading" constant="60" id="tUB-HB-g9F"/>
+                            <constraint firstItem="ZK5-zm-Zdm" firstAttribute="centerY" secondItem="TSz-Wk-1F3" secondAttribute="centerY" id="vqI-jr-eQp"/>
                             <constraint firstItem="U1k-Fz-tlt" firstAttribute="height" secondItem="TSz-Wk-1F3" secondAttribute="height" multiplier="0.15" id="w13-2b-J2X"/>
                             <constraint firstItem="Eo3-Vz-9CR" firstAttribute="trailing" secondItem="wSz-Vc-V0a" secondAttribute="trailing" constant="20" id="y7r-5u-zCR"/>
                         </constraints>
@@ -213,6 +240,7 @@
                         <outlet property="appNameLabel" destination="NXa-E7-6vV" id="p1N-ji-ryS"/>
                         <outlet property="messageLabel" destination="wSz-Vc-V0a" id="itP-zq-azf"/>
                         <outlet property="progresBar" destination="W1a-Nq-HsO" id="agO-yR-fTA"/>
+                        <outlet property="reloadButton" destination="ZK5-zm-Zdm" id="ZZp-bC-992"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="scannerSegueID" id="rRW-gu-ad2"/>
                     </connections>
                 </viewController>
@@ -226,6 +254,9 @@
         <image name="gear_white" width="22" height="22"/>
         <image name="icon_nfc" width="13.399999618530273" height="23.399999618530273"/>
         <image name="verifier_icon" width="112" height="112"/>
+        <namedColor name="disabledText">
+            <color red="0.62400001287460327" green="0.62400001287460327" blue="0.62400001287460327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="verifierBlue">
             <color red="0.0" green="0.26666666666666666" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

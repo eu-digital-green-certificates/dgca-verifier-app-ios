@@ -19,26 +19,37 @@
  * ---license-end
  */
 //  
-//  DataStuctures.swift
+//  Simplified.swift
 //  DGCAVerifier
 //  
-//  Created by Igor Khomiak on 11/3/21.
+//  Created by Igor Khomiak on 17.03.2022.
 //  
         
 
 import Foundation
 import SwiftDGC
-import CertLogic
 
-class LocalData: Codable {
-    var encodedPublicKeys = [String : [String]]()
-    var countryCodes = [CountryModel]()
-    var valueSets = [ValueSet]()
-    var rules = [Rule]()
+struct SimpleRevocation {
+    let kid: String
+    let mode: String
+    let hashTypes: String
+    let expires: Date
+    let lastUpdated: Date
     
-    var resumeToken: String = ""
-    var lastFetch: Date = Date.distantPast
+    var lastUpdatedString: String {
+        return lastUpdated.dateOffsetString
+    }
+}
 
-    var config = Config.load()
-    var lastLaunchedAppVersion = "0.0"
+struct SimpleSlice {
+    let kid: String
+    let partID: String
+    let chunkID: String
+    let version: String
+    let hashID: String
+    let expiredDate: Date
+    var hashData: Data?
+    let type: String
+    
+    var dateString: String?
 }

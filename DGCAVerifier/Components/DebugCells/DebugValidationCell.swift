@@ -46,7 +46,7 @@ class DebugValidationCell: UITableViewCell {
   @IBOutlet weak var destinationView: UILabel!
   @IBOutlet weak var travvelerView: UILabel!
   
-  private var validityState: ValidityState = .validState
+  private var validityState: ValidityState?
       
   func setupCell(with validity: ValidityState) {
     self.validityState = validity
@@ -79,16 +79,16 @@ class DebugValidationCell: UITableViewCell {
   }
   
   private func setupIcons() {
-    technivalView.text = validityState.technicalValidityString
-    issuerView.text = validityState.issuerInvalidationString
-    destinationView.text = validityState.destinationAcceptenceString
-    travvelerView.text = validityState.travalerAcceptenceString
+    technivalView.text = validityState?.technicalValidityString
+    issuerView.text = validityState?.issuerInvalidationString
+    destinationView.text = validityState?.destinationAcceptenceString
+    travvelerView.text = validityState?.travalerAcceptenceString
   }
   
   private func setupColors() {
-    technivalView.backgroundColor = validityState.technicalValidityColor
-    issuerView.backgroundColor = validityState.issuerInvalidationColor
-    destinationView.backgroundColor = validityState.destinationAcceptenceColor
-    travvelerView.backgroundColor = validityState.travalerAcceptenceColor
+    technivalView.backgroundColor = validityState?.technicalValidityColor ?? .red
+    issuerView.backgroundColor = validityState?.issuerInvalidationColor ?? .red
+    destinationView.backgroundColor = validityState?.destinationAcceptenceColor ?? .red
+    travvelerView.backgroundColor = validityState?.travalerAcceptenceColor ?? .red
   }
 }

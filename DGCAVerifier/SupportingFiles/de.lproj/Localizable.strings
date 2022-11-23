@@ -77,3 +77,10 @@
 "Downloading the certificate revocations metadata" = "Downloading the certificate revocations metadata";
 "Updating the certificate revocations metadata" = "Updating the certificate revocations metadata";
 "Preparation of database on revocation of certificates" = "Preparation of database on revocation of certificates";
+
+"Failed to load data" = "Failed to load data";
+"Loading data" = "Loading data";
+"Cannot update stored data" = "Cannot update stored data";
+"Cannot load data" = "Cannot load data";
+"Please check the internet connection and try again." = "Please check the internet connection and try again.";
+"Stored data is up to date" = "Stored data is up to date";
